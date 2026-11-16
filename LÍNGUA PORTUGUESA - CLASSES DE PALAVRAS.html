@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - CLASSES DE PALAVRAS</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">VISÃO GERAL E DIVISÃO DAS CLASSES GRAMATICAIS</h3>
+      
+      <p>As palavras na língua portuguesa possuem funções e estrutura determinadas. Para formular nossos pensamentos e expressar opiniões com clareza, não podemos conceber as palavras como soltas e aleatórias; elas assumem <span class="hl-blue">papéis específicos</span> dentro da oração.</p>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> A função de uma palavra só pode ser determinada a partir da análise de sua ocorrência em frases (contexto). Fora de contexto, as palavras distribuem-se em classes.</div>
+      </div>
+
+      <p>A Morfologia (NGB) divide as palavras em <span class="hl-blue">dez classes gramaticais</span>. Elas se distribuem em dois grandes grupos:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: GRUPOS DE CLASSES DE PALAVRAS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Classes de Palavras (10)</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">VARIÁVEIS (6)</div>
+          <div class="schema-node box-yellow">INVARIÁVEIS (4)</div>
+        </div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Variáveis:</strong> Podem apresentar mudança na forma para marcar gênero, número, pessoa, tempo e modo. São elas: <span class="hl-yellow">Substantivo, Adjetivo, Verbo, Artigo, Pronome e Numeral</span>.</li>
+        <li><strong>Invariáveis:</strong> <span class="hl-red">Não</span> comportam transformações em suas formas. São elas: <span class="hl-yellow">Advérbio, Preposição, Conjunção e Interjeição</span>.</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Diferenças de função para a mesma palavra (contexto):<br>
+        1) <em>A <strong>galinha</strong> bota ovos.</em> (núcleo do sujeito)<br>
+        2) <em>Vi uma <strong>galinha</strong> carijó.</em> (núcleo do objeto direto)<br>
+        3) <em>Gosto de carne de <strong>galinha</strong>.</em> (núcleo do adjunto adnominal)
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">QUADRO RESUMO: CRITÉRIOS DAS CLASSES</h3>
+      
+      <p>O quadro abaixo sintetiza as funções semânticas, morfológicas e sintáticas das 10 classes de palavras, sendo de <span class="hl-yellow">decoreba obrigatória</span> para provas estruturais:</p>
+
+      <table class="memorex-table">
+        <tr>
+          <th>Classe</th>
+          <th>Critério Semântico</th>
+          <th>Critério Morfológico</th>
+          <th>Critério Sintático</th>
+        </tr>
+        <tr>
+          <td><strong>Substantivo</strong></td>
+          <td>Nomeia os seres (reais ou imaginários).</td>
+          <td>Flexiona-se em gênero e número.</td>
+          <td>Núcleo nominal.</td>
+        </tr>
+        <tr>
+          <td><strong>Adjetivo</strong></td>
+          <td>Exprime qualidade e estados.</td>
+          <td>Flexiona-se em gênero e número.</td>
+          <td>Especifica o núcleo nominal.</td>
+        </tr>
+        <tr>
+          <td><strong>Artigo</strong></td>
+          <td>Define ou indefine o substantivo.</td>
+          <td>Flexiona-se em gênero e número.</td>
+          <td>Determina o núcleo nominal.</td>
+        </tr>
+        <tr>
+          <td><strong>Numeral</strong></td>
+          <td>Indica quantidade ou ordem.</td>
+          <td>Pode flexionar em gênero/número.</td>
+          <td>Especifica ou substitui o núcleo.</td>
+        </tr>
+        <tr>
+          <td><strong>Pronome</strong></td>
+          <td>Designa pessoas ou coisas (indicando-as).</td>
+          <td>Pode flexionar (gênero, número, pessoa).</td>
+          <td>Determina ou substitui núcleo nominal.</td>
+        </tr>
+        <tr>
+          <td><strong>Verbo</strong></td>
+          <td>Exprime ação, estado, fenômeno natural.</td>
+          <td>Flexiona-se em modo, tempo, número, pessoa e voz.</td>
+          <td>Constitui o predicado (núcleo).</td>
+        </tr>
+        <tr>
+          <td><strong>Advérbio</strong></td>
+          <td>Exprime circunstância (tempo, modo...).</td>
+          <td><span class="hl-red">Não</span> se flexiona.</td>
+          <td>Modifica verbo, adjetivo ou advérbio.</td>
+        </tr>
+        <tr>
+          <td><strong>Preposição</strong></td>
+          <td>Estabelece sentido/ligação entre palavras.</td>
+          <td><span class="hl-red">Não</span> se flexiona.</td>
+          <td>Conexão entre dois termos de oração.</td>
+        </tr>
+        <tr>
+          <td><strong>Conjunção</strong></td>
+          <td>Estabelece sentido entre orações.</td>
+          <td><span class="hl-red">Não</span> se flexiona.</td>
+          <td>Conexão entre orações.</td>
+        </tr>
+        <tr>
+          <td><strong>Interjeição</strong></td>
+          <td>Exprime emoções e sentimentos.</td>
+          <td><span class="hl-red">Não</span> se flexiona.</td>
+          <td>Equivale a uma frase isolada.</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">SUBSTANTIVOS: CONCEITO E CLASSIFICAÇÕES</h3>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS.:</strong> O substantivo é a classe que <strong>nomeia os seres em geral</strong>, mas atente-se à sua amplitude. Ele também pode denominar: ações (<em>abraço, chute</em>), postulados físicos (<em>inércia</em>), aspectos emocionais (<em>amor, ódio, ansiedade</em>) e elementos socioculturais (<em>pobreza</em>).</div>
+      </div>
+
+      <p>Classificações dos substantivos:</p>
+      <ul class="check-list">
+        <li><strong>Comum:</strong> Nomeia a generalidade dos seres (da mesma espécie/elementos abstratos). <div class="exemplo"><strong>Ex.:</strong> casa, ódio, neve.</div></li>
+        <li><strong>Próprio:</strong> Faz referência a um ser específico. <div class="exemplo"><strong>Ex.:</strong> Maria, São Paulo.</div></li>
+        <li><strong>Primitivo:</strong> Não se originam de outros. <div class="exemplo"><strong>Ex.:</strong> maçã, porta, livro.</div></li>
+        <li><strong>Derivado:</strong> Provêm de outras palavras. <div class="exemplo"><strong>Ex.:</strong> macieira, portaria.</div></li>
+        <li><strong>Simples:</strong> Possuem <span class="hl-red">apenas um</span> radical. <div class="exemplo"><strong>Ex.:</strong> garrafa, tênis.</div></li>
+        <li><strong>Compostos:</strong> Têm mais de um radical. <div class="exemplo"><strong>Ex.:</strong> beija-flor, passatempo.</div></li>
+        <li><strong>Concreto:</strong> Seres de existência própria, universo real ou imaginário. <div class="exemplo"><strong>Ex.:</strong> caneta, vampiro, Ministério da Saúde.</div></li>
+        <li><strong>Abstrato:</strong> Designam qualidades, ações, sentimentos, estados, sensações. <div class="exemplo"><strong>Ex.:</strong> soberba, riso, solidão, conforto.</div></li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC - EMBASA – 2017)</strong> Com base na leitura, analise as afirmativas a seguir e assinale a alternativa correta.<br>
+        I. O sufixo "inho" marca o grau diminutivo do substantivo "muro"...<br>
+        II. "Consternação” é um substantivo concreto e pode, no texto, ser substituído por "raiva".</p>
+        <p>A) As afirmativas I e II são corretas.<br>
+        B) Apenas a afirmativa I é correta.<br>
+        C) Apenas a afirmativa II é correta.<br>
+        D) Nenhuma afirmativa é correta.</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: Letra D.</strong><br>
+          <em>Comentário:</em> "Consternação" indica estado/sentimento, logo, enquadra-se como um substantivo <span class="hl-red">abstrato</span>, não concreto.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">ADJETIVOS E ARTIGOS</h3>
+      
+      <p>O <strong>Adjetivo</strong> confere características, estados e qualidades aos seres, podendo ser substituído por uma <span class="hl-yellow">locução adjetiva</span> (iniciada por de, em, com, sem). As locuções e adjetivos podem instituir relações de tempo (<em>avaliação semanal</em>), espaço (<em>cidade estrangeira</em>) ou procedência (<em>vinho chileno</em>).</p>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE as Classificações do Adjetivo:</strong><br>
+        - <strong>Primitivos:</strong> Um único radical, não vêm de outro termo (A maior parte são cores: azul, roxo, verde, branco).<br>
+        - <strong>Derivados:</strong> Acréscimo de afixos (<em>desfavorável, europeia, esverdeado</em>).<br>
+        - <strong>Simples / Compostos:</strong> Um radical (<em>azul</em>) ou mais de um (<em>amarelo-canário, sociopolítico</em>).
+        </div>
+      </div>
+
+      <p>O <strong>Artigo</strong> precede o substantivo para determiná-lo de modo particular ou vago:</p>
+      <ul class="arrow-list">
+        <li><strong>Definido (<span class="hl-blue">o, a, os, as</span>):</strong> Individualiza. Sabe-se do que se trata especificamente. <div class="exemplo"><strong>Ex.:</strong> O amor de Antônia era forte. (Um amor específico).</div></li>
+        <li><strong>Indefinido (<span class="hl-blue">um, uma, uns, umas</span>):</strong> Generaliza. <div class="exemplo"><strong>Ex.:</strong> Falta um cantor para completar o espetáculo. (Qualquer cantor).</div></li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC - FAGIFOR - 2024)</strong> Marque a alternativa correta quanto à classe gramatical das palavras em destaque: "O estado do Ceará tem grande potencial arqueológico"</p>
+        <p>A) substantivo.<br>B) adjetivo...<br></p>
+        <div class="gabarito-box">
+          <strong>Gabarito: Letra A (se o destaque for Ceará) ou Letra B (se litorâneos).</strong><br>
+          <em>Comentário:</em> Termos que qualificam substantivos atuam como adjetivos. O termo "arqueológico" atribui característica ao potencial, e "Ceará" nomeia o Estado (substantivo próprio).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">NUMERAL E PRONOMES</h3>
+      
+      <p>O <strong>Numeral</strong> quantifica os seres ou identifica sua posição em uma ordem. Divide-se principalmente em <span class="hl-yellow">Cardinais</span> (número preciso) e <span class="hl-yellow">Ordinais</span> (posição/ordem).</p>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> Embora os numerais sejam variáveis, nos Cardinais <span class="hl-red">apenas</span> os numerais um, dois e as centenas a partir de duzentos sofrem flexão de gênero/número.</div>
+      </div>
+
+      <p>O <strong>Pronome</strong> faz referência às pessoas do discurso (1ª, 2ª, 3ª), podendo substituir substantivos. Dividem-se em:</p>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>Pessoais</th>
+          <th>Possessivos</th>
+          <th>Demonstrativos</th>
+        </tr>
+        <tr>
+          <td>Substituem as pessoas gramaticais.<br><strong>Retos:</strong> eu, tu, ele, nós, vós, eles.<br><strong>Oblíquos:</strong> me, te, se, o, a, lhe...</td>
+          <td>Indicam posse.<br>meu(s), teu(s), seu(s), nosso(s), vosso(s).</td>
+          <td>Indicam distância espacial ou temporal.<br><strong>este(s)</strong>, <strong>esse(s)</strong>, <strong>aquele(s)</strong>.</td>
+        </tr>
+      </table>
+
+      <ul class="arrow-list">
+        <li><strong>Demonstrativos:</strong>
+          <ul class="check-list">
+            <li><strong>Este(s), esta(s), isto:</strong> Proximidade de quem fala, Tempo Atual, Introduz ideia.</li>
+            <li><strong>Esse(s), essa(s), isso:</strong> Proximidade de quem ouve, Passado imediato, Retoma ideia.</li>
+            <li><strong>Aquele(s), aquela(s), aquilo:</strong> Distante de ambos, Tempo remoto.</li>
+          </ul>
+        </li>
+        <li><strong>Indefinidos:</strong> Fazem referência vaga à 3ª pessoa. (<em>algum, todos, certas</em>).</li>
+        <li><strong>Relativos:</strong> Substituem um antecedente e iniciam nova oração (<em>onde, cujo, que</em>).</li>
+        <li><strong>Interrogativos:</strong> Frases interrogativas diretas ou indiretas (<em>quanto, quem, qual</em>).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">VERBOS: ESTRUTURA E TEMPOS</h3>
+
+      <p>Os verbos indicam ação, estado ou fenômeno natural, e sofrem muita flexão (pessoa, número, tempo e modo).</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: FORMAS NOMINAIS DO VERBO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Formas Nominais</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Infinitivo (Nadar - Substantivo)</div>
+          <div class="schema-node box-yellow">Gerúndio (Nadando - Processo)</div>
+          <div class="schema-node box-yellow">Particípio (Nadado - Concluído)</div>
+        </div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Conjugações:</strong> 1ª (-ar), 2ª (-er), 3ª (-ir).</li>
+        <li><strong>Modos:</strong>
+          <ul class="check-list">
+            <li><strong>Indicativo:</strong> Exprime <span class="hl-yellow">certeza</span>.</li>
+            <li><strong>Subjuntivo:</strong> Apresenta <span class="hl-yellow">hipóteses, dúvidas</span>.</li>
+            <li><strong>Imperativo:</strong> Manifesta <span class="hl-yellow">ordem, pedido, sugestão</span>.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> 
+          <strong>Classificação dos verbos quanto ao paradigma:</strong><br>
+          - <strong>Regulares:</strong> Mantêm o radical (<em>amo, amas, ama</em>).<br>
+          - <strong>Irregulares:</strong> Radical ou desinência sofrem modificação (<em>faço, fazes</em>).<br>
+          - <strong>Anômalos:</strong> Substanciais irregularidades (<em>ir: vou, fui, ia</em>).<br>
+          - <strong>Defectivos:</strong> Não possuem conjugação em certas pessoas (<em>eu chovo - inexistente</em>).<br>
+          - <strong>Abundantes:</strong> Duas ou mais formas para uma flexão (<em>matado / morto</em>).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">ADVÉRBIO E CONJUNÇÃO</h3>
+
+      <p><strong>Advérbios</strong> são invariáveis que indicam circunstância. Eles modificam: VERBOS, ADJETIVOS ou OUTROS ADVÉRBIOS. Classificam-se em modo, intensidade, afirmação, negação, dúvida, tempo e lugar.</p>
+
+      <p><strong>Conjunções</strong> unem orações ou termos de mesma função sintática:</p>
+      <ul class="arrow-list">
+        <li><strong>Coordenativas (independentes):</strong>
+          <ul class="check-list">
+            <li>Aditivas (soma): <em>e</em></li>
+            <li>Adversativas (oposição): <em>mas</em></li>
+            <li>Alternativas (exclusão/alternância): <em>ou</em></li>
+            <li>Conclusivas (consequência do raciocínio): <em>portanto</em></li>
+            <li>Explicativas (justificativa): <em>pois</em></li>
+          </ul>
+        </li>
+        <li><strong>Subordinativas (dependentes):</strong> Causais, Condicionais, Conformativas, Concessivas, Comparativas, Consecutivas, Proporcionais, Temporais, Finais.</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC - MGS - Assistente Social - 2023)</strong> Identifique nas palavras em destaque as classes de palavras e selecione a alternativa que apresenta correta relação.</p>
+        <p>A) Devemos estudar <strong>conforme</strong> a nossa necessidade... - adjetivo.<br>
+        B) <strong>Ei!</strong> Você pode me ajudar... - interjeição.<br>
+        C) Há uns meses que <strong>não</strong> o via deste jeito - advérbio.<br>
+        D) A grande maioria... foram <strong>bem</strong> melhor... - adjetivo.</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: Letra C.</strong><br>
+          <em>Comentário:</em> A alternativa C está correta, "não" é advérbio de negação. Na A, "conforme" é preposição acidental / conjunção. Na B, dependendo da banca, "Ei!" é aceito como interjeição, porém "não" como advérbio é irrefutável.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">PREPOSIÇÕES E INTERJEIÇÕES</h3>
+
+      <p>A <strong>Preposição</strong> conecta duas palavras construindo relação de sentido/dependência (sem flexionar). Elas podem ser:</p>
+      <ul class="arrow-list">
+        <li><strong>Essenciais:</strong> Só exercem função de preposição. <span class="hl-yellow">a, ante, contra, de, entre, sob, sobre</span>.</li>
+        <li><strong>Acidentais:</strong> Palavras de outras classes que atuam como preposição (<em>como, conforme, mediante, segundo, salvo</em>).</li>
+      </ul>
+
+      <p>As <strong>Interjeições</strong> marcam reações, emoções e sentimentos de forma forte (<em>Puxa!, Cuidado!, Ufa!</em>).</p>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE:</strong> A surpresa encontra na interjeição a sua forma verbal.</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

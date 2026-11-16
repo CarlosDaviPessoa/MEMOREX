@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">PROBLEMAS LÓGICOS QUANTITATIVOS</div>
+      
+      <p>O <span class="hl-blue">raciocínio lógico quantitativo</span> avalia a capacidade de identificar padrões, interpretar informações, organizar dados e chegar a conclusões por meio de relações numéricas, temporais, espaciais ou verbais[cite: 2].</p>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> Em provas de concursos, <span class="hl-red">não</span> basta apenas conhecer as fórmulas. É estritamente necessário ter atenção aos detalhes.
+        </div>
+      </div>
+
+      <p>Você deve perceber[cite: 2]:</p>
+      <ul class="check-list">
+        <li>Qual padrão está sendo utilizado e quais informações são relevantes;</li>
+        <li>Se o padrão envolve soma, subtração, multiplicação ou divisão;</li>
+        <li>Se existem sequências intercaladas;</li>
+        <li>Se o enunciado exige contagem de intervalos ou de elementos;</li>
+        <li>Se há repetição cíclica e se as afirmações são verdadeiras ou falsas.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">SEQUÊNCIAS LÓGICAS E ESTRUTURA GERAL</div>
+
+      <p>Uma sequência lógica é uma sucessão de números, letras, palavras, símbolos ou figuras organizada por uma <span class="hl-blue">determinada regra</span>[cite: 2]. Ela é representada matematicamente por:</p>
+      
+      <div class="exemplo">
+        <strong>Estrutura:</strong> <span class="hl-blue">a<sub>1</sub>, a<sub>2</sub>, a<sub>3</sub>, a<sub>4</sub>, ..., a<sub>n</sub></span><br>
+        Onde: <strong>a<sub>1</sub></strong> é o 1º termo; <strong>a<sub>2</sub></strong> o 2º termo; e <strong>a<sub>n</sub></strong> o termo de posição <em>n</em>[cite: 2].
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: COMO DESCOBRIR O PADRÃO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">ORDEM DE TESTE</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">1. Diferença ou Razão entre termos</div>
+          <div class="schema-node box-yellow">2. Diferenças das diferenças</div>
+          <div class="schema-node box-yellow">3. Alternância de operações</div>
+          <div class="schema-node box-yellow">4. Sequências intercaladas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">PADRÕES DE SEQUÊNCIAS LÓGICAS</div>
+      
+      <p>As bancas utilizam diversas formas de esconder a lógica de uma sequência. Veja os principais padrões[cite: 2]:</p>
+
+      <ul class="arrow-list">
+        <li><strong>Diferenças Crescentes:</strong> A diferença entre os números aumenta de forma lógica. <br>
+          <div class="exemplo"><strong>Ex.:</strong> 2, 5, 9, 14, 20... (As diferenças são +3, +4, +5, +6. A próxima será +7, logo: 20+7 = <span class="hl-blue">27</span>)[cite: 2].</div>
+        </li>
+        <li><strong>Operações Alternadas:</strong> Intercalam-se contas matemáticas distintas. <br>
+          <div class="exemplo"><strong>Ex.:</strong> 5, 10, 8, 16, 14, 28... (As operações são: x2, -2, x2, -2. Logo, a próxima é 28 - 2 = <span class="hl-blue">26</span>)[cite: 2].</div>
+        </li>
+        <li><strong>Sequências Intercaladas:</strong> Duas ou mais sequências ocorrendo ao mesmo tempo. <br>
+          <div class="exemplo"><strong>Ex.:</strong> 2, 10, 4, 20, 6, 30, 8... (Ímpares: 2, 4, 6, 8 | Pares: 10, 20, 30. O próximo termo (par) será <span class="hl-blue">40</span>)[cite: 2].</div>
+        </li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> Pegadinha clássica! Quando um padrão único <span class="hl-red">não</span> funcionar na sua prova, separe os termos das posições pares e ímpares imediatamente[cite: 3].
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">RACIOCÍNIO SEQUENCIAL: POSIÇÃO E FILAS</div>
+      
+      <p>Raciocínio sequencial envolve identificar a ordem de eventos (numérica, temporal, classificação ou posições em filas)[cite: 3].</p>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE: CÁLCULO DE FILAS</strong><br>
+          <span class="hl-yellow">TOTAL = Posição Inicial + Posição Final - 1</span>[cite: 3].
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Em uma fila, Carla ocupa a 12ª posição do início e a 8ª do fim. <br>
+        <strong>Cálculo:</strong> 12 + 8 - 1 = <span class="hl-blue">19 pessoas na fila</span> (Carla é subtraída pois foi contada duas vezes)[cite: 3].
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> <strong>TROCA DE POSIÇÕES:</strong> Para saber quantas pessoas existem <em>entre</em> João (8ª) e Maria (15ª), <span class="hl-red">nunca</span> subtraia apenas as posições. Faça: <strong>15 - 8 - 1 = 6 pessoas</strong>. A diferença sempre inclui um dos extremos[cite: 3].<br><br>
+          <strong>ANTES E DEPOIS:</strong> A expressão "Daqui a cinco dias" <span class="hl-red">não</span> inclui o dia inicial na contagem[cite: 3].
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">PROGRESSÃO ARITMÉTICA (PA)</div>
+
+      <p>A <strong>PA</strong> é uma sequência em que a diferença entre dois termos consecutivos é <span class="hl-blue">constante</span> (chamada de Razão - <strong>r</strong>)[cite: 3].</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: CLASSIFICAÇÃO DA PA[cite: 3]</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>Crescente</strong><br>Razão positiva (r > 0)</div>
+        <div class="schema-node box-yellow"><strong>Constante</strong><br>Razão zero (r = 0)</div>
+        <div class="schema-node box-blue"><strong>Decrescente</strong><br>Razão negativa (r < 0)</div>
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE: FÓRMULAS DA PA</strong>[cite: 3]<br>
+          <ul class="arrow-list">
+            <li><strong>Termo Geral:</strong> <span class="hl-yellow">a<sub>n</sub> = a<sub>1</sub> + (n - 1)r</span></li>
+            <li><strong>Soma dos Termos:</strong> <span class="hl-yellow">S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>) / 2</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> Na fórmula do termo geral, utiliza-se <strong>(n-1)</strong> porque o primeiro termo já existe. Para chegar ao segundo, ocorre apenas uma variação[cite: 4].
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <div class="dica-title">PROPRIEDADES DA PA</div>
+
+      <ul class="check-list">
+        <li><strong>Termos Equidistantes:</strong> Em uma PA finita, a soma de termos equidistantes dos extremos é constante[cite: 3].<br>
+        <div class="exemplo"><strong>Ex.:</strong> Na PA (2, 5, 8, 11, 14), 2+14 = <span class="hl-blue">16</span> e 5+11 = <span class="hl-blue">16</span>[cite: 3].</div></li>
+        <li><strong>Média Aritmética:</strong> Se três números (a, b, c) formam uma PA, o termo central é a média dos extremos: <strong>b = (a + c) / 2</strong>[cite: 3, 4].<br>
+        <div class="exemplo"><strong>Ex.:</strong> Se 5, x, 17 formam uma PA, x = (5+17)/2 = <span class="hl-blue">11</span>[cite: 4].</div></li>
+      </ul>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <div class="dica-title">PROGRESSÃO GEOMÉTRICA (PG)</div>
+
+      <p>A <strong>PG</strong> é uma sequência em que cada termo, a partir do segundo, é obtido <span class="hl-yellow">multiplicando</span> o termo anterior por uma constante (chamada de Razão - <strong>q</strong>)[cite: 4].</p>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE: FÓRMULAS DA PG</strong>[cite: 4]<br>
+          <ul class="arrow-list">
+            <li><strong>Termo Geral:</strong> <span class="hl-yellow">a<sub>n</sub> = a<sub>1</sub> &middot; q<sup>n-1</sup></span></li>
+            <li><strong>Soma da PG Finita:</strong> <span class="hl-yellow">S<sub>n</sub> = a<sub>1</sub>(q<sup>n</sup> - 1) / (q - 1)</span>  <em>(para q ≠ 1)</em></li>
+            <li><strong>Soma da PG Infinita:</strong> <span class="hl-yellow">S<sub>&infin;</sub> = a<sub>1</sub> / (1 - q)</span> <em>(quando |q| < 1)</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <div class="dica-title">COMPARATIVO E PROPRIEDADES DA PG</div>
+
+      <p>Se três números (a, b, c) formam uma PG, a propriedade da média geométrica define que: <strong>b&sup2; = a &middot; c</strong>[cite: 4].</p>
+
+      <table class="memorex-table">
+        <tr>
+          <th>CARACTERÍSTICA</th>
+          <th>PROGRESSÃO ARITMÉTICA (PA)</th>
+          <th>PROGRESSÃO GEOMÉTRICA (PG)</th>
+        </tr>
+        <tr>
+          <td><strong>Variação base</strong></td>
+          <td>Ocorre por <strong>Adição</strong> ou <strong>Subtração</strong> constante[cite: 4].</td>
+          <td>Ocorre por <strong>Multiplicação</strong> ou <strong>Divisão</strong> constante[cite: 4].</td>
+        </tr>
+        <tr>
+          <td><strong>Pegadinha</strong></td>
+          <td>2, 5, 8... tem diferença constante.</td>
+          <td>1, 2, 4, 8... <span class="hl-red">não</span> possui diferença constante, mas razão constante (é PG!)[cite: 4].</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <div class="dica-title">SÉRIE DE FIBONACCI</div>
+
+      <p>A famosa sequência de Fibonacci é formada pela soma dos dois termos imediatamente anteriores[cite: 4].</p>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE A REGRA GERAL:</strong><br>
+          <span class="hl-yellow">a<sub>n</sub> = a<sub>n-1</sub> + a<sub>n-2</sub></span>[cite: 4]
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> 0, 1, 1, 2, 3, 5, 8, 13, 21, 34...<br>
+        Observe: 2+3 = <span class="hl-blue">5</span>; 3+5 = <span class="hl-blue">8</span>; 5+8 = <span class="hl-blue">13</span>[cite: 4].
+      </div>
+    </div>
+
+    <!-- QUESTÃO DE PROVA -->
+    <div class="questao-box">
+      <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+      <p><strong>(Prefeitura de Criciúma - Motorista Socorrista - 2024)</strong>[cite: 1]</p>
+      <p>Complete logicamente a frase "O pai do filho do pai do pai de Acácio é o":</p>
+      <ul style="list-style: none; padding-left: 0;">
+        <li>A) Avô de Acácio.</li>
+        <li>B) Pai de Acácio.</li>
+        <li>C) Próprio Acácio.</li>
+        <li>D) Bisavô de Acácio.</li>
+        <li>E) Irmão de Acácio.</li>
+      </ul>
+      
+      <div class="gabarito-box">
+        <strong>Gabarito: Letra A</strong>[cite: 2]<br><br>
+        <strong>Comentário:</strong> Aplicando o Raciocínio Sequencial e de parentesco de trás para frente:<br>
+        1. "Pai de Acácio" = PAI.<br>
+        2. "Pai do [PAI]" = AVÔ.<br>
+        3. "Filho do [AVÔ]" = PAI (ou tio, assumindo linhagem direta).<br>
+        4. "Pai do [PAI]" = <strong>AVÔ DE ACÁCIO</strong>.<br>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

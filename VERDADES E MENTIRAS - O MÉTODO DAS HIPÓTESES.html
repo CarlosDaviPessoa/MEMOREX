@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">VERDADES E MENTIRAS - O MÉTODO DAS HIPÓTESES</div>
+      
+      <p>Em questões clássicas de verdades e mentiras, a chave principal é o <strong>método das hipóteses</strong>. Trata-se de testar os cenários possíveis até encontrar o correto.</p>
+      
+      <ul class="check-list">
+        <li>Escolha uma afirmação inicial.</li>
+        <li>Suponha que ela seja verdadeira.</li>
+        <li>Verifique as consequências nas outras frases.</li>
+        <li>Procure <span class="hl-red">contradições</span>. Se houver contradição, a hipótese testada é <span class="hl-red">falsa</span>.</li>
+        <li>Teste a próxima possibilidade.</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong><br>
+        Ana afirma: "Bruno está mentindo."<br>
+        Bruno afirma: "Ana e eu estamos dizendo a verdade."<br><br>
+        Suponha que Bruno diga a verdade. Então Ana e Bruno seriam verdadeiros. Mas Ana afirma que Bruno mente. <strong>Temos uma <span class="hl-red">contradição</span>.</strong> Logo, Bruno está <span class="hl-red">mentindo</span> e sua afirmação é falsa. Como Bruno mente, a afirmação de Ana estava correta. <strong>Portanto: Ana diz a verdade; Bruno mente.</strong>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: RESOLVENDO VERDADES E MENTIRAS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SUA ESTRATÉGIA</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">1. Suponha uma afirmação verdadeira</div>
+          <div class="schema-node box-yellow">2. Desenvolva as consequências</div>
+          <div class="schema-node box-yellow">3. Elimine hipóteses contraditórias</div>
+          <div class="schema-node box-yellow">4. Confira a exigência da banca</div>
+        </div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE: APENAS UMA PESSOA DIZ A VERDADE</strong><br>
+          Se em um caso com A, B e C, <strong>C diz: "Eu não sou o culpado"</strong> e você levanta a hipótese de C ser o culpado. Nessa hipótese a frase de C é <span class="hl-red">falsa</span> e as outras dependerão disso. Se achar mais de uma verdade, a hipótese está descartada!
+        </div>
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE: VERAZES E MENTIROSOS</strong><br>
+          <ul class="arrow-list">
+            <li><strong>Verazes:</strong> <span class="hl-blue">sempre</span> dizem a verdade.</li>
+            <li><strong>Mentirosos:</strong> <span class="hl-red">sempre</span> mentem.</li>
+          </ul>
+          Se João diz: "Eu e Pedro somos mentirosos". Se ele fosse verdadeiro, estaria afirmando que é mentiroso (<span class="hl-red">impossível</span>). Logo, João <span class="hl-red">mente</span>!
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!! AFIRMAÇÕES COMPOSTAS (LÓGICA PROPOSICIONAL)</strong><br>
+          Quando a afirmação tiver <strong>"e", "ou", "se... então"</strong> aplique a lógica padrão. Se um mentiroso diz: "Ana é médica <strong>e</strong> Bruno é professor" a conjunção inteira é falsa, o que significa que <span class="hl-red">pelo menos uma</span> das partes é falsa, mas <span class="hl-red">não necessariamente ambas</span>. A negação de "Ana é médica <strong>e</strong> Bruno é professor" é "Ana <strong>não</strong> é médica <strong>ou</strong> Bruno <strong>não</strong> é professor".
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">MÉTODOS RÁPIDOS PARA PROBLEMAS LÓGICOS</div>
+
+      <p>Ganhe velocidade na sua prova usando os métodos e ciclos de atalhos abaixo:</p>
+
+      <ul class="check-list">
+        <li><strong>Tabela de Possibilidades:</strong> Use quando houver poucas pessoas. Preencha e analise visualmente quem fala a verdade/mentira.</li>
+        <li><strong>Eliminação pelas Alternativas:</strong> Em provas objetivas, é <span class="hl-blue">mais rápido testar</span> cada alternativa fornecida do que deduzir tudo no papel abstratamente.</li>
+      </ul>
+
+      <table class="memorex-table">
+        <tr>
+          <th>Pessoa</th>
+          <th>Verdade</th>
+          <th>Mentira</th>
+        </tr>
+        <tr>
+          <td>Ana</td>
+          <td>(Marque aqui se ela fala a verdade)</td>
+          <td>(Ou aqui se mente)</td>
+        </tr>
+        <tr>
+          <td>Bruno</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Carlos</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE: UTILIZE A PIOR HIPÓTESE PARA:</strong><br>
+          <ul class="arrow-list">
+            <li>Pedidos de <strong>Garantia</strong> ou <strong>Certeza</strong>.</li>
+            <li>Quando a banca falar em <strong>"pelo menos"</strong>.</li>
+            <li>Problemas de retirada no escuro (ex.: tirar bolas de uma urna).</li>
+            <li>Coincidências obrigatórias.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: RESOLVENDO POR CICLOS (RESTO DA DIVISÃO)</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Dias da semana: Divisão por 7</div>
+        <div class="schema-node box-blue">Meses do ano: Divisão por 12</div>
+        <div class="schema-node box-blue">Horas do relógio: Divisão por 12 ou 24</div>
+        <div class="schema-node box-blue">Letras do alfabeto: Divisão por 26</div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">PEGADINHAS DE PROVA - REGRAS DE OURO</div>
+      
+      <p>As bancas costumam usar pequenas cascas de banana nos enunciados. Esteja preparado:</p>
+
+      <ul class="arrow-list">
+        <li><strong>Pegadinha 1 - Intervalos e Elementos:</strong> "Entre" 10 e 20 significa que as pontas <span class="hl-red">não</span> entram (<span class="hl-yellow">20 - 10 - 1 = 9 posições</span>). De 10 a 20, incluindo os extremos: <span class="hl-yellow">20 - 10 + 1 = 11 números</span>.</li>
+        <li><strong>Pegadinha 2 - Sequência Intercalada:</strong> Se não encontrar um padrão único na sequência de números, separe em <span class="hl-blue">posições ímpares e posições pares</span>!</li>
+        <li><strong>Pegadinha 3 - Fibonacci:</strong> Pode começar com números diferentes de 0 e 1, preste atenção!</li>
+        <li><strong>Pegadinha 4 - PA vs PG:</strong> Se houver uma <span class="hl-blue">diferença constante</span>, é <strong>PA</strong>. Se for <span class="hl-blue">razão constante</span> (multiplicação), é <strong>PG</strong>.</li>
+        <li><strong>Pegadinha 5 - Folha e Página:</strong> Uma folha geralmente possui <strong>duas páginas</strong> (uma em cada lado).</li>
+        <li><strong>Pegadinha 6 - Dias da Semana:</strong> Em grandes quantidades de dias, você <span class="hl-red">não</span> deve contar dedo a dedo! Divida a quantidade por <span class="hl-blue">7</span> e utilize o <strong>resto da divisão</strong>.</li>
+        <li><strong>Pegadinha 7 - Ano Bissexto:</strong> Anos terminados em <span class="hl-red">00</span> (ex: 1900, 2100) <span class="hl-red">apenas</span> são bissextos se forem divisíveis por <strong>400</strong>.</li>
+        <li><strong>Pegadinha 8 - Casa dos Pombos:</strong> Sempre monte o cenário da <strong>pior distribuição possível</strong> antes de obter a garantia solicitada.</li>
+        <li><strong>Pegadinha 9 - Verdades:</strong> Se uma frase composta (ex: A e B) é dita e ela é falsa, <span class="hl-red">não</span> significa que todas as partes sejam falsas.</li>
+        <li><strong>Pegadinha 10 - Contagem de Posição Inicial:</strong> "Daqui a três dias" normalmente <span class="hl-red">não</span> inclui o dia atual na contagem (Amanhã: 1, Depois de amanhã: 2, Terceiro dia: 3).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">MATEMÁTICA LÓGICA - PROGRESSÕES E SEQUÊNCIAS</div>
+
+      <p>Dominar os quadros de fórmulas é obrigatório. Decore a tabela abaixo:</p>
+
+      <table class="memorex-table">
+        <tr>
+          <th>Progressão Aritmética (PA)</th>
+          <th>Progressão Geométrica (PG)</th>
+        </tr>
+        <tr>
+          <td>Termo geral: <span class="hl-yellow">a<sub>n</sub> = a<sub>1</sub> + (n-1)r</span></td>
+          <td>Termo geral: <span class="hl-yellow">a<sub>n</sub> = a<sub>1</sub> · q<sup>n-1</sup></span></td>
+        </tr>
+        <tr>
+          <td>Soma: <span class="hl-yellow">S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>) / 2</span></td>
+          <td>Soma finita: <span class="hl-yellow">S<sub>n</sub> = a<sub>1</sub>(q<sup>n</sup> - 1) / (q - 1)</span></td>
+        </tr>
+        <tr>
+          <td>Média de 3 termos cons.: <span class="hl-yellow">2b = a + c</span></td>
+          <td>Soma infinita: <span class="hl-yellow">S<sub>∞</sub> = a<sub>1</sub> / (1 - q)</span> (para |q| &lt; 1)<br>Média geométrica: <span class="hl-yellow">b<sup>2</sup> = a · c</span></td>
+        </tr>
+      </table>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>PASSO A PASSO PARA MATAR SEQUÊNCIAS:</strong><br>
+          1. Calcule as diferenças. | 2. Verifique as razões. | 3. Procure alternância. | 4. Separe posições pares e ímpares. | 5. Observe números especiais. | 6. Analise a relação entre os termos anteriores.
+        </div>
+      </div>
+
+      <!-- QUESTÕES DE FIXAÇÃO: SEQUÊNCIAS -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova: SEQUÊNCIAS (BANCA IMPARH)</div>
+        
+        <strong>QUESTÃO 01 - SEQUÊNCIA BÁSICA</strong><br>
+        Observe a sequência: 4, 7, 10, 13, 16, ... O próximo termo dessa sequência é:<br>
+        A) 17 | B) 18 | C) 19 | D) 20<br>
+        <div class="gabarito-box"><strong>Gabarito: C</strong> - Aumenta de 3 em 3. Logo: <span class="hl-yellow">16 + 3 = 19</span>.</div><br>
+
+        <strong>QUESTÃO 02 - DIFERENÇAS CRESCENTES</strong><br>
+        Considere a sequência: 2, 5, 9, 14, 20, ... Assinale o próximo termo:<br>
+        A) 25 | B) 26 | C) 27 | D) 28<br>
+        <div class="gabarito-box"><strong>Gabarito: C</strong> - As diferenças crescem: +3, +4, +5, +6. A próxima será +7. <span class="hl-yellow">20 + 7 = 27</span>. <span class="hl-red">Cuidado: não é PA pois a diferença não é constante.</span></div><br>
+
+        <strong>QUESTÃO 03 - SEQUÊNCIA INTERCALADA</strong><br>
+        Observe: 3, 10, 6, 20, 9, 30, 12, ... O próximo termo é:<br>
+        A) 15 | B) 35 | C) 40 | D) 45<br>
+        <div class="gabarito-box"><strong>Gabarito: C</strong> - Ímpares (3,6,9,12) e Pares (10,20,30,40). O próximo será 40.</div><br>
+        
+        <strong>QUESTÃO 04 - OPERAÇÕES ALTERNADAS</strong><br>
+        Considere a sequência: 5, 10, 8, 16, 14, 28, ... O próximo termo será:<br>
+        A) 24 | B) 26 | C) 30 | D) 56<br>
+        <div class="gabarito-box"><strong>Gabarito: B</strong> - Operações: x2, -2, x2, -2, x2. Assim: <span class="hl-yellow">28 - 2 = 26</span>.</div><br>
+
+        <strong>QUESTÃO 05 e 06 - PA (TERMO GERAL E SOMA)</strong><br>
+        Na PA: 7, 11, 15, 19, ... o décimo termo é?<br>
+        A soma dos dez primeiros da PA: 2, 5, 8, 11, ... é igual a?<br>
+        <div class="gabarito-box"><strong>Gabaritos: 05 - C (43) | 06 - C (155)</strong> - Em 05: a<sub>10</sub> = 7 + (9x4) = 43. Em 06: Primeiro ache a<sub>10</sub> = 2 + (9x3) = 29. Depois faça a soma: <span class="hl-yellow">S<sub>10</sub> = 10(2+29)/2 = 155</span>.</div><br>
+
+        <strong>QUESTÕES RÁPIDAS DE PA E PG</strong><br>
+        - <strong>Q07 (PA Central):</strong> Os números 3, x e 20 formam uma PA. Valor de x? <strong>(Gabarito: B = 14)</strong>. A média: x = (8+20)/2 = 14. <em>(Obs: O material aponta a soma 8+20, o que implica que a PA original na questão era 8, x, 20)</em>.<br>
+        - <strong>Q08 (PG Sexto Termo):</strong> Na PG: 2, 6, 18, 54..., sexto termo? <strong>(Gabarito: D = 486)</strong>. Razão q=3. 54x3=162, 162x3=486.<br>
+        - <strong>Q09 (PG Quinto Termo):</strong> PG: 4, 8, 16, 32... <strong>(Gabarito: C = 64)</strong>. a<sub>5</sub> = 4 x 2<sup>4</sup> = 64.<br>
+        - <strong>Q10 (Fibonacci Modificado):</strong> 3, 5, 8, 13, 21... Próximo? <strong>(Gabarito: C = 34)</strong>. Soma dos dois anteriores (13+21 = 34).<br>
+        - <strong>Q11 e Q12 (Letras):</strong> Seq 1 (A, D, G, J, M... = P, saltos de 3). Seq 2 (A, Z, C, X, E, V... = G, intercalada pares/ímpares).
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">MATEMÁTICA BÁSICA - CONTAGEM, PÁGINAS E FILAS</div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBSERVAÇÃO LEGAL: FÓRMULAS DE POSIÇÃO</strong><br>
+          <ul class="arrow-list">
+            <li><strong>Qtd de elementos (incluindo extremos):</strong> <span class="hl-yellow">último - primeiro + 1</span></li>
+            <li><strong>Entre dois elementos:</strong> <span class="hl-yellow">posição maior - posição menor - 1</span></li>
+            <li><strong>Posição em Fila:</strong> <span class="hl-yellow">total = posição do início + posição do fim - 1</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>COMO RESOLVER QUESTÕES COM PÁGINAS:</strong><br>
+          1. Diferencie <strong>folha</strong> de <strong>página</strong>. | 2. Separe números de <strong>um</strong>, <strong>dois</strong> e <strong>três</strong> algarismos. | 3. Verifique se os extremos estão incluídos.
+        </div>
+      </div>
+
+      <!-- QUESTÕES DE FIXAÇÃO: FILAS E PÁGINAS -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova: FILAS E PÁGINAS</div>
+        
+        <strong>QUESTÃO 13 - POSIÇÃO EM FILA</strong><br>
+        Em uma fila, Carlos ocupa a 14ª posição a partir do início e a 9ª posição a partir do final. Quantas pessoas há nessa fila?<br>
+        A) 21 | B) 22 | C) 23 | D) 24<br>
+        <div class="gabarito-box"><strong>Gabarito: B</strong> - <span class="hl-yellow">Total = 14 + 9 - 1 = 22</span>. Carlos foi contado nas duas posições, por isso subtraímos 1.</div><br>
+
+        <strong>QUESTÃO 14 - ENTRE DUAS POSIÇÕES</strong><br>
+        Ana ocupa a 7ª posição e Bruno a 18ª. Quantas pessoas estão entre eles?<br>
+        <div class="gabarito-box"><strong>Gabarito: B (10)</strong> - <span class="hl-yellow">18 - 7 - 1 = 10</span>. A subtração de 1 retira um dos extremos.</div><br>
+
+        <strong>QUESTÃO 15 - NUMERAÇÃO DE PÁGINAS</strong><br>
+        Quantos algarismos são utilizados para numerar um livro da pág 1 até a pág 120?<br>
+        <div class="gabarito-box"><strong>Gabarito: B (252)</strong> - 
+          De 1 a 9 = 9 alg. <br>
+          De 10 a 99 = 90 x 2 = 180 alg. <br>
+          De 100 a 120 = (120 - 100 + 1) = 21 pág -> 21 x 3 = 63 alg. <br>
+          <strong>Total:</strong> <span class="hl-yellow">9 + 180 + 63 = 252</span>.
+        </div><br>
+
+        <strong>QUESTÃO 16 - INTERVALO</strong><br>
+        Quantas páginas existem da página 35 até a página 80, <strong>incluindo</strong> as duas?<br>
+        <div class="gabarito-box"><strong>Gabarito: C (46)</strong> - <span class="hl-yellow">80 - 35 + 1 = 46</span>. <span class="hl-red">Pegadinha: Sem o +1, seriam contados apenas os intervalos.</span></div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <div class="dica-title">CALENDÁRIOS E PRINCÍPIO DAS GAVETAS (CASA DOS POMBOS)</div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: FÓRMULAS E MÉTODOS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">O QUE FAZER?</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>Calendários:</strong> Identifique dia inicial > Divida dias por 7 > Use resto da divisão > Avance os dias</div>
+          <div class="schema-node box-yellow"><strong>Gavetas:</strong> Identifique os objetos e as categorias > Imagine a pior distribuição possível</div>
+        </div>
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>FÓRMULAS CASA DOS POMBOS (GAVETAS)</strong><br>
+          <ul class="arrow-list">
+            <li><strong>Qtd. mínima garantida por caixa:</strong> Teto de <span class="hl-yellow">N / k</span> (onde N = total de pombos e k = total de casas).</li>
+            <li><strong>Para garantir m objetos na mesma categoria:</strong> <span class="hl-yellow">k(m-1) + 1</span>.</li>
+            <li>Sempre adicione <span class="hl-blue">+ 1</span> à pior hipótese para obter a garantia total absoluta!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- QUESTÕES DE FIXAÇÃO: CALENDÁRIOS E BISSEXTO -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova: CALENDÁRIOS</div>
+        
+        <strong>QUESTÃO 17 - CALENDÁRIO</strong><br>
+        Se hoje é terça-feira, que dia da semana será daqui a 100 dias?<br>
+        A) Quarta-feira | B) Quinta-feira | C) Sexta-feira | D) Sábado<br>
+        <div class="gabarito-box"><strong>Gabarito: B</strong> - Dividimos 100 por 7 (100 = 98 + 2). <strong>O resto é 2.</strong> Avançando dois dias a partir de terça: 1º Quarta, 2º <span class="hl-blue">Quinta</span>.</div><br>
+
+        <strong>QUESTÃO 18 - ANO BISSEXTO (CONCEITO)</strong><br>
+        A questão te pede para assinalar o ano bissexto.
+        <div class="gabarito-box"><strong>Comentário de Resolução:</strong> Verifique sempre se o ano é divisível por 4. <span class="hl-red">Atenção extra</span>: anos que terminam em 00, divida-os por 400!</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

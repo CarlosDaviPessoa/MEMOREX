@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">ESF E AGENTE COMUNITÁRIO DE SAÚDE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">ATRIBUIÇÕES COMUNS NA ATENÇÃO BÁSICA</h3>
+      <p>Apesar das competências específicas de cada categoria[cite: 1], o trabalho na <span class="hl-blue">Atenção Primária à Saúde (APS)</span> é caracterizado por ser <strong>multiprofissional</strong>[cite: 1].</p>
+      
+      <p>As atividades compartilhadas por toda a equipe envolvem[cite: 1]:</p>
+      <ul class="check-list">
+        <li>Territorialização[cite: 1], cadastro[cite: 1] e identificação de necessidades e riscos[cite: 1].</li>
+        <li>Planejamento das ações e cuidado da população[cite: 1].</li>
+        <li>Acolhimento[cite: 1], atendimento[cite: 1] e visitas domiciliares[cite: 1].</li>
+        <li>Ações educativas[cite: 1], promoção da saúde[cite: 1] e prevenção de agravos[cite: 1].</li>
+        <li>Vigilância[cite: 1], acompanhamento[cite: 1], registros[cite: 1] e discussão de casos[cite: 1].</li>
+        <li>Participação em reuniões de equipe e integração com outros setores[cite: 1].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> O trabalho multiprofissional <span class="hl-red">NÃO</span> elimina as atribuições específicas de cada profissão![cite: 1]</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">INTEGRAÇÃO: ATENÇÃO BÁSICA E VIGILÂNCIA EM SAÚDE</h3>
+      <p>A união entre Atenção Básica e Vigilância em Saúde é essencial para a saúde pública do território, permitindo identificar precocemente doenças[cite: 1], surtos[cite: 1], riscos[cite: 1], vulnerabilidades[cite: 1], problemas ambientais[cite: 1] e situações epidemiológicas[cite: 1].</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> O <span class="hl-blue">ACS</span> e o <span class="hl-blue">ACE</span> possuem um papel importante nessa integração[cite: 1].</div>
+      </div>
+
+      <p>A <span class="hl-blue">Lei nº 11.350/06</span> prevê atividades integradas de ACS e ACE, incluindo mobilizações sociais com base na <span class="hl-yellow">Educação Popular em Saúde</span>[cite: 1].</p>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">ESTRATÉGIA SAÚDE DA FAMÍLIA (ESF) - CONCEITOS</h3>
+      <p>A Saúde da Família surgiu como programa em <span class="hl-blue">1994</span> e, posteriormente, consolidou-se como estratégia estruturante da Atenção Básica[cite: 1]. Atualmente, a eSF é considerada pelo Ministério da Saúde a equipe <span class="hl-yellow">prioritária da APS</span>[cite: 1].</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: BASES DA ESF</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">ESF busca<br>reorganizar<br>a atenção a partir:[cite: 1]</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Família + Território[cite: 1]</div>
+          <div class="schema-node box-yellow">Vínculo + Cuidado Contínuo[cite: 1]</div>
+          <div class="schema-node box-yellow">Atuação Multiprofissional[cite: 1]</div>
+        </div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> Entre os objetivos da ESF estão: ampliar o acesso, coordenar o cuidado, fortalecer o vínculo e a participação comunitária[cite: 1].</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">COMPOSIÇÃO DA EQUIPE DE SAÚDE DA FAMÍLIA (eSF)</h3>
+      <p>A formação das equipes de saúde obedece a regras rígidas. Memorize a estrutura mínima atual definida pelo Ministério da Saúde[cite: 1]:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th colspan="2">Composição Mínima da eSF[cite: 1]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Médico[cite: 1]</td>
+            <td>Enfermeiro[cite: 1]</td>
+          </tr>
+          <tr>
+            <td>Auxiliar ou Técnico de Enfermagem[cite: 1]</td>
+            <td><span class="hl-blue">Agente Comunitário de Saúde (ACS)[cite: 1]</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Podem ainda estar vinculados à equipe: Agente de Combate às Endemias (ACE)[cite: 1], Equipe de Saúde Bucal[cite: 1] e Equipes Multiprofissionais (eMulti)[cite: 1].</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA ATUAL:</strong> O ACS integra a composição mínima da eSF![cite: 1] A Lei nº 11.350/2006 determina ser <span class="hl-red">essencial e obrigatória</span> a presença de ACS na Estratégia Saúde da Família[cite: 1].</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">PROCESSO DE TRABALHO E TERRITÓRIO</h3>
+      <p>Cada equipe possui um <strong>território</strong> e uma <strong>população</strong> sob sua responsabilidade sanitária[cite: 1]. A equipe organiza suas ações com base nas necessidades individuais, familiares, coletivas, epidemiológicas, sociais e territoriais daquela região[cite: 1].</p>
+
+      <div class="exemplo"><strong>Ex.:</strong> A eSF desenvolve não apenas consultas, mas também vacinação[cite: 1], procedimentos[cite: 1], visitas domiciliares[cite: 1] e atividades coletivas de intervenção[cite: 1].</div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS. (PROVA):</strong> A ESF <span class="hl-red">NÃO</span> espera simplesmente o doente chegar à UBS[cite: 1]. A equipe conhece o território e desenvolve ações ativas (proativas) na comunidade![cite: 1]</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">A FAMÍLIA COMO NÚCLEO DA ATENÇÃO</h3>
+      <p>Para a ESF, a análise e o cuidado do usuário transcendem o aspecto biológico e devem incluir o ambiente familiar[cite: 1], relações sociais[cite: 1], habitação[cite: 1], trabalho[cite: 1], renda[cite: 1], vulnerabilidades[cite: 2], hábitos[cite: 2] e condições ambientais[cite: 2].</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA DE BANCA:</strong> A ESF <span class="hl-red">NÃO</span> substitui a atenção ao indivíduo pela atenção <span class="hl-red">exclusiva</span> à família[cite: 2]. Na verdade, ela amplia o olhar: <strong>indivíduo + família + comunidade</strong>[cite: 2].</div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: TRABALHO MULTIPROFISSIONAL</div>
+      <p>O cuidado deve ser construído por profissionais de diferentes áreas[cite: 2], mas multiprofissionalidade <span class="hl-red">NÃO</span> é todo profissional fazer tudo[cite: 2].</p>
+      
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Possui competências próprias[cite: 2]</div>
+        <div class="schema-node box-blue">Compartilha responsabilidades[cite: 2]</div>
+        <div class="schema-node box-blue">Troca informações[cite: 2] e planeja[cite: 2]</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">ACOLHIMENTO E HUMANIZAÇÃO DA ASSISTÊNCIA</h3>
+      <p>A Humanização envolve um cuidado baseado em dignidade, respeito, autonomia, escuta, privacidade, ética e diálogo[cite: 2]. O usuário é o sujeito do cuidado, e <span class="hl-red">não</span> um simples receptor passivo das decisões[cite: 2].</p>
+
+      <p><strong>Acolhimento significa:</strong>[cite: 2]</p>
+      <ul class="arrow-list">
+        <li>Escutar[cite: 2], receber[cite: 2] e orientar o usuário[cite: 2].</li>
+        <li>Identificar necessidades[cite: 2] e avaliar riscos e vulnerabilidades[cite: 2].</li>
+        <li>Responsabilizar-se pela resposta[cite: 2].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>CUIDADO COM A PEGADINHA:</strong> Acolhimento <span class="hl-red">≠</span> recepção![cite: 2] Também <span class="hl-red">não</span> significa apenas distribuir fichas ou marcar consultas[cite: 2].</div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">VÍNCULO E HISTÓRICO DO ACS</h3>
+      <p>O vínculo entre a equipe, a família e a comunidade é construído mediante: <span class="hl-yellow">presença + confiança + escuta + respeito + continuidade</span>[cite: 2].</p>
+      
+      <p>O ACS ocupa uma posição estratégica nesse processo porque mantém contato frequente com as famílias do território[cite: 2]. A atuação dos ACS consolidou-se progressivamente no SUS[cite: 2] e tem como uma de suas principais bases a <span class="hl-blue">Lei nº 11.350/2006</span>[cite: 2].</p>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE - CONCEITO:</strong> O ACS é o profissional que atua diretamente no território + junto às famílias + integrado à equipe[cite: 2], focando na prevenção de doenças e promoção da saúde utilizando referenciais da Educação Popular em Saúde[cite: 2].</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">O PAPEL DO ACS NA ATENÇÃO PRIMÁRIA</h3>
+      <p>O Agente Comunitário de Saúde contribui diretamente para[cite: 2]:</p>
+      
+      <ul class="check-list">
+        <li>Conhecer o território[cite: 2], cadastrar e acompanhar a população[cite: 2].</li>
+        <li>Identificar situações de risco[cite: 2] e comunicar situações relevantes à equipe[cite: 2].</li>
+        <li>Realizar visitas domiciliares[cite: 2].</li>
+        <li>Promover educação em saúde[cite: 2] e orientar famílias[cite: 2].</li>
+        <li>Estimular participação comunitária[cite: 2] e aproximar serviço e comunidade[cite: 2].</li>
+      </ul>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">O ACS COMO ELO ENTRE A COMUNIDADE E O SERVIÇO</h3>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: POSIÇÃO ESTRATÉGICA DO ACS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">COMUNIDADE[cite: 2]</div>
+        <div style="font-weight: 800; color: #4c6ef5;">↔</div>
+        <div class="schema-node box-yellow" style="font-size: 14px;">ACS (LIGAÇÃO)[cite: 2]</div>
+        <div style="font-weight: 800; color: #4c6ef5;">↔</div>
+        <div class="schema-root box-blue">EQUIPE DE SAÚDE[cite: 2]</div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>PROVA:</strong> Ele <span class="hl-red">não</span> é apenas um "mensageiro" da UBS![cite: 2] O ACS participa do planejamento[cite: 2], da identificação de necessidades[cite: 2], da promoção da saúde[cite: 2] e da vigilância[cite: 2].</div>
+      </div>
+      
+      <p>Espera-se atuação baseada em: comunicação[cite: 2], respeito[cite: 2], ética[cite: 2], responsabilidade[cite: 2], capacidade de observação[cite: 2], trabalho em equipe[cite: 2], conhecimento do território[cite: 2] e iniciativa[cite: 2].</p>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">REQUISITOS PARA O EXERCÍCIO DA ATIVIDADE DE ACS</h3>
+      <p>A legislação impõe requisitos específicos para que um cidadão possa atuar formalmente como Agente Comunitário de Saúde[cite: 2].</p>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>DECOREBA OBRIGATÓRIA:</strong> De acordo com o art. 6º da <span class="hl-blue">Lei nº 11.350/06</span>[cite: 2], o ACS deve preencher o requisito de <span class="hl-yellow">I - RESIDÊNCIA</span> na área da comunidade em que atuar[cite: 2].</div>
+      </div>
+
+      <!-- QUESTÃO DE PROVA -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Banca Fictícia / Questão Inédita)</strong> Com relação à Estratégia Saúde da Família (ESF) e às atribuições e perfil do Agente Comunitário de Saúde (ACS), é <strong>INCORRETO</strong> afirmar que:</p>
+        <ul class="arrow-list">
+          <li>A) A presença do ACS na equipe de Saúde da Família é essencial e obrigatória, compondo a sua estrutura mínima.</li>
+          <li>B) O acolhimento no âmbito da ESF restringe-se ao ato de recepcionar o paciente e realizar a triagem na porta de entrada da UBS.</li>
+          <li>C) O ACS atua como elo entre a comunidade e a equipe de saúde, não sendo apenas um mensageiro do serviço.</li>
+          <li>D) A ESF não substitui a atenção focada no indivíduo por uma atenção voltada exclusivamente para a família.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: Letra B.</strong><br>
+          <em>Comentário:</em> Conforme a nossa DICA 07, o acolhimento <span class="hl-red">NÃO</span> se confunde com recepção nem significa apenas distribuir fichas[cite: 2]. Trata-se de uma postura contínua de escutar, identificar necessidades, avaliar riscos e vulnerabilidades, e responsabilizar-se pela resposta no cuidado do usuário[cite: 2].
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

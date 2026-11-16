@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">CONHECIMENTOS ESPECÍFICOS - ACS</div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 01</div>
+        <h3 class="dica-title">TERRITORIALIZAÇÃO - CONCEITOS E FUNDAMENTOS</h3>
+        <p>A territorialização é um dos pilares do trabalho da Atenção Primária e do Agente Comunitário de Saúde (ACS). Ela permite que a equipe conheça <span class="hl-red">não apenas</span> onde as pessoas moram, mas também como vivem, os riscos que enfrentam e suas reais necessidades de saúde[cite: 1].</p>
+        
+        <div class="callout callout-memorize">
+            <div class="callout-icon">🧠</div>
+            <div><strong>MEMORIZE O FLUXO DA TERRITORIALIZAÇÃO:</strong><br><span class="hl-yellow">CONHECER ➔ IDENTIFICAR ➔ PLANEJAR ➔ AGIR ➔ ACOMPANHAR</span>[cite: 1]</div>
+        </div>
+
+        <p>Em saúde, território <span class="hl-red">não</span> deve ser entendido apenas como espaço geográfico. Ele envolve[cite: 1]:</p>
+        <div class="schema-grid">
+            <div class="schema-node box-blue">População e Famílias</div>
+            <div class="schema-node box-blue">Condições de Moradia</div>
+            <div class="schema-node box-blue">Relações Sociais</div>
+            <div class="schema-node box-blue">Recursos Comunitários</div>
+            <div class="schema-node box-blue">Fatores Ambientais</div>
+        </div>
+        
+        <div class="exemplo">
+            <strong>Ex.: Macete:</strong> Território = Lugar + Pessoas + Relações + Riscos + Recursos[cite: 1].
+        </div>
+
+        <div class="callout callout-atencao">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>ATENÇÃO!! PEGADINHA:</strong> Se a prova disser que "Território corresponde <span class="hl-red">exclusivamente</span> à delimitação geográfica da área de atuação", a afirmativa está <strong>ERRADA</strong>[cite: 1]. O conceito utilizado na APS é muito mais amplo!</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 02</div>
+        <h3 class="dica-title">ÁREA E MICROÁREA</h3>
+        <p>Para organizar o acompanhamento da população, o trabalho é dividido territorialmente[cite: 1]:</p>
+        <div class="schema-container">
+            <div class="schema-root box-blue">TERRITÓRIO DE ATUAÇÃO</div>
+            <div class="schema-branches">
+                <div class="schema-node box-yellow"><strong>ÁREA:</strong> Responsabilidade da Equipe (Ex: Bairro X)</div>
+                <div class="schema-node box-yellow"><strong>MICROÁREA:</strong> Responsabilidade do ACS (Ex: Ruas/Famílias)</div>
+            </div>
+        </div>
+        
+        <ul class="arrow-list">
+            <li><strong>Jornada do ACS:</strong> <span class="hl-blue">40 horas semanais</span> para ingresso e aperfeiçoamento[cite: 1]. <span class="hl-red">Cuidado:</span> material antigo fala em divisão obrigatória de 30h + 10h, regra que já foi revogada[cite: 1].</li>
+        </ul>
+
+        <div class="callout callout-importante">
+            <div class="callout-icon">📌</div>
+            <div><strong>IMPORTANTE:</strong> Quanto menor a unidade territorial analisada, <span class="hl-yellow">maior a possibilidade de identificar situações específicas de risco</span>[cite: 1].</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 03</div>
+        <h3 class="dica-title">MAPEAMENTO E RECONHECIMENTO DA COMUNIDADE</h3>
+        <p>O mapeamento territorial é a identificação e representação de informações relevantes (ruas, escolas, praças, áreas de alagamento, pontos de lixo, etc.)[cite: 1].</p>
+        
+        <div class="callout callout-atencao">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>ATENÇÃO!!</strong> Mapear <span class="hl-red">não</span> é apenas localizar residências[cite: 1]. O mapa pode revelar riscos e recursos existentes na comunidade[cite: 1].</div>
+        </div>
+
+        <div class="esquema-title">DIAGNÓSTICO: DEMOGRÁFICO VS SOCIOCULTURAL[cite: 1, 2]</div>
+        <table class="memorex-table">
+            <tr>
+                <th>DEMOGRÁFICAS[cite: 2]</th>
+                <th>SOCIOCULTURAIS[cite: 2]</th>
+            </tr>
+            <tr>
+                <td>Número de moradores[cite: 2]</td>
+                <td>Escolaridade[cite: 2]</td>
+            </tr>
+            <tr>
+                <td>Idade e Sexo[cite: 2]</td>
+                <td>Condições de trabalho e sociais[cite: 2]</td>
+            </tr>
+            <tr>
+                <td>Distribuição populacional[cite: 2]</td>
+                <td>Costumes, hábitos e práticas comunitárias[cite: 2]</td>
+            </tr>
+            <tr>
+                <td>Composição das famílias[cite: 2]</td>
+                <td>Formas de organização da comunidade[cite: 2]</td>
+            </tr>
+        </table>
+        <div class="callout callout-obs">
+            <div class="callout-icon">🔎</div>
+            <div><strong>OBS.:</strong> Segundo a <span class="hl-blue">Lei nº 11.350/2006</span>, o ACS deve utilizar instrumentos para diagnóstico demográfico e sociocultural da comunidade[cite: 2].</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 04</div>
+        <h3 class="dica-title">ÁREAS DE RISCO, VULNERABILIDADE E RECURSOS</h3>
+        <p>O ACS deve observar situações que aumentam a necessidade de atenção (gestantes com dificuldade de acesso, atraso vacinal, idosos frágeis, doenças crônicas, etc.)[cite: 2].</p>
+        
+        <div class="callout callout-memorize">
+            <div class="callout-icon">🧠</div>
+            <div><strong>MEMORIZE:</strong> Risco identificado ➔ Comunicar/acionar a equipe ➔ Acompanhar[cite: 2].<br>O ACS <span class="hl-red">não</span> deve simplesmente observar e arquivar a informação[cite: 2].</div>
+        </div>
+
+        <p><strong>Vulnerabilidade Social:</strong> Maior exposição a situações que podem comprometer a saúde e a proteção do indivíduo (pobreza, isolamento, violência, falta de saneamento, etc.)[cite: 2].</p>
+        
+        <div class="callout callout-atencao">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>ATENÇÃO!! PEGADINHA:</strong> Vulnerabilidade <span class="hl-red">não</span> significa <span class="hl-red">exclusivamente</span> pobreza[cite: 2]. Um indivíduo pode ser vulnerável por diversos outros fatores sociais ou de saúde[cite: 2].</div>
+        </div>
+
+        <p><strong>Recursos da Comunidade (Potencialidades):</strong> O território também possui potencialidades, <span class="hl-red">não apenas</span> problemas[cite: 2]. O diagnóstico territorial deve identificar <strong>PROBLEMAS + RECURSOS/POTENCIALIDADES</strong> (escolas, CRAS, praças, lideranças)[cite: 2].</p>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 05</div>
+        <h3 class="dica-title">CADASTRAMENTO DAS FAMÍLIAS</h3>
+        <p>O cadastramento permite conhecer a população. Ele <span class="hl-red">não</span> é um mero trabalho burocrático[cite: 2]; as informações ajudam no: <strong>planejamento + acompanhamento + vigilância + avaliação</strong>[cite: 2].</p>
+        
+        <div class="schema-container">
+            <div class="schema-root box-blue">INSTRUMENTOS E-SUS APS[cite: 2]</div>
+            <div class="schema-branches">
+                <div class="schema-node box-yellow"><strong>CADASTRO INDIVIDUAL:</strong> Dados da pessoa (identificação, situação de saúde)[cite: 2].</div>
+                <div class="schema-node box-yellow"><strong>CADASTRO DOMICILIAR E TERRITORIAL:</strong> Domicílio + Território (condições de moradia, água, lixo)[cite: 2].</div>
+            </div>
+        </div>
+
+        <div class="callout callout-atencao">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>ATENÇÃO!!</strong> O ACS <span class="hl-red">não</span> faz diagnóstico médico ao preencher o cadastro[cite: 3]. Ele registra informações observadas ou referidas[cite: 3].</div>
+        </div>
+
+        <ul class="check-list">
+            <li><strong>Atualização:</strong> O território é dinâmico (nascimentos, óbitos, mudanças)[cite: 3]. O cadastro <span class="hl-red">não</span> é feito uma única vez para ser esquecido[cite: 3].</li>
+            <li><strong>Coleta e Registro:</strong> As informações devem ser corretas e mantidas sob sigilo[cite: 3]. O ACS <span class="hl-red">não deve inventar</span> informações, <span class="hl-red">não deve preencher por suposição</span> e <span class="hl-red">não deve divulgar</span> dados pessoais[cite: 3].</li>
+        </ul>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 06</div>
+        <h3 class="dica-title">VISITA DOMICILIAR - CONCEITOS E PLANEJAMENTO</h3>
+        <p>Permite conhecer condições de vida, orientar, promover saúde, fortalecer vínculo e encaminhar situações[cite: 3]. Segundo a <span class="hl-blue">Lei nº 11.350/2006</span>:</p>
+        
+        <div class="callout callout-memorize">
+            <div class="callout-icon">🧠</div>
+            <div><strong>DECORE:</strong> A Visita Domiciliar é a <span class="hl-yellow">ATIVIDADE PRECÍPUA DO ACS</span>[cite: 3].</div>
+        </div>
+
+        <ul class="arrow-list">
+            <li><strong>Planejamento:</strong> A visita deve possuir finalidade, <span class="hl-red">não</span> ser simplesmente "bater de porta em porta para cumprir tabela"[cite: 3].</li>
+            <li><strong>Prioridades:</strong> Maior risco ou vulnerabilidade ➔ maior necessidade de acompanhamento[cite: 4].</li>
+        </ul>
+
+        <div class="callout callout-atencao">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>ATENÇÃO!! PEGADINHA:</strong> A afirmação "Todas as famílias <span class="hl-red">obrigatoriamente</span> devem receber o mesmo número de visitas" está <strong>ERRADA</strong>[cite: 3]. A frequência depende da necessidade, risco e vulnerabilidade[cite: 4].</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 07</div>
+        <h3 class="dica-title">VISITA DOMICILIAR - ABORDAGEM E ORIENTAÇÃO</h3>
+        <p>A abordagem à família deve envolver apresentação, respeito à privacidade, cordialidade e ausência de julgamento[cite: 4].</p>
+        
+        <div class="callout callout-importante">
+            <div class="callout-icon">📌</div>
+            <div><strong>IMPORTANTE:</strong> O ACS <span class="hl-red">não</span> tem autorização para entrar compulsoriamente na residência simplesmente por exercer função pública[cite: 4].</div>
+        </div>
+
+        <p><strong>Educação em Saúde:</strong> O ACS orienta sobre vacinação, higiene, prevenção de doenças e alimentação[cite: 4].</p>
+        
+        <div class="callout callout-atencao">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>ATENÇÃO!!</strong> Orientar é diferente de prescrever[cite: 4]. O ACS <span class="hl-red">vedado</span> substituir médico, enfermeiro ou demais profissionais em suas competências específicas[cite: 4].</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 08</div>
+        <h3 class="dica-title">REGISTRO, COMUNICAÇÃO À EQUIPE E SIGILO</h3>
+        <ul class="arrow-list">
+            <li><strong>Registro:</strong> No e-SUS APS, utiliza-se a Ficha de Visita Domiciliar e Territorial[cite: 4]. <strong>Regra: Fez ➔ registra</strong>[cite: 4]. O registro é essencial para continuidade e avaliação[cite: 4].</li>
+            <li><strong>Comunicação:</strong> Ao identificar situação relevante (sinais de violência, criança em risco, idoso vulnerável, doença grave), registre e comunique à equipe conforme o fluxo estabelecido[cite: 4].</li>
+        </ul>
+        
+        <div class="callout callout-obs">
+            <div class="callout-icon">🔎</div>
+            <div><strong>OBS.: SIGILO E ÉTICA!</strong> O ACS deve proteger informações pessoais e familiares[cite: 4]. Trabalhar na comunidade <span class="hl-red">não</span> transforma informação de saúde em notícia comunitária[cite: 4]. É <span class="hl-red">vedado</span> comentar diagnósticos, gravidez ou conflitos com estranhos ao cuidado[cite: 4].</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA BÔNUS</div>
+        <h3 class="dica-title">CONDUTAS PERMITIDAS EXCEPCIONALMENTE</h3>
+        <p>A <span class="hl-blue">Lei nº 11.350/2006</span> prevê atividades que podem ser realizadas pelo ACS em caráter <strong>excepcional</strong>[cite: 4], desde que cumpridas:</p>
+        <ul class="check-list">
+            <li>Exigências legais de capacitação[cite: 4].</li>
+            <li>Assistência de profissional de nível superior[cite: 4].</li>
+        </ul>
+        <div class="exemplo">
+            <strong>Ex.:</strong> Aferição de pressão arterial, temperatura axilar, glicemia capilar e verificação antropométrica[cite: 4].
+        </div>
+        
+        <div class="questao-box">
+            <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+            <p><strong>(Questão Adaptada - Concurso Saúde)</strong> Sobre as atribuições do Agente Comunitário de Saúde (ACS) na territorialização e visita domiciliar, assinale a afirmativa correta:</p>
+            <p>A) O território restringe-se exclusivamente à demarcação geográfica para contagem de domicílios.<br>
+            B) O cadastramento de famílias é feito uma única vez, sendo dispensável sua atualização.<br>
+            C) Todas as famílias da microárea devem obrigatoriamente receber visitas com a mesma frequência do ACS.<br>
+            D) A visita domiciliar é uma atividade precípua do ACS e sua periodicidade baseia-se em critérios de necessidade, risco e vulnerabilidade.</p>
+            <div class="gabarito-box">
+                <strong>Gabarito: Letra D.</strong><br>
+                <em>Comentário:</em> Conforme o material, a visita é atividade precípua (Lei 11.350) e não possui a mesma frequência para todos (foca em risco/vulnerabilidade)[cite: 3, 4]. As alternativas A, B e C abordam clássicas pegadinhas: território não é exclusivamente geográfico[cite: 1], o cadastro exige atualização contínua[cite: 3] e a frequência de visitas não é igualitária e obrigatória de forma idêntica para todos[cite: 3].
+            </div>
+        </div>
+    </div>
+
+  </div>
+</body>
+</html>

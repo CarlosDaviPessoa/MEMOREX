@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; font-weight: 700; color: #4c6ef5; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">FIGURAS DE LINGUAGEM - CONCEITOS E PALAVRAS</h2>
+      <p>As figuras de linguagem são artifícios usados pelo orador ou escritor para dar <span class="hl-blue">mais significado (ênfase)</span> ou mais estilo (beleza) ao texto, guiando a interpretação do leitor.</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Metáfora:</strong> É a utilização de uma palavra que tem outro significado. Trata-se de uma <span class="hl-yellow">comparação implícita</span>, com termos de significados diferentes.
+          <div class="exemplo"><strong>Ex.:</strong> Minha boca é um túmulo.</div>
+        </li>
+        <li><strong>Comparação:</strong> Atribui características de algo a outro por serem parecidos. É uma comparação explícita, <span class="hl-blue">com conectivos</span> e termos de significados semelhantes.
+          <div class="exemplo"><strong>Ex.:</strong> O carro dela é rápido que nem um avião.</div>
+        </li>
+        <li><strong>Catacrese:</strong> Utiliza uma palavra que, apesar de estar fora de seu significado original, tornou-se comum por <span class="hl-red">não</span> haver termo mais específico.
+          <div class="exemplo"><strong>Ex.:</strong> A manga da camisa, pescoço da garrafa, o bico do avião, o pé da mesa.</div>
+        </li>
+        <li><strong>Sinestesia:</strong> Mistura as sensações dos sentidos humanos (visão, tato, olfato, paladar, audição) para despertar sensações físicas.
+          <div class="exemplo"><strong>Ex.:</strong> Pedro olhou friamente para Maria / Cristina tem um olhar doce.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">METONÍMIA, SINÉDOQUE E OUTRAS SUBSTITUIÇÕES</h2>
+      <p>Essas figuras de palavras baseiam-se na troca de um termo por outro com o qual mantém proximidade de sentido.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: SUBSTITUIÇÕES DE TERMOS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SUBSTITUIÇÃO DE TERMOS</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">METONÍMIA: Troca por proximidade de sentido</div>
+          <div class="schema-node box-yellow">SINÉDOQUE: Parte pelo todo (ou vice-versa)</div>
+          <div class="schema-node box-yellow">ANTONOMÁSIA: Substituição de Pessoa</div>
+          <div class="schema-node box-yellow">PERÍFRASE: Substituição de Lugar/Objeto</div>
+        </div>
+      </div>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>FIGURA</th>
+            <th>DEFINIÇÃO</th>
+            <th>EXEMPLOS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Metonímia</strong></td>
+            <td>Troca de uma palavra por outra de sentido aproximado.</td>
+            <td>O autor pela obra: "Já li Guimarães Rosa várias vezes". O continente pelo conteúdo: "Bebemos duas garrafas".</td>
+          </tr>
+          <tr>
+            <td><strong>Sinédoque</strong></td>
+            <td>Considerada uma variação da metonímia. Substituição ocorrendo ampliação ou redução (<span class="hl-yellow">parte pelo todo</span>).</td>
+            <td>"Quero trabalhar e morar embaixo do meu próprio teto" (teto = parte / casa = todo).</td>
+          </tr>
+          <tr>
+            <td><strong>Antonomásia</strong></td>
+            <td>Designa uma <strong>pessoa</strong> por uma qualidade ou fato que a distingue.</td>
+            <td>O rei do futebol (Pelé), o rei do cangaço (Lampião).</td>
+          </tr>
+          <tr>
+            <td><strong>Perífrase</strong></td>
+            <td>Utiliza expressão para mostrar atributos de um <strong>lugar, animal ou objeto</strong>.</td>
+            <td>O país do futebol (Brasil), cidade maravilhosa (Rio de Janeiro).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> A <strong>Alegoria</strong> é um grupo simbólico que expande o sentido além das palavras. <br><em>Ex.: Gato escaldado tem medo de água fria; Em rio que tem piranha, jacaré nada de costas.</em></div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">OUTRAS FIGURAS DE LINGUAGEM RECORRENTES</h2>
+      
+      <ul class="check-list">
+        <li><strong>Onomatopeia:</strong> Representação de sons. <em>Ex.: O tic-tac do relógio.</em></li>
+        <li><strong>Antítese:</strong> Termos opostos. <em>Ex.: Eu falo de amor à vida, você, de medo da morte.</em></li>
+        <li><strong>Gradação:</strong> Progressão crescente ou decrescente de ideias. <em>Ex.: Ande, corra, voe, aonde a honra o chama.</em></li>
+        <li><strong>Eufemismo:</strong> Suaviza a palavra ou expressão. <em>Ex.: Partiu dessa para melhor (morreu).</em></li>
+        <li><strong>Prosopopeia:</strong> Atribuições humanas a animais, objetos ou ideias. <em>Ex.: A pedra não para de chorar.</em></li>
+        <li><strong>Hipérbato:</strong> Inversão da ordem da frase. <em>Ex.: São como cristais as palavras.</em></li>
+        <li><strong>Hipérbole:</strong> <span class="hl-red">Exagero</span>. <em>Ex.: Chorei rios de lágrimas.</em></li>
+        <li><strong>Ironia:</strong> Dizer o contrário daquilo que se pensa. <em>Ex.: Muito bonito, hein?</em></li>
+        <li><strong>Pleonasmo:</strong> Redundância. <em>Ex.: Rir meu riso e derramar meu pranto.</em></li>
+        <li><strong>Aliteração:</strong> Repetição de sons consonantais. <em>Ex.: Eu temo muito o mar, o mar enorme.</em></li>
+      </ul>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">ACENTUAÇÃO GRÁFICA - SÍLABA TÔNICA E MONOSSÍLABOS</h2>
+      <p>Quase todas as palavras apresentam uma sílaba tônica (pronunciada com mais força). Dependendo da sua posição, temos três casos fundamentais:</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: POSIÇÃO DA SÍLABA TÔNICA</div>
+      <div class="schema-container schema-grid">
+        <div class="schema-node box-blue"><strong>OXÍTONA</strong><br>Última Sílaba (Ex.: caju, café)</div>
+        <div class="schema-node box-blue"><strong>PAROXÍTONA</strong><br>Penúltima Sílaba (Ex.: janela, útil)</div>
+        <div class="schema-node box-blue"><strong>PROPAROXÍTONA</strong><br>Antepenúltima Sílaba (Ex.: lâmpada)</div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Monossílabos (uma única sílaba) <span class="hl-red">não</span> são oxítonos! A classificação "oxítona" exige duas ou mais sílabas.</div>
+      </div>
+
+      <p><strong>Monossílabos podem ser:</strong></p>
+      <ul class="arrow-list">
+        <li><strong>Tônicos:</strong> Têm significado isolados e pronúncia forte. (Ex.: pé, sol, lá). <em>Dica gramatical:</em> Substantivos, adjetivos, advérbios, numerais, verbos.</li>
+        <li><strong>Átonos:</strong> <span class="hl-red">Não</span> significam nada isolados e têm pronúncia fraca. (Ex.: de, com, me, o, a). <em>Dica gramatical:</em> Preposições, conjunções, artigos.</li>
+      </ul>
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> O vocábulo "que" é átono, mas sendo substantivado torna-se tônico ("Ela tem um <span class="hl-yellow">quê</span> de misteriosa...").</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">REGRAS BÁSICAS DE ACENTUAÇÃO (PROPAROXÍTONAS E PAROXÍTONAS)</h2>
+      
+      <ul class="check-list">
+        <li><strong>Proparoxítonas:</strong> <span class="hl-yellow">Todas são acentuadas</span>. <em>Ex.: alcoólico, lâmpada, Júpiter, relâmpago.</em></li>
+        <li><strong>Paroxítonas:</strong> São as mais numerosas, logo, as que recebem menos acentos. Acentuam-se as terminadas em:
+          <ul class="arrow-list">
+            <li><strong>i, is:</strong> táxi, lápis, grátis.</li>
+            <li><strong>us, um, uns:</strong> vírus, álbum, álbuns.</li>
+            <li><strong>l, n, r, x, ps:</strong> útil, próton, éter, tórax, bíceps.</li>
+            <li><strong>ã, ãs, ão, ãos:</strong> ímã, órfã, órgão.</li>
+            <li><strong>ditongo oral</strong> (crescente/decrescente, +s): água, árduo, cáries, mágoas.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA DE PROVA:</strong> Elétron tem acento, elétrons (plural) tem acento. <strong>Porém</strong>: hífen tem acento, mas <span class="hl-red">hifens (plural) NÃO TEM</span>! Se houvesse acento, a pronúncia seria oxítona ("hiféns"), e oxítonas terminadas em ENS já recebem acento.</div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE: Proparoxítonas Aparentes!</strong> Paroxítonas terminadas em ditongo crescente (-ea, -ia, -ie, -io, -ua, -uo) são consideradas por muitas bancas como proparoxítonas. <em>Ex.: Fa-mí-lia ou fa-mí-li-a; histó-ria; sé-rie.</em></div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">REGRAS BÁSICAS DE ACENTUAÇÃO (OXÍTONAS E MONOSSÍLABOS)</h2>
+      
+      <ul class="check-list">
+        <li><strong>Oxítonas:</strong> Acentuam-se as terminadas em:
+          <ul class="arrow-list">
+            <li><strong>a, as:</strong> Pará, vatapá, estás, matá-lo.</li>
+            <li><strong>e, es:</strong> você, café, jacarés, fazê-lo.</li>
+            <li><strong>o, os:</strong> jiló, avô, supôs, supô-lo.</li>
+            <li><strong>em, ens:</strong> alguém, vintém, parabéns, armazéns.</li>
+          </ul>
+        </li>
+        <li><strong>Monossílabos Tônicos:</strong> Acentuam-se os terminados em:
+          <ul class="arrow-list">
+            <li><strong>a, as:</strong> pá, vá, gás.</li>
+            <li><strong>e, es:</strong> pé, fé, mês, três.</li>
+            <li><strong>o, os:</strong> só, xô, nós, pôs.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Os acentos de oxítonas e paroxítonas são excludentes. Ex.: <em>portas</em> (paroxítona sem acento) x <em>café</em> (oxítona com acento). Monossílabos terminados em i(s) e u(s) <span class="hl-red">nunca</span> levam acento (Ex.: Lu).</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">REGRAS ESPECIAIS (HIATOS E VERBOS TER/VIR)</h2>
+      
+      <p><strong>Regra do Hiato:</strong> Acentua-se a 2ª vogal do hiato se for <strong>i</strong> ou <strong>u</strong> tônicos, sozinhos ou com 's'.</p>
+      <div class="exemplo"><strong>Ex.:</strong> sa-í-da, fa-ís-ca, sa-ú-va, pa-ís, ba-ú, uís-que.</div>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO (Exceções do Hiato):</strong><br>
+        <span class="hl-red">NÃO</span> haverá acento se o 'i' for seguido de 'nh' (rainha, moinho).<br>
+        <span class="hl-red">NÃO</span> haverá acento se houver vogal repetida (vadiice, xiita).<br>
+        <span class="hl-red">NÃO</span> se usa mais acento no 'i' ou 'u' tônicos após ditongo em paroxítonas (baiuca, feiura, bocaiuva).<br>
+        <em>Porém, se a palavra for oxítona final, o acento permanece (Piauí, tuiuiú).</em>
+        </div>
+      </div>
+
+      <p><strong>Verbos TER e VIR (e derivados):</strong></p>
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Verbo</th>
+            <th>3ª Pessoa Singular (Sem acento / Agudo)</th>
+            <th>3ª Pessoa Plural (Circunflexo)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TER / VIR (Primitivos)</td>
+            <td>Ele tem / Ele vem</td>
+            <td>Eles <span class="hl-yellow">têm</span> / Eles <span class="hl-yellow">vêm</span></td>
+          </tr>
+          <tr>
+            <td>DETER / INTERVIR (Derivados)</td>
+            <td>Ele detém / Ele intervém</td>
+            <td>Eles <span class="hl-yellow">detêm</span> / Eles <span class="hl-yellow">intervêm</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h2 class="dica-title">NOVAS REGRAS DO ACORDO ORTOGRÁFICO (O QUE MUDOU)</h2>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>REGRA EXTINTA</th>
+            <th>COMO ERA</th>
+            <th>COMO FICOU</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fim do acento em ditongos abertos (EI, OI) apenas nas <span class="hl-red">paroxítonas</span>.</td>
+            <td>idéia, bóia, heróico, platéia</td>
+            <td><strong>ideia, boia, heroico, plateia</strong> (Mas herói, chapéus continuam!)</td>
+          </tr>
+          <tr>
+            <td>Fim do acento nas terminações <span class="hl-blue">EEM e OO(S)</span>.</td>
+            <td>vêem, crêem, vôo, enjôo</td>
+            <td><strong>veem, creem, voo, enjoo</strong></td>
+          </tr>
+          <tr>
+            <td>Fim do <span class="hl-blue">TREMA (¨)</span>.</td>
+            <td>lingüiça, cinqüenta, freqüente</td>
+            <td><strong>linguiça, cinquenta, frequente</strong> (Fica só em estrangeiros: Müller)</td>
+          </tr>
+          <tr>
+            <td>Fim do Acento Diferencial (na maioria).</td>
+            <td>pára, pêlo, pólo, pêra</td>
+            <td><strong>para, pelo, polo, pera</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE - Acentos Diferenciais que PERMANECEM:</strong><br>
+        ✔ <strong>pôde</strong> (passado) vs <strong>pode</strong> (presente).<br>
+        ✔ <strong>pôr</strong> (verbo) vs <strong>por</strong> (preposição).<br>
+        ✔ <strong>fôrma</strong> (forma de bolo) vs <strong>forma</strong> (facultativo).
+        </div>
+      </div>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS. VERBOS:</strong> Não se usa mais acento agudo no 'u' tônico das formas de arguir e redarguir (argui, arguem).</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">QUESTÕES DE PROVA</h2>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Questão 01):</div>
+        <p><strong>(IBFC - MGS - Nível Fundamental - 2024)</strong> Assinale a alternativa que todas as palavras estão corretamente acentuadas.</p>
+        <ul style="list-style-type: upper-alpha;">
+          <li>característica - hábito - trêmulo.</li>
+          <li>trágico - aguardênte - contínuo.</li>
+          <li>melância - suficiência - mágico.</li>
+          <li>ônibus - frequênte - palácio.</li>
+        </ul>
+        <div class="gabarito-box">Gabarito: A. Comentário: "Característica", "hábito" e "trêmulo" são proparoxítonas e todas são acentuadas.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Questão 02):</div>
+        <p><strong>(IBFC - MGS - Nível Médio - 2024)</strong> Assinale a alternativa em que todas as palavras estão acentuadas corretamente.</p>
+        <ul style="list-style-type: upper-alpha;">
+          <li>Triângulo, café, ângulo, gratuíto.</li>
+          <li>Âmbito, recíproco, caráter, geléia.</li>
+          <li>Genérico, êxtase, côncavo, preâmbulo.</li>
+          <li>Idéia, paralelepipedo, assembléia, órfão.</li>
+        </ul>
+        <div class="gabarito-box">Gabarito: C. Comentário: A alternativa C traz proparoxítonas perfeitamente acentuadas. Em B e D, "geleia", "ideia" e "assembleia" perderam o acento (ditongos abertos paroxítonos). "Gratuito" (A) não tem acento.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Questão 03):</div>
+        <p><strong>(IBFC - MGS - Nível Fundamental - 2023)</strong> Assinale a alternativa que apresentar somente palavras com acentuação correta:</p>
+        <ul style="list-style-type: upper-alpha;">
+          <li>Oásis, plateia, advêm, leem.</li>
+          <li>Oásis, platéia, advêm, lêem.</li>
+          <li>Oasis, plateia, advem, leem.</li>
+          <li>Oasis, platéia, advem, lêem.</li>
+        </ul>
+        <div class="gabarito-box">Gabarito: A. Comentário: "Plateia" (sem acento, acordo), "advêm" (terceira pessoa plural do verbo derivado), "leem" (fim do acento no EE).</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Questão 04):</div>
+        <p><strong>(IBFC - SAEB - Analista - 2023)</strong> No trecho "...para que suas frases se articulem significativamente", assinale a alternativa correta em relação aos significados da palavra grifada (articulem).</p>
+        <ul style="list-style-type: upper-alpha;">
+          <li>Encadear, ligar.</li>
+          <li>Associar, melhorar.</li>
+          <li>Unir, parafrasear.</li>
+          <li>Juntar, desvincular.</li>
+        </ul>
+        <div class="gabarito-box">Gabarito: A.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Questão 05):</div>
+        <p><strong>(IBFC - MGS - Monitor Educacional - 2023)</strong> Assinale a alternativa que apresenta somente palavras acentuadas corretamente.</p>
+        <ul style="list-style-type: upper-alpha;">
+          <li>Extase, essencia, vinténs, sótão.</li>
+          <li>Extase, essência, vintens, sótão.</li>
+          <li>Êxtase, essencia, vinténs, sótão.</li>
+          <li>Êxtase, essência, vinténs, sótão.</li>
+        </ul>
+        <div class="gabarito-box">Gabarito: D. Comentário: "Êxtase" (proparoxítona), "essência" (paroxítona terminada em ditongo), "vinténs" (oxítona terminada em ens), "sótão" (paroxítona terminada em ão).</div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

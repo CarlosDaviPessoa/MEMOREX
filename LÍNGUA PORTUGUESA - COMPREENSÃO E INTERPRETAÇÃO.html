@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - COMPREENSÃO E INTERPRETAÇÃO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">COMPREENSÃO X INTERPRETAÇÃO DE TEXTO</h2>
+      <p>A <span class="hl-blue">compreensão de texto</span> refere-se à capacidade de entender o que está sendo lido. Envolve identificar o significado das palavras, frases, parágrafos, ideias principais e detalhes explícitos. Já a <span class="hl-blue">interpretação de texto</span> vai além da simples compreensão: trata-se de atribuir significado ao texto, considerando o contexto, a intenção do autor e a subjetividade.</p>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> Compreensão é a decodificação da mensagem (<span class="hl-yellow">está no texto</span>). Interpretação é o entendimento que extraímos através da conexão de ideias e deduções (<span class="hl-yellow">vai além do texto</span>).</div>
+      </div>
+
+      <h3 class="esquema-title">ESQUEMATIZANDO: DIFERENÇAS DE ENUNCIADO</h3>
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>COMPREENSÃO (EXPLÍCITO)</th>
+            <th>INTERPRETAÇÃO (IMPLÍCITO)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Segundo o texto...</td>
+            <td>Depreende-se / infere-se / conclui-se do texto que...</td>
+          </tr>
+          <tr>
+            <td>Segundo o autor...</td>
+            <td>O texto permite deduzir que...</td>
+          </tr>
+          <tr>
+            <td>O texto informa que...</td>
+            <td>É possível afirmar a partir do texto que...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">ASPECTOS IMPORTANTES PARA ANÁLISE</h2>
+      <p>Para extrair a essência textual com precisão, a análise divide-se em pilares fundamentais.</p>
+
+      <h3 class="esquema-title">ESQUEMATIZANDO: ELEMENTOS DA COMPREENSÃO</h3>
+      <div class="schema-container">
+        <div class="schema-root box-blue">COMPREENSÃO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Vocabulário</div>
+          <div class="schema-node box-yellow">Estrutura e Organização</div>
+          <div class="schema-node box-yellow">Ideia Principal</div>
+          <div class="schema-node box-yellow">Detalhes Específicos</div>
+        </div>
+      </div>
+
+      <p>Já para a <strong>Interpretação</strong>, leve em consideração:</p>
+      <ul class="check-list">
+        <li><strong>Contexto:</strong> O momento histórico, cultural e social.</li>
+        <li><strong>Intenção do Autor:</strong> Qual objetivo fundamenta a escrita do texto.</li>
+        <li><strong>Ponto de Vista:</strong> Identificar a opinião ou viés assumido.</li>
+        <li><strong>Figuras de Linguagem:</strong> Reconhecer ironia e sarcasmo nas entrelinhas.</li>
+        <li><strong>Subjetividade:</strong> O seu repertório de mundo e experiências.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">ESTRATÉGIAS PARA LER E ENTENDER BEM</h2>
+      <p>A boa leitura exige método. Você deve alcançar dois níveis: a leitura <span class="hl-yellow">informativa</span> (contato inicial) e a leitura <span class="hl-yellow">interpretativa</span> (busca pela essência).</p>
+
+      <ul class="arrow-list">
+        <li>Ler todo o texto para ter uma visão geral e <span class="hl-red">não</span> interromper a leitura caso encontre palavras desconhecidas.</li>
+        <li>Ler profundamente o texto por <span class="hl-blue">pelo menos três vezes</span> ou mais.</li>
+        <li>Partir o texto em pedaços (parágrafos) e centralizar cada questão ao seu fragmento correspondente.</li>
+        <li>Ao ficar em dúvida entre duas alternativas corretas, procure a <span class="hl-blue">mais exata ou mais completa</span>.</li>
+        <li><span class="hl-red">Nunca</span> deixar de retornar ao texto-base para evitar descontextualizações feitas pela banca.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Muito cuidado com vocábulos nas alternativas que restringem ou mudam o sentido: <span class="hl-red">destoa (diferente de), não, incorreta, exceto, errada, falsa, verdadeira</span>. Sublinhe-os na hora da prova!</div>
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Não permita que prevaleçam as <em>suas</em> ideias sobre as do autor. Foque no sentido do texto, não na "verdade exata".</div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Fique atento à sintaxe! Adjuntos adverbiais e predicativos do sujeito podem mudar completamente a interpretação.</div>
+      </div>
+      <div class="exemplo"><strong>Ex.:</strong> <em>Ele morreu de fome.</em> (<span class="hl-blue">de fome</span> = adjunto adverbial de causa).<br><em>Ele morreu faminto.</em> (<span class="hl-blue">faminto</span> = predicativo do sujeito, indicando o estado em que ele se encontrava).</div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">ESTRUTURAÇÃO DO TEXTO E DOS PARÁGRAFOS</h2>
+      <p>O texto se desenvolve através de uma <strong>sequência lógica</strong> baseada em um tema central. Não deve haver ideias ambíguas (duplo sentido) nem contraditórias. O texto divide-se em:</p>
+      <ul class="check-list">
+        <li><strong>Introdução:</strong> Apresentação rápida do assunto (identificação do problema).</li>
+        <li><strong>Desenvolvimento:</strong> Elaboração do tema com argumentos, dados estatísticos e citações.</li>
+        <li><strong>Conclusão:</strong> Retomada breve, fechamento do raciocínio ou formulação de pergunta reflexiva.</li>
+      </ul>
+
+      <p>O <strong>parágrafo</strong> é construído a partir de um <span class="hl-blue">tópico frasal</span> (ideia central). Observe as tipologias estruturais de parágrafos:</p>
+      <h3 class="esquema-title">ESQUEMATIZANDO: TIPOS DE PARÁGRAFOS</h3>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">CURTOS<br><span style="font-weight:400; font-size:11px;">Ex.: Notícias, colunas estreitas. Trazem movimento e ênfase.</span></div>
+        <div class="schema-node box-blue">MÉDIOS<br><span style="font-weight:400; font-size:11px;">Ex.: Revistas e materiais didáticos (50 a 150 palavras).</span></div>
+        <div class="schema-node box-blue">LONGOS<br><span style="font-weight:400; font-size:11px;">Ex.: Obras científicas. Ideias complexas que exigem fôlego.</span></div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">PROGRESSÃO TEMÁTICA: TEMA E REMA</h2>
+      <p>A organização clara e lógica das ideias se dá através da estruturação frasal baseada no encadeamento temático, indispensável para a <span class="hl-blue">coesão e coerência textual</span>.</p>
+
+      <ul class="arrow-list">
+        <li><strong>Tema:</strong> É a informação oferecida, o <span class="hl-yellow">início da mensagem</span>. Ele toma a posição inicial indicando o que vem depois.</li>
+        <li><strong>Rema:</strong> É a <span class="hl-yellow">informação nova</span> que desenvolve a mensagem. Ele traz o grau de importância, mostra a sequência e consolida a compreensão.</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> O Tema é "sobre o que se fala". O Rema é "o que se diz" sobre o Tema. A articulação entre ambos gera a progressão textual!</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">VEJA COMO JÁ FOI COBRADO EM PROVA</h2>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Questão 01 (IBFC - SEAP/PR - Engenheiro Civil - 2021)</div>
+        <p><em>"Essa parcialidade é tanto mais gritante quando todos <span class="hl-yellow">sabemos</span> que o essencial na produção da política do Estado tem como atores principais as grandes empresas..." (Milton Santos)</em></p>
+        <p>No texto, o emprego da primeira pessoa do discurso cumpre um importante papel argumentativo uma vez que:</p>
+        <ul style="list-style:none; padding-left:0; margin-top:8px;">
+          <li>A) indica tratar-se do posicionamento singular do autor.</li>
+          <li>B) mostra a imparcialidade na abordagem do autor.</li>
+          <li>C) promove uma aproximação entre o autor e o leitor.</li>
+          <li>D) apresenta a concordância integral do leitor com o autor.</li>
+          <li>E) aumenta o nível de formalidade no trato do tema.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito:</strong> C<br>
+          <strong>Comentário:</strong> A utilização do verbo na 1ª pessoa do plural ("nós sabemos") funciona como recurso retórico para incluir o leitor na linha de raciocínio, gerando identificação e <span class="hl-blue">aproximação</span>. Esta é uma clássica habilidade de <span class="hl-red">Interpretação de Texto</span>, que exige inferir a intenção (ponto de vista) do autor.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Questão 02 (IBFC - MGS - Desenvolvedor - 2022)</div>
+        <p><em>"Em vez disso, <strong>dê</strong> minha visão ao homem que nunca viu o nascer do sol... <strong>Pegue</strong> meu sangue, meus ossos, todos os músculos... e <strong>encontre</strong> uma maneira de fazer uma criança aleijada andar..."</em></p>
+        <p>As tipologias textuais são construções orais ou escritas nas quais os textos são formados. Assim sendo, em relação ao texto "Meu testamento" analise as afirmativas abaixo sobre tipologia textual:</p>
+        <p>
+          I. Predominantemente dissertativa.<br>
+          II. Predominantemente descritiva.<br>
+          III. Reportagem.
+        </p>
+        <p>Estão corretas as afirmativas:</p>
+        <ul style="list-style:none; padding-left:0; margin-top:8px;">
+          <li>A) I apenas.</li>
+          <li>B) II apenas.</li>
+          <li>C) III apenas.</li>
+          <li>D) II e III apenas.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito:</strong> Nenhuma das alternativas.<br>
+          <strong>Comentário:</strong> Pegadinha de prova! O trecho é marcado por <span class="hl-red">verbos no imperativo</span> (dê, pegue, encontre), o que caracteriza a tipologia <span class="hl-blue">Injuntiva</span> (que dá ordens, conselhos ou instruções), não sendo nem dissertativo, nem descritivo, tampouco reportagem. 
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

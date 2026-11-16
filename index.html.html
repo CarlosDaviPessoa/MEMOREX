@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Estudos - ACS</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --text-main: #333333;
+            --accent-color: #0056b3;
+            --hover-color: #004494;
+            --border-color: #e1e4e8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .category {
+            margin-bottom: 30px;
+        }
+
+        .category h2 {
+            font-size: 1.4rem;
+            color: #444;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .links-grid a {
+            display: block;
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .links-grid a:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Painel de Estudos - ACS</h1>
+
+    <div class="category">
+        <h2>Conhecimentos Específicos & SUS</h2>
+        <div class="links-grid">
+            <a href="ORIGEM, REFERENCIAIS HISTÓRICOS E POVOS NATIVOS.html">Origem, Referenciais Históricos e Povos Nativos</a>
+            <a href="LOCALIZAÇÃO GEOGRÁFICA E LIMITES.html">Localização Geográfica e Limites</a>
+            <a href="VIGILÂNCIA EM SAÚDE E SANEAMENTO BÁSICO.html">Vigilância em Saúde e Saneamento Básico</a>
+            <a href="CONHECIMENTOS ESPECÍFICOS - ACS.html">Conhecimentos Específicos - ACS</a>
+            <a href="CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA.html">Saúde nos Ciclos de Vida</a>
+            <a href="SAÚDE PÚBLICA E SISTEMA ÚNICO DE SAÚDE.html">Saúde Pública e SUS</a>
+            <a href="CONHECIMENTOS ESPECÍFICOS - AGENTE COMUNITÁRIO DE SAÚDE.html">Agente Comunitário de Saúde</a>
+            <a href="PROMOÇÃO, PREVENÇÃO E EDUCAÇÃO EM SAÚDE.html">Promoção, Prevenção e Educação em Saúde</a>
+            <a href="CONHECIMENTOS ESPECÍFICOS - DCNT E VIGILÂNCIA EM SAÚDE.html">DCNT e Vigilância em Saúde</a>
+            <a href="CONHECIMENTOS ESPECÍFICOS - APS E PNAB.html">APS e PNAB</a>
+            <a href="INFORMAÇÃO, PLANEJAMENTO E TRABALHO DO ACS.html">Informação, Planejamento e Trabalho do ACS</a>
+            <a href="LEGISLAÇÃO DO SUS (LEI 8.080 E 8.142).html">Legislação do SUS (Lei 8.080 e 8.142)</a>
+            <a href="REVISÃO DE VÉSPERA - SAÚDE DA MULHER, CRIANÇA E IDOSO.html">Revisão: Saúde da Mulher, Criança e Idoso</a>
+            <a href="ATRIBUIÇÕES COMUNS NA ATENÇÃO BÁSICA.html">Atribuições Comuns na Atenção Básica</a>
+            <a href="IMUNIZAÇÃO - AGENTE COMUNITÁRIO DE SAÚDE.html">Imunização</a>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Raciocínio Lógico & Matemática</h2>
+        <div class="links-grid">
+            <a href="O QUE É RACIOCÍNIO LÓGICO E SUA IMPORTÂNCIA.html">O que é Raciocínio Lógico e sua Importância</a>
+            <a href="LÓGICA DE ARGUMENTAÇÃO CONCEITO E ESTRUTURA.html">Lógica de Argumentação: Conceito e Estrutura</a>
+            <a href="RACIOCÍNIO LÓGICO - FALÁCIAS E ARGUMENTAÇÃO.html">Falácias e Argumentação</a>
+            <a href="RACIOCÍNIO LÓGICO - ARGUMENTAÇÃO E FALÁCIAS.html">Argumentação e Falácias</a>
+            <a href="RACIOCÍNIO LÓGICO ARGUMENTAÇÃO.html">Raciocínio Lógico Argumentação</a>
+            <a href="ARGUMENTAÇÃO - CIRCULARIDADE.html">Argumentação - Circularidade</a>
+            <a href="LÓGICA PROPOSICIONAL - CONTRAPOSITIVA E BICONDICIONAL.html">Lógica Proposicional: Contrapositiva e Bicondicional</a>
+            <a href="PROBLEMAS LÓGICOS QUANTITATIVOS.html">Problemas Lógicos Quantitativos</a>
+            <a href="VERDADES E MENTIRAS - O MÉTODO DAS HIPÓTESES.html">Verdades e Mentiras - O Método das Hipóteses</a>
+            <a href="DICAS IMPARH - SEQUÊNCIAS E PROGRESSÕES.html">Dicas IMPARH - Sequências e Progressões</a>
+            <a href="PROGRESSÃO GEOMÉTRICA (PG) - CONCEITOS E FÓRMULAS.html">Progressão Geométrica (PG)</a>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Língua Portuguesa</h2>
+        <div class="links-grid">
+            <a href="SINONÍMIA E ANTONÍMIA.html">Sinonímia e Antonímia</a>
+            <a href="TIPOLOGIA TEXTUAL X GÊNEROS TEXTUAIS - DISTINÇÕES.html">Tipologia Textual x Gêneros Textuais</a>
+            <a href="CONCEITOS GERAIS DE SINTAXE.html">Conceitos Gerais de Sintaxe</a>
+            <a href="SINTAXE x MORFOLOGIA - CONCEITOS FUNDAMENTAIS.html">Sintaxe x Morfologia - Conceitos Fundamentais</a>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>Informática</h2>
+        <div class="links-grid">
+            <a href="INFORMATICA - CONCEITOS, SO E EXCEL.html">Conceitos, SO e Excel</a>
+            <a href="MICROSOFT EXCEL - FORMATAÇÃO DE CÉLULAS E PLANILHAS.html">Microsoft Excel - Formatação de Células e Planilhas</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

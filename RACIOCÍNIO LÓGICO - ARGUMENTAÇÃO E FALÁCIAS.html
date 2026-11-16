@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO - ARGUMENTAÇÃO E FALÁCIAS</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">FUNDAMENTOS DO RACIOCÍNIO CRÍTICO</h3>
+      
+      <p>O raciocínio crítico exige a análise de <span class="hl-blue">evidências, fatos e fundamentos</span>, e <span class="hl-red">não</span> de opiniões infundadas[cite: 2]. O primeiro passo para uma boa análise analítica consiste em <strong>identificar o problema</strong>; sem essa definição clara, não há como evoluir na avaliação[cite: 1, 2].</p>
+
+      <ul class="arrow-list">
+        <li><strong>Fatos:</strong> São informações verificáveis e objetivas na realidade[cite: 2].</li>
+        <li><strong>Opiniões:</strong> Expressam julgamentos pessoais e frequentemente carregam adjetivos (ex: <em>"excelente"</em>, <em>"péssimo"</em>, <em>"melhor"</em>)[cite: 2, 3].</li>
+        <li><strong>Fontes Confiáveis:</strong> A credibilidade decorre da <span class="hl-yellow">competência técnica sobre o tema</span>. Popularidade e engajamento (<span class="hl-red">nunca</span> esqueça disso!) <span class="hl-red">não</span> são sinônimos de veracidade[cite: 1, 2].</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Dizer que "Fortaleza é uma cidade agradável" é uma <strong>opinião</strong> (julgamento de valor). Já afirmar que "A prova ocorreu no domingo" é um <strong>fato</strong> (pode ser comprovado)[cite: 1, 2].
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE: Fortalecimento e Enfraquecimento!</strong><br>
+          Um argumento pode ser enfraquecido se apresentarmos uma <span class="hl-blue">causa alternativa plausível</span>[cite: 1, 2]. Por outro lado, ele ganha força à medida que reunimos evidências relevantes e confiáveis[cite: 1, 2].
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">DEDUÇÃO VS INDUÇÃO E O USO DE EXEMPLOS</h3>
+
+      <p>Esses são os dois principais caminhos lógicos exigidos em prova. Você <span class="hl-red">nunca</span> deve confundir a força e a obrigatoriedade da conclusão de cada um[cite: 1, 2]:</p>
+
+      <table class="memorex-table">
+        <tr>
+          <th>TIPO DE RACIOCÍNIO</th>
+          <th>CARACTERÍSTICAS DA CONCLUSÃO</th>
+        </tr>
+        <tr>
+          <td><strong>DEDUÇÃO</strong></td>
+          <td>A conclusão decorre de forma <span class="hl-yellow">obrigatória e necessária</span> das premissas. Se as premissas são verdadeiras, a conclusão <span class="hl-red">certamente</span> será[cite: 1, 2].</td>
+        </tr>
+        <tr>
+          <td><strong>INDUÇÃO</strong></td>
+          <td>A conclusão é apenas <span class="hl-yellow">provável</span>[cite: 2]. Um argumento baseado em exemplos é considerado indutivamente forte quando utiliza <span class="hl-blue">casos representativos</span> e não isolados[cite: 1, 2].</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> Cuidado com a Inversão da Premissa no Silogismo!<br>
+          O fato de todos os aprovados estudarem o edital <span class="hl-red">não</span> significa que todo mundo que estudou foi aprovado. <em>"Todo A é B"</em> é diferente de <em>"Todo B é A"</em>[cite: 1].
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">PRINCIPAIS FALÁCIAS LÓGICAS - PARTE I</h3>
+
+      <p>Falácias são erros de raciocínio que parecem argumentos válidos. As bancas adoram cobrar as seguintes armadilhas[cite: 1, 2, 3]:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: Falácias Estruturais e Causais</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">TIPOS DE<br>FALÁCIAS I</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>FALSA CAUSA:</strong> Confundir coincidência / sequência temporal com causa. Ex.: <em>"Depois da praça, aumentou o turismo. Logo, foi por causa da praça."</em></div>
+          <div class="schema-node box-yellow"><strong>FALSO DILEMA:</strong> Apresentar <span class="hl-red">exclusivamente</span> 2 opções (ou concorda comigo ou é inimigo), ignorando outras vias.</div>
+          <div class="schema-node box-yellow"><strong>FALSA ANALOGIA:</strong> Tentar justificar algo comparando duas coisas que não guardam semelhança relevante.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> Falácia da <strong>Falsa Causa</strong> é o famoso erro: "Depois disso, logo por causa disso". Correlação temporal <span class="hl-red">não</span> significa causalidade[cite: 2, 3].
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">PRINCIPAIS FALÁCIAS LÓGICAS - PARTE II (APELOS E ATAQUES)</h3>
+
+      <p>Muitas vezes, a argumentação falha ao tentar mexer com os sentimentos, as multidões ou atacar diretamente a pessoa[cite: 1, 2, 3].</p>
+
+      <ul class="check-list">
+        <li><strong>Ad Hominem (Ataque à pessoa):</strong> Ataca o autor e <span class="hl-red">não</span> a proposta. Se João é incompetente, isso <span class="hl-red">não</span> prova automaticamente que sua proposta está errada[cite: 1, 2, 3].</li>
+        <li><strong>Apelo à Maioria:</strong> Acreditar que algo é verdadeiro só porque "todo mundo acredita" ou "todo mundo faz". Popularidade <span class="hl-red">não</span> torna a afirmação verdade[cite: 1, 2, 3].</li>
+        <li><strong>Apelo à Piedade:</strong> Utiliza o lado emocional (ex: enfrentou dificuldades financeiras) no lugar de fatos para convencer[cite: 1, 2].</li>
+        <li><strong>Apelo à Autoridade Inadequada:</strong> Acontece quando a autoridade evocada (ex: um ator famoso) <span class="hl-red">não</span> possui competência específica sobre o tema[cite: 1, 2].</li>
+        <li><strong>Generalização Apressada:</strong> Concluir uma regra geral gigantesca a partir de <span class="hl-yellow">poucos exemplos (amostra pequena)</span>[cite: 2, 3].</li>
+      </ul>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">VIÉS DE CONFIRMAÇÃO E PRESSUPOSTOS</h3>
+
+      <p>Dois conceitos complementares que estão cada vez mais presentes em provas de lógica analítica[cite: 1, 2]:</p>
+
+      <ul class="arrow-list">
+        <li><strong>Viés de Confirmação:</strong> Ocorre quando o indivíduo procura <span class="hl-red">apenas</span> as informações e dados que confirmem suas crenças prévias, ignorando o que é contraditório[cite: 1, 2].</li>
+        <li><strong>Pressuposto:</strong> Trata-se de uma informação que está implícita no texto. Se eu digo que "Carlos <em>voltou</em> a estudar", o pressuposto evidente é que ele já estudava anteriormente[cite: 1, 2].</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE AS DICAS DA IMPARH:</strong><br>
+          Sempre que aparecerem palavras restritivas e radicais como <strong>"todos", "sempre", "nunca", "único", "certamente"</strong>, desconfie! Elas quase sempre indicam generalizações apressadas ou falsos dilemas que extrapolam o que foi dito[cite: 2, 3].
+        </div>
+      </div>
+    </div>
+    
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">TÉCNICA DE RESOLUÇÃO DE EQUAÇÕES COM IMAGENS</h3>
+
+      <p>Em desafios lógicos com imagens (frequentes na IMPARH), precisamos traduzir os ícones para equações matemáticas simples e tomar cuidado com o agrupamento (pares x unidades) e a ordem de precedência das operações matemáticas[cite: 3].</p>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong><br>
+        3 pares de tênis = 30 ➔ 1 par = 10 ➔ <strong>1 tênis avulso = 5</strong><br>
+        2 jogadores + 1 par de tênis (10) = 20 ➔ 2 jogadores = 10 ➔ <strong>1 jogador = 5</strong><br>
+        2 pares de cadarço + 1 jogador (5) = 13 ➔ 2 pares = 8 ➔ 1 par = 4 ➔ <strong>1 cadarço avulso = 2</strong><br><br>
+        <strong>Pergunta final:</strong> 1 Tênis + Jogador <span class="hl-red">×</span> 1 Cadarço<br>
+        ➔ 5 + 5 <span class="hl-red">×</span> 2 ➔ Resolve-se a multiplicação <span class="hl-yellow">primeiro</span>!<br>
+        ➔ 5 + 10 = <span class="hl-blue">15</span>[cite: 3].
+      </div>
+
+      <!-- QUESTÃO DE PROVA -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(CIESP - Auxiliar Administrativo)</strong> Em questões de raciocínio lógico, utilizam-se sentenças, que são expressões de um pensamento completo, compostas por um sujeito e por um predicado. Por exemplo, "Joaquim trabalhou ontem no mercado" é uma sentença. Entre os vários tipos de sentenças, existe a "Imperativa", quando há uma mensagem de ordem. Considerando essa informação, assinale a alternativa que apresenta uma sentença do tipo imperativa.</p>
+        <p>A) O dia está lindo!<br>
+        B) O computador não liga.<br>
+        C) Irá chover no próximo domingo?<br>
+        D) Resolva sua prova com atenção.</p>
+        
+        <div class="gabarito-box">
+          <strong>Gabarito: Letra D.</strong><br>
+          <strong>Comentário:</strong> A alternativa D transmite claramente uma mensagem de ordem/orientação ("Resolva"). Lembre-se: Interrogativa é pergunta, Exclamativa exprime emoção, Declarativa dá uma informação, e a Imperativa exprime ordem, conselho ou pedido explícito[cite: 3].
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

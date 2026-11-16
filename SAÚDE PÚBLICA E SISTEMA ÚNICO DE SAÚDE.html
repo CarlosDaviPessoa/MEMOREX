@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">SAÚDE PÚBLICA E SISTEMA ÚNICO DE SAÚDE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">SAÚDE PÚBLICA - CONCEITOS E DETERMINANTES</div>
+      <p>A saúde pública compreende o conjunto de ações desenvolvidas pelo Estado e pela sociedade para promover, proteger e recuperar a saúde, além de prevenir doenças, agravos e riscos[cite: 1].</p>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> A sequência lógica de ações de saúde frequente em provas é: <span class="hl-yellow">PROMOÇÃO ➔ PROTEÇÃO ➔ RECUPERAÇÃO</span>[cite: 1].</div>
+      </div>
+
+      <p>O conceito moderno de saúde ultrapassa a ideia de simples ausência de doença[cite: 1]. Segundo a <span class="hl-blue">Lei nº 8.080/1990</span>, a saúde possui fatores determinantes e condicionantes, destacando-se:</p>
+      <ul class="check-list">
+        <li>Alimentação, moradia e saneamento básico[cite: 1];</li>
+        <li>Meio ambiente, trabalho e renda[cite: 1];</li>
+        <li>Educação, atividade física, transporte e lazer[cite: 1];</li>
+        <li>Acesso aos bens e serviços essenciais[cite: 1].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (PEGADINHA)</strong><br>
+        Errado: A saúde depende <span class="hl-red">exclusivamente</span> de atendimento médico e hospitalar[cite: 1].<br>
+        Certo: A saúde resulta de diversos fatores sociais, econômicos, ambientais e individuais[cite: 1].</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">EVOLUÇÃO HISTÓRICA DA SAÚDE PÚBLICA NO BRASIL</div>
+      <p>Para fins de concurso público, podemos dividir didaticamente a evolução da saúde no Brasil em etapas fundamentais[cite: 1]:</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: MARCOS HISTÓRICOS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">FASES DA SAÚDE</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Colonial/Imperial: Assistência limitada (filantrópica e religiosa)[cite: 1].</div>
+          <div class="schema-node box-yellow">Séc. XX: Campanhas sanitárias (febre amarela, varíola, peste)[cite: 1].</div>
+          <div class="schema-node box-yellow">Modelo Previdenciário: Assistência vinculada ao trabalho[cite: 1].</div>
+          <div class="schema-node box-yellow">Reforma Sanitária: Defesa da saúde como direito universal[cite: 1].</div>
+          <div class="schema-node box-yellow">CF/1988: Criação constitucional do SUS[cite: 1].</div>
+          <div class="schema-node box-yellow">Leis 8.080 e 8.142/1990: Regulamentação do sistema[cite: 1].</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">REFORMA SANITÁRIA E MOVIMENTO SANITÁRIO</div>
+      <p>A Reforma Sanitária ganhou força nas décadas de 1970 e 1980[cite: 1]. Defendia a saúde como direito de cidadania, a universalização do acesso, a descentralização e a participação popular[cite: 1].</p>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> A Reforma Sanitária <span class="hl-red">não</span> criou formalmente o SUS. Ela forneceu as bases políticas e conceituais para sua criação[cite: 1].</div>
+      </div>
+
+      <p>O <strong>Movimento Sanitário</strong> reuniu profissionais, pesquisadores e movimentos sociais na defesa da concepção ampliada de saúde e sua democratização[cite: 1, 2]. A <span class="hl-blue">8ª Conferência Nacional de Saúde</span> (<span class="hl-blue">1986</span>) é um dos principais marcos desse movimento[cite: 2].</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong><br>
+        A banca pode afirmar que o Movimento Sanitário defendia a privatização ou a manutenção da assistência <span class="hl-red">apenas</span> aos trabalhadores previdenciários. <strong>ERRADO.</strong> Sua orientação central era ampliar e democratizar o direito à saúde[cite: 2].</div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: LINHA DO TEMPO DA CRIAÇÃO</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><span class="hl-yellow">8ª CNS (1986)</span></div>
+        <div class="schema-node box-blue">➔</div>
+        <div class="schema-node box-blue"><span class="hl-yellow">CF (1988)</span></div>
+        <div class="schema-node box-blue">➔</div>
+        <div class="schema-node box-blue"><span class="hl-yellow">Leis Orgânicas (1990)</span></div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">CONSTITUIÇÃO FEDERAL DE 1988 - ARTS. 196 A 200</div>
+      <p>A Constituição estabeleceu marcos definitivos para a Saúde Pública[cite: 2]:</p>
+      <ul class="arrow-list">
+        <li><strong>Art. 196 (Direito à Saúde):</strong> Saúde é direito de todos e dever do Estado[cite: 2].</li>
+        <li><strong>Art. 197 (Relevância Pública):</strong> As ações e serviços de saúde são de relevância pública. O Poder Público regulamenta, fiscaliza e controla[cite: 2].</li>
+        <li><strong>Art. 198 (Organização):</strong> As ações e serviços públicos integram uma rede <span class="hl-yellow">REGIONALIZADA E HIERARQUIZADA</span> e constituem um sistema único[cite: 2].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA CLÁSSICA:</strong> A Constituição fala no art. 196 em acesso <span class="hl-yellow">UNIVERSAL E IGUALITÁRIO</span> às ações e serviços[cite: 2]. <span class="hl-red">Não</span> confunda com equidade, que é um princípio adotado nas políticas do SUS[cite: 2].</div>
+      </div>
+
+      <p>As diretrizes constitucionais do SUS são (Art. 198)[cite: 2]:</p>
+      <ol>
+        <li><strong>Descentralização:</strong> com direção única em cada esfera de governo[cite: 2].</li>
+        <li><strong>Atendimento integral:</strong> prioridade para atividades preventivas[cite: 2].</li>
+        <li><strong>Participação da comunidade</strong>[cite: 2].</li>
+      </ol>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Prioridade para prevenção <span class="hl-red">não</span> significa exclusividade. A assistência curativa continua integrando o sistema[cite: 2].</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">CONCEITO E CARACTERÍSTICAS DO SUS</div>
+      <p>O SUS corresponde ao conjunto de ações e serviços públicos prestados por órgãos das esferas federal, estadual e municipal (Administração direta e indireta) e fundações[cite: 2].</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> A iniciativa privada pode participar do SUS em caráter <span class="hl-blue">complementar</span>[cite: 2].</div>
+      </div>
+
+      <p>Suas características principais envolvem ser universal, público, descentralizado, regionalizado, hierarquizado, participativo, organizado em rede e orientado pela integralidade[cite: 2].</p>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <div class="dica-title">PRINCÍPIOS DOUTRINÁRIOS DO SUS</div>
+      <p>Tradicionalmente, os princípios doutrinários dividem-se em um trio fundamental exigido nas provas[cite: 2]:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: TRIO DOUTRINÁRIO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">DOUTRINÁRIOS</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>UNIVERSALIDADE:</strong> Direito de acesso a todos. (Palavra-chave: TODOS)[cite: 2]</div>
+          <div class="schema-node box-yellow"><strong>INTEGRALIDADE:</strong> Cuidado articulado (preventivo e assistencial). (Chave: ARTICULADO/COMPLETO)[cite: 2]</div>
+          <div class="schema-node box-yellow"><strong>EQUIDADE:</strong> Destinar atenção conforme diferentes necessidades. (Chave: NECESSIDADE)[cite: 2]</div>
+        </div>
+      </div>
+
+      <div class="exemplo"><strong>Ex.:</strong> Universalidade = todos entram no sistema. Integralidade = recebem o cuidado necessário de forma articulada. Equidade = necessidades diferentes podem exigir respostas diferentes[cite: 2].</div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA:</strong> Equidade <span class="hl-red">não</span> é tratar todo mundo exatamente da mesma maneira. Isso poderia perpetuar as desigualdades já existentes[cite: 2].</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <div class="dica-title">PRINCÍPIOS E DIRETRIZES ORGANIZATIVAS</div>
+      <p>Estes princípios dizem respeito à estrutura e organização do Sistema[cite: 2, 3]:</p>
+      <ul class="arrow-list">
+        <li><strong>Descentralização:</strong> Distribuição de responsabilidades, com direção única em cada esfera[cite: 2, 3].</li>
+        <li><strong>Regionalização:</strong> Organização dos serviços considerando regiões e territórios de saúde, buscando integração[cite: 3].</li>
+        <li><strong>Hierarquização:</strong> Organização segundo níveis de complexidade (atenção básica, secundária e terciária) e fluxos[cite: 3].</li>
+        <li><strong>Participação da comunidade:</strong> Elemento fundamental, exercido via Conselhos e Conferências[cite: 3].</li>
+        <li><strong>Resolutividade:</strong> Capacidade dos serviços de responder adequadamente aos problemas de saúde[cite: 3].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Direção única <span class="hl-red">não</span> significa direção <span class="hl-red">exclusivamente</span> federal[cite: 3]. A direção é exercida pelo Ministério da Saúde (União), Secretarias Estaduais (Estados) e Secretarias Municipais (Municípios)[cite: 3].</div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <div class="dica-title">RESPONSABILIDADES DA UNIÃO, ESTADOS E MUNICÍPIOS</div>
+      <p>O SUS adota o formato de gestão compartilhada entre os entes[cite: 3]:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>ESFERA</th>
+            <th>FUNÇÃO E RESPONSABILIDADE[cite: 3]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>União</strong></td>
+            <td>Exerce funções nacionais de formulação, coordenação, normatização e acompanhamento[cite: 3].</td>
+          </tr>
+          <tr>
+            <td><strong>Estados</strong></td>
+            <td>Possuem função de coordenação estadual e de apoio e articulação regional[cite: 3].</td>
+          </tr>
+          <tr>
+            <td><strong>Municípios</strong></td>
+            <td>Possuem papel fundamental na execução e gestão local das ações e serviços[cite: 3].</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> O SUS <span class="hl-red">não</span> é responsabilidade <span class="hl-red">exclusiva</span> do Município. Existe responsabilidade comum e articulada entre os três entes[cite: 3].</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <div class="dica-title">CONTROLE E PARTICIPAÇÃO SOCIAL</div>
+      <p>A <span class="hl-blue">Lei nº 8.142/1990</span> estabelece em cada esfera governamental duas instâncias colegiadas para a participação da sociedade[cite: 3]:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>CONSELHO DE SAÚDE[cite: 3]</th>
+            <th>CONFERÊNCIA DE SAÚDE[cite: 3]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Caráter <span class="hl-yellow">PERMANENTE E DELIBERATIVO</span>[cite: 3].</td>
+            <td>Reúne-se ordinariamente a cada <span class="hl-blue">4 anos</span>[cite: 3].</td>
+          </tr>
+          <tr>
+            <td>Atua na formulação de estratégias e <strong>controle da execução</strong> (inclusive financeiro)[cite: 3].</td>
+            <td>Objetiva <strong>avaliar a situação de saúde</strong> e propor diretrizes políticas[cite: 3].</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Ambas as instâncias possuem representação do governo, prestadores, profissionais de saúde e usuários[cite: 3].</div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA CAMPEÃ DE PROVA:</strong> O Conselho de Saúde é Permanente e Deliberativo[cite: 3]. Ele <span class="hl-red">não</span> é temporário e <span class="hl-red">não</span> atua apenas como órgão consultivo[cite: 3].</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <div class="dica-title">FINANCIAMENTO E REDES DE ATENÇÃO À SAÚDE (RAS)</div>
+      <p>O financiamento do SUS envolve recursos provenientes dos entes federativos (União, Estados e Municípios) e de outras fontes legais[cite: 3].</p>
+      <ul class="arrow-list">
+        <li>Cuidado com afirmativas radicais: é <strong>ERRADO</strong> dizer que <span class="hl-red">somente</span> a União financia, ou que <span class="hl-red">somente</span> Municípios financiam a atenção básica, ou que o SUS é financiado <span class="hl-red">exclusivamente</span> por contribuições previdenciárias[cite: 3].</li>
+        <li>As <strong>Redes de Atenção à Saúde (RAS)</strong> integram serviços de diferentes densidades para garantir cuidado contínuo. A <strong>Atenção Primária à Saúde (APS)</strong> possui papel central de coordenação do cuidado na rede[cite: 3].</li>
+      </ul>
+
+      <!-- Questão de Prova -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Banca Exemplo / Ano)</strong> De acordo com a Lei nº 8.142/90, a instância colegiada de caráter permanente e deliberativo, que atua na formulação de estratégias e no controle da execução da política de saúde na instância correspondente, inclusive nos aspectos econômicos e financeiros, é denominada:</p>
+        <p>
+          A) Conferência de Saúde.<br>
+          B) Conselho de Saúde.<br>
+          C) Secretaria de Saúde.<br>
+          D) Comissão Intergestores Bipartite.
+        </p>
+        <div class="gabarito-box">
+          <strong>Gabarito: B.</strong><br>
+          <strong>Comentário:</strong> Conforme visto na DICA 09, o Conselho de Saúde é a instância <span class="hl-yellow">PERMANENTE E DELIBERATIVO</span>[cite: 3], responsável pelo controle da execução da política. Já a Conferência se reúne a cada 4 anos para propor diretrizes[cite: 3].
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

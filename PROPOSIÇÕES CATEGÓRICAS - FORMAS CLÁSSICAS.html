@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">PROPOSIÇÕES CATEGÓRICAS - FORMAS CLÁSSICAS</h3>
+      
+      <p>As proposições categóricas estabelecem relações entre classes ou conjuntos. Na lógica, trabalhamos com <span class="hl-blue">quatro formas clássicas</span> principais:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: Formas Clássicas</div>
+      <div class="schema-container">
+        <div class="schema-root">PROPOSIÇÕES<br>CATEGÓRICAS</div>
+        <div class="schema-branches">
+          <div class="schema-node box-blue">A - Universal Afirmativa: Todo S é P</div>
+          <div class="schema-node box-blue">E - Universal Negativa: Nenhum S é P</div>
+          <div class="schema-node box-yellow">I - Particular Afirmativa: Algum S é P</div>
+          <div class="schema-node box-yellow">O - Particular Negativa: Algum S não é P</div>
+        </div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Universal afirmativa (A):</strong> <div class="exemplo"><strong>Ex.:</strong> Todo médico é profissional da saúde.</div></li>
+        <li><strong>Universal negativa (E):</strong> <div class="exemplo"><strong>Ex.:</strong> Nenhum número par é ímpar.</div></li>
+        <li><strong>Particular afirmativa (I):</strong> <div class="exemplo"><strong>Ex.:</strong> Algum servidor é professor.</div></li>
+        <li><strong>Particular negativa (O):</strong> <div class="exemplo"><strong>Ex.:</strong> Algum brasileiro não é cearense.</div></li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE A REGRA PRÁTICA (Negação de Quantificadores):</strong><br>
+          <ul class="check-list">
+            <li>"todo" transforma-se em <span class="hl-yellow">"algum não"</span></li>
+            <li>"algum" transforma-se em <span class="hl-yellow">"nenhum"</span></li>
+            <li>"nenhum" transforma-se em <span class="hl-yellow">"algum"</span></li>
+            <li>"algum não" transforma-se em <span class="hl-yellow">"todo"</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (IMPARH):</div>
+        <strong>(Questão 14) A negação da proposição: "Todos os servidores são pontuais." É:</strong><br>
+        A) Nenhum servidor é pontual.<br>
+        B) Todos os servidores não são pontuais.<br>
+        C) Algum servidor é pontual.<br>
+        D) Algum servidor não é pontual.
+        <div class="gabarito-box">
+          <strong>Gabarito: D</strong> | <strong>Comentário:</strong> A negação do quantificador universal ("Todos") é feita pelo particular ("Algum") + negação. Logo, "Algum servidor <span class="hl-red">não</span> é pontual". Negar "todos" <span class="hl-red">não</span> significa afirmar "nenhum". Basta existir uma exceção.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">RELAÇÕES DO QUADRADO DOS OPOSTOS</h3>
+      
+      <p>O quadrado dos opostos define como as proposições categóricas (A, E, I, O) se relacionam entre si:</p>
+
+      <ul class="arrow-list">
+        <li><strong>Contraditórias (<span class="hl-blue">A e O</span> | <span class="hl-blue">E e I</span>):</strong> <span class="hl-red">Não</span> podem ser verdadeiros juntos <span class="hl-red">nem</span> falsos juntos. Uma é exatamente a negação da outra.
+          <div class="exemplo"><strong>Ex.:</strong> A: Todo servidor é pontual. ➔ O: Algum servidor <span class="hl-red">não</span> é pontual.</div>
+        </li>
+        <li><strong>Contrárias (<span class="hl-blue">A e E</span>):</strong> <span class="hl-red">Não</span> podem ser ambas verdadeiras, porém, <strong>podem ser ambas falsas</strong>.
+          <div class="exemplo"><strong>Ex.:</strong> Todo aluno foi aprovado / Nenhum aluno foi aprovado (podem ser falsas se apenas alguns foram aprovados).</div>
+        </li>
+        <li><strong>Subcontrárias (<span class="hl-blue">I e O</span>):</strong> Podem ser ambas verdadeiras, mas <span class="hl-red">não</span> podem ser ambas falsas (na interpretação tradicional).</li>
+        <li><strong>Subalternação:</strong> A verdade de <strong>A</strong> implica a verdade de <strong>I</strong>; a verdade de <strong>E</strong> implica a verdade de <strong>O</strong>.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Na lógica moderna, proposições universais <span class="hl-red">não</span> garantem existência. Por isso, deve-se observar qual abordagem a banca adota na prova!</div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">QUADRO GERAL DOS CONECTIVOS LÓGICOS</h3>
+      
+      <p>O domínio das regras dos conectivos é <span class="hl-yellow">obrigatório</span> para a resolução das tabelas-verdade.</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Operação</th>
+            <th>Símbolo</th>
+            <th>Leitura</th>
+            <th>Quando é verdadeira?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Negação</strong></td>
+            <td>~p ou ¬p</td>
+            <td>não p</td>
+            <td>Quando p é falsa</td>
+          </tr>
+          <tr>
+            <td><strong>Conjunção</strong></td>
+            <td>p ∧ q</td>
+            <td>p <strong>e</strong> q</td>
+            <td>Quando <span class="hl-blue">ambas são verdadeiras</span></td>
+          </tr>
+          <tr>
+            <td><strong>Disjunção Inclusiva</strong></td>
+            <td>p ∨ q</td>
+            <td>p <strong>ou</strong> q</td>
+            <td>Quando <span class="hl-blue">pelo menos uma</span> é verdadeira</td>
+          </tr>
+          <tr>
+            <td><strong>Disjunção Exclusiva</strong></td>
+            <td>p ⊻ q</td>
+            <td><strong>ou</strong> p <strong>ou</strong> q</td>
+            <td>Quando <span class="hl-blue">apenas uma</span> é verdadeira (valores diferentes)</td>
+          </tr>
+          <tr>
+            <td><strong>Condicional</strong></td>
+            <td>p → q</td>
+            <td><strong>se</strong> p, <strong>então</strong> q</td>
+            <td>Sempre, <span class="hl-red">exceto</span> quando p é V e q é F (V → F = F)</td>
+          </tr>
+          <tr>
+            <td><strong>Bicondicional</strong></td>
+            <td>p ↔ q</td>
+            <td>p <strong>se e somente se</strong> q</td>
+            <td>Quando possuem <span class="hl-blue">valores iguais</span> (V e V, ou F e F)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Para calcular a quantidade de linhas de uma tabela-verdade, use a fórmula <span class="hl-blue">2ⁿ</span>, onde <strong>n</strong> é o número de proposições simples distintas. Ex: com 4 proposições diferentes, teremos <span class="hl-blue">2⁴ = 16</span> linhas.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (IMPARH):</div>
+        <strong>(Questão 05) A proposição: "Se Carlos estuda, então Carlos será aprovado." Será falsa quando:</strong><br>
+        A) Carlos estuda e é aprovado.<br>
+        B) Carlos estuda e não é aprovado.<br>
+        C) Carlos não estuda e é aprovado.<br>
+        D) Carlos não estuda e não é aprovado.
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong> | <strong>Comentário:</strong> A condicional (p → q) <span class="hl-red">somente</span> é falsa quando o antecedente é Verdadeiro (Carlos estuda) e o consequente é Falso (Carlos NÃO é aprovado). A famosa regra da "promessa não cumprida" (Vera Fischer é Falsa).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">PEGADINHAS DE PROVA - O QUE NÃO É PROPOSIÇÃO</h3>
+      
+      <p>As bancas adoram tentar te confundir misturando frases do dia a dia com proposições lógicas. Uma proposição precisa ser uma sentença declarativa que admita valor V ou F.</p>
+
+      <ul class="check-list">
+        <li><span class="hl-red">NUNCA</span> são proposições lógicas:
+          <ul class="arrow-list">
+            <li><strong>Perguntas:</strong> Qual é a capital do Ceará?</li>
+            <li><strong>Ordens (Frases imperativas):</strong> Feche a porta! Estude mais!</li>
+            <li><strong>Exclamações (Opiniões subjetivas):</strong> Que cidade maravilhosa!</li>
+            <li><strong>Sentenças abertas:</strong> <span class="hl-blue">x + 4 = 10</span> (Sem definir quem é 'x', não há valor lógico).</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> O conectivo "ou" em prova (sem o segundo "ou") geralmente é <span class="hl-blue">inclusivo</span>. Ex: "Pedro é médico ou professor" admite que ele possa ser as duas coisas.</div>
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (IMPARH):</div>
+        <strong>(Questão 01) Assinale a alternativa que apresenta uma proposição lógica.</strong><br>
+        A) Estude mais para a próxima prova.<br>
+        B) Qual é a capital do Ceará?<br>
+        C) Fortaleza é a capital do Ceará.<br>
+        D) Que cidade maravilhosa!
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong> | <strong>Comentário:</strong> É uma sentença declarativa e possui valor lógico verdadeiro. A) é ordem; B) é pergunta; D) é exclamação.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">EQUIVALÊNCIAS E NEGAÇÕES ESSENCIAIS (LEIS DE DE MORGAN)</h3>
+
+      <div class="esquema-title">ESQUEMATIZANDO: Equivalências da Condicional (→)</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>Regra do "Neymar" (NE ou MA):</strong><br> p → q ≡ ¬p ∨ q</div>
+        <div class="schema-node box-yellow"><strong>Contrapositiva (Volta negando):</strong><br> p → q ≡ ¬q → ¬p</div>
+      </div>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA DA BANCA:</strong> <span class="hl-red">Não</span> inverta a condicional achando que é equivalência! "Se é gato, então é mamífero" <span class="hl-red">NÃO</span> equivale a "Se é mamífero, então é gato".</div>
+      </div>
+
+      <p><strong>Negação usando Leis de De Morgan:</strong></p>
+      <ul class="arrow-list">
+        <li><strong>Negação do "E":</strong> Troca pelo "OU" e nega tudo. ➔ <span class="hl-blue">¬(p ∧ q) ≡ ¬p ∨ ¬q</span></li>
+        <li><strong>Negação do "OU":</strong> Troca pelo "E" e nega tudo. ➔ <span class="hl-blue">¬(p ∨ q) ≡ ¬p ∧ ¬q</span></li>
+      </ul>
+
+      <p><strong>Negação da Condicional (Regra do "Mané"):</strong></p>
+      <ul class="arrow-list">
+        <li><span class="hl-yellow">Mantém a primeira E Nega a segunda</span>. ➔ <span class="hl-blue">¬(p → q) ≡ p ∧ ¬q</span></li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (IMPARH):</div>
+        <strong>(Questão 10) A proposição: "Se um número é múltiplo de 4, então ele é par." É equivalente a:</strong><br>
+        A) Se um número é par, então é múltiplo de 4.<br>
+        B) Se um número não é múltiplo de 4, então não é par.<br>
+        C) Se um número não é par, então não é múltiplo de 4.<br>
+        D) Um número é múltiplo de 4 se, e somente se, for par.
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong> | <strong>Comentário:</strong> A banca pediu a <strong>Contrapositiva</strong> (Inverte trocando de lugar e nega as duas partes). Logo: ¬q → ¬p (Se não é par, então não é múltiplo de 4).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">RESUMO MACETEADO PARA A BANCA IMPARH</h3>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>FRASES PARA MEMORIZAR NA HORA DA PROVA:</strong>
+          <ul class="check-list">
+            <li><strong>Condicional (→):</strong> Só é falsa quando alguém promete e <span class="hl-red">não</span> cumpre (V → F).</li>
+            <li><strong>De Morgan (Negação de E / OU):</strong> Negue tudo e troque o conectivo!</li>
+            <li><strong>Quantificadores:</strong> Para negar "TODO", basta encontrar <span class="hl-yellow">UM QUE NÃO</span> (Algum não). Para negar "ALGUM", é necessário afirmar que <span class="hl-yellow">NENHUM</span>.</li>
+            <li><strong>Conjunção (E):</strong> Verdadeira <span class="hl-red">apenas</span> com V e V.</li>
+            <li><strong>Disjunção Inclusiva (OU):</strong> Falsa <span class="hl-red">apenas</span> com F e F.</li>
+            <li><strong>Bicondicional (↔):</strong> Verdadeira com valores <span class="hl-blue">iguais</span>.</li>
+            <li><strong>Disjunção Exclusiva (OU...OU):</strong> Verdadeira com valores <span class="hl-blue">diferentes</span>.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

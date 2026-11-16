@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">O QUE É RACIOCÍNIO LÓGICO E SUA IMPORTÂNCIA</h3>
+      <p>O Raciocínio Lógico é a capacidade de <span class="hl-blue">analisar informações</span>, identificar relações entre fatos e chegar a conclusões corretas utilizando regras formais de pensamento. Em outras palavras, consiste em organizar informações (premissas), aplicar regras da lógica e obter uma conclusão válida.</p>
+      
+      <p>Diferentemente da intuição ou da opinião pessoal, o raciocínio lógico baseia-se em critérios objetivos. Nos concursos públicos, o objetivo <span class="hl-red">não</span> é medir conhecimentos específicos, mas verificar a capacidade de raciocinar corretamente.</p>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> Em Raciocínio Lógico, a banca quer saber se você conhece as regras da lógica, e <span class="hl-red">não</span> se concorda com a afirmação apresentada.</div>
+      </div>
+
+      <p>Atualmente, praticamente todas as bancas cobram essa disciplina, que avalia principalmente:</p>
+      <ul class="check-list">
+        <li>Capacidade de interpretar informações;</li>
+        <li>Identificação de padrões;</li>
+        <li>Resolução de problemas;</li>
+        <li>Organização do pensamento;</li>
+        <li>Elaboração de conclusões válidas.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">OS TRÊS PRINCIPAIS TIPOS DE RACIOCÍNIO</h3>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE RACIOCÍNIO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">RACIOCÍNIO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">DEDUTIVO (Geral ➔ Particular)</div>
+          <div class="schema-node box-yellow">INDUTIVO (Particular ➔ Geral)</div>
+          <div class="schema-node box-yellow">ABDUTIVO (Observação ➔ Hipótese Provável)</div>
+        </div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Raciocínio Dedutivo:</strong> Parte de uma regra geral para chegar a uma conclusão específica. A conclusão é <span class="hl-red">necessária/obrigatória</span>.
+          <div class="exemplo"><strong>Ex.:</strong> Todos os médicos possuem curso superior. João é médico. Logo, João possui curso superior.</div>
+        </li>
+        <li><strong>Raciocínio Indutivo:</strong> Parte da observação de casos particulares para formular uma regra geral. A conclusão é <span class="hl-yellow">provável</span> (não absoluta).
+          <div class="exemplo"><strong>Ex.:</strong> O Sol nasceu ontem e hoje. Logo, o Sol nascerá amanhã.</div>
+        </li>
+        <li><strong>Raciocínio Abdutivo:</strong> Inferência pela melhor explicação. Trata-se apenas da hipótese mais provável.
+          <div class="exemplo"><strong>Ex.:</strong> O chão está molhado. Provavelmente choveu.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">COMO O RACIOCÍNIO APARECE NAS PROVAS E ESTRUTURA DO RLM</h3>
+      <p>As bancas costumam explorar diversos assuntos, divididos entre lógica formal e Raciocínio Lógico Matemático (RLM):</p>
+      
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Proposições Lógicas</div>
+        <div class="schema-node box-blue">Tabelas-Verdade</div>
+        <div class="schema-node box-blue">Argumentação</div>
+        <div class="schema-node box-blue">Equivalências</div>
+        <div class="schema-node box-yellow">Sequências Numéricas</div>
+        <div class="schema-node box-yellow">Probabilidade</div>
+        <div class="schema-node box-yellow">Análise Combinatória</div>
+      </div>
+
+      <p><strong>Exemplos rápidos de cobrança:</strong></p>
+      <div class="exemplo"><strong>Ex. 1 (Lógica):</strong> A proposição <em>"Se estudo, então passo"</em> é FALSA. O que ocorreu? <br>➔ Na condicional, a única situação falsa é: <span class="hl-blue">Estudei e não passei.</span></div>
+      <div class="exemplo"><strong>Ex. 2 (Sequência):</strong> Qual o próximo número: 2, 4, 8, 16, 32, ...? <br>➔ <span class="hl-blue">64</span> (Cada termo é o dobro do anterior).</div>
+      <div class="exemplo"><strong>Ex. 3 (Sequência):</strong> 1, 4, 9, 16, 25, ...? <br>➔ <span class="hl-blue">36</span> (São os quadrados perfeitos).</div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">PEGADINHAS DE PROVA</h3>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO ÀS ARMADILHAS MAIS COMUNS:</strong>
+          <ul class="arrow-list">
+            <li><strong>Pegadinha 1:</strong> Confundir "OU" do português com o "OU" da lógica. Na lógica, o "OU" é <span class="hl-red">inclusivo</span> (pode ser apenas A, apenas B, ou ambos).</li>
+            <li><strong>Pegadinha 2:</strong> Resolver pela intuição. Ex.: "Se estudo, então passo" <span class="hl-red">não</span> garante que "Se passei, então estudei" (inversa inválida).</li>
+            <li><strong>Pegadinha 3:</strong> Confundir argumento válido com verdadeiro. A validade depende <span class="hl-yellow">exclusivamente</span> da estrutura, e não da veracidade do conteúdo.</li>
+            <li><strong>Pegadinha 4:</strong> Misturar linguagem comum com lógica. Termos como <em>geralmente, talvez, acredito</em> indicam que <span class="hl-red">não</span> é uma proposição lógica.</li>
+            <li><strong>Pegadinha 5:</strong> Ignorar palavras-chave (<span class="hl-blue">todo, algum, nenhum, somente, apenas</span>).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">COMO ESTUDAR RACIOCÍNIO LÓGICO</h3>
+      
+      <ul class="arrow-list">
+        <li><strong>1º Passo:</strong> Aprenda o conceito de proposição.</li>
+        <li><strong>2º Passo:</strong> Estude profundamente os conectivos (E, OU, Se... então, Se e somente se).</li>
+        <li><strong>3º Passo:</strong> Domine a Tabela-Verdade (resolve quase tudo).</li>
+        <li><strong>4º Passo:</strong> Aprenda equivalências lógicas (muito cobrado).</li>
+        <li><strong>5º Passo:</strong> Resolva muitas questões da banca.</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE:</strong> O candidato aprovado <span class="hl-red">não</span> responde pela intuição, mas pela aplicação rigorosa das regras da lógica! Leia toda a questão, destaque palavras-chave e em caso de dúvida, monte a Tabela-Verdade.</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">LÓGICA PROPOSICIONAL: CONCEITOS INICIAIS</h3>
+      <p>A <strong>lógica</strong> é a ciência que estuda princípios e métodos para distinguir raciocínios válidos de inválidos. A estrutura é o que importa, <span class="hl-red">não</span> necessariamente se corresponde à realidade.</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Premissa:</strong> Afirmação usada como ponto de partida.</li>
+        <li><strong>Conclusão:</strong> Afirmação obtida a partir das premissas.</li>
+        <li><strong>Argumento Válido:</strong> A conclusão decorre <span class="hl-yellow">necessariamente</span> das premissas. <span class="hl-red">Nunca</span> pode ter premissas verdadeiras e conclusão falsa simultaneamente.</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: PRINCÍPIOS CLÁSSICOS DA LÓGICA</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">IDENTIDADE <br>(A é A)</div>
+        <div class="schema-node box-blue">NÃO CONTRADIÇÃO <br>(Não pode ser V e F ao mesmo tempo)</div>
+        <div class="schema-node box-blue">TERCEIRO EXCLUÍDO <br>(Ou é V ou é F, sem 3ª opção)</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">SENTENÇAS ABERTAS, FECHADAS E EXPRESSÕES</h3>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>TIPO</th>
+          <th>CARACTERÍSTICA</th>
+          <th>EXEMPLO</th>
+        </tr>
+        <tr>
+          <td><strong>Sentença Fechada</strong></td>
+          <td>Possui valor lógico determinado (V ou F). É uma proposição.</td>
+          <td>Brasília é a capital do Brasil.</td>
+        </tr>
+        <tr>
+          <td><strong>Sentença Aberta</strong></td>
+          <td>Contém variável; valor lógico depende da variável.</td>
+          <td>x + 2 = 7 (ou "Ele é servidor")</td>
+        </tr>
+        <tr>
+          <td><strong>Expressão</strong></td>
+          <td>Não apresenta afirmação completa.</td>
+          <td>A capital do Ceará. / Muito inteligente.</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS.:</strong> Uma sentença aberta pode virar proposição se atribuirmos um valor à variável (ex: substituir x por 5) ou usarmos um quantificador (ex: Para todo x...).</div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">PROPOSIÇÕES SIMPLES E COMPOSTAS</h3>
+      <p><strong>Proposição</strong> é uma sentença declarativa à qual se pode atribuir exatamente um valor lógico: verdadeiro (V) ou falso (F).</p>
+      
+      <ul class="check-list">
+        <li><strong>Proposição Simples:</strong> Possui apenas uma ideia, sem conectivos lógicos. (Ex.: Ana estuda).</li>
+        <li><strong>Proposição Composta:</strong> Formada pela combinação de proposições simples usando conectivos lógicos. (Ex.: Ana estuda <strong>e</strong> Pedro trabalha).</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!! FRASES QUE NÃO SÃO PROPOSIÇÕES:</strong>
+          <ul class="arrow-list">
+            <li><strong>Interrogativas:</strong> Você estudou hoje?</li>
+            <li><strong>Imperativas:</strong> Estude para a prova!</li>
+            <li><strong>Exclamativas:</strong> Que prova difícil!</li>
+            <li><strong>Optativas:</strong> Que você tenha uma boa prova!</li>
+            <li><strong>Sentenças Abertas:</strong> x é maior que 10.</li>
+            <li><strong>Paradoxos:</strong> Esta frase é falsa.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">TABELAS-VERDADE: CONCEITOS E NÚMERO DE LINHAS</h3>
+      <p>A tabela-verdade determina o valor lógico de uma proposição composta, mapeando todas as combinações possíveis.</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Número de Linhas:</strong> A fórmula é <span class="hl-blue">2<sup>n</sup></span>, onde <strong>n</strong> é o número de proposições simples <span class="hl-red">diferentes</span>.
+          <div class="exemplo"><strong>Ex.:</strong> (p ∧ q) → (p ∨ q) possui apenas duas proposições (p e q). Logo, 2² = <span class="hl-blue">4 linhas</span>.</div>
+        </li>
+      </ul>
+
+      <table class="memorex-table">
+        <tr>
+          <th>OPERAÇÃO</th>
+          <th>CONECTIVO</th>
+          <th>SÍMBOLO</th>
+        </tr>
+        <tr><td>Negação</td><td>não</td><td>~ ou ¬</td></tr>
+        <tr><td>Conjunção</td><td>e</td><td>∧</td></tr>
+        <tr><td>Disjunção Inclusiva</td><td>ou</td><td>∨</td></tr>
+        <tr><td>Disjunção Exclusiva</td><td>ou... ou...</td><td>⊻</td></tr>
+        <tr><td>Condicional</td><td>se... então</td><td>→</td></tr>
+        <tr><td>Bicondicional</td><td>se e somente se</td><td>↔</td></tr>
+      </table>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">CLASSIFICAÇÃO E RESOLUÇÃO DA TABELA-VERDADE</h3>
+      
+      <p>A ordem de resolução deve respeitar a hierarquia: 1º Parênteses; 2º Negação; 3º Conjunção (E); 4º Disjunção (OU); 5º Condicional; 6º Bicondicional.</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: RESULTADOS DA TABELA-VERDADE</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">TAUTOLOGIA <br>(Sempre Verdadeiro em todas as linhas)</div>
+        <div class="schema-node box-blue">CONTRADIÇÃO <br>(Sempre Falso em todas as linhas)</div>
+        <div class="schema-node box-blue">CONTINGÊNCIA <br>(Mescla de V e F)</div>
+      </div>
+    </div>
+
+    <!-- DICA 11 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 11</div>
+      <h3 class="dica-title">OPERADORES LÓGICOS (CONECTIVOS)</h3>
+      
+      <ul class="arrow-list">
+        <li><strong>Negação (~ ou ¬):</strong> Inverte o valor lógico. (V vira F; F vira V).</li>
+        <li><strong>Conjunção (E / ∧):</strong> <span class="hl-yellow">Só é V se TUDO for V.</span> Basta um Falso para que todo o conjunto seja falso.</li>
+        <li><strong>Disjunção Inclusiva (OU / ∨):</strong> <span class="hl-yellow">Só é F se TUDO for F.</span></li>
+        <li><strong>Disjunção Exclusiva (OU... OU / ⊻):</strong> <span class="hl-yellow">Só é V quando os valores forem DIFERENTES.</span> Não podem ocorrer simultaneamente.</li>
+        <li><strong>Bicondicional (Se e somente se / ↔):</strong> <span class="hl-yellow">Só é V quando possuem o MESMO valor.</span> (V/V = V; F/F = V).</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>CONDICIONAL (Se... então / →):</strong> <br>
+        Só existe UMA situação Falsa: <span class="hl-red">Antecedente V e Consequente F</span>. <br>
+        Macete: <span class="hl-yellow">Prometeu e não cumpriu: falso</span> (V ➔ F = F).<br>
+        O primeiro termo é <em>condição suficiente</em> e o segundo é <em>condição necessária</em>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 12 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 12</div>
+      <h3 class="dica-title">DIAGRAMAS LÓGICOS</h3>
+      
+      <ul class="check-list">
+        <li><strong>Todo A é B:</strong> O conjunto A está totalmente dentro de B (A ⊆ B). <br><em><span class="hl-red">Cuidado:</span> De "Todo A é B" não se conclui que "Todo B é A".</em></li>
+        <li><strong>Nenhum A é B:</strong> Conjuntos totalmente separados (Interseção vazia).</li>
+        <li><strong>Algum A é B:</strong> Existe pelo menos um elemento na interseção.</li>
+        <li><strong>Algum A não é B:</strong> Existe pelo menos um elemento de A fora de B.</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS. DE ENCADEAMENTO:</strong> Se Todo A é B e Todo B é C ➔ Todo A é C.</div>
+      </div>
+    </div>
+
+    <!-- DICA 13 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 13</div>
+      <h3 class="dica-title">EQUIVALÊNCIAS LÓGICAS FUNDAMENTAIS</h3>
+      <p>Duas proposições são equivalentes (≡) se os resultados de suas tabelas-verdade são <span class="hl-blue">idênticos</span>.</p>
+
+      <ul class="arrow-list">
+        <li><strong>Dupla Negação:</strong> ¬(¬P) ≡ P (Negar duas vezes anula a negação).</li>
+        <li><strong>Comutativa:</strong> P ∧ Q ≡ Q ∧ P (A ordem não altera o E / OU).</li>
+        <li><strong>Propriedade Distributiva:</strong> <br>P ∧ (Q ∨ R) ≡ (P ∧ Q) ∨ (P ∧ R)</li>
+      </ul>
+
+      <table class="memorex-table">
+        <tr>
+          <th>TIPO DE EQUIVALÊNCIA</th>
+          <th>FÓRMULA</th>
+        </tr>
+        <tr>
+          <td>Contrapositiva (Condicional)</td>
+          <td><span class="hl-blue">P → Q ≡ ~Q → ~P</span></td>
+        </tr>
+        <tr>
+          <td>Condicional para Disjunção (Neymar)</td>
+          <td><span class="hl-blue">P → Q ≡ ~P ∨ Q</span></td>
+        </tr>
+        <tr>
+          <td>Bicondicional para Condicional/Conjunção</td>
+          <td><span class="hl-blue">P ↔ Q ≡ (P → Q) ∧ (Q → P)</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 14 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 14</div>
+      <h3 class="dica-title">LEIS DE DE MORGAN (NEGAÇÃO DO "E" E DO "OU")</h3>
+      <p>Mostram como a negação afeta os operadores compostos.</p>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>REGRA PRÁTICA PARA DE MORGAN:</strong>
+          <ol>
+            <li>Nega-se ambas as proposições;</li>
+            <li>Troca-se o "E" por "OU";</li>
+            <li>Troca-se o "OU" por "E".</li>
+          </ol>
+        </div>
+      </div>
+
+      <ul class="check-list">
+        <li><strong>Negação do E:</strong> ¬(p ∧ q) ≡ ¬p ∨ ¬q <br><em>Ex.: Não é verdade que Ana estuda e trabalha ➔ Ana não estuda OU Ana não trabalha.</em></li>
+        <li><strong>Negação do OU:</strong> ¬(p ∨ q) ≡ ¬p ∧ ¬q</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(FCC 2017 TCE-SP)</strong> Uma afirmação que corresponda à negação lógica da afirmação "Pedro distribuiu amor e Pedro colheu felicidade" é:</p>
+        <ul class="arrow-list">
+          <li>(A) Pedro não distribuiu amor ou Pedro não colheu felicidade.</li>
+          <li>(B) Pedro distribuiu ódio e Pedro colheu infelicidade.</li>
+          <li>(C) Pedro não distribuiu amor e Pedro não colheu felicidade.</li>
+          <li>(D) Se Pedro colheu felicidade, então Pedro distribuiu amor.</li>
+          <li>(E) Pedro não distribuiu ódio e Pedro não colheu infelicidade.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: A.</strong><br><strong>Comentário:</strong> Trocamos o conectivo "E" por "OU" e negamos ambas as proposições, aplicando De Morgan.</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">EQUIVALÊNCIA DA CONDICIONAL</h3>
+      <p>Para transformar a Condicional (→) em uma Disjunção (OU), utilizamos a regra do "Neymar" (<span class="hl-yellow">NEga a primeira OU MAnteM a segunda</span>):</p>
+      <div class="exemplo"><strong>P → Q ≡ ~P ∨ Q</strong> <br>Ex.: Se João estuda, então será aprovado ➔ João não estuda OU será aprovado.</div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC 2016 EBSERH)</strong> De acordo com a lógica proposicional, a frase que é equivalente a: "Se Marcos estudou, então foi aprovado" é:</p>
+        <ul class="arrow-list">
+          <li>(A) Marcos não estudou e foi aprovado.</li>
+          <li>(B) Marcos não estudou e não foi aprovado.</li>
+          <li>(C) Marcos estudou ou não foi aprovado.</li>
+          <li>(D) Marcos estudou se, e somente se, foi aprovado.</li>
+          <li>(E) Marcos não estudou ou foi aprovado.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: E.</strong><br><strong>Comentário:</strong> Desconsidera-se o "se", nega-se o antecedente (Marcos não estudou), troca-se o "então" pelo "OU" e mantém-se o consequente (foi aprovado). Resultando em: <em>Marcos não estudou ou foi aprovado</em>.</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

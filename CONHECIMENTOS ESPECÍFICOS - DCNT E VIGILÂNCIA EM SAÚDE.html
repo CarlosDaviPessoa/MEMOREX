@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">CONHECIMENTOS ESPECÍFICOS - DCNT E VIGILÂNCIA EM SAÚDE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">CONTROLE DO AEDES E PARTICIPAÇÃO COMUNITÁRIA</h3>
+      
+      <p>O controle de vetores exige vigilância contínua para evitar a proliferação. As principais ações de combate ao <span class="hl-blue">Aedes aegypti</span> incluem:</p>
+      <ul class="check-list">
+        <li>Manter reservatórios tampados;</li>
+        <li>Limpar calhas e evitar água acumulada;</li>
+        <li>Guardar recipientes adequadamente;</li>
+        <li>Realizar vigilância contínua.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!! PEGADINHA DE PROVA:</strong> O controle deve ocorrer <span class="hl-yellow">durante todo o ano</span>, e <span class="hl-red">não somente</span> no período de chuvas ou durante epidemias. O combate <span class="hl-red">não é responsabilidade exclusiva</span> do ACE.
+        </div>
+      </div>
+
+      <p>A participação da comunidade é essencial, pois grande parte dos criadouros encontra-se em ambientes domiciliares ou peridomiciliares.</p>
+
+      <h4 class="esquema-title">ESQUEMATIZANDO: PAPEL DO ACS NA PREVENÇÃO</h4>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Orientar famílias e identificar riscos</div>
+        <div class="schema-node box-blue">Incentivar eliminação de criadouros</div>
+        <div class="schema-node box-yellow">Mobilizar comunidade e comunicar equipe</div>
+        <div class="schema-node box-yellow">Reforçar sinais de alerta</div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE:</strong> ACS + ACE = <span class="hl-blue">integração</span>, <span class="hl-red">não</span> disputa de território.
+        </div>
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Questão 18)</strong> Durante visita domiciliar, o ACS encontra diversos recipientes contendo água acumulada. A conduta compatível com suas atribuições inclui:</p>
+        <ul class="arrow-list">
+          <li>A) ignorar a situação porque o controle é exclusivo do ACE.</li>
+          <li>B) orientar a família e articular ações de prevenção e vigilância.</li>
+          <li>C) prescrever inseticida domiciliar.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B.</strong> O ACS deve orientar a família, estimular a eliminação de criadouros e articular-se com a equipe e a vigilância, inclusive com o ACE quando necessário.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">DOENÇAS CRÔNICAS NÃO TRANSMISSÍVEIS (DCNT)</h3>
+      
+      <p>As <span class="hl-blue">DCNT</span> geralmente possuem longa duração e exigem acompanhamento continuado.</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> Para o ACS, o foco é principalmente: <span class="hl-yellow">Identificar ➔ Orientar ➔ Acompanhar ➔ Estimular adesão ➔ Comunicar situações de risco</span> à equipe.
+        </div>
+      </div>
+
+      <p><strong>Hipertensão Arterial:</strong> É uma doença crônica caracterizada por elevação persistente da pressão arterial e representa um importante fator de risco para complicações cardiovasculares, cerebrovasculares e renais.</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Fatores associados:</strong> Tabagismo, consumo excessivo de álcool, obesidade, excesso de sal e sedentarismo.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> A Hipertensão pode permanecer <span class="hl-red">sem sintomas</span> durante muito tempo. Portanto: Ausência de sintomas <span class="hl-red">não</span> significa ausência da doença!
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">DIABETES MELLITUS E OBESIDADE</h3>
+      
+      <p>O <strong>Diabetes Mellitus</strong> caracteriza-se por alteração do metabolismo da glicose. Na APS, o cuidado envolve monitoramento e atenção integral. O ACS deve orientar, acompanhar, estimular adesão e observar cuidados preventivos.</p>
+
+      <p>A <strong>Obesidade</strong> é uma condição multifatorial:</p>
+      
+      <h4 class="esquema-title">ESQUEMATIZANDO: FATORES DA OBESIDADE</h4>
+      <div class="schema-container">
+        <div class="schema-root box-blue">OBESIDADE<br><small>Condição Multifatorial</small></div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Biológicos</div>
+          <div class="schema-node box-yellow">Alimentares e Comportamentais</div>
+          <div class="schema-node box-yellow">Ambientais e Sociais</div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> Obesidade <span class="hl-red">não</span> deve ser tratada simplesmente como "falta de força de vontade". É uma condição complexa e requer abordagem <span class="hl-red">sem estigmatização</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">DOENÇAS CARDIOVASCULARES E CÂNCER</h3>
+      
+      <ul class="check-list">
+        <li><strong>Doenças Cardiovasculares:</strong> Incluem doença coronariana, infarto, AVC e insuficiência cardíaca.</li>
+        <li><strong>Câncer:</strong> Grupo de doenças caracterizadas pelo crescimento desordenado de células.</li>
+      </ul>
+
+      <p>No combate ao câncer, o ACS contribui com a educação em saúde, estímulo à prevenção, identificação de sinais de alerta e <strong>orientação sobre rastreamentos indicados</strong>.</p>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> Rastreamento <span class="hl-red">não</span> é diagnóstico definitivo.
+        </div>
+      </div>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> Rastreamento busca identificar pessoas que necessitam de investigação profunda (não conclui o diagnóstico sozinho).
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">FATORES DE RISCO E LIMITES DE ATUAÇÃO DO ACS</h3>
+      
+      <p>Os fatores de risco para as DCNT podem ser modificáveis ou não modificáveis.</p>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> Fator Modificável ➔ Pode sofrer intervenção (tabagismo, inatividade física, alimentação inadequada).<br>
+        Fator Não Modificável ➔ Idade e características genéticas.
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>ATUAÇÃO DO ACS EM DCNT (MUITO COBRADO):</strong><br>
+          <span class="hl-red">NUNCA:</span> Diagnostica hipertensão ou diabetes, prescreve medicamentos ou altera doses.<br>
+          <span class="hl-blue">SEMPRE:</span> Identifica situações, realiza visitas, verifica dificuldades de acesso, orienta e acompanha conforme suas atribuições.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Questão 16)</strong> No acompanhamento de uma pessoa com diabetes, o ACS pode:</p>
+        <ul class="arrow-list">
+          <li>A) alterar a dose dos medicamentos.</li>
+          <li>B) prescrever insulina.</li>
+          <li>C) substituir o médico.</li>
+          <li>D) orientar, acompanhar e estimular adesão ao cuidado.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: D.</strong> O ACS pode orientar, acompanhar e estimular a adesão ao tratamento, mas <span class="hl-red">não</span> deve prescrever, suspender ou modificar medicamentos.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">QUADRO DE PEGADINHAS (V ou F)</h3>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Afirmação de Prova</th>
+            <th>V ou F?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ACS pode alterar medicamento de hipertenso</td>
+            <td><span class="hl-red">Falso (X)</span></td>
+          </tr>
+          <tr>
+            <td>A lista de notificação pode ser atualizada</td>
+            <td><span class="hl-green">Verdadeiro (✔)</span></td>
+          </tr>
+          <tr>
+            <td>Leptospirose relaciona-se a água contaminada por urina de roedores</td>
+            <td><span class="hl-green">Verdadeiro (✔)</span></td>
+          </tr>
+          <tr>
+            <td>HIV é transmitido pelo abraço</td>
+            <td><span class="hl-red">Falso (X)</span></td>
+          </tr>
+          <tr>
+            <td>Hanseníase pode alterar sensibilidade da pele</td>
+            <td><span class="hl-green">Verdadeiro (✔)</span></td>
+          </tr>
+          <tr>
+            <td>Chikungunya costuma destacar dor articular</td>
+            <td><span class="hl-green">Verdadeiro (✔)</span></td>
+          </tr>
+          <tr>
+            <td>No Brasil atual, febre amarela ocorre em ciclo silvestre</td>
+            <td><span class="hl-green">Verdadeiro (✔)</span></td>
+          </tr>
+          <tr>
+            <td>Macaco transmite diretamente febre amarela ao homem</td>
+            <td><span class="hl-red">Falso (X)</span></td>
+          </tr>
+          <tr>
+            <td>Hipertensão sempre apresenta sintomas</td>
+            <td><span class="hl-red">Falso (X)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">REVISÃO DE VÉSPERA: INDICADORES E CONCEITOS</h3>
+      
+      <h4 class="esquema-title">ESQUEMATIZANDO: INDICADORES EPIDEMIOLÓGICOS</h4>
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><span class="hl-yellow">INCIDÊNCIA</span><br>Casos NOVOS</div>
+        <div class="schema-node box-blue"><span class="hl-yellow">PREVALÊNCIA</span><br>Casos EXISTENTES</div>
+        <div class="schema-node box-blue"><span class="hl-yellow">MORTALIDADE</span><br>Óbitos na POPULAÇÃO</div>
+        <div class="schema-node box-blue"><span class="hl-yellow">LETALIDADE</span><br>Óbitos entre os DOENTES</div>
+      </div>
+
+      <p><strong>Níveis de Ocorrência:</strong></p>
+      <ul class="arrow-list">
+        <li><strong>Surto:</strong> aumento localizado / restrito (ex: creche, festa).</li>
+        <li><strong>Endemia:</strong> presença habitual em uma região.</li>
+        <li><strong>Epidemia:</strong> ocorrência acima do esperado.</li>
+        <li><strong>Pandemia:</strong> propagação em vários países/continentes.</li>
+      </ul>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Condição / Agravo</th>
+            <th>Associação Clássica nas Provas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tuberculose</strong></td>
+            <td>Tosse persistente</td>
+          </tr>
+          <tr>
+            <td><strong>Hanseníase</strong></td>
+            <td>Mancha + alteração de sensibilidade</td>
+          </tr>
+          <tr>
+            <td><strong>Leptospirose</strong></td>
+            <td>Enchente + urina de rato</td>
+          </tr>
+          <tr>
+            <td><strong>Doença de Chagas</strong></td>
+            <td>Barbeiro</td>
+          </tr>
+          <tr>
+            <td><strong>Esquistossomose</strong></td>
+            <td>Caramujo + água</td>
+          </tr>
+          <tr>
+            <td><strong>Chikungunya</strong></td>
+            <td>Dor articular intensa</td>
+          </tr>
+          <tr>
+            <td><strong>Ciclo do Aedes</strong></td>
+            <td><span class="hl-yellow">O-L-P-A</span> (Ovo ➔ Larva ➔ Pupa ➔ Adulto)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">SAÚDE NOS CICLOS DE VIDA (PARTE VIII)</h3>
+      
+      <p>A atenção à saúde deve considerar que as necessidades mudam ao longo da vida (crianças, adolescentes, adultos, gestantes, idosos). O ACS deve conhecer as características de cada ciclo, realizar busca ativa e favorecer o acesso aos serviços.</p>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> Ciclo de vida <span class="hl-red">não</span> significa fragmentar o usuário.
+        </div>
+      </div>
+
+      <h4 class="esquema-title">ESQUEMATIZANDO: ATENÇÃO INTEGRAL</h4>
+      <div class="schema-container">
+        <div class="schema-root box-blue">O SUS trabalha com a<br>VISÃO INTEGRAL</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Biológicos</div>
+          <div class="schema-node box-yellow">Psicológicos</div>
+          <div class="schema-node box-yellow">Familiares e Sociais</div>
+          <div class="schema-node box-yellow">Ambientais</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

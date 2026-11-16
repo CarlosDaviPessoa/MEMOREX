@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - ORTOGRAFIA OFICIAL</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">CONCEITO E O NOVO ACORDO ORTOGRÁFICO</h2>
+      <p>Ortografia (deriva das palavras gregas <em>ortho</em> = "correto" + <em>graphos</em> = "escrita") é a parte da Gramática que trata do <span class="hl-yellow">emprego da grafia correta</span> das letras e dos sinais gráficos.</p>
+      <p>O Novo Acordo Ortográfico da Língua Portuguesa de <span class="hl-blue">1990</span> (abreviado AO90), também denominado de Ortografia Unificada da Língua Portuguesa, foi um tratado internacional firmado com o objetivo de criar uma <span class="hl-yellow">ortografia unificada para o português</span>.</p>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">O ALFABETO NA ORTOGRAFIA OFICIAL E O TREMA</h2>
+      
+      <p>Com o Novo Acordo Ortográfico, o alfabeto sofreu alterações importantes, passando a incorporar novas letras:</p>
+      <ul class="arrow-list">
+        <li><strong>Antes (23 letras):</strong> A, B, C, D, E, F, G, H, I, J, L, M, N, O, P, Q, R, S, T, U, V, X e Z.</li>
+        <li><strong>Depois (26 letras):</strong> A, B, C, D, E, F, G, H, I, J, <span class="hl-blue">K</span>, L, M, N, O, P, Q, R, S, T, U, V, <span class="hl-blue">W</span>, X, <span class="hl-blue">Y</span> e Z.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!! USO DO TREMA:</strong> O uso do trema foi abolido com a reforma ortográfica. Portanto, <span class="hl-red">não se usa mais</span> o trema, <span class="hl-red">exceto</span> em nomes próprios estrangeiros ou derivados.
+        </div>
+      </div>
+      <div class="exemplo">
+        <strong>Ex.:</strong> Antes: lingüiça, freqüente e Müller. <br>
+        Depois: linguiça, frequente e <strong>Müller</strong> (mantido por ser nome próprio estrangeiro).
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">REGRAS BÁSICAS: EMPREGO DAS LETRAS K, W, Y E H</h2>
+      
+      <p>Em palavras estrangeiras aportuguesadas, as letras K, W e Y sofreram substituições:</p>
+      <ul class="check-list">
+        <li><strong>K</strong> foi substituído por <strong>c</strong> ou <strong>qu</strong>.</li>
+        <li><strong>W</strong> foi substituído por <strong>u</strong> ou <strong>v</strong>.</li>
+        <li><strong>Y</strong> foi substituído por <strong>i</strong>.</li>
+      </ul>
+      <div class="exemplo"><strong>Ex.:</strong> Uísque, Iorque, sanduíche, vermute, Válter, Osvaldo, jóquei, guarani, viquingue.</div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE: EMPREGO DO H</strong><br>
+          ➔ <strong>Usa-se a letra H:</strong> Hábito, hérnia, hesitar, ah!, oh!, Bahia.<br>
+          ➔ <strong><span class="hl-red">Não</span> se usa a letra H:</strong> Ontem, úmido, ume, iate, ombro, erva, inverno, reaver (re + haver), desonesto (des + honesto), turboélice (turbo + hélice).
+        </div>
+      </div>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Muito cuidado com os derivados! A palavra <strong>Bahia</strong> leva "H", mas o adjetivo pátrio <strong>baiano</strong> não leva. Da mesma forma: erva (<span class="hl-red">sem H</span>) → herbívoro/herbicida (<span class="hl-blue">com H</span>); inverno (<span class="hl-red">sem H</span>) → hibernal (<span class="hl-blue">com H</span>).</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">EMPREGO DAS VOGAIS (I, E, O, U)</h2>
+      
+      <ul class="arrow-list">
+        <li><strong>Emprego do I:</strong> Na <span class="hl-blue">3ª pessoa</span> dos verbos terminados em <strong>AIR, UIR, OER</strong>. <div class="exemplo"><strong>Ex.:</strong> Ele atrai, possui, rói.</div>
+        Também em palavras como: antiaéreo, Anticristo, antitetânico, aborígine, açoriano, crânio, crioulo, digladiar, Filipe, incinerar, invólucro, lampião, privilégio, requisito, etc.</li>
+        
+        <li><strong>Emprego do E:</strong> Na <span class="hl-blue">3ª pessoa</span> dos verbos terminados em <strong>OAR, UAR</strong>. <div class="exemplo"><strong>Ex.:</strong> Quero que você continue, perdoe.</div>
+        Também em palavras como: antebraço, antediluviano, candeeiro, desperdiçar, empecilho, disenteria, irrequieto, creolina, cumeeira.</li>
+        
+        <li><strong>Emprego do O:</strong> Botequim, bússola, engolir, goela, mágoa, mocambo, moela, tribo.</li>
+        
+        <li><strong>Emprego do U:</strong> Buliçoso, bulir, burburinho, camundongo, chuviscar, curtume, cutucar, entupir, jabuti, jabuticaba, Manuel, mutuca, rebuliço, tabuada.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">EMPREGO DA LETRA Z</h2>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: USO DO Z</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Emprega-se a letra Z</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Substantivos abstratos femininos formados a partir de adjetivos (Ex: rápido → rapidez, limpo → limpeza, pobre → pobreza)</div>
+          <div class="schema-node box-yellow">Verbos terminados em -IZAR a partir de palavras <span class="hl-red">sem "S"</span> no radical (Ex: padrão → padronizar, terror → aterrorizar)</div>
+          <div class="schema-node box-yellow">Em numerosas palavras: azedo, baliza, buzina, bazar, prezado, vazar</div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (CUIDADO COM AS PEGADINHAS):</strong> Catequese → catequi<strong>z</strong>ar; Síntese → sinteti<strong>z</strong>ar; Hipnose → hipnoti<strong>z</strong>ar; Batismo → bati<strong>z</strong>ar. Nessas exceções, apesar das palavras de origem possuírem S, o sufixo passa a ser com Z.</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">EMPREGO DA LETRA S</h2>
+      
+      <p>A letra <strong>S</strong> tem uso obrigatório em diversos contextos, com regras essenciais para a prova:</p>
+      
+      <ul class="check-list">
+        <li>Na terminação <strong>-ês</strong> de palavras indicativas de origem/procedência. <div class="exemplo"><strong>Ex.:</strong> Burgo → burguês → burguesia; Holanda → holandês; Corte → cortês → cortesão.</div></li>
+        <li>Nos substantivos com sufixos gregos <strong>-ese, -isa, -ose</strong>. <div class="exemplo"><strong>Ex.:</strong> profetisa, poetisa, chinesa, catequese, diocese, pitonisa, sacerdotisa, virose, glicose, metamorfose.</div></li>
+        <li>Nos verbos terminados em <strong>-isar</strong>, formados a partir de palavras que <span class="hl-yellow">têm S no fim do radical</span>. <div class="exemplo"><strong>Ex.:</strong> friso → frisar; análise → analisar; pesquisa → pesquisar; paralisia → paralisar.</div></li>
+        <li>Em <span class="hl-red">todas</span> as formas dos verbos <strong>querer</strong> e <strong>pôr</strong>. <div class="exemplo"><strong>Ex.:</strong> quiseram, puseram, quiser.</div></li>
+        <li>Nos substantivos femininos designativos de títulos nobiliárquicos e funções diplomáticas/religiosas. <div class="exemplo"><strong>Ex.:</strong> baronesa, duquesa, marquesa, princesa, consulesa, prioresa.</div></li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.: NOMES PRÓPRIOS E OUTRAS PALAVRAS:</strong> Escrevem-se com S: Baltasar, Brás, Eliseu, Heloísa, Inês, Isabel, Isaura, Luís, Luísa, Queirós, Resende, Sousa, Teresa.<br>
+        Também: atrás, através, atraso, defender → defesa, despender → despesa, empreender → empresa, surpreender → surpresa, esplêndido, espontâneo, freguesia, fusível, querosene.</div>
+      </div>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>CUIDADO!!</strong><br>
+        ➔ liso → ali<strong>s</strong>ar | mas <strong>deslize</strong> → desli<strong>z</strong>ar.<br>
+        ➔ aviso → avi<strong>s</strong>ar.<br>
+        ➔ colisão (<span class="hl-blue">com S</span>) | mas <strong>coalizão</strong> (<span class="hl-red">com Z</span>).</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">EMPREGO DAS LETRAS G E J</h2>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>USO DO "G"</th>
+            <th>USO DO "J"</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Substantivos terminados em <span class="hl-yellow">-agem, -igem, -ugem</span>.<br>(Ex: garagem, massagem, viagem, origem, vertigem, ferrugem, lanugem).</td>
+            <td>Palavras formadas a partir de outras terminadas em <strong>-ja</strong>.<br>(Ex: franja → franjinha, loja → lojista).</td>
+          </tr>
+          <tr>
+            <td>Palavras terminadas em <span class="hl-yellow">-ágio, -égio, -ígio, -ógio, -úgio</span>.<br>(Ex: contágio, egrégio, prodígio, relógio, refúgio).</td>
+            <td>Formas verbais de verbos terminados em <strong>-jar</strong>.<br>(Ex: velejar → velejei; gorjear, viajar → espero que viajem).</td>
+          </tr>
+          <tr>
+            <td>Exceções: lajem, <strong>pajem</strong>, <strong>lambujem</strong>.<br>Outros: Gesso, ginete, herege, tigela.</td>
+            <td>Ex: jipe, Jeca, jiló, berinjela, pajé, canjerê, jenipapo, jequitibá, jirau, Moji, mojiano, alfanje, alforje, cafajeste, manjedoura, manjericão, ojeriza, rijeza, traje, ultraje.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE: DERIVADOS, VERBOS E SUBSTANTIVOS</strong><br>
+        ✔ <strong>Viagem</strong> (com G) = Substantivo (Faça uma boa viagem!).<br>
+        ✔ <strong>Viajem</strong> (com J) = Verbo (Espero que vocês viajem bem).<br>
+        ✔ Tânger → tangerina; Ângelo → anjo → angelical; Rabugem → rabugento → rabugice.<br>
+        ✔ Sarjar → sarjeta; Gorja → gorjeta, gorjeio; Maior → majoritário → majestade.<br>
+        ✔ Jeito → jeitoso, ajeitar, desajeitado; Dejetar, ejetar, injeção, interjeição, objeção, objeto, projetar, rejeitar, sujeito, trajeto, trajetória, trejeito.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h2 class="dica-title">EMPREGO DA LETRA X E REPRESENTAÇÃO DO FONEMA /S/</h2>
+      
+      <p>Emprega-se a letra <strong>X</strong> nas seguintes situações:</p>
+      <ul class="arrow-list">
+        <li><strong>Depois de ditongo:</strong> deixa, seixo, ameixa, queixa, feixe, peixe, gueixa.<br> <span class="hl-red">Exceção:</span> caucho, recauchutar.</li>
+        <li><strong>Depois da sílaba inicial EN-:</strong> enxaqueca, enxugar, enxada, enxerto, enxerido, enxurrada.<br> <span class="hl-red">Exceções:</span> palavras formadas a partir de outras que tenham CH (enchente - de cheio; encharcar - de charco) e a palavra <strong>enchova</strong> (ou anchova), nome de um peixe.</li>
+        <li><strong>Após ME-:</strong> mexilhão, mexer, mexerica, México, mexerico.<br> <span class="hl-red">Exceção:</span> mecha.</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE: REPRESENTAÇÃO DO FONEMA /S/</strong><br>
+          <strong>C, Ç:</strong> acetinado, açafrão, almaço, contorção, exceção, Iguaçu, maçarico, miçanga, muçurana, Suíça, sucinto, vicissitude.<br>
+          <strong>S:</strong> ânsia, farsa, hortênsia, pretensão, remorso.<br>
+          <strong>SS:</strong> acesso, acessório, acessível, carrossel, concessão, discussão, escassez, obsessão.<br>
+          <strong>SC, SÇ:</strong> acréscimo, adolescente, ascender (ascensão), consciência, disciplina, fascinar, florescer, imprescindível, néscio, oscilar, piscina, ressuscitar, suscetível, suscitar, víscera, desço.<br>
+          <strong>XC:</strong> exceção, excepcional, excesso.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h2 class="dica-title">DÍGRAFOS NA ORTOGRAFIA OFICIAL</h2>
+      
+      <p>O dígrafo é um fenômeno que ocorre quando <span class="hl-yellow">duas letras são usadas para representar um único fonema</span> (um único som).</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE DÍGRAFOS</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">
+          <strong>CONSONANTAL</strong><br>
+          Único fonema com som de consoante.<br>
+          <strong>CH, LH, NH, RR, SS, SC, SÇ, XC, XS, GU, QU.</strong><br>
+          (Ex: cacho, calha, ninho, correr, passar, descer, desço, exceção, exsudar, guia, queijo).
+        </div>
+        <div class="schema-node box-yellow">
+          <strong>VOCÁLICO</strong><br>
+          Vogais sucedidas de M ou N (som nasalizado).<br>
+          <strong>AM, EM, IM, OM, UM, AN, EN, IN, ON, UN.</strong><br>
+          (Ex: âmbar, anta, embrião, enfrentar, limpo, pintar, ombro, onça, umbu, untar).
+        </div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> As letras <strong>GU</strong> e <strong>QU</strong> são consideradas dígrafos <span class="hl-red">apenas</span> quando estiverem seguidas das vogais <strong>E</strong> ou <strong>I</strong> (Ex: queijo, quilo, gueixa, guia). Além disso, alguns dígrafos consonantais se separam (car-ro), enquanto outros não (chu-va).</div>
+      </div>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h2 class="dica-title">USO DO A vs HÁ</h2>
+      
+      <ul class="arrow-list">
+        <li><strong>A:</strong> Em relação a tempo, indica <span class="hl-blue">futuro</span> (normalmente acompanhado da expressão DAQUI). Também indica <span class="hl-blue">distância</span>.<br> <div class="exemplo"><strong>Ex.:</strong> Viajaremos daqui <strong>a</strong> seis meses. / Moro <strong>a</strong> dois quilômetros daqui.</div></li>
+        <li><strong>HÁ:</strong> Indica tempo <span class="hl-blue">passado</span> (pode ser substituído por FAZ) ou é usado no sentido de <span class="hl-blue">EXISTIR</span>.<br> <div class="exemplo"><strong>Ex.:</strong> <strong>Há</strong> seis meses Pedro faleceu. / <strong>Há</strong> seis alunos nesta sala.</div></li>
+      </ul>
+    </div>
+
+    <!-- DICA 11 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 11</div>
+      <h2 class="dica-title">O HÍFEN NO NOVO ACORDO ORTOGRÁFICO</h2>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>REGRA DO HÍFEN</th>
+            <th>COMO FICOU</th>
+            <th>EXEMPLO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Prefixo termina em vogal + 2º elemento começa com <strong>R</strong> ou <strong>S</strong></td>
+            <td><span class="hl-red">Junta e duplica</span> (RR ou SS)</td>
+            <td>autorretrato, antissocial</td>
+          </tr>
+          <tr>
+            <td>Prefixo termina em vogal <span class="hl-red">diferente</span> da que inicia o 2º elemento</td>
+            <td><span class="hl-red">Junta tudo</span> (sem hífen)</td>
+            <td>autoescola</td>
+          </tr>
+          <tr>
+            <td>Prefixo termina com a <span class="hl-yellow">mesma vogal</span> que inicia o 2º elemento</td>
+            <td><span class="hl-blue">Usa o hífen</span></td>
+            <td>anti-inflamatório</td>
+          </tr>
+          <tr>
+            <td>Palavras compostas que passaram a formar unidade pelo uso</td>
+            <td><span class="hl-red">Perdem o hífen</span></td>
+            <td>mandachuva</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO (PEGADINHAS DO HÍFEN):</strong><br>
+        ➔ Mantém-se o hífen quando prefixos HIPER, INTER e SUPER se ligam a elementos iniciados por <strong>R</strong> (hiper-requisitado, inter-regional, super-resistente).<br>
+        ➔ <span class="hl-red">Não</span> se usa o hífen com o prefixo <strong>CO</strong>, ainda que o segundo elemento comece pela vogal O (cooperar).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 12 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 12</div>
+      <h2 class="dica-title">USOS DOS PORQUÊS</h2>
+      
+      <p>Há quatro maneiras de se escrever o porquê. Decore suas substituições:</p>
+      
+      <ul class="check-list">
+        <li><strong>Porquê (junto e com acento):</strong> É um <span class="hl-blue">substantivo</span>. É precedido de artigo (o, os), pronome adjetivo (meu, este, aquele, quantos) ou numeral (um, dois, três). <div class="exemplo"><strong>Ex.:</strong> Ninguém entende <strong>o porquê</strong> de tanta confusão. / Este <strong>porquê</strong> é um substantivo. / Quantos <strong>porquês</strong> existem? Existem quatro <strong>porquês</strong>.</div></li>
+        
+        <li><strong>Por que (separado e sem acento):</strong> Junção da preposição <em>por</em> com o pronome interrogativo/relativo <em>que</em>. Substituível por <span class="hl-yellow">por qual razão, pelo qual, pela qual, pelos quais, pelas quais</span>.<br> <div class="exemplo"><strong>Ex.:</strong> <strong>Por que</strong> não me disse a verdade? (por qual razão) / As causas <strong>por que</strong> discuti com ele são particulares. (pelas quais) / Ester é a mulher <strong>por que</strong> vivo. (pela qual).</div></li>
+        
+        <li><strong>Porque (junto e sem acento):</strong> É conjunção (subordinativa causal ou coordenativa explicativa). Substituível por <span class="hl-yellow">já que</span> ou <span class="hl-yellow">pois</span>.<br> <div class="exemplo"><strong>Ex.:</strong> Não saí de casa, <strong>porque</strong> estava doente. (já que) / É uma conjunção, <strong>porque</strong> liga duas orações. (pois)</div></li>
+        
+        <li><strong>Por quê (separado e com acento):</strong> Utilizado em perguntas, sempre <span class="hl-blue">no final da frase</span> (quando a palavra <em>que</em> estiver em final de frase, recebe acento).<br> <div class="exemplo"><strong>Ex.:</strong> Ela não me ligou e nem disse <strong>por quê</strong>. / Você está rindo de <strong>quê</strong>? / Você veio aqui para <strong>quê</strong>?</div></li>
+      </ul>
+    </div>
+
+    <!-- DICA BÔNUS (QUADRO DE QUESTÃO) -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">COMO CAI NA PROVA</h2>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Banca/Concurso - Adaptada)</strong> Assinale a alternativa em que todas as palavras estejam grafadas corretamente, de acordo com as regras do Novo Acordo Ortográfico (uso do hífen, acentuação, trema e grafia de consoantes):</p>
+        <p>
+          A) Auto-escola, lingüiça, exessão, previlégio.<br>
+          B) Autoescola, linguiça, exceção, privilégio.<br>
+          C) Anti-social, consequência, exessão, viajem (substantivo).<br>
+          D) Antissocial, freqüência, exceção, viajem (substantivo).
+        </p>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong><br>
+          <strong>Comentário:</strong> A alternativa (B) está perfeitamente alinhada ao nosso material: "autoescola" (prefixo termina em vogal diferente da que inicia a palavra = sem hífen), "linguiça" (fim do uso do trema para palavras não estrangeiras), "exceção" (grafada corretamente com XC e Ç, pois indica representação do fonema /S/), e "privilégio" (grafado com I). Nas demais alternativas, há erros clássicos e pegadinhas de prova como <em>exessão</em>, <em>freqüência</em> (trema abolido), <em>auto-escola</em> e o uso da palavra viagem grafada com "J" atuando como substantivo (o correto como substantivo é com "G").
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

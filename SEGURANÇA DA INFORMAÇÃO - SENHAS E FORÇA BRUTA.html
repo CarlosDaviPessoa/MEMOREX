@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">NOÇÕES DE INFORMÁTICA</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">SEGURANÇA DA INFORMAÇÃO - SENHAS E FORÇA BRUTA</h2>
+      
+      <p>A senha (password) é o método mais utilizado para <strong>autenticar</strong> a identidade de um usuário legítimo. Como invasores podem utilizar técnicas hacking (como ataques de <strong>força bruta</strong> baseados em regras) ou explorar fragilidades do sistema, a elaboração de uma boa senha é essencial.</p>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE: Regras para uma Senha Forte</strong><br>
+        Uma boa senha deve ter, no mínimo, <span class="hl-blue">8 caracteres</span>. Você deve mesclar letras (maiúsculas e minúsculas), números e caracteres especiais. Isso pode retardar técnicas de força bruta de modo a levar meses ou anos para serem quebradas.</div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> 
+        <ul class="arrow-list">
+          <li><strong>Senhas Inseguras:</strong> meumor16, forever, 1a2m3o4r, 123eja.</li>
+          <li><strong>Senhas Seguras:</strong> ?F2eR7##u5a, #Pu63j?#fP!</li>
+        </ul>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! Perguntas Secretas</strong><br>
+        Um erro comum é usar respostas reais para perguntas de recuperação (ex: "time favorito" ou "cidade natal"). Atacantes obtêm essas informações em redes sociais via <em>Engenharia Social</em>. A recomendação é <span class="hl-red">nunca</span> usar uma resposta lógica condizente (ex: Qual sua cidade natal? Resp: "Gosto de Lasanha").</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">SEGURANÇA DA INFORMAÇÃO - CRIPTOGRAFIA</h2>
+
+      <p>A <strong>Criptografia</strong> altera os caracteres originais ocultando a mensagem. Ela serve para <span class="hl-yellow">autenticar usuários</span>, proteger o sigilo e garantir a integridade de dados e transferências. Ela baseia-se no uso de <strong>chaves</strong>.</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE CRIPTOGRAFIA</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Chaves Criptográficas</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Simétrica (Chave Única)</div>
+          <div class="schema-node box-yellow">Assimétrica (Chave Pública + Privada)</div>
+        </div>
+      </div>
+
+      <table class="memorex-table">
+        <tr>
+          <th>SIMÉTRICA (Chave Única)</th>
+          <th>ASSIMÉTRICA (Pública e Privada)</th>
+        </tr>
+        <tr>
+          <td>Usa a <span class="hl-red">mesma chave</span> para criptografar e descriptografar.</td>
+          <td>Usa <span class="hl-blue">duas chaves</span> distintas (um par matemático).</td>
+        </tr>
+        <tr>
+          <td>Mais rápida (menor processamento).</td>
+          <td>Mais lenta (maior processamento).</td>
+        </tr>
+        <tr>
+          <td>Desvantagem: necessidade de meio seguro para compartilhar a chave.</td>
+          <td>A <strong>Pública</strong> criptografa e todos acessam. A <strong>Privada</strong> descriptografa e é secreta.</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Na Criptografia Assimétrica, a mensagem cifrada com a <strong>Chave Pública</strong> <span class="hl-red">exclusivamente</span> poderá ser descriptografada pela <strong>Chave Privada</strong> correspondente (aquela que apenas o destinatário possui).</div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">CERTIFICADO DIGITAL E ASSINATURA DIGITAL</h2>
+
+      <p>O <strong>Certificado Digital</strong> é um arquivo eletrônico que funciona como um "CNPJ/RG" virtual. Ele comprova a identidade de uma pessoa ou site, garantindo que a página está livre de técnicas de falsificação (Phishing/Pharming).</p>
+
+      <ul class="check-list">
+        <li><strong>Emitido por:</strong> Autoridade Certificadora (AC).</li>
+        <li><strong>Garante:</strong> Autenticidade e Integridade da informação e do remetente.</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.: Assinatura Digital (Processo Inverso)</strong><br>
+        A Assinatura Digital usa a criptografia assimétrica invertida: O remetente cria um código com sua <strong>Chave Privada</strong> (assinando), e o destinatário verifica a validade descriptografando com a <strong>Chave Pública</strong> do remetente. <span class="hl-red">Não</span> garante sigilo por si só, apenas Autenticidade e Integridade!</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">FIREWALLS E ATAQUES (DOS / DDOS)</h2>
+
+      <p>O <strong>Firewall</strong> (Parede de Fogo) atua como defesa controlando o tráfego e acesso por meio de <strong>regras e filtragem</strong>. Ele permite somente a recepção/transmissão de dados autorizados.</p>
+
+      <ul class="arrow-list">
+        <li><strong>Filtragem de Pacotes:</strong> Ideal para redes menores, libera/bloqueia IPs e portas.</li>
+        <li><strong>Controle de Aplicação (Proxy):</strong> Instalado em servidores, filtra por aplicação (SMTP, FTP, HTTP).</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: NEGAÇÃO DE SERVIÇO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Negação de Serviço</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">DoS (Denial of Service) - Sobrecarga por 1 fonte</div>
+          <div class="schema-node box-yellow">DDoS (Distributed) - Sobrecarga por várias fontes (Zumbis/Bots)</div>
+        </div>
+      </div>
+
+      <p>Os ataques <strong>DoS/DDoS</strong> geram tráfego excessivo para esgotar os recursos de um servidor (como e-mail ou site Web), tornando-o <strong>indisponível</strong>. Eles <span class="hl-red">não</span> visam roubar dados, mas sim "derrubar" o serviço.</p>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">PERFIS DE ATACANTES E INVASORES</h2>
+
+      <ul class="check-list">
+        <li><strong>Hacker:</strong> Especialista com profundo conhecimento. Acha falhas de segurança sem objetivo focado em destruição.</li>
+        <li><strong>Cracker:</strong> Conhecimento de hacker, mas age de má fé (quebra senhas, destrói sistemas, quebra travas de software/pirataria).</li>
+        <li><strong>Lammer:</strong> O "novato". Usa ferramentas prontas de terceiros sem saber o que está fazendo.</li>
+        <li><strong>Bancker:</strong> Focado em fraudes bancárias e financeiras.</li>
+        <li><strong>Phisher:</strong> Focado em pescar ("fishing") informações pessoais e senhas via páginas falsas e engenharia social.</li>
+        <li><strong>Spammer:</strong> Envia e-mails em massa (propagandas não solicitadas).</li>
+        <li><strong>Defacer:</strong> Invade sites para alterar a página principal ("pichador" digital).</li>
+        <li><strong>Phreacker:</strong> Especialista em telefonia (ligações grátis, clonagem, escutas).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">MALWARE (CÓDIGOS MALICIOSOS) - PARTE 1</h2>
+
+      <p><strong>Malware</strong> (Malicious Software) é o termo genérico para todo software malicioso.</p>
+
+      <ul class="arrow-list">
+        <li><strong>Cavalo de Tróia (Trojan):</strong> Chega como um "presente" (jogo, cartão). Executa a função prometida, mas por trás, abre portas (<span class="hl-yellow">backdoors</span>) e desabilita a segurança.</li>
+        <li><strong>Backdoor:</strong> Porta dos fundos. Programa que garante o retorno do invasor futuramente, sem ser notado e sem refazer o processo de invasão inicial.</li>
+        <li><strong>Adware:</strong> Apresenta propagandas. Pode ser legítimo (patrocínio de software gratuito) ou malicioso.</li>
+        <li><strong>Spyware:</strong> Programa espião que coleta informações do usuário (senhas, hábitos) e envia a terceiros de forma invisível.</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE: Keyloggers e Screenloggers (Tipos de Spyware)</strong><br>
+        O <strong>Keylogger</strong> captura tudo o que é <span class="hl-blue">digitado</span> no teclado. Já o <strong>Screenlogger</strong> envia imagens (prints) da região <span class="hl-blue">clicada</span> com o mouse (burlar teclados virtuais de bancos).</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">MALWARE E GOLPES - PARTE 2</h2>
+
+      <table class="memorex-table">
+        <tr>
+          <th>VÍRUS</th>
+          <th>WORM (Verme)</th>
+        </tr>
+        <tr>
+          <td>Insere cópias de si em outros arquivos/programas hospedeiros.</td>
+          <td>É um programa <span class="hl-red">independente</span>, não embute cópias em hospedeiros.</td>
+        </tr>
+        <tr>
+          <td><span class="hl-yellow">Depende de execução</span> por parte do usuário.</td>
+          <td><span class="hl-yellow">Não depende de execução</span> (auto-propaga-se pela rede explorando vulnerabilidades).</td>
+        </tr>
+      </table>
+
+      <ul class="check-list">
+        <li><strong>Spam:</strong> E-mail não solicitado (UCE - Comercial), em massa, podendo conter links maliciosos.</li>
+        <li><strong>Boatos (Hoax):</strong> Mensagens alarmantes e falsas (correntes, avisos trágicos). Usa Engenharia Social.</li>
+        <li><strong>Phishing:</strong> "Pescaria" de dados. Mensagem de suposta instituição (banco) induzindo usuário a clicar em link falso e digitar dados.</li>
+        <li><strong>Pharming:</strong> Redirecionamento "invisível". Ele adultera/envenena o <strong>DNS</strong> do usuário. Mesmo digitando a URL correta, a vítima cai num site falso.</li>
+        <li><strong>Engenharia Social:</strong> A arte de manipular psicologicamente o usuário para entregar dados (o atacante se passa por técnico, banco, parente).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h2 class="dica-title">EXTENSÕES DE ARQUIVOS</h2>
+
+      <p>A extensão informa ao Sistema Operacional qual tipo de arquivo é e com qual programa deve abri-lo (ex: <code>arquivo.docx</code>).</p>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>.doc/.docx:</strong> MS Word</div>
+        <div class="schema-node box-blue"><strong>.xls/.xlsx:</strong> MS Excel</div>
+        <div class="schema-node box-blue"><strong>.ppt/.pps:</strong> MS PowerPoint</div>
+        <div class="schema-node box-blue"><strong>.txt:</strong> Bloco de Notas</div>
+        <div class="schema-node box-blue"><strong>.exe:</strong> Executável</div>
+        <div class="schema-node box-blue"><strong>.pdf:</strong> Adobe Acrobat</div>
+        <div class="schema-node box-blue"><strong>.zip/.rar:</strong> Compactados</div>
+        <div class="schema-node box-blue"><strong>.htm/.html:</strong> Página Web</div>
+        <div class="schema-node box-blue"><strong>.jpg/.png/.gif:</strong> Imagens</div>
+        <div class="schema-node box-blue"><strong>.mp3/.wav:</strong> Áudio/Som</div>
+        <div class="schema-node box-blue"><strong>.avi/.mp4:</strong> Vídeos</div>
+        <div class="schema-node box-blue"><strong>.odt/.ods:</strong> LibreOffice</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h2 class="dica-title">TECLAS DE ATALHO GERAIS DO WINDOWS</h2>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE: Atalhos Clássicos e Logo do Windows</strong>
+        <ul class="arrow-list">
+          <li><strong>Ctrl + A:</strong> Selecionar tudo.</li>
+          <li><strong>Alt + Tab:</strong> Alternar entre itens abertos.</li>
+          <li><strong>Alt + F4:</strong> Fechar item ativo / programa ativo.</li>
+          <li><strong>Shift + Delete:</strong> Excluir <span class="hl-red">permanentemente</span> (sem ir para lixeira).</li>
+          <li><strong>F2:</strong> Renomear item selecionado.</li>
+          <li><strong>F5:</strong> Atualizar janela (também em navegadores).</li>
+          <li><strong>Win + D:</strong> Exibir Desktop (Área de trabalho).</li>
+          <li><strong>Win + E:</strong> Abrir Meu Computador / Windows Explorer.</li>
+          <li><strong>Win + L:</strong> Travar (Lock) o teclado/computador.</li>
+          <li><strong>Win + R:</strong> Abrir caixa de diálogo Executar (Run).</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h2 class="dica-title">TECLAS DE ATALHO DO MS WORD</h2>
+
+      <p>O Word possui formatações rápidas através do teclado.</p>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>Ação</th>
+          <th>Atalho Word (PT-BR)</th>
+        </tr>
+        <tr>
+          <td><strong>Negrito</strong></td>
+          <td>Ctrl + N</td>
+        </tr>
+        <tr>
+          <td><strong>Itálico</strong></td>
+          <td>Ctrl + I</td>
+        </tr>
+        <tr>
+          <td><strong>Sublinhado</strong></td>
+          <td>Ctrl + S</td>
+        </tr>
+        <tr>
+          <td>Alinhamento (Justificado / Esquerda / Centralizado)</td>
+          <td>Ctrl + J / Ctrl + Q / Ctrl + E</td>
+        </tr>
+        <tr>
+          <td>Salvar Como</td>
+          <td>F12</td>
+        </tr>
+        <tr>
+          <td>Ortografia e Gramática</td>
+          <td>F7</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Cuidado com bancas cobrando diferenças entre navegadores, Windows e Office. No Word, <strong>Ctrl + N</strong> é <em>Negrito</em>, mas nos navegadores e Windows Explorer <strong>Ctrl + N</strong> abre uma <span class="hl-red">Nova Janela/Documento</span>!</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS (QUESTÕES DE PROVA) -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">REVISÃO ATRAVÉS DE QUESTÕES</h2>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC - PM PB - Soldado Combatente - 2023)</strong> Assinale a alternativa que apresenta a finalidade principal de um firewall.</p>
+        <ul class="arrow-list" style="color: #444; font-size: 13px;">
+          <li>A) Editar textos e criar planilhas</li>
+          <li>B) Proteger contra vírus de computador</li>
+          <li>C) Criar backups de arquivos</li>
+          <li>D) Fornecer acesso à internet</li>
+          <li>E) Controlar o tráfego de rede e proteger contra acessos não autorizados</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: E</strong>. Conforme estudado, o firewall <span class="hl-red">não</span> é um antivírus. Ele funciona como uma barreira que <strong>controla o tráfego</strong> (entradas e saídas) bloqueando acessos não autorizados por meio de regras preestabelecidas.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC - MGS - Técnico em Informática - 2021)</strong> O tipo de malware, que frequentemente, está disfarçado de software legítimo, empregado por criminosos virtuais [...] para obter acesso, e uma vez ativado, permite que os criminosos espionem, roubem dados e obtenham acesso pela "backdoor/porta de fundo!" é conhecido por:</p>
+        <ul class="arrow-list" style="color: #444; font-size: 13px;">
+          <li>A) Cavalo de Tróia</li>
+          <li>B) Worm</li>
+          <li>C) Rootid</li>
+          <li>D) Spyware</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: A</strong>. O Cavalo de Tróia (Trojan) é justamente aquele que se disfarça de <em>software legítimo/presente</em> para enganar a vítima. Ao ser ativado, ele cria backdoors para o invasor.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC - UFPB - Assistente de Administração - 2023)</strong> I. Um dos Sistemas Operacionais de smartphones mais conhecido é o Android. II. O Linux é um SO considerado software livre e de código aberto. III. O SO é um software básico que faz a eficaz gestão dos recursos.</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: E (Todas estão corretas)</strong>. Linux possui código aberto (open source), Android é o principal SO de smartphones e todo Sistema Operacional é um "software básico", atuando como ponte entre o hardware e as aplicações.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

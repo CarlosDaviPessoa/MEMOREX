@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO - FALÁCIAS E ARGUMENTAÇÃO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">FALÁCIAS: FALSA ANALOGIA, "VOCÊ TAMBÉM" E DESVIO DE ASSUNTO</h3>
+      
+      <p>No estudo das falácias (erros de raciocínio), destacam-se três categorias muito comuns nas provas:</p>
+      
+      <ul class="arrow-list">
+        <li><span class="hl-blue">Falsa Analogia:</span> Comparam-se situações que possuem semelhanças superficiais, mas diferenças relevantes.</li>
+      </ul>
+      <div class="exemplo"><strong>Ex.:</strong> Administrar um país é <span class="hl-red">exatamente igual</span> a administrar uma residência. (Existem semelhanças, mas as estruturas e dimensões são muito diferentes).</div>
+
+      <ul class="arrow-list">
+        <li><span class="hl-blue">Argumento do "Você Também" (Tu quoque):</span> A crítica é rejeitada <span class="hl-red">apenas</span> porque quem a formulou teria cometido erro semelhante.</li>
+      </ul>
+      <div class="exemplo"><strong>Ex.:</strong> Você <span class="hl-red">não</span> pode criticar meu atraso porque também chegou atrasado na semana passada.</div>
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> O comportamento do crítico <span class="hl-red">não demonstra</span> que o erro atual seja aceitável. A falha de um não anula a falha do outro.</div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><span class="hl-blue">Desvio do Assunto:</span> Introduz-se informação secundária para afastar a discussão do ponto principal. Também é chamado pelas bancas de <strong>cortina de fumaça</strong>, <strong>pista falsa</strong> ou <strong>red herring</strong>.</li>
+      </ul>
+      <div class="exemplo"><strong>Ex.:</strong> Pergunta: "Por que houve aumento das despesas?" / Resposta: "Nossa instituição possui uma história muito importante para a cidade." (A resposta <span class="hl-red">não enfrenta</span> a questão apresentada).</div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">FALÁCIAS: ARGUMENTOS APELATIVOS</h3>
+      
+      <p>O <strong>argumento apelativo</strong> procura convencer o interlocutor focando <span class="hl-red">exclusivamente</span> na emoção, pressão social ou retórica, deixando as evidências lógicas de lado.</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE APELO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">ARGUMENTO<br>APELATIVO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Medo / Piedade / Força</div>
+          <div class="schema-node box-yellow">Maioria / Autoridade Inadequada</div>
+          <div class="schema-node box-yellow">Tradição / Novidade / Natureza</div>
+        </div>
+      </div>
+
+      <p>Fique atento a estas três variações específicas nas provas:</p>
+      <ul class="check-list">
+        <li><strong>Apelo à tradição:</strong> Algo seria correto <span class="hl-red">apenas</span> porque <span class="hl-red">sempre</span> foi feito daquela maneira. A tradição, isoladamente, <span class="hl-red">não garante</span> eficiência.</li>
+        <li><strong>Apelo à novidade:</strong> Algo seria melhor <span class="hl-red">apenas</span> porque é novo (Ex.: "O novo sistema é necessariamente superior porque foi lançado recentemente"). Novidade <span class="hl-red">não garante</span> qualidade.</li>
+        <li><strong>Apelo à natureza:</strong> Algo seria bom ou seguro <span class="hl-red">apenas</span> por ser natural. (Ex.: "O produto é natural, portanto não pode causar danos"). Lembre-se que substâncias naturais também podem ser perigosas.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">LINGUAGEM EMOTIVA E PERSUASIVA</h3>
+      
+      <p>Muitas vezes, a argumentação utiliza palavras escolhidas estrategicamente para provocar reação emocional, disfarçando opiniões como fatos.</p>
+
+      <table class="memorex-table">
+        <tr>
+          <th>Formulação Neutra</th>
+          <th>Formulação Favorável</th>
+          <th>Formulação Desfavorável</th>
+        </tr>
+        <tr>
+          <td>O governo <strong>alterou</strong> o programa.</td>
+          <td>O governo <strong>modernizou</strong> o programa.</td>
+          <td>O governo <strong>destruiu</strong> o programa.</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> Adjetivos como <em>absurdo, brilhante, vergonhoso, desastroso, extraordinário, irresponsável</em> e <em>revolucionário</em> <span class="hl-red">não</span> são dados objetivos. Eles indicam tentativa de direcionar a opinião do leitor!</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">COMO FORTALECER E ENFRAQUECER UM ARGUMENTO</h3>
+      
+      <p>Questões de raciocínio crítico frequentemente exigem que você identifique qual alternativa fortalece ou enfraquece a conclusão do autor.</p>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue" style="width: 48%; text-align: left;">
+          <strong style="display:block; text-align:center; margin-bottom: 8px;">FORTALECE o argumento quando:</strong>
+          <ul class="check-list">
+            <li>Confirma a premissa ou traz dados adicionais.</li>
+            <li><span class="hl-yellow">Elimina explicações alternativas.</span></li>
+            <li>Demonstra relação causal.</li>
+            <li>Aumenta a representatividade da amostra.</li>
+            <li>Confirma a confiabilidade da fonte.</li>
+          </ul>
+        </div>
+        <div class="schema-node box-yellow" style="width: 48%; text-align: left;">
+          <strong style="display:block; text-align:center; margin-bottom: 8px;">ENFRAQUECE o argumento quando:</strong>
+          <ul class="arrow-list">
+            <li>Contradiz uma premissa.</li>
+            <li>Apresenta exceções relevantes.</li>
+            <li><span class="hl-yellow">Indica causa alternativa.</span></li>
+            <li>Revela falha na amostra ou demonstra viés.</li>
+            <li>Reduz a credibilidade da fonte.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exemplo"><strong>Ex.: Fortalecimento:</strong> Argumento: "O programa reduziu acidentes." / Informação que fortalece: "A redução ocorreu em diversas regiões, <span class="hl-red">sem</span> outras mudanças relevantes no período."</div>
+      <div class="exemplo"><strong>Ex.: Enfraquecimento:</strong> Argumento: "A campanha causou aumento das vendas." / Informação que enfraquece: "No mesmo período, os preços caíram pela metade." (Causa alternativa).</div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Estilo IMPARH)</strong> Uma informação enfraquece um argumento quando:</p>
+        <ul class="arrow-list" style="margin-bottom: 10px;">
+          <li>A) confirma todas as premissas.</li>
+          <li>B) apresenta causa alternativa plausível.</li>
+          <li>C) aumenta a amostra pesquisada.</li>
+          <li>D) elimina exceções.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong><br>
+          <strong>Comentário:</strong> Apresentar uma causa alternativa plausível quebra a relação de exclusividade proposta pela conclusão original, enfraquecendo-a.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">ASSUNÇÃO NECESSÁRIA E TESTE DA NEGAÇÃO</h3>
+      
+      <p><span class="hl-yellow">Assunção é uma ideia <strong>não declarada</strong> da qual o argumento depende.</span> Sem essa ideia, a conclusão perde sua força.</p>
+      
+      <div class="exemplo"><strong>Ex.:</strong> "A prefeitura deve ampliar a ciclovia, pois isso reduzirá o trânsito."<br>
+      <strong>Assunção oculta:</strong> Um número relevante de pessoas substituirá o automóvel pela bicicleta.</div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE: O TESTE DA NEGAÇÃO</strong><br>Para descobrir se uma afirmação é mesmo uma assunção necessária: <span class="hl-blue">1.</span> Negue a afirmação; <span class="hl-blue">2.</span> Observe se o argumento perde o sentido; <span class="hl-blue">3.</span> Se perder, a assunção era vital!</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">CONCLUSÃO NECESSÁRIA, POSSÍVEL E PROVÁVEL</h3>
+
+      <ul class="arrow-list">
+        <li><strong>Necessariamente verdadeira:</strong> <span class="hl-red">Deve ser</span> verdadeira em todas as situações compatíveis com as premissas. (Dedução).</li>
+        <li><strong>Possivelmente verdadeira:</strong> Pode ser verdadeira em pelo menos uma situação compatível.</li>
+        <li><strong>Provavelmente verdadeira:</strong> Possui apoio razoável nas evidências, mas pode ser falsa. (Indução).</li>
+        <li><strong>Não se pode concluir:</strong> As informações são insuficientes.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (PEGADINHA)</strong> Em questões de raciocínio crítico, <span class="hl-red">"pode ser verdade"</span> é diferente de <span class="hl-red">"deve ser verdade"</span>. Leia o comando da questão com cuidado!</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">MÉTODO DE RESOLUÇÃO EM PROVAS</h3>
+      
+      <p>Siga estes passos táticos para não cair em armadilhas ao resolver questões de raciocínio crítico:</p>
+      
+      <ul class="check-list">
+        <li><strong>Passo 1 - Leia o comando:</strong> Descubra se pede conclusão, premissa, falácia, fortalecimento etc.</li>
+        <li><strong>Passo 2 - Encontre a conclusão:</strong> O que o autor deseja que eu aceite?</li>
+        <li><strong>Passo 3 - Identifique as razões:</strong> Por que o autor acredita nisso?</li>
+        <li><strong>Passo 4 - Separe conteúdo e estrutura:</strong> Não avalie se você concorda. Verifique se o <em>raciocínio</em> funciona.</li>
+        <li><strong>Passo 5 - Procure a lacuna:</strong> Qual ligação <span class="hl-red">não</span> declarada conecta premissas e conclusão?</li>
+        <li><strong>Passo 6 - Teste alternativas:</strong> Pense em explicações diferentes (causas alternativas).</li>
+        <li><strong>Passo 7 - Elimine respostas extremas:</strong> Desconfie de alternativas que usem: <span class="hl-red">sempre, nunca, todos, somente, necessariamente, impossível</span>. Elas exigem um apoio textual gigantesco.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PÁGINA 2 DO MATERIAL -->
+  <div class="page">
+    
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">AS 10 PEGADINHAS DE PROVA QUE VOCÊ NÃO PODE CAIR</h3>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <ul class="arrow-list" style="margin:0;">
+            <li><strong>1. Discordar não é pensar criticamente:</strong> Avalie razões, não apenas discorde.</li>
+            <li><strong>2. Emoção não substitui prova:</strong> Situação comovente <span class="hl-red">não</span> demonstra automaticamente a conclusão.</li>
+            <li><strong>3. Depois disso não significa por causa disso:</strong> Sequência temporal <span class="hl-red">não</span> é causalidade.</li>
+            <li><strong>4. Popularidade não é prova:</strong> O que muitos acreditam <span class="hl-red">não</span> é obrigatoriamente verdade.</li>
+            <li><strong>5. Especialista fora da área:</strong> Autoridade em 'A' <span class="hl-red">não</span> garante competência em 'B'.</li>
+            <li><strong>6. Amostra pequena:</strong> Poucos casos <span class="hl-red">não</span> justificam uma regra geral.</li>
+            <li><strong>7. Ausência de prova:</strong> Não provar que algo é falso <span class="hl-red">não</span> significa provar que é verdadeiro!</li>
+            <li><strong>8. Duas opções artificiais:</strong> Sempre verifique se não existem alternativas intermediárias (Falso Dilema).</li>
+            <li><strong>9. Ataque pessoal:</strong> Defeitos do autor <span class="hl-red">não</span> demonstram que seu argumento é falso.</li>
+            <li><strong>10. Opinião apresentada como fato:</strong> Adjetivos e avaliações emocionais <span class="hl-red">não</span> são dados objetivos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">QUADRO-RESUMO DAS FALÁCIAS (DECOREBA OBRIGATÓRIA)</h3>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>FALÁCIA</th>
+          <th>CARACTERÍSTICA (O QUE FAZ?)</th>
+        </tr>
+        <tr><td><strong>Ad hominem</strong></td><td>Ataque à pessoa.</td></tr>
+        <tr><td><strong>Apelo à autoridade</strong></td><td>Autoridade tratada como prova inquestionável.</td></tr>
+        <tr><td><strong>Apelo à ignorância</strong></td><td>Ausência de prova usada como prova de verdade/falsidade.</td></tr>
+        <tr><td><strong>Generalização apressada</strong></td><td>Poucos casos geram regra geral.</td></tr>
+        <tr><td><strong>Falsa causa</strong></td><td>Confunde sequência ou correlação com causa.</td></tr>
+        <tr><td><strong>Falso dilema</strong></td><td>Apresenta <span class="hl-red">apenas</span> duas opções, ignorando intermediários.</td></tr>
+        <tr><td><strong>Espantalho</strong></td><td>Distorce a posição contrária para atacá-la mais facilmente.</td></tr>
+        <tr><td><strong>Petição de princípio</strong></td><td>A conclusão já está pressuposta nas próprias premissas.</td></tr>
+        <tr><td><strong>Declive escorregadio</strong></td><td>Prevê uma cadeia de eventos extrema sem provas lógicas.</td></tr>
+        <tr><td><strong>Composição / Divisão</strong></td><td>Partes transferidas ao todo / Todo transferido às partes.</td></tr>
+      </table>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">RESUMO FINAL: RACIOCÍNIO ANALÍTICO, CRÍTICO E BOA ARGUMENTAÇÃO</h3>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue" style="width: 48%; text-align: left;">
+          <strong style="display:block; text-align:center; margin-bottom: 8px;">O Raciocínio Analítico:</strong>
+          <ul class="arrow-list">
+            <li>Divide o problema em partes.</li>
+            <li>Organiza informações e relações.</li>
+            <li>Formula e testa hipóteses.</li>
+            <li>Elimina contradições.</li>
+          </ul>
+        </div>
+        <div class="schema-node box-yellow" style="width: 48%; text-align: left;">
+          <strong style="display:block; text-align:center; margin-bottom: 8px;">O Raciocínio Crítico:</strong>
+          <ul class="arrow-list">
+            <li>Avalia premissas e evidências.</li>
+            <li>Verifica a fonte e identifica vieses.</li>
+            <li>Distingue fato de opinião.</li>
+            <li>Reconhece falácias e manipulações.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <p>Uma <strong>Boa Argumentação</strong> deve apresentar: premissas claras, informações relevantes, evidências suficientes, fontes confiáveis e ausência de contradições.</p>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE AS PERGUNTAS ESSENCIAIS:</strong><br>Ao analisar qualquer argumento na prova, sempre pergunte: Qual é a conclusão? Quais são as premissas? Há informação implícita? As evidências são suficientes e relevantes? A fonte é confiável? Existem outras explicações? Há falácia ou linguagem emocional?</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS / QUESTÕES -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">BATERIA DE QUESTÕES ESTILO IMPARH</h3>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        
+        <p><strong>01.</strong> Leia o argumento.<br>
+        <em>"Todos os candidatos aprovados estudaram o edital. Marcelo estudou o edital. Logo, Marcelo foi aprovado."</em><br>
+        A conclusão apresentada é:</p>
+        <ul class="arrow-list" style="margin-bottom: 10px;">
+          <li>A) válida, pois Marcelo estudou o edital.</li>
+          <li>B) inválida, pois estudar o edital não garante aprovação.</li>
+          <li>C) válida, porque toda pessoa que estuda é aprovada.</li>
+          <li>D) inválida apenas se Marcelo faltar à prova.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong><br>
+          <strong>Comentário:</strong> O argumento é inválido. O fato de todos os aprovados estudarem o edital não significa que todo mundo que estudou foi aprovado. <em>Dica:</em> Não confunda "Todo A é B" com "Todo B é A" (Inversão da premissa).
+        </div>
+        
+        <br>
+
+        <p><strong>02.</strong> Considere: <em>"Todos os servidores efetivos ingressaram mediante concurso. Ana é servidora efetiva."</em><br>
+        Conclui-se corretamente que:</p>
+        <ul class="arrow-list" style="margin-bottom: 10px;">
+          <li>A) Ana fez concurso público.</li>
+          <li>B) Ana é estável.</li>
+          <li>C) Ana é servidora municipal.</li>
+          <li>D) Ana trabalha em Fortaleza.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: A</strong><br>
+          <strong>Comentário:</strong> Aplicação clássica de silogismo dedutivo. <em>Pegadinha:</em> <span class="hl-red">Não invente</span> informações extras como estabilidade ou local de trabalho.
+        </div>
+
+        <br>
+        
+        <p><strong>03.</strong> Um argumento dedutivo caracteriza-se porque:</p>
+        <ul class="arrow-list" style="margin-bottom: 10px;">
+          <li>A) apresenta apenas opiniões.</li>
+          <li>B) produz conclusão necessária caso as premissas sejam verdadeiras.</li>
+          <li>C) utiliza pesquisas estatísticas.</li>
+          <li>D) admite qualquer conclusão provável.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong><br>
+          <strong>Comentário:</strong> Na dedução, se as premissas são verdadeiras, a conclusão <span class="hl-red">também será</span>. Dedução = certeza. Indução = probabilidade.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">CONHECIMENTOS ESPECÍFICOS - APS E PNAB</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">CONCEITOS E FUNDAMENTOS DA APS E SUS</div>
+      
+      <p>A Atenção Primária à Saúde (APS) é o <span class="hl-blue">primeiro nível de atenção</span> e a <span class="hl-blue">principal porta de entrada</span> do SUS. Ela se fundamenta em oferecer um cuidado:</p>
+      <ul class="check-list">
+        <li>Descentralizado, próximo de onde as pessoas vivem;</li>
+        <li>Regionalizado e Hierarquizado;</li>
+        <li>Participação e Controle Social.</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: CONTROLE SOCIAL E FLUXOS</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><span class="hl-yellow">CONSELHO</span> = Permanente + Deliberativo</div>
+        <div class="schema-node box-yellow"><span class="hl-yellow">CONFERÊNCIA</span> = A cada 4 anos</div>
+      </div>
+
+      <p>Sobre a rede e as vigilâncias, memorize as diferenças cruciais:</p>
+      <ul class="arrow-list">
+        <li><strong>Atenção Primária:</strong> Porta de entrada preferencial / coordenação do cuidado.</li>
+        <li><strong>Atenção Secundária:</strong> Atenção especializada.</li>
+        <li><strong>Atenção Terciária:</strong> Maior complexidade tecnológica.</li>
+        <li><strong>Fluxo de Referência:</strong> <span class="hl-blue">VAI</span> (encaminhamento para outro nível).</li>
+        <li><strong>Fluxo de Contrarreferência:</strong> <span class="hl-blue">VOLTA</span> (retorno com informações à APS).</li>
+        <li><strong>Vigilância Epidemiológica:</strong> Foca em doenças/agravos e fatores relacionados.</li>
+        <li><strong>Vigilância Sanitária:</strong> Foca em riscos, bens, produtos, serviços e ambientes.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">CRONOLOGIA E MACETE DO SUS</div>
+      
+      <p>A criação e formalização do Sistema Único de Saúde possuem marcos fundamentais:</p>
+      <ul class="arrow-list">
+        <li><span class="hl-blue">1986:</span> 8ª Conferência Nacional de Saúde (CNS).</li>
+        <li><span class="hl-blue">1988:</span> Constituição Federal (Criação constitucional do SUS).</li>
+        <li><span class="hl-blue">1990:</span> Leis Orgânicas da Saúde (<span class="hl-blue">Leis 8.080 e 8.142</span>).</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>FÓRMULA PARA PROVA (O que é o SUS):</strong><br>
+          SUS = direito de <span class="hl-yellow">TODOS</span> + cuidado <span class="hl-yellow">INTEGRAL</span> + atenção às <span class="hl-yellow">NECESSIDADES</span> + gestão <span class="hl-yellow">DESCENTRALIZADA</span> + rede <span class="hl-yellow">REGIONALIZADA / HIERARQUIZADA</span> + <span class="hl-yellow">PARTICIPAÇÃO SOCIAL</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">CARACTERÍSTICAS GERAIS DA APS</div>
+      
+      <p>A APS desenvolve ações individuais e coletivas de promoção, proteção, prevenção, diagnóstico, tratamento, reabilitação, redução de danos e manutenção da saúde. Suas principais características incluem:</p>
+      
+      <ul class="check-list">
+        <li>Acesso facilitado e Acompanhamento contínuo;</li>
+        <li>Territorialização e População adscrita;</li>
+        <li>Vínculo, Responsabilização e Coordenação do cuidado;</li>
+        <li>Trabalho multiprofissional e Participação comunitária.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ARMADILHAS DE PROVA!</strong> Não caia nos erros comuns:<br>
+          - A APS <span class="hl-red">NÃO</span> é apenas prevenção.<br>
+          - A APS <span class="hl-red">NÃO</span> atende apenas doenças simples.<br>
+          - A APS <span class="hl-red">NÃO</span> é serviço destinado somente a pessoas pobres.<br>
+          - A APS <span class="hl-red">NÃO</span> deve funcionar isoladamente (ela se articula com a RAS).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">ATRIBUTOS ESSENCIAIS DA APS</div>
+      
+      <p>A doutrina e as bancas adotam a classificação clássica dos atributos. Para os <strong>ESSENCIAIS</strong>, lembre-se do macete abaixo:</p>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MACETE DA APROVAÇÃO: <span class="hl-yellow">P - L - I - C</span></strong><br>
+          ➔ <strong>P</strong>rimeiro contato<br>
+          ➔ <strong>L</strong>ongitudinalidade<br>
+          ➔ <strong>I</strong>ntegralidade<br>
+          ➔ <strong>C</strong>oordenação
+        </div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: CONCEITOS DOS ATRIBUTOS ESSENCIAIS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">ESSENCIAIS</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>Acesso de 1º contato:</strong> Procurar a APS ao surgir necessidade.</div>
+          <div class="schema-node box-yellow"><strong>Longitudinalidade:</strong> Vínculo continuado no tempo.</div>
+          <div class="schema-node box-yellow"><strong>Integralidade:</strong> Responder ao conjunto amplo de necessidades.</div>
+          <div class="schema-node box-yellow"><strong>Coordenação:</strong> Acompanhar o usuário pela rede.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">ATRIBUTOS DERIVADOS DA APS</div>
+      
+      <p>Além dos essenciais, temos os atributos complementares/derivados que qualificam a atuação da Atenção Primária:</p>
+      <ul class="arrow-list">
+        <li><strong>Orientação familiar:</strong> Considera a família e suas relações no processo saúde-doença.</li>
+        <li><strong>Orientação comunitária:</strong> Considera as características e necessidades da comunidade local.</li>
+        <li><strong>Competência cultural:</strong> Reconhecimento e respeito às características socioculturais da população.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA DE BANCA!</strong> Misturar os dois grupos.<br>
+          - Longitudinalidade é atributo <span class="hl-red">ESSENCIAL</span>, <span class="hl-red">não</span> derivado.<br>
+          - Orientação familiar é atributo <span class="hl-red">DERIVADO</span>, <span class="hl-red">não</span> essencial.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <div class="dica-title">TERRITORIALIZAÇÃO E POPULAÇÃO ADSCRITA</div>
+      
+      <p>A organização da APS baseia-se pesadamente no conhecimento do espaço e das pessoas.</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Territorialização:</strong> Não é apenas desenhar um mapa. É conhecer famílias, condições de vida, riscos, vulnerabilidades, recursos comunitários, etc. <br>
+        <em>(<span class="hl-yellow">Território = espaço + pessoas + relações + riscos + recursos</span>)</em>.</li>
+        <li><strong>População Adscrita:</strong> É a população vinculada a determinada equipe, possibilitando planejamento, vínculo e responsabilização sanitária.</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>NÃO CONFUNDA:</strong><br>
+          A adscrição <span class="hl-red">NÃO</span> serve para impedir o atendimento de quem está fora do território. A organização territorial <span class="hl-red">nunca</span> elimina os princípios de acesso universal do SUS.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <div class="dica-title">VÍNCULO, RESPONSABILIZAÇÃO E COORDENAÇÃO</div>
+      
+      <p>Estes três elementos moldam a relação da equipe com o usuário:</p>
+      <ul class="check-list">
+        <li><strong>Vínculo:</strong> Relação continuada de confiança (usuário ↔ equipe). Favorecido por escuta, respeito e acompanhamento.</li>
+        <li><strong>Responsabilização:</strong> Equipe assume compromisso com a saúde daquela população.</li>
+        <li><strong>Coordenação do Cuidado:</strong> Acompanhar o usuário mesmo na atenção especializada (integrar informações).</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> UBS ➔ Cardiologista ➔ Exame ➔ Hospital ➔ Retorno à UBS.
+      </div>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>MACETE:</strong> Coordenar <span class="hl-red">não</span> é fazer tudo. É <span class="hl-blue">acompanhar e articular</span> tudo.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <div class="dica-title">LONGITUDINALIDADE, INTEGRALIDADE, ACESSO E RESOLUTIVIDADE</div>
+      
+      <p>Termos constantemente cobrados em provas com pegadinhas semânticas:</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Longitudinalidade:</strong> Acompanhamento ao longo do tempo (gestação, criança, adulto, idoso). <span class="hl-red">Não</span> significa "atendimento demorado".</li>
+        <li><strong>Integralidade:</strong> Ver a pessoa como um todo (biológico, psicológico, social, ambiental).</li>
+        <li><strong>Acesso (1º Contato):</strong> A APS é a <span class="hl-blue">principal</span> porta de entrada, mas <span class="hl-red">NÃO</span> é a única porta possível em qualquer circunstância.</li>
+        <li><strong>Resolutividade:</strong> Identificar necessidades e oferecer respostas. <span class="hl-red">Não</span> significa resolver tudo dentro da UBS, mas encaminhar quando necessário e continuar acompanhando.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <div class="dica-title">PNAB E SEUS PRINCÍPIOS VS DIRETRIZES</div>
+      
+      <p>A Política Nacional de Atenção Básica (PNAB) é regida pela <span class="hl-blue">Portaria nº 2.436/2017</span>. A banca adora confundir o candidato trocando o que é Princípio e o que é Diretriz na AB.</p>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>PRINCÍPIOS (U - E - I)</th>
+            <th>DIRETRIZES DA ATENÇÃO BÁSICA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Universalidade</strong></td>
+            <td>Regionalização e Hierarquização</td>
+          </tr>
+          <tr>
+            <td><strong>Equidade</strong></td>
+            <td>Territorialização e População adscrita</td>
+          </tr>
+          <tr>
+            <td><strong>Integralidade</strong></td>
+            <td>Cuidado centrado na pessoa / Resolutividade</td>
+          </tr>
+          <tr>
+            <td>--</td>
+            <td>Longitudinalidade / Coordenação do cuidado</td>
+          </tr>
+          <tr>
+            <td>--</td>
+            <td>Ordenação da rede / Participação da comunidade</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>CUIDADO:</strong> Longitudinalidade é um atributo essencial da APS, mas dentro do texto da PNAB ela é classificada textualmente como uma <span class="hl-blue">DIRETRIZ</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <div class="dica-title">ORGANIZAÇÃO E EQUIPES DE ATENÇÃO BÁSICA</div>
+      
+      <p>O cuidado ocorre não só na UBS, mas também nos domicílios, escolas e espaços comunitários. Sobre as equipes:</p>
+      <ul class="arrow-list">
+        <li>Atualmente coexistem diferentes arranjos de equipes.</li>
+        <li>A <strong>Equipe de Saúde da Família (eSF)</strong> é a estratégia principal e considerada <span class="hl-yellow">EQUIPE PRIORITÁRIA</span>.</li>
+        <li>Existem também as <strong>Equipes de Atenção Primária (eAP)</strong>, com regras próprias de carga horária. <span class="hl-red">Nem toda equipe</span> tem a mesma composição da eSF.</li>
+      </ul>
+
+      <!-- QUESTÃO DE PROVA -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Banca/Prefeitura - ACS)</strong> A Atenção Primária à Saúde (APS) possui atributos essenciais e atributos derivados. Assinale a alternativa que apresenta EXCLUSIVAMENTE atributos essenciais da APS:</p>
+        <p>
+          A) Acesso de primeiro contato, competência cultural, integralidade e orientação comunitária.<br>
+          B) Acesso de primeiro contato, longitudinalidade, integralidade e coordenação do cuidado.<br>
+          C) Longitudinalidade, orientação familiar, integralidade e resolutividade.<br>
+          D) Descentralização, coordenação do cuidado, orientação familiar e hierarquização.
+        </p>
+        
+        <div class="gabarito-box">
+          <strong>Gabarito: <span class="hl-green">Letra B</span></strong>.<br>
+          <strong>Comentário:</strong> Lembre-se do macete <strong>P-L-I-C</strong>! Os atributos essenciais são Primeiro contato, Longitudinalidade, Integralidade e Coordenação do cuidado. Orientação familiar/comunitária e competência cultural são atributos <em>derivados</em>. Descentralização e Hierarquização são <em>diretrizes</em> do SUS.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

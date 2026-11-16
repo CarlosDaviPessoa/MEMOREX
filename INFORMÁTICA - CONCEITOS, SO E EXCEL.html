@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">INFORMÁTICA - CONCEITOS, SO E EXCEL</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">ARMAZENAMENTO: ARQUIVOS, PASTAS E ATALHOS</h3>
+      <p>Quando produzimos um trabalho em um computador, precisamos armazená-lo. Para isso utilizamos o <strong>arquivo eletrônico</strong> (ou arquivo), que é a estrutura lógica para guardar nossos dados. Para fins de organização, os arquivos são guardados em <strong>pastas ou diretórios</strong>.</p>
+      
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> O ato de guardar um arquivo no computador é denominado <strong>salvamento</strong>. Diferente do papel físico, um arquivo eletrônico pode ser alterado e impresso quantas vezes for necessário.</div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Pastas/Diretórios:</strong> Não contêm informação propriamente dita, mas sim <em>arquivos ou mais pastas</em>. Organizam tudo o que está dentro das unidades (HD, SSD, Pen Drive).</li>
+        <li><strong>Arquivos:</strong> É a unidade básica de armazenamento. Podem ser textos, músicas, vídeos ou imagens. Além disso, arquivos executáveis e bibliotecas (como as DLL) são vitais para o funcionamento do sistema.</li>
+        <li><strong>Atalhos:</strong> É uma maneira rápida de abrir um arquivo, pasta ou programa. <span class="hl-red">Não</span> tem conteúdo algum, apenas "chama" o arquivo original armazenado em outro lugar. Identificamos um atalho por uma <span class="hl-blue">seta</span> no canto inferior esquerdo do ícone.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> Se você apagar um atalho, <span class="hl-red">não</span> apaga o arquivo! O arquivo original fica <strong>intacto</strong>.</div>
+      </div>
+
+      <p><strong>Nomes e Extensões de Arquivos:</strong> Todo arquivo possui um nome (obrigatório, até <span class="hl-blue">256 caracteres</span> em regra) e uma extensão (separada por ponto). A extensão indica ao Sistema Operacional qual programa deve ser usado para abri-lo.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: EXTENSÕES COMUNS</div>
+      <table class="memorex-table">
+        <tr>
+          <th>TIPO DE ARQUIVO</th>
+          <th>EXTENSÕES MAIS COBRADAS</th>
+        </tr>
+        <tr>
+          <td><strong>Documentos de Texto</strong></td>
+          <td><span class="hl-blue">.txt</span> (Simples), <span class="hl-blue">.doc / .docx</span> (Word), <span class="hl-blue">.pdf</span> (Adobe), <span class="hl-blue">.odt</span> (Writer)</td>
+        </tr>
+        <tr>
+          <td><strong>Planilhas e Apresentações</strong></td>
+          <td><span class="hl-blue">.xls / .xlsx</span> (Excel), <span class="hl-blue">.ods</span> (Calc) | <span class="hl-blue">.ppt / .pptx</span> (PowerPoint), <span class="hl-blue">.odp</span> (Impress)</td>
+        </tr>
+        <tr>
+          <td><strong>Imagens</strong></td>
+          <td><span class="hl-blue">.jpg / .jpeg</span> (Foto), <span class="hl-blue">.png</span> (Transparente), <span class="hl-blue">.gif</span> (Animada), <span class="hl-blue">.bmp</span></td>
+        </tr>
+        <tr>
+          <td><strong>Áudio, Vídeo e Compactados</strong></td>
+          <td><span class="hl-blue">.mp3, .wav</span> (Áudio) | <span class="hl-blue">.mp4, .avi</span> (Vídeo) | <span class="hl-blue">.zip, .rar, .7z</span> (Compactados)</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">BIBLIOTECAS DO WINDOWS E UNIDADES</h3>
+      <p>As <strong>Bibliotecas</strong> servem para <span class="hl-yellow">centralizar em um mesmo local</span> arquivos de várias pastas diferentes (ex.: agrupar músicas que estão no C: e no D: numa mesma visualização).</p>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>CUIDADO NA PROVA!</strong> Diferente do atalho, se você apagar um arquivo por meio de uma biblioteca, o arquivo original <strong><span class="hl-red">será apagado do computador</span></strong>.</div>
+      </div>
+
+      <ul class="check-list">
+        <li><strong>Partição:</strong> São divisões lógicas criadas a partir de um único espaço físico (ex.: dividir um HD em C: e D:).</li>
+      </ul>
+      <div class="exemplo"><strong>Ex.:</strong> Em "Meu Computador" ou "Este Computador", podemos ver <em>C:</em> para o Disco Rígido Principal e <em>D:</em> para uma unidade de CD ou partição extra.</div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">SOFTWARE E SUAS CLASSIFICAÇÕES</h3>
+      <p>Um programa de computador (software) é a parte <span class="hl-blue">lógica/funcional</span> da máquina. Pode ser classificado em três tipos essenciais:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE SOFTWARE</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SOFTWARE</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>BÁSICO:</strong> Faz o PC funcionar (ex.: Sistema Operacional, BIOS, Linguagens).</div>
+          <div class="schema-node box-yellow"><strong>APLICATIVO:</strong> Função útil ao usuário (ex.: Word, Excel, Navegadores, Skype).</div>
+          <div class="schema-node box-yellow"><strong>UTILITÁRIO:</strong> Complementam o sistema (ex.: Antivírus, Desfragmentador).</div>
+        </div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE:</strong> O <strong>BIOS</strong> é gravado em memória ROM. Ele <span class="hl-red">nunca</span> pode ser desinstalado, apenas atualizado.</div>
+      </div>
+      <p>Softwares utilitários podem ter função <strong>Preventiva</strong> (Antivírus, Atualizações) ou <strong>Corretiva</strong> (Formatação, Scandisk).</p>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">LICENCIAMENTO E RELAÇÃO HARDWARE VS SOFTWARE</h3>
+      <ul class="arrow-list">
+        <li><strong>Freeware:</strong> Software 100% gratuito sem restrição de funções.</li>
+        <li><strong>Shareware:</strong> Gratuito, mas com <span class="hl-yellow">limitações</span> de tempo ou funções (para testar). Paga-se para desbloquear.</li>
+        <li><strong>Adware:</strong> Requer que o usuário visualize propagandas para ser usado sem pagar.</li>
+        <li><strong>Open Source (Código Aberto):</strong> Software livre, gratuito, e com <span class="hl-blue">código-fonte aberto</span> para edição.</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: HARDWARE VS SOFTWARE</div>
+      <table class="memorex-table">
+        <tr>
+          <th>CARACTERÍSTICA</th>
+          <th>HARDWARE (Físico)</th>
+          <th>SOFTWARE (Lógico)</th>
+        </tr>
+        <tr>
+          <td><strong>O que é?</strong></td>
+          <td>Elementos físicos que formam o equipamento.</td>
+          <td>Programas que fazem a máquina funcionar.</td>
+        </tr>
+        <tr>
+          <td><strong>Tempo de Vida</strong></td>
+          <td>Pode estragar/desgastar com o tempo.</td>
+          <td>Pode ficar desatualizado (obsoleto).</td>
+        </tr>
+        <tr>
+          <td><strong>Manutenção</strong></td>
+          <td>Substituição de peças (placas, memória).</td>
+          <td>Pode ser reinstalado, corrigido, atualizado.</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">GERENCIAMENTO DE ARQUIVOS (EXPLORADOR)</h3>
+      <p>O gerenciamento envolve organizar, copiar e excluir dados. A ferramenta nativa para isso é o <strong>Explorador de Arquivos</strong> (antigo Windows Explorer).</p>
+      
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> Para abrir rapidamente o Explorador, use o atalho <span class="hl-blue">Windows + E</span>.</div>
+      </div>
+
+      <p><strong>Navegação e Comandos Vitais:</strong></p>
+      <ul class="check-list">
+        <li><strong>Criar Nova Pasta:</strong> O atalho supremo de prova é <span class="hl-blue">Ctrl + Shift + N</span>.</li>
+        <li><strong>Renomear:</strong> Selecione e aperte <span class="hl-blue">F2</span>. Renomear <span class="hl-red">não</span> altera o conteúdo do arquivo.</li>
+        <li><strong>Copiar (Ctrl + C):</strong> Mantém o original na origem e cria uma duplicata no destino ao Colar (<span class="hl-blue">Ctrl + V</span>).</li>
+        <li><strong>Recortar / Mover (Ctrl + X):</strong> O arquivo <span class="hl-red">deixa de existir</span> na origem e é transferido para o destino após o Colar.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ARRASTAR E SOLTAR (PEGADINHA!):</strong><br>
+        ➔ Arrastar para a <strong>mesma unidade</strong> (ex: C: para C:) = <span class="hl-yellow">MOVER</span>.<br>
+        ➔ Arrastar para <strong>unidades diferentes</strong> (ex: C: para Pendrive) = <span class="hl-yellow">COPIAR</span>.<br>
+        ➔ <em>Exceção:</em> Arrastar pressionando <span class="hl-blue">Ctrl</span> sempre irá COPIAR, e pressionando <span class="hl-blue">Shift</span> sempre irá MOVER.</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">EXCLUSÃO, LIXEIRA E DESFAZER AÇÕES</h3>
+      <p>A Lixeira do Windows armazena temporariamente os arquivos apagados, permitindo restaurá-los.</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Exclusão Normal (<span class="hl-blue">Delete</span>):</strong> Envia o arquivo para a Lixeira.</li>
+        <li><strong>Exclusão Definitiva (<span class="hl-blue">Shift + Delete</span>):</strong> Apaga o arquivo <span class="hl-red">sem passar pela lixeira</span>.</li>
+        <li><strong>Desfazer Ação (<span class="hl-blue">Ctrl + Z</span>):</strong> Desfaz ações como exclusão (caso não tenha usado Shift), renomeação ou movimentação acidental.</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>RESUMO DE OURO DOS ATALHOS:</strong><br>
+        Ctrl + A = Selecionar Tudo | Ctrl + C = Copiar | Ctrl + X = Recortar (prepara p/ mover) <br>
+        F5 = Atualizar | F2 = Renomear | Alt + Tab = Alternar janelas</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">SISTEMAS OPERACIONAIS - FUNDAMENTOS E EXEMPLOS</h3>
+      <p>O Sistema Operacional (SO) é o software BÁSICO essencial. Ele atua como <strong>elo entre o usuário e o hardware</strong>. Você <span class="hl-red">não</span> precisa obrigatoriamente usar Windows, mas precisa de <em>algum</em> SO.</p>
+      
+      <ul class="check-list">
+        <li><strong>Windows:</strong> Interface gráfica amigável, comercial (proprietário), alvo de muitos vírus por ser o mais popular.</li>
+        <li><strong>Linux:</strong> Código aberto (<span class="hl-yellow">Open Source</span>), gratuito, mantido por desenvolvedores no mundo todo, praticamente imune a vírus comuns de PC.</li>
+        <li><strong>Mac OS:</strong> Sistema da Apple. Exclusivo de computadores Mac. Alto desempenho, pago e proprietário.</li>
+        <li><strong>Android:</strong> Sistema móvel da Google (baseado em Linux, código aberto).</li>
+        <li><strong>iOS:</strong> Sistema móvel da Apple (proprietário, exclusivo do iPhone e iPad).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">COMPARAÇÃO: WINDOWS X LINUX E FERRAMENTAS</h3>
+      <table class="memorex-table">
+        <tr>
+          <th>CRITÉRIO</th>
+          <th>WINDOWS</th>
+          <th>LINUX</th>
+        </tr>
+        <tr>
+          <td><strong>Licença</strong></td>
+          <td>Software Proprietário (Pago)</td>
+          <td>Software Livre (Código Aberto)</td>
+        </tr>
+        <tr>
+          <td><strong>Segurança</strong></td>
+          <td>Mais vulnerável a ameaças</td>
+          <td><span class="hl-green">Mais seguro</span></td>
+        </tr>
+        <tr>
+          <td><strong>Programas e Drivers</strong></td>
+          <td>Maior compatibilidade nativa</td>
+          <td>Crescendo, mas ainda perde para Windows</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>PAINEL DE CONTROLE / FERRAMENTAS (WINDOWS):</strong><br>
+        ➔ <strong>Restauração do Sistema:</strong> Desfaz alterações no sistema voltando no tempo. <span class="hl-red">Não afeta</span> arquivos pessoais (fotos, documentos).<br>
+        ➔ <strong>Gerenciador de Tarefas (<span class="hl-blue">Ctrl + Shift + Esc</span>):</strong> Exibe processos, serviços, e permite fechar programas travados.</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">SISTEMAS MÓVEIS (ANDROID) E SEGURANÇA</h3>
+      <p>Dispositivos móveis combinam processamento, armazenamento e conexão. O Android é líder de mercado.</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Conexões:</strong> <span class="hl-blue">Wi-Fi</span> (Internet sem fio), <span class="hl-blue">Bluetooth</span> (comunicação de curta distância), <span class="hl-blue">GPS</span> (localização geográfica).</li>
+        <li><strong>Modo Avião:</strong> Desativa conexões de rede celular, Wi-Fi e Bluetooth simultaneamente.</li>
+        <li><strong>Atualização do Sistema:</strong> Corrige falhas, traz recursos novos e melhora a segurança.</li>
+        <li><strong>Backup e Conta:</strong> Utiliza primariamente a Conta Google para cópia de segurança (fotos, contatos, apps). Permite recuperação em caso de perda ou troca.</li>
+        <li><strong>Restauração de Fábrica:</strong> Devolve o aparelho às configurações iniciais e <span class="hl-red">apaga todos os dados pessoais do usuário</span>. (Faça backup antes!).</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MACETE ANDROID:</strong><br>
+        Android = <span class="hl-yellow">Linux + Google + Aberto + Play Store</span><br>
+        iOS = <span class="hl-yellow">Apple + Proprietário + Exclusivo iPhone/iPad</span><br>
+        Criar Pasta no Android = <em>Arrastar um ícone de aplicativo sobre outro.</em></div>
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Prefeitura de Criciúma - Agente Comunitário - 2019)</strong> O sistema Android possibilita que seus usuários possam agrupar seus aplicativos em pastas de acordo com sua necessidade. Qual a ação necessária para a criação de uma pasta no Android?</p>
+        <ol type="A" style="font-size: 13px;">
+          <li>Pressionar com o dedo na tela e manter pressionado até o aparecimento do menu pasta, posteriormente clicar em nova pasta.</li>
+          <li><strong>Arrastar um aplicativo e sobrepô-lo a outro.</strong></li>
+          <li>Pressionar o botão menu e acessar as configurações.</li>
+          <li>Pressionar os botões menu e voltar ao mesmo tempo.</li>
+        </ol>
+        <div class="gabarito-box">
+          <strong>Gabarito: B.</strong> Para criar pastas rapidamente na tela inicial do Android, o método nativo e correto é segurar e arrastar um ícone de aplicativo para cima de outro ícone.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">PLANILHAS ELETRÔNICAS: MS EXCEL</h3>
+      <p>O Microsoft Excel é um editor de planilhas eletrônicas. Uma planilha organiza dados para realizar cálculos lógicos, gráficos e relatórios.</p>
+
+      <ul class="check-list">
+        <li><strong>Colunas:</strong> Formam o eixo vertical e são identificadas por <strong>Letras</strong> (A, B, C...).</li>
+        <li><strong>Linhas:</strong> Formam o eixo horizontal e são identificadas por <strong>Números</strong> (1, 2, 3...).</li>
+        <li><strong>Células:</strong> É a intersecção de uma coluna com uma linha (Ex.: <span class="hl-blue">A1</span>, <span class="hl-blue">C5</span>). É aqui que escrevemos textos, valores e fórmulas. O nome da célula é exibido na "Caixa de Nome".</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS.:</strong> O pacote gratuito que rivaliza com o Office é o LibreOffice (ou OpenOffice). O equivalente ao Excel nele é o <span class="hl-yellow">Calc</span>, e o do PowerPoint é o <span class="hl-yellow">Impress</span>.</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">MS EXCEL: GUIA PÁGINA INICIAL E SEUS BLOCOS</h3>
+      <p>Na guia principal ("Página Inicial"), as ferramentas são separadas em blocos (grupos) estratégicos:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: BLOCOS DA PÁGINA INICIAL DO EXCEL</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>ÁREA DE TRANSFERÊNCIA:</strong> Cortar, Copiar, Colar e o fundamental botão "Colar Especial".</div>
+        <div class="schema-node box-yellow"><strong>FONTE:</strong> Negrito, Itálico, Tamanho, Cor da letra e Cor de Fundo da Célula.</div>
+        <div class="schema-node box-blue"><strong>ALINHAMENTO:</strong> Alinhar textos. Destaque: botão <strong>Mesclar e Centralizar</strong> (junta células).</div>
+        <div class="schema-node box-yellow"><strong>NÚMERO:</strong> Define formato do dado (Data, Moeda, Porcentagem, Texto, Hora).</div>
+        <div class="schema-node box-blue"><strong>ESTILO:</strong> Ferramenta avançada de <strong>Formatação Condicional</strong> (muda a cor da célula baseado em regras lógicas, ex.: notas baixas em vermelho).</div>
+        <div class="schema-node box-yellow"><strong>CÉLULAS e EDIÇÃO:</strong> Inserir/Excluir células, redimensionar; Atalhos para Autosoma (Σ), Classificar e Filtrar.</div>
+      </div>
+
+      <div class="exemplo"><strong>Ex.:</strong> Na Formatação Condicional, você pode configurar o Excel para pintar de <span class="hl-green">verde</span> toda célula que tiver a palavra "APROVADO", e de <span class="hl-red">vermelho</span> a que tiver "REPROVADO". Tudo ocorre de forma automática!</div>
+    </div>
+
+  </div>
+</body>
+</html>

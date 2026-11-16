@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - FORMAÇÃO DE PALAVRAS</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">ELEMENTOS MÓRFICOS E RADICAL</h3>
+      
+      <p>O <span class="hl-blue">Morfema</span> é a menor unidade portadora de sentido de uma palavra[cite: 1]. Ao analisar a estrutura das palavras, identificamos os seus pedacinhos formativos.</p>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> Menin - o<br>
+        Onde <em>"Menin"</em> é o primeiro morfema (criança) e <em>"o"</em> é o segundo morfema (gênero)[cite: 1].
+      </div>
+
+      <p>Os <strong>Elementos Mórficos</strong> são as peças que se unem para formar os termos[cite: 1]:</p>
+      <ul class="check-list">
+        <li>Radical</li>
+        <li>Vogal temática</li>
+        <li>Tema</li>
+        <li>Desinência</li>
+        <li>Afixo</li>
+        <li>Vogais e consoantes de ligação</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> O <span class="hl-blue">Radical</span> é onde o significado básico da palavra está contido[cite: 1]. A ele são acrescentados os outros elementos (Ex.: <strong>pedr</strong>a, <strong>pedr</strong>eiro, <strong>pedr</strong>inha)[cite: 1].</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">VOGAL TEMÁTICA E TEMA</h3>
+
+      <p>A <span class="hl-blue">Vogal Temática (VT)</span> prepara o radical para receber as desinências e indica a conjugação do verbo[cite: 1]. Quando juntamos o Radical + Vogal Temática, obtemos o <span class="hl-blue">Tema</span>[cite: 1].</p>
+      
+      <div class="exemplo">
+        <strong>Ex. Nomes:</strong> Cas<strong>a</strong>, poç<strong>o</strong>, peix<strong>e</strong>[cite: 1].<br>
+        <strong>Ex. Verbos:</strong> cant<strong>a</strong>r, vend<strong>e</strong>r, part<strong>i</strong>r[cite: 1].
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> <span class="hl-red">Nem todas</span> as formas verbais possuem a vogal temática[cite: 1].<br>
+        <em>Ex.:</em> part<strong>o</strong> (radical + desinência de número pessoal, <span class="hl-red">sem</span> vogal temática)[cite: 1].</div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">DESINÊNCIAS (NOMINAIS E VERBAIS)</h3>
+
+      <p>As <span class="hl-blue">Desinências</span> indicam as flexões (variações) das palavras[cite: 1]. Elas se subdividem estruturalmente em:</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE DESINÊNCIAS</div>
+      <div class="schema-container">
+        <div class="schema-root box-yellow">DESINÊNCIAS</div>
+        <div class="schema-branches">
+          <div class="schema-node box-blue">NOMINAIS: Gênero (o/a) e Número (s)</div>
+          <div class="schema-node box-blue">VERBAIS: Modo, Tempo, Número e Pessoa</div>
+        </div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Desinência Nominal:</strong> O singular <span class="hl-red">não</span> tem desinência própria de número[cite: 1]. Ex.: GAT - O - S (Radical + desinência de gênero + desinência de número)[cite: 1].</li>
+        <li><strong>Desinência Verbal:</strong> Informam os aspectos do verbo[cite: 1]. Ex.: CANT - Á - VA - MOS (Radical + VT + Desinência modo-temporal + Desinência número-pessoal)[cite: 1].</li>
+      </ul>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">AFIXOS E ELEMENTOS DE LIGAÇÃO</h3>
+
+      <p>Os <span class="hl-blue">Afixos</span> se juntam aos radicais para formar novas palavras[cite: 1]:</p>
+      <ul class="arrow-list">
+        <li><strong>Prefixos:</strong> Colocados <em>antes</em> do radical (Ex.: <span class="hl-yellow">In</span>viável)[cite: 1].</li>
+        <li><strong>Sufixos:</strong> Colocados <em>depois</em> do radical (Ex.: Pedra<span class="hl-yellow">da</span>)[cite: 1].</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS.: Vogais e Consoantes de Ligação</strong> são inseridas entre os morfemas por <span class="hl-yellow">motivos de eufonia</span> (facilitar a pronúncia)[cite: 1]. <br><em>Ex.:</em> silv<strong>í</strong>cola, pau<strong>l</strong>ada, cafe<strong>i</strong>cultura[cite: 1].</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">TIPOS DE PALAVRAS E PROCESSOS DE FORMAÇÃO</h3>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue">PRIMITIVAS: Não derivam de outras (pedra)</div>
+        <div class="schema-node box-blue">DERIVADAS: Formadas a partir de outras (pedrada)</div>
+        <div class="schema-node box-blue">SIMPLES: Apenas um radical (flor)</div>
+        <div class="schema-node box-blue">COMPOSTAS: Dois ou mais radicais (beija-flor)</div>
+      </div>
+
+      <p>Na língua portuguesa, há <span class="hl-blue">dois processos centrais</span> de formação de novas palavras[cite: 1]:</p>
+      <ul class="check-list">
+        <li><strong>Derivação</strong>[cite: 1]</li>
+        <li><strong>Composição</strong>[cite: 1]</li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">DERIVAÇÃO PREFIXAL, SUFIXAL E PARASSINTÉTICA</h3>
+
+      <p>A Derivação forma novas palavras a partir de primitivas. Ela pode ser:</p>
+      <ul class="arrow-list">
+        <li><strong>Prefixal:</strong> Acréscimo de prefixo (Ex.: <strong>Des</strong>fazer)[cite: 2].</li>
+        <li><strong>Sufixal:</strong> Acréscimo de sufixo (Ex.: Livr<strong>aria</strong>)[cite: 2].</li>
+        <li><strong>Parassintética:</strong> Acréscimo <span class="hl-yellow">simultâneo</span> de prefixo e sufixo[cite: 2]. (Ex.: <strong>a</strong>noit<strong>ecer</strong>, <strong>es</strong>fri<strong>ar</strong>)[cite: 2].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO (PEGADINHA DE PROVA)!!</strong><br>
+        Para verificar se a derivação é parassintética, basta retirar o prefixo ou o sufixo[cite: 2]. Se a palavra ficar <span class="hl-red">sem sentido</span>, ocorreu parassíntese (Ex.: <strong>es</strong>fri<strong>ar</strong> → não existe "esfrio" nem "friar")[cite: 2]. Se continuar com sentido, será <em>Derivação Prefixal e Sufixal</em> (Ex.: descapitalização → existe "capitalização" e "descapitalizar")[cite: 2].</div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: PREFIXOS E SUFIXOS COMUNS</div>
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Latino</th>
+            <th>Grego</th>
+            <th>Significado</th>
+            <th>Exemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ab-, abs-</td>
+            <td>Apo-</td>
+            <td>Afastamento</td>
+            <td>Abster / Apogeu[cite: 2]</td>
+          </tr>
+          <tr>
+            <td>Ambi-</td>
+            <td>Anfi-</td>
+            <td>Duplicidade</td>
+            <td>Ambíguo / Anfíbio[cite: 2]</td>
+          </tr>
+          <tr>
+            <td>Bi-</td>
+            <td>Di-</td>
+            <td>Dois</td>
+            <td>Bípede / Dígrafo[cite: 2]</td>
+          </tr>
+          <tr>
+            <td>Ex-</td>
+            <td>Ex-</td>
+            <td>Para fora</td>
+            <td>Externar / Êxodo[cite: 2]</td>
+          </tr>
+          <tr>
+            <td>Supra</td>
+            <td>Epi-</td>
+            <td>Acima de</td>
+            <td>Supracitar / Epitáfio[cite: 2]</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">DERIVAÇÃO REGRESSIVA E IMPRÓPRIA</h3>
+
+      <ul class="arrow-list">
+        <li><strong>Regressiva:</strong> Forma substantivos a partir de verbos[cite: 2]. São substantivos abstratos indicadores de "ação" e costumam terminar em <strong>A, E, O</strong>[cite: 2]. 
+        <div class="exemplo"><strong>Ex.:</strong> atrasar → <em>o atraso</em> / debater → <em>o debate</em> / resgatar → <em>o resgate</em>[cite: 2].</div></li>
+        
+        <li><strong>Imprópria:</strong> Muda a classe gramatical da palavra <span class="hl-red">sem</span> alterar a sua forma (grafia)[cite: 2].
+        <div class="exemplo"><strong>Ex.:</strong> "O <em>jantar</em> estava ótimo." (Aqui, "jantar", que é verbo, foi usado como substantivo)[cite: 2].</div></li>
+      </ul>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">COMPOSIÇÃO E OUTROS PROCESSOS</h3>
+
+      <p>A <span class="hl-blue">Composição</span> ocorre pela junção de dois ou mais radicais e pode ser[cite: 2]:</p>
+      
+      <div class="schema-container">
+        <div class="schema-root box-yellow">COMPOSIÇÃO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-blue">JUSTAPOSIÇÃO: Sem perda de fonemas (Girassol, Pé-de-moleque)[cite: 2]</div>
+          <div class="schema-node box-blue">AGLUTINAÇÃO: Com perda/alteração de fonemas (Planalto = plano+alto)[cite: 2]</div>
+        </div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE - OUTROS PROCESSOS DE FORMAÇÃO:</strong>
+        <ul class="check-list" style="margin-top: 5px; margin-bottom: 0;">
+          <li><strong>Abreviação/Redução:</strong> Forma reduzida (moto, quilo, auto)[cite: 2].</li>
+          <li><strong>Hibridismo:</strong> Elementos de idiomas diferentes (Ex.: automóvel = grego + latim)[cite: 2].</li>
+          <li><strong>Onomatopeia:</strong> Imita vozes ou sons da natureza (Ex.: tique-taque, boom)[cite: 2].</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">APROFUNDAMENTO: VOGAL TEMÁTICA E PALAVRAS ATEMÁTICAS</h3>
+
+      <p>As vogais temáticas podem ser nominais ou verbais[cite: 3].</p>
+      <ul class="arrow-list">
+        <li><strong>Nominais:</strong> -a, -e, -o (átonas finais). Ex.: mes<strong>a</strong>, escol<strong>a</strong>[cite: 3].</li>
+        <li><strong>Verbais:</strong> -a (1ª conjugação), -e (2ª conjugação), -i (3ª conjugação)[cite: 3].</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>REGRA DE OURO DAS ATEMÁTICAS:</strong>
+        Nomes terminados em consoante ou vogal tônica (cipó, tupi, sagu) são <span class="hl-red">ATEMÁTICOS</span> (não têm vogal temática)[cite: 3]. Palavras que só se usam no plural ("pluralia tantum", como lápis, férias, vírus) <span class="hl-red">nunca</span> apresentam vogal temática[cite: 3].</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">COMO CAI NA PROVA</h3>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>01. (IBFC / 2023)</strong> No título "O incendiador de caminhos", o vocábulo destacado tem em sua formação um morfema que indica "aquele que realiza determinada ação". O morfema que confere esse sentido chama-se:[cite: 3]</p>
+        <p>
+          A) prefixo.<br>
+          B) radical.<br>
+          C) vogal temática.<br>
+          D) sufixo.<br>
+          E) desinência de gênero.
+        </p>
+        <div class="gabarito-box">
+          <strong>Gabarito: D</strong><br>
+          <strong>Comentário:</strong> O elemento "-dor" é adicionado ao final do radical para indicar o agente da ação (incendia<strong>dor</strong>), caracterizando a presença de um <em>sufixo</em>.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

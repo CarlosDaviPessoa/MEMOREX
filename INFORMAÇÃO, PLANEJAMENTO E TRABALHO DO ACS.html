@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">INFORMAÇÃO, PLANEJAMENTO E TRABALHO DO ACS</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">O PAPEL DA INFORMAÇÃO NA ATENÇÃO PRIMÁRIA</h3>
+      
+      <p>O trabalho do Agente Comunitário de Saúde (ACS) <span class="hl-red">não</span> se limita à visita domiciliar. É fundamental atuar na informação e produção da <span class="hl-blue">Atenção Primária</span>. O trabalho territorial é o conjunto de atividades relacionadas à coleta e uso de informações, planejamento das ações, organização do território e desenvolvimento de um trabalho ético e humanizado.</p>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MACETE DO TRABALHO DE INFORMAÇÃO NO TERRITÓRIO:</strong>
+          <ul class="arrow-list" style="margin-top: 5px; margin-bottom: 0;">
+            <li>Conhecer ➔ Planejar ➔ Priorizar</li>
+            <li>Agir ➔ Monitorar ➔ Avaliar</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>Os Sistemas de Informação em Saúde permitem registrar, organizar, processar e utilizar informações relevantes para <span class="hl-blue">vigilância, planejamento, gestão, avaliação e assistência</span>.</p>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>FÓRMULA DA INFORMAÇÃO:</strong> <span class="hl-yellow">DADO ➔ INFORMAÇÃO ➔ DECISÃO ➔ AÇÃO</span>.
+        </div>
+      </div>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA DE PROVA:</strong> A informação em saúde <span class="hl-red">não</span> serve apenas para "mandar dados ao Ministério". Ela orienta diretamente o <span class="hl-yellow">planejamento local</span> da equipe.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">COLETA, REGISTRO DE DADOS E IMPORTÂNCIA</h3>
+
+      <p>Uma informação de qualidade no território permite saber:</p>
+      <ul class="check-list">
+        <li>Quantas pessoas vivem no território;</li>
+        <li>Quantas são gestantes;</li>
+        <li>Quantas crianças estão com vacina atrasada;</li>
+        <li>Quais famílias são vulneráveis;</li>
+        <li>Quais doenças são mais frequentes;</li>
+        <li>Quais usuários precisam de acompanhamento.</li>
+      </ul>
+
+      <p>Para isso, as regras para os dados coletados são rígidas. Os dados devem ser obrigatoriamente:</p>
+      <ul class="arrow-list">
+        <li>Corretos e Completos;</li>
+        <li>Atualizados;</li>
+        <li>Registrados no local apropriado;</li>
+        <li>Mantidos sob <span class="hl-blue">sigilo</span>.</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>PROVA:</strong> Dado inventado ou preenchido sem confirmação prejudica <span class="hl-yellow">toda a análise do território</span>. <span class="hl-red">Nunca</span> forje um dado!
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">PRINCIPAIS SISTEMAS DE INFORMAÇÃO (SIS)</h3>
+
+      <p>Você deve dominar as siglas dos principais Sistemas de Informação em Saúde (SIS) cobrados pelas bancas:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: SISTEMAS DE INFORMAÇÃO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SIS<br><small>Principais</small></div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><span class="hl-blue">SINAN</span> ➔ Sistema de Informação de Agravos de Notificação (Doenças e agravos)</div>
+          <div class="schema-node box-yellow"><span class="hl-blue">SIM</span> ➔ Sistema de Informações sobre Mortalidade (Óbitos/Mortes)</div>
+          <div class="schema-node box-yellow"><span class="hl-blue">SINASC</span> ➔ Sistema de Informações sobre Nascidos Vivos (Nascimentos)</div>
+          <div class="schema-node box-yellow"><span class="hl-blue">e-SUS APS</span> ➔ Estratégia de informatização da Atenção Primária</div>
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>QUESTÃO 10.</strong> O sistema relacionado principalmente aos agravos de notificação é:</p>
+        <ul class="arrow-list">
+          <li>A) SIM.</li>
+          <li>B) SINASC.</li>
+          <li>C) SINAN.</li>
+          <li>D) CNES.</li>
+          <li>E) SIH <span class="hl-red">exclusivamente</span>.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong> <br>
+          <em>Comentário:</em> SINAN relaciona-se a agravos de notificação. SIM é mortalidade e SINASC é nascidos vivos.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">e-SUS APS E CADASTRO DA POPULAÇÃO</h3>
+      
+      <p>O <span class="hl-blue">e-SUS APS</span> é a estratégia/sistema do Ministério da Saúde destinado à informatização e qualificação das informações da Atenção Primária. Existe inclusive o <strong>e-SUS Território</strong>, que permite registro de atividades de forma informatizada.</p>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA:</strong> As bancas afirmam que o e-SUS APS é sistema <span class="hl-red">exclusivo</span> do ACS. <strong>FALSO!</strong> É utilizado na organização da informação de toda a APS (Atenção Primária à Saúde).
+        </div>
+      </div>
+
+      <p>No e-SUS APS, o cadastro possui duas grandes dimensões, mantidas atualmente entre os instrumentos vigentes do Ministério da Saúde:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>TIPO DE CADASTRO</th>
+            <th>FUNÇÃO E RELAÇÃO</th>
+            <th>O QUE RESPONDE?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cadastro Individual</strong></td>
+            <td>Relaciona informações sobre a <span class="hl-blue">pessoa</span>.</td>
+            <td><span class="hl-yellow">QUEM?</span></td>
+          </tr>
+          <tr>
+            <td><strong>Cadastro Domiciliar/Territorial</strong></td>
+            <td>Relaciona informações do <span class="hl-blue">domicílio e território</span>.</td>
+            <td><span class="hl-yellow">ONDE E COMO VIVE?</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">INDICADORES DE SAÚDE E O USO DOS DADOS</h3>
+
+      <p><strong>Indicadores</strong> são medidas utilizadas para analisar a situação de saúde de uma população. Exemplos incluem: incidência, prevalência, mortalidade, natalidade, cobertura vacinal e proporção de acompanhamento.</p>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> Indicador <span class="hl-red">não</span> é mero número solto. Ele deve ajudar a responder: <em>"O que está acontecendo com essa população?"</em>
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.: Uso dos dados no planejamento.</strong> A equipe identifica (dado): <em>Muitas crianças com vacinação atrasada</em>. O planejamento define: <em>Busca ativa</em>. A ação é: <em>Visita e orientação</em>. O monitoramento verifica: <em>Foram vacinadas?</em>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: O FLUXO DE OURO DO PLANEJAMENTO</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">INFORMAÇÃO</div>
+        <div style="align-self:center; font-weight:bold; color:#4c6ef5;">➔</div>
+        <div class="schema-node box-blue">PROBLEMA</div>
+        <div style="align-self:center; font-weight:bold; color:#4c6ef5;">➔</div>
+        <div class="schema-node box-yellow">PRIORIDADE</div>
+        <div style="align-self:center; font-weight:bold; color:#4c6ef5;">➔</div>
+        <div class="schema-node box-blue">AÇÃO</div>
+        <div style="align-self:center; font-weight:bold; color:#4c6ef5;">➔</div>
+        <div class="schema-node box-blue">AVALIAÇÃO</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">PLANEJAMENTO DAS AÇÕES: DIAGNÓSTICO E PRIORIDADES</h3>
+      
+      <p>Planejar significa definir antecipadamente: O que fazer; Por que fazer; Para quem; Como; Quando; Quem fará; e Como será avaliado.</p>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA:</strong> Planejamento <span class="hl-red">não</span> deve ser baseado apenas na opinião da equipe. Deve considerar: <strong>dados + território + necessidades + riscos + recursos</strong>.
+        </div>
+      </div>
+
+      <p>O <strong>Diagnóstico da comunidade</strong> é o conhecimento sistematizado da situação do território (perfil populacional, doenças, vulnerabilidades). Identificar os problemas (ex: falta de saneamento, idosos isolados, vacinação atrasada) é a base do planejamento.</p>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>PROVA:</strong> O Diagnóstico <span class="hl-blue">precede</span> o planejamento. Primeiro se conhece o problema; depois se define o que fazer.
+        </div>
+      </div>
+
+      <p>Na <strong>Definição de prioridades</strong>, entende-se que nem sempre é possível resolver tudo simultaneamente. Considera-se a gravidade, magnitude, urgência, vulnerabilidade, possibilidade de intervenção e recursos.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA DE PROVA:</strong> Prioridade <span class="hl-red">não</span> significa atender somente quem chegou primeiro! Ordem de chegada não é critério sanitário.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">PLANEJAMENTO DE VISITAS E A BUSCA ATIVA</h3>
+
+      <p>O planejamento das visitas deve considerar as necessidades do território: famílias prioritárias, riscos, vulnerabilidades, gestantes, crianças, pessoas idosas, acamados e pessoas com doenças crônicas.</p>
+      
+      <p><span class="hl-yellow">DICA: Maior necessidade = pode exigir maior acompanhamento.</span></p>
+
+      <p>A <span class="hl-blue">Busca ativa</span> significa <strong>procurar pessoas ou situações que necessitam de acompanhamento</strong> e que não estão acessando adequadamente o serviço (ex: abandono de tratamento, sintomático respiratório, gestante sem pré-natal).</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA CAMPEÃ:</strong> Busca ativa é o ato de esperar o usuário procurar espontaneamente a UBS? <span class="hl-red">NUNCA!</span> É exatamente o contrário: <strong>o serviço vai até o usuário</strong>.
+        </div>
+      </div>
+
+      <p>No <strong>Monitoramento e acompanhamento</strong>, após executar uma ação, verifica-se se ela foi realizada, se atingiu a população, se resolveu o problema e se precisa ser modificada. <br>
+      <span class="hl-yellow">MACETE: Planejou ➔ Fez ➔ Conferiu.</span> Sem acompanhamento, planejamento vira papel de gaveta!</p>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>QUESTÃO 14.</strong> Busca ativa significa:</p>
+        <ul class="arrow-list">
+          <li>A) aguardar que o usuário procure a unidade.</li>
+          <li>B) identificar e procurar pessoas ou situações que necessitam de acompanhamento.</li>
+          <li>C) atender <span class="hl-red">somente</span> demanda espontânea.</li>
+          <li>D) visitar todas as famílias com frequência idêntica.</li>
+          <li>E) realizar <span class="hl-red">exclusivamente</span> atualização cadastral.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong> <br>
+          <em>Comentário:</em> A busca ativa é o movimento reverso: o serviço (ACS) vai atrás de quem precisa de acompanhamento, não espera o usuário vir.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">ÉTICA, CIDADANIA, DIREITOS E DEVERES</h3>
+
+      <p>A atuação do ACS envolve contato direto com a intimidade das pessoas, exigindo <span class="hl-blue">ética, respeito, responsabilidade, sigilo e humanização</span>.</p>
+
+      <p>A <strong>Ética Profissional</strong> é o conjunto de princípios que orienta uma atuação responsável. O ACS deve agir com respeito, honestidade, imparcialidade e discrição.</p>
+      
+      <p>A <strong>Cidadania</strong> envolve o exercício de direitos, de deveres e de participação social. No SUS, relaciona-se à participação da população nos Conselhos e Conferências de Saúde (Controle Social).</p>
+
+      <p>Direitos e Deveres do Usuário:</p>
+      <ul class="check-list">
+        <li><strong>Direitos:</strong> Informação, respeito, privacidade, atendimento adequado, participação e tratamento humanizado.</li>
+        <li><strong>Deveres:</strong> Responsabilidades relacionadas ao cuidado e à utilização adequada dos serviços.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">SIGILO PROFISSIONAL E RESPEITO À DIVERSIDADE</h3>
+
+      <p>O ACS conhece informações sensíveis (doenças, gravidez, renda, conflitos, violência). Essas informações devem ser <strong>estritamente protegidas</strong> pelo sigilo profissional.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA CAMPEÃ DAS BANCAS:</strong> "Como o ACS mora na comunidade, pode compartilhar informações com familiares e vizinhos." <br>
+          <span class="hl-red">ERRADÍSSIMO!</span> Informação de saúde <span class="hl-red">não</span> é boletim de fofoca da rua.
+        </div>
+      </div>
+
+      <p>O <strong>Respeito à Diversidade</strong> estabelece que o atendimento deve ser realizado <span class="hl-red">sem</span> discriminação por raça/cor, religião, sexo, idade, deficiência, condição econômica ou orientação sexual. A Carta dos Direitos da Pessoa Usuária da Saúde reforça o atendimento livre de discriminação.</p>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> Ser amigo ou vizinho do usuário <span class="hl-red">não</span> autoriza tratamento privilegiado, e <span class="hl-red">não</span> autoriza divulgação de informações.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">HUMANIZAÇÃO, ACOLHIMENTO E COMUNICAÇÃO</h3>
+
+      <p><span class="hl-blue">Humanizar</span> significa reconhecer o usuário como sujeito de direitos. Inclui escuta, vínculo, acolhimento, autonomia, privacidade e responsabilidade.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA:</strong> Humanização <span class="hl-red">não</span> significa apenas "ser educado". É uma forma de organizar e realizar o cuidado com respeito à pessoa.
+        </div>
+      </div>
+
+      <p>O <span class="hl-blue">Acolhimento</span> significa: <span class="hl-yellow">escutar + identificar necessidade + responsabilizar-se + oferecer resposta adequada</span>.</p>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>MEMORIZE O QUE ACOLHIMENTO NÃO É:</strong>
+          <ul class="arrow-list" style="margin-top: 5px; margin-bottom: 0;">
+            <li>Acolhimento <span class="hl-red">não</span> é triagem.</li>
+            <li>Acolhimento <span class="hl-red">não</span> é apenas recepção.</li>
+            <li>Acolhimento <span class="hl-red">não</span> é distribuir senha.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>A comunicação envolve escuta ativa, clareza, empatia e ausência de julgamento. <span class="hl-yellow">DICA: Não basta falar. O profissional precisa verificar se o usuário entendeu.</span></p>
+    </div>
+
+    <!-- DICA 11 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 11</div>
+      <h3 class="dica-title">TRABALHO EM EQUIPE E PEGADINHAS COBRADAS</h3>
+
+      <p>O ACS integra uma equipe multiprofissional. O trabalho em equipe exige cooperação, planejamento conjunto, compartilhamento e corresponsabilização.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA:</strong> Trabalho em equipe <span class="hl-red">não</span> é todos fazerem exatamente a mesma coisa. Cada profissional possui <span class="hl-blue">competências próprias</span>.
+        </div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: VERDADES E MENTIRAS DE PROVA</div>
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>AFIRMAÇÃO DA BANCA</th>
+            <th>RESPOSTA / VEREDITO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Trabalho em equipe elimina competências específicas</td><td><span class="hl-red">FALSO (❌)</span></td></tr>
+          <tr><td>CAPS e RAPS são sinônimos</td><td><span class="hl-red">FALSO (❌)</span></td></tr>
+          <tr><td>CAPS integra a RAPS</td><td><span class="hl-green">VERDADE (✔)</span></td></tr>
+          <tr><td>Saúde mental significa apenas ausência de transtorno</td><td><span class="hl-red">FALSO (❌)</span></td></tr>
+          <tr><td>ACS pode diagnosticar depressão</td><td><span class="hl-red">FALSO (❌)</span></td></tr>
+          <tr><td>Usuário de álcool só pode ser atendido se estiver abstinente</td><td><span class="hl-red">FALSO (❌)</span></td></tr>
+          <tr><td>Tentativa de suicídio exige atenção imediata</td><td><span class="hl-green">VERDADE (✔)</span></td></tr>
+          <tr><td>Violência é somente agressão física</td><td><span class="hl-red">FALSO (❌)</span></td></tr>
+          <tr><td>Negligência pode ser violência</td><td><span class="hl-green">VERDADE (✔)</span></td></tr>
+          <tr><td>Notificação de violência é o mesmo que B.O. (Boletim de Ocorrência)</td><td><span class="hl-red">FALSO (❌)</span></td></tr>
+          <tr><td>Criança é pessoa até <span class="hl-blue">12 anos incompletos</span></td><td><span class="hl-green">VERDADE (✔)</span></td></tr>
+          <tr><td>Adolescente começa aos <span class="hl-blue">12 anos</span></td><td><span class="hl-green">VERDADE (✔)</span></td></tr>
+          <tr><td>Pessoa idosa tem <span class="hl-blue">60 anos ou mais</span></td><td><span class="hl-green">VERDADE (✔)</span></td></tr>
+          <tr><td>Pessoa com deficiência perde automaticamente capacidade civil</td><td><span class="hl-red">FALSO (❌)</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>QUESTÃO 3.</strong> Durante visita, uma pessoa afirma que pretende tirar a própria vida. O ACS deve:</p>
+        <ul class="arrow-list">
+          <li>A) considerar a fala tentativa de chamar atenção.</li>
+          <li>B) manter a informação em segredo e nada fazer.</li>
+          <li>C) acolher e acionar imediatamente a equipe/rede adequada.</li>
+          <li>D) discutir o caso com vizinhos.</li>
+          <li>E) recomendar que a pessoa pense positivamente e encerrar a visita.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong> <br>
+          <em>Comentário:</em> Risco de suicídio exige acolhimento e ação imediata, <span class="hl-red">nunca</span> banalização. O ACS <span class="hl-red">nunca</span> divulga informações a vizinhos (erro da D).
+        </div>
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>QUESTÃO 4.</strong> Sobre violência, assinale a correta:</p>
+        <ul class="arrow-list">
+          <li>A) <span class="hl-red">somente</span> lesão física caracteriza violência.</li>
+          <li>B) negligência <span class="hl-red">não</span> é violência.</li>
+          <li>C) violência pode apresentar formas físicas, psicológicas, sexuais e outras.</li>
+          <li>D) <span class="hl-red">somente</span> a polícia deve identificar situações de violência.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong> <br>
+          <em>Comentário:</em> A violência não é apenas física; abrange aspecto psicológico, sexual, patrimonial e negligência. Além disso, Notificação de Violência tem finalidade epidemiológica/sanitária, e não se confunde com denúncia policial (B.O.).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">REVISÃO DE VÉSPERA - DECOREBA OBRIGATÓRIA</h3>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue" style="text-align:left;">
+          <span class="hl-yellow">SAÚDE MENTAL & SUICÍDIO:</span><br>
+          ✔ RAPS = Rede<br>
+          ✔ CAPS = Ponto da rede<br>
+          ✔ Fala/Ameaça ➔ Levar a sério ➔ Acolher ➔ Acionar a rede.
+        </div>
+        <div class="schema-node box-yellow" style="text-align:left;">
+          <span class="hl-blue">LEGISLAÇÃO E IDADES:</span><br>
+          ✔ Criança = até 12 incompletos<br>
+          ✔ Adolescente = 12 a 18 anos<br>
+          ✔ Pessoa idosa = 60 anos ou mais
+        </div>
+        <div class="schema-node box-blue" style="text-align:left;">
+          <span class="hl-yellow">SISTEMAS (SIS):</span><br>
+          ✔ SINAN = Agravos<br>
+          ✔ SIM = Mortes<br>
+          ✔ SINASC = Nascidos vivos<br>
+          ✔ e-SUS APS = Atenção Primária
+        </div>
+        <div class="schema-node box-yellow" style="text-align:left;">
+          <span class="hl-blue">VIOLÊNCIA:</span><br>
+          ✔ Identificar ➔ Acolher ➔ Registrar ➔ Notificar/Comunicar<br>
+          ✔ Notificação <span class="hl-red">≠</span> Denúncia
+        </div>
+        <div class="schema-node box-blue" style="text-align:left;">
+          <span class="hl-yellow">HUMANIZAÇÃO E ÉTICA:</span><br>
+          ✔ Ética = Sigilo + Respeito + Diversidade<br>
+          ✔ Humanização = Escuta + Acolhimento + Autonomia
+        </div>
+        <div class="schema-node box-yellow" style="text-align:left;">
+          <span class="hl-blue">MÉTODO ACS:</span><br>
+          ✔ Diagnóstico ➔ Problema ➔ Prioridade ➔ Ação ➔ Monitoramento<br>
+          ✔ Busca ativa = ACS <span class="hl-red">não</span> espera, ACS PROCURA.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

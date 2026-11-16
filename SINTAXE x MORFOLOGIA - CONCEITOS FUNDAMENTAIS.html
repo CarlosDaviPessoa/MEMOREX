@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - SINTAXE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">SINTAXE x MORFOLOGIA - CONCEITOS FUNDAMENTAIS</div>
+      <p>Antes de iniciarmos o estudo da Sintaxe, é crucial diferenciar as duas principais formas de análise gramatical:</p>
+      
+      <ul class="arrow-list">
+        <li><span class="hl-blue">Morfologia:</span> Estuda a <strong>estrutura interna</strong> das palavras e as classes gramaticais (substantivos, adjetivos, verbos, etc.) <span class="hl-red">isoladamente</span>.</li>
+        <li><span class="hl-blue">Sintaxe:</span> Estuda a <strong>função</strong> e a organização que as palavras desempenham <span class="hl-yellow">dentro da oração e do período</span> (sujeito, objeto, predicativo, etc.).</li>
+      </ul>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Aspecto</th>
+            <th>Morfologia</th>
+            <th>Sintaxe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Unidade de Estudo</strong></td>
+            <td>A palavra isolada</td>
+            <td>A frase ou oração</td>
+          </tr>
+          <tr>
+            <td><strong>Elementos</strong></td>
+            <td>Radical, sufixos, gênero, número, classes gramaticais.</td>
+            <td>Sujeito, predicado, complementos (objetos), adjuntos.</td>
+          </tr>
+          <tr>
+            <td><strong>Exemplo de Análise</strong></td>
+            <td>"A" (artigo), "manhã" (substantivo), "ensolarada" (adjetivo).</td>
+            <td>"A manhã" (sujeito simples), "ensolarada" (predicativo).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">FRASE, ORAÇÃO E PERÍODO</div>
+      
+      <p>Essas três estruturas são a base da comunicação sintática:</p>
+      <ul class="check-list">
+        <li><strong>Frase:</strong> Qualquer enunciado que transmita uma mensagem com sentido completo. <span class="hl-red">Não obrigatoriamente contém verbo.</span></li>
+        <li><strong>Oração:</strong> Enunciado organizado <span class="hl-blue">obrigatoriamente em torno de um verbo</span> ou locução verbal.</li>
+        <li><strong>Período:</strong> Frase formada por uma ou mais orações. É finalizado por um sinal de pontuação.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> Toda oração tem verbo, mas <span class="hl-red">nem toda frase é oração</span>. "Que dia lindo!" é frase, mas não é oração.
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> 
+        <br>➔ <strong>Frase (Sem verbo):</strong> Que festa animada!
+        <br>➔ <strong>Oração / Período Simples (1 verbo):</strong> A festa <span class="hl-blue">está</span> animada!
+        <br>➔ <strong>Período Composto (2+ verbos):</strong> A festa <span class="hl-blue">está</span> animada, mas <span class="hl-blue">poderia estar</span> mais.
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>(IBFC - SEMAD-GO - Técnico Ambiental - 2023)</strong>
+        <p>Assinale a alternativa em que as definições apresentadas seguem sequencialmente os termos sintáticos fornecidos.</p>
+        <ul style="list-style-type: none; padding-left: 0; font-size: 12.5px;">
+          <li>I. "... é todo enunciado que possui sentido completo."</li>
+          <li>II. "... centrada em um verbo ou uma locução verbal."</li>
+          <li>III. "... formado por uma única oração."</li>
+          <li>IV. "... formado por mais de uma oração."</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: Alternativa E.</strong> A sequência correta é: Frase (sentido completo) / Oração (centrada em verbo) / Período Simples (uma oração) / Período Composto (mais de uma oração).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">OS TERMOS DA ORAÇÃO</div>
+      
+      <p>Dentro da oração, cada termo possui uma função sintática específica, que se divide em quatro grandes grupos:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: DIVISÃO DOS TERMOS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">TERMOS DA ORAÇÃO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">I. ESSENCIAIS (Sujeito e Predicado)</div>
+          <div class="schema-node box-yellow">II. INTEGRANTES (Complementos e Agente da Passiva)</div>
+          <div class="schema-node box-yellow">III. ACESSÓRIOS (Adjuntos e Aposto)</div>
+          <div class="schema-node box-yellow">IV. INDEPENDENTE (Vocativo)</div>
+        </div>
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> O <span class="hl-yellow">Vocativo</span> não pertence à estrutura básica da oração (não se liga ao sujeito nem ao predicado). Ele é um termo isolado usado para chamamento.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">TERMOS ESSENCIAIS: SUJEITO</div>
+
+      <p>O Sujeito é o termo com o qual o verbo concorda. Ele pode realizar ou sofrer a ação. Suas classificações são:</p>
+
+      <ul class="check-list">
+        <li><strong>Simples:</strong> Possui apenas um núcleo. (Ex.: <em>O meu <span class="hl-blue">cachorro</span> come bem.</em>)</li>
+        <li><strong>Composto:</strong> Possui mais de um núcleo. (Ex.: <em>O <span class="hl-blue">cachorro</span> e o <span class="hl-blue">gato</span> comem bem.</em>)</li>
+        <li><strong>Oculto (Desinencial):</strong> <span class="hl-red">Não aparece explicitamente</span>, mas é identificável pelo contexto/verbo. (Ex.: <em><span class="hl-blue">(Nós)</span> Contamos a história.</em>)</li>
+        <li><strong>Indeterminado:</strong> Não é identificável. Ocorre na <span class="hl-yellow">3ª pessoa do plural</span> ou na <span class="hl-yellow">3ª pessoa do singular + SE</span>. (Ex.: <em>Precisa-se de auxiliares.</em>)</li>
+        <li><strong>Agente e Paciente:</strong> Respectivamente, realiza a ação, sofre a ação, ou ambas simultaneamente (voz reflexiva).</li>
+      </ul>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> Orações sem sujeito são compostas exclusivamente do predicado (Ex.: <em>Trovejou muito ontem. / Choveu.</em>)
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">TERMOS ESSENCIAIS: PREDICADO E TRANSITIVIDADE</div>
+
+      <p>O Predicado é tudo aquilo que se declara sobre o sujeito. Pode ser classificado em:</p>
+      <ul class="arrow-list">
+        <li><strong>Nominal:</strong> Núcleo é um NOME (predicativo). Possui <span class="hl-yellow">Verbo de Ligação</span>. (Ex.: <em>Lúcia é astuta.</em>)</li>
+        <li><strong>Verbal:</strong> Núcleo é um VERBO (transitivo ou intransitivo). Ação direta. (Ex.: <em>O entregador chegou.</em>)</li>
+        <li><strong>Verbo-Nominal:</strong> Possui dois núcleos (um verbo de ação e um nome/predicativo). (Ex.: <em>Nós festejamos animados.</em>)</li>
+      </ul>
+
+      <p><strong>A Transitividade Verbal (Predicado Verbal):</strong></p>
+      <ul class="check-list">
+        <li><strong>Verbo Intransitivo (VI):</strong> Sentido completo, <span class="hl-red">não exige</span> complemento. (Ex.: <em>A criança caiu.</em>)</li>
+        <li><strong>Verbo Transitivo Direto (VTD):</strong> Exige complemento <span class="hl-red">sem preposição</span> (Objeto Direto). (Ex.: <em>Abracei-a.</em>)</li>
+        <li><strong>Verbo Transitivo Indireto (VTI):</strong> Exige complemento <span class="hl-yellow">com preposição</span> (Objeto Indireto). (Ex.: <em>Obedecemos-lhe.</em>)</li>
+        <li><strong>Verbo Transitivo Direto e Indireto (VTDI):</strong> Exige dois complementos simultâneos. (Ex.: <em>Ensinamos gramática (OD) aos alunos (OI).</em>)</li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <div class="dica-title">TERMOS INTEGRANTES E ACESSÓRIOS</div>
+      
+      <p>Os termos integrantes completam o sentido de verbos e nomes:</p>
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Termo</th>
+            <th>Função</th>
+            <th>Uso de Preposição?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Objeto Direto</strong></td>
+            <td>Completa o verbo transitivo direto</td>
+            <td><span class="hl-red">Sem preposição</span></td>
+          </tr>
+          <tr>
+            <td><strong>Objeto Indireto</strong></td>
+            <td>Completa o verbo transitivo indireto</td>
+            <td><span class="hl-green">Com preposição</span></td>
+          </tr>
+          <tr>
+            <td><strong>Complemento Nominal</strong></td>
+            <td>Completa nome (adjetivo, advérbio, substantivo)</td>
+            <td><span class="hl-green">Com preposição obrigatória</span></td>
+          </tr>
+          <tr>
+            <td><strong>Agente da Passiva</strong></td>
+            <td>Indica o agente da ação na voz passiva</td>
+            <td><span class="hl-green">Com preposição (por, de)</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE: OS TERMOS ACESSÓRIOS</strong><br>
+          ➔ <strong>Adjunto Adnominal:</strong> Caracteriza ou especifica o substantivo (Ex.: <em><span class="hl-blue">O meu</span> carro é rápido.</em>)<br>
+          ➔ <strong>Adjunto Adverbial:</strong> Modifica o verbo, indicando tempo, lugar, modo, etc. (Ex.: <em>Chegamos <span class="hl-blue">cedo</span>.</em>)<br>
+          ➔ <strong>Aposto:</strong> Explica, enumera ou resume um substantivo. (Ex.: <em>João, <span class="hl-blue">o médico</span>, chegou.</em>)
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <div class="dica-title">PERÍODO COMPOSTO - ORAÇÕES COORDENADAS</div>
+
+      <p>As orações coordenadas são <strong>sintaticamente independentes</strong>. Classificam-se em:</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Assindéticas:</strong> Justapostas, separadas por vírgula, <span class="hl-red">não possuem conectivo</span>. (Ex.: <em>Chegamos na praia, nadamos, comemos.</em>)</li>
+        <li><strong>Sindéticas:</strong> Ligadas por conjunções.</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: COORDENADAS SINDÉTICAS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SINDÉTICAS</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">ADITIVAS: Adição (e, nem, não só... mas também)</div>
+          <div class="schema-node box-yellow">ADVERSATIVAS: Oposição (mas, porém, contudo, todavia)</div>
+          <div class="schema-node box-yellow">ALTERNATIVAS: Exclusão/Alternância (ou, ora... ora, quer... quer)</div>
+          <div class="schema-node box-yellow">CONCLUSIVAS: Consequência lógica (logo, portanto, pois [posposto])</div>
+          <div class="schema-node box-yellow">EXPLICATIVAS: Motivo (porque, que, pois [anteposto])</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <div class="dica-title">PERÍODO COMPOSTO - ORAÇÕES SUBORDINADAS</div>
+
+      <p>Diferente das coordenadas, as subordinadas completam o sentido da oração principal, dependendo dela sintaticamente. Dividem-se em:</p>
+
+      <ul class="check-list">
+        <li><strong>Substantivas:</strong> Exercem função de substantivo (Sujeito, OD, OI, CN, Predicativo, Aposto). São introduzidas pelas <span class="hl-yellow">conjunções integrantes "que" e "se"</span>.</li>
+        <li><strong>Adjetivas:</strong> Exercem função de adjunto adnominal. Podem ser:
+          <br>➔ <strong>Restritivas:</strong> <span class="hl-red">Sem vírgula</span>. Restringem o sentido. (Ex.: <em>As árvores que dão frutos são raras.</em>)
+          <br>➔ <strong>Explicativas:</strong> <span class="hl-green">Com vírgula</span>. Dão informação extra, omitível. (Ex.: <em>Deus, que é nosso pai, nos salvará.</em>)
+        </li>
+        <li><strong>Adverbiais:</strong> Exercem função de adjunto adverbial (Causais, Condicionais, Concessivas, Conformativas, Temporais, Finais, Proporcionais, Comparativas, Consecutivas).</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex. de Oração Subordinada Adverbial Concessiva:</strong> <br>
+        <span class="hl-blue">Embora</span> estivesse atento, não percebeu nada. (ideia de exceção/quebra de expectativa lógica).
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>(IBFC - Polícia Científica do Paraná - Auxiliar de Necropsia - 2017)</strong>
+        <p>A distinção entre orações adjetivas explicativas e restritivas e o uso da vírgula nas explicativas frequentemente aparece nas provas para atestar o conhecimento sobre a dependência ou independência da informação acessória.</p>
+        <div class="gabarito-box">
+          <strong>Lembre-se:</strong> A Adjetiva EXPLICATIVA sempre vem isolada por pontuação (vírgulas), enquanto a RESTRITIVA vem ligada diretamente, sem pontuação.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - REDAÇÃO OFICIAL</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">O QUE É E QUAIS OS OBJETIVOS DA REDAÇÃO OFICIAL</h2>
+      <p>A Redação Oficial é a forma de comunicação utilizada pelos órgãos públicos e instituições para transmitir informações de maneira <span class="hl-blue">formal e padronizada</span>. É tema essencial nas provas da IBFC.</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> O objetivo central da redação oficial é informar, solicitar, comunicar, registrar fatos e encaminhar decisões, <span class="hl-red">sem ambiguidades ou subjetividades</span>.
+        </div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: O QUE O CANDIDATO DEVE DOMINAR</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Clareza e Objetividade</div>
+        <div class="schema-node box-blue">Concisão</div>
+        <div class="schema-node box-blue">Linguagem Formal</div>
+        <div class="schema-node box-blue">Impessoalidade</div>
+        <div class="schema-node box-blue">Padronização</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">CONCEITOS E PRINCÍPIOS FUNDAMENTAIS</h2>
+      <p>A IBFC cobra frequentemente o domínio dos atributos da redação oficial. Para que a mensagem chegue com eficiência ao interesse público, deve-se obedecer aos seguintes princípios:</p>
+
+      <ul class="arrow-list">
+        <li><span class="hl-blue">Clareza:</span> A mensagem deve ser compreendida facilmente, <span class="hl-red">evitando</span> dúvidas de interpretação.</li>
+        <li><span class="hl-blue">Formalidade:</span> Exige o uso da norma-padrão. <span class="hl-red">Nunca</span> utilize gírias ou jargões informais.</li>
+        <li><span class="hl-blue">Uniformidade:</span> Segue padrões de layout (ex.: cabeçalho, assunto, texto, fechamento).</li>
+        <li><span class="hl-blue">Eficiência:</span> Atinge o objetivo rapidamente.</li>
+        <li><span class="hl-blue">Objetividade:</span> Transmitir apenas o necessário, <span class="hl-red">sem</span> excessos.</li>
+        <li><span class="hl-blue">Concisão:</span> Expressar muito com poucas palavras (texto enxuto).</li>
+        <li><span class="hl-blue">Precisão:</span> Empregar palavras e dados exatos.</li>
+        <li><span class="hl-blue">Impessoalidade:</span> O foco é o serviço, o público e o cargo, <span class="hl-red">não</span> opiniões pessoais.</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.: (Objetividade vs. Excesso)</strong><br>
+        <span class="hl-green">✔ Correto:</span> Solicita-se o envio do relatório até sexta-feira.<br>
+        <span class="hl-red">✘ Incorreto:</span> Considerando a importância dos trabalhos realizados e a necessidade de constante aprimoramento dos procedimentos... (excesso de palavras)
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE O MACETE "COPCIIP":</strong> Principais atributos da redação oficial: <span class="hl-yellow">Clareza, Objetividade, Precisão, Concisão, Impessoalidade, Integridade (coerência/coesão) e Padrão culto</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">PRINCIPAIS TIPOS DE DOCUMENTOS OFICIAIS</h2>
+      <p>As bancas costumam confundir o candidato trocando a finalidade dos principais documentos. Fique atento:</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: DOCUMENTOS MAIS COBRADOS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Documentos</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">COMUNICADO: Informação simples, avisos, divulgações.</div>
+          <div class="schema-node box-yellow">OFÍCIO: Comunicação externa (entre órgãos ou autoridades).</div>
+          <div class="schema-node box-yellow">MEMORANDO: Comunicação interna (entre setores).</div>
+          <div class="schema-node box-yellow">REGISTRO OPERACIONAL: Relato de fatos ocorridos.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> No <strong>Registro Operacional</strong>, muito cobrado em carreiras policiais e fiscais, é <span class="hl-red">vedado</span> inserir impressões subjetivas. Ele <strong>deve conter obrigatoriamente:</strong> Data, Hora, Local, Envolvidos e Descrição objetiva.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">LINGUAGEM ADEQUADA E REESCRITA DE TEXTOS</h2>
+      <p>Em provas, frequentemente solicita-se avaliar se uma reescrita mantém o sentido e a adequação formal. A linguagem <span class="hl-red">NÃO</span> pode conter gírias, expressões coloquiais ou opiniões.</p>
+
+      <ul class="check-list">
+        <li><span class="hl-red">Evite:</span> "O suspeito vazou", "O cidadão ficou bravo".</li>
+        <li><span class="hl-green">Prefira:</span> "O indivíduo evadiu-se do local", "O cidadão demonstrou comportamento alterado".</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.: MUDANÇA DE VOZ VERBAL</strong><br>
+          Alterar da voz ativa para a passiva <strong>não altera o sentido</strong> da frase.
+          <br><em>Ex.: "O agente realizou a fiscalização" (Ativa) = "A fiscalização foi realizada pelo agente" (Passiva).</em>
+        </div>
+      </div>
+
+      <table class="memorex-table">
+        <tr>
+          <th>Característica</th>
+          <th>Regra Prática</th>
+        </tr>
+        <tr>
+          <td>Clareza</td>
+          <td>Informação fácil de entender e inequívoca</td>
+        </tr>
+        <tr>
+          <td>Objetividade</td>
+          <td>Ir direto ao ponto, <span class="hl-red">sem</span> enrolação</td>
+        </tr>
+        <tr>
+          <td>Concisão</td>
+          <td>Texto enxuto (falar muito com poucas palavras)</td>
+        </tr>
+        <tr>
+          <td>Impessoalidade</td>
+          <td><span class="hl-red">Sem</span> opiniões ou traços pessoais</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">PEGADINHAS CLÁSSICAS DA BANCA IBFC</h2>
+      <p>A banca explora erros sutis que quebram os princípios documentais. Identifique as pegadinhas:</p>
+
+      <ul class="arrow-list">
+        <li><strong>Excesso de Formalismo:</strong> Escrever de forma rebuscada (ex.: <em>"Venho, por intermédio do presente..."</em>) é <span class="hl-red">errado</span>. A regra moderna é a simplicidade.</li>
+        <li><strong>Linguagem Pessoal:</strong> <em>"Eu acredito que..."</em> deve ser trocado por <em>"Recomenda-se que..."</em>.</li>
+        <li><strong>Opinião no Registro:</strong> <em>"O suspeito parecia perigoso"</em> é <span class="hl-red">vedado</span>. Descreva os fatos: <em>"O suspeito portava objeto semelhante a arma"</em>.</li>
+        <li><strong>Ambiguidade:</strong> "O supervisor informou ao servidor que seu relatório...". (O relatório era de quem?). Cuidado com a dupla interpretação!</li>
+        <li><strong>Incompletude:</strong> Faltar informações essenciais (quando, onde, quem, o quê).</li>
+        <li><strong>Troca de Conectivos:</strong> Alterar <em>"porque"</em> (causa) por <em>"embora"</em> (concessão) muda completamente o sentido na reescrita.</li>
+        <li><strong>Concordância:</strong> A expressão "anexo" concorda com o substantivo. (<span class="hl-green">✔ Seguem anexas as documentações</span> / <span class="hl-red">✘ Segue anexas</span>).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">FORMAS DE TRATAMENTO (MANUAL DA PRESIDÊNCIA)</h2>
+      <p>O Manual de Redação da Presidência da República (MRPR) simplificou as formas de tratamento. A regra geral atual é utilizar <strong>"Senhor"</strong> e <strong>"Senhora"</strong> para a maioria das autoridades e vocativos.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO AOS TERMOS ABOLIDOS!!</strong><br>
+          Os pronomes e vocativos <strong>Digníssimo (DD.)</strong> e <strong>Ilustríssimo (Ilmo.)</strong> foram <span class="hl-red">abolidos</span> das comunicações oficiais. Além disso, "Doutor" é título acadêmico, <span class="hl-red">não</span> é pronome de tratamento.
+        </div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: VOCATIVO CHEFES DE PODER E JUDICIÁRIO</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Juiz e Desembargador ➔ Excelentíssimo Senhor</div>
+        <div class="schema-node box-blue">Ministro Tribunal Superior ➔ Excelentíssimo Senhor</div>
+        <div class="schema-node box-yellow">O restante ➔ Em regra, apenas Senhor</div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE A REGRA DE OURO (VOSSA VS. SUA):</strong><br>
+          Falando <strong>DIRETAMENTE COM</strong> a autoridade ➔ Usa-se <span class="hl-yellow">VOSSA</span>.<br>
+          Falando <strong>SOBRE</strong> a autoridade (para terceiros) ➔ Usa-se <span class="hl-yellow">SUA</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">FECHOS OFICIAIS E ESTRUTURA DE LEIS</h2>
+      <p>Atualmente, o Manual prevê <strong>apenas dois fechos</strong> para todas as comunicações oficiais. A escolha depende da hierarquia:</p>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>Situação / Hierarquia</th>
+          <th>Fecho Oficial</th>
+        </tr>
+        <tr>
+          <td>Autoridade de hierarquia <span class="hl-blue">SUPERIOR</span></td>
+          <td><strong>Respeitosamente,</strong></td>
+        </tr>
+        <tr>
+          <td>Mesma hierarquia ou <span class="hl-blue">INFERIOR</span></td>
+          <td><strong>Atenciosamente,</strong></td>
+        </tr>
+      </table>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.: PARTES DO ATO NORMATIVO (LEIS/DECRETOS)</strong><br>
+          A parte preliminar compreende: <strong>Epígrafe, Ementa, Preâmbulo e Enunciado do Objeto</strong>. As <em>disposições transitórias</em> pertencem ao conteúdo normativo/parte final, <span class="hl-red">nunca</span> à parte preliminar.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">QUESTÕES COMENTADAS IBFC</h2>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>01. (IBFC - FAGIFOR - 2024)</strong> Em relação aos atributos da Redação Oficial, assinale a alternativa <strong>INCORRETA</strong>.<br>
+        <ul class="check-list">
+          <li>A) Clareza.</li>
+          <li>B) Coerção.</li>
+          <li>C) Coerência.</li>
+          <li>D) Precisão.</li>
+          <li>E) Impessoalidade.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: <span class="hl-red">B</span></strong><br>
+          <strong>Comentário:</strong> Coerção significa imposição/constrangimento e não tem nenhuma relação com atributos textuais. A banca tenta confundir "Coerção" com "Coerência". Lembre-se do COPCIIP.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>02. (IBFC - TRF 5 - 2024)</strong> Quanto ao emprego dos vocativos nas correspondências oficiais, deve-se utilizar em comunicações dirigidas aos Chefes de Poder, a expressão:<br>
+        <ul class="check-list">
+          <li>A) Vossa Excelência e o cargo respectivo.</li>
+          <li>B) Digníssimo Senhor e o cargo respectivo.</li>
+          <li>C) Excelentíssimo Senhor ou Excelentíssima Senhora e o cargo respectivo.</li>
+          <li>D) Ilustríssimo Senhor e o cargo respectivo.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: <span class="hl-red">C</span></strong><br>
+          <strong>Comentário:</strong> Conforme o MRPR, para os Presidentes (Chefes de Poder), utiliza-se o vocativo <em>Excelentíssimo Senhor Presidente...</em>. Atenção: "Vossa Excelência" é pronome de tratamento (corpo do texto), não vocativo (início/cumprimento). Digníssimo e Ilustríssimo foram abolidos.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>03. (IBFC - TRF 5 - 2024)</strong> Acerca do fecho nas correspondências oficiais, deve-se empregar a seguinte forma de cortesia para autoridades de <strong>hierarquia superior</strong> à do emissor:<br>
+        <ul class="check-list">
+          <li>A) Atenciosamente.</li>
+          <li>B) Cuidadosamente.</li>
+          <li>C) Respeitosamente.</li>
+          <li>D) Atentamente.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: <span class="hl-red">C</span></strong><br>
+          <strong>Comentário:</strong> Para autoridades superiores exige-se mais deferência (Respeitosamente). Para mesmo nível ou inferior, usa-se Atenciosamente.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

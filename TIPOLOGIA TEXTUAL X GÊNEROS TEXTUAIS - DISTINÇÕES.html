@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">TIPOLOGIA TEXTUAL X GÊNEROS TEXTUAIS - DISTINÇÕES</h3>
+      <p>Existem duas grandes categorias no estudo dos textos: os <span class="hl-blue">tipos textuais</span> e os <span class="hl-blue">gêneros textuais</span>. Ambas existem de modo paralelo, partindo de posicionamentos distintos para categorizar a variedade de textos que existe em nossa sociedade.</p>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>TIPOS TEXTUAIS</th>
+          <th>GÊNEROS TEXTUAIS</th>
+        </tr>
+        <tr>
+          <td>Designam uma sequência definida pela <strong>natureza linguística</strong> de sua composição. Observam-se os aspectos lexicais, sintáticos, tempos verbais e relações lógicas estruturais.</td>
+          <td>São os <strong>textos materializados</strong> em nosso cotidiano. Apresentam características sócio-comunicativas definidas por seu estilo, função social, conteúdo e canal.</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Os gêneros textuais são fluidos e mutáveis, sempre se adequando às novas necessidades sociais. Entretanto, <span class="hl-red">todos eles</span> obedecem às regras de natureza linguística e textual dos tipos textuais, que lhes servem de estrutura.</div>
+      </div>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Um <span class="hl-red">único gênero</span> pode conter diversos tipos textuais, com predominância de um ou mais. Em alguns casos, é possível encontrar gêneros com uma tipologia específica.</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">OS 5 TIPOS DE TEXTOS (PRODUÇÃO TEXTUAL)</h3>
+      <p>Para construir um bom texto, é necessário saber qual tipo se encaixa na sua intenção. A produção textual envolve os <span class="hl-blue">5 tipos básicos</span> de textos:</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Dissertativo:</strong> defende uma ideia, sendo um texto argumentativo e opinativo.</li>
+        <li><strong>Narrativo:</strong> narra fatos, acontecimentos ou ações de personagens num determinado tempo e espaço.</li>
+        <li><strong>Descritivo:</strong> descreve objetos, pessoas, animais, lugares ou acontecimentos.</li>
+        <li><strong>Injuntivo:</strong> textos instrucionais que explicam e orientam como realizar algo.</li>
+        <li><strong>Expositivo:</strong> apresenta um tema, um conceito ou uma ideia sem necessariamente emitir juízo de valor.</li>
+      </ul>
+
+      <h4 class="esquema-title">ESQUEMATIZANDO: CATEGORIAS E SUB-RAMIFICAÇÕES</h4>
+      <div class="schema-container">
+        <div class="schema-root">TIPOLOGIA<br>TEXTUAL</div>
+        <div class="schema-branches">
+          <div class="schema-node box-blue">NARRATIVO</div>
+          <div class="schema-node box-yellow">DESCRITIVO</div>
+          <div class="schema-node box-blue">EXPOSITIVO</div>
+          <div class="schema-node box-yellow">ARGUMENTATIVO</div>
+          <div class="schema-node box-blue">INJUNTIVO</div>
+        </div>
+      </div>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> Num manual de instruções (<span class="hl-blue">Gênero Textual</span>), teremos a predominância fortíssima do modo <span class="hl-yellow">Injuntivo</span> (<span class="hl-blue">Tipo Textual</span>).
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">ASSOCIAÇÃO ENTRE TIPO E GÊNERO TEXTUAL</h3>
+      <p>É fundamental compreender como os gêneros se comportam dentro de cada modo organizacional (tipo textual):</p>
+      
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>Narrativo:</strong><br> Romance, conto, fábula, crônica, notícia, biografia.</div>
+        <div class="schema-node box-yellow"><strong>Descritivo:</strong><br> Diário, cardápio, classificados, relato descritivo.</div>
+        <div class="schema-node box-blue"><strong>Expositivo:</strong><br> Texto didático, palestra, reportagem informativa, enciclopédia.</div>
+        <div class="schema-node box-yellow"><strong>Argumentativo:</strong><br> Carta aberta, tese, artigo científico, resenhas.</div>
+        <div class="schema-node box-blue"><strong>Injuntivo / Prescritivo:</strong><br> Manual, propaganda, receita, decretos, editais.</div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE A DIFERENÇA:</strong> O texto <span class="hl-blue">Injuntivo</span> orienta (como uma receita ou manual). Já a tipologia <span class="hl-yellow">Prescritiva</span>, derivada desta, tem caráter coercitivo e <span class="hl-red">não</span> permite margem de escolha (como leis, editais e regulamentos).</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">PRINCIPAIS GÊNEROS TEXTUAIS - CARACTERÍSTICAS</h3>
+      <p>Bancas adoram confundir os diferentes tipos de gêneros jornalísticos, opinativos e informativos. Fique atento às distinções:</p>
+      
+      <ul class="check-list">
+        <li><strong>Notícia:</strong> Relato de fatos atuais de interesse público. É marcado pela objetividade e <span class="hl-red">sem comentários pessoais ou opiniões</span>. Apresenta manchete e lide.</li>
+        <li><strong>Reportagem:</strong> Vai além da notícia. Traz acréscimo de entrevistas, estatísticas e comentários. Permite interpretações e opiniões.</li>
+        <li><strong>Entrevista:</strong> Depoimento de pessoa pública registrado em perguntas e respostas.</li>
+        <li><strong>Crônica Jornalística:</strong> Aborda assuntos do cotidiano com sensibilidade e teor pessoal. Geralmente contém ironia, humor e crítica social.</li>
+        <li><strong>Resenha Crítica:</strong> Apresenta e avalia o conteúdo de uma obra (livro, show). Exige <span class="hl-yellow">conceito de valor emitido pelo resenhista</span>.</li>
+        <li><strong>Divulgação Científica:</strong> Texto objetivo, informativo e com vocabulário preciso para divulgar descobertas ao grande público.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (PEGADINHA)</strong> Cuidado para não confundir <em>Editorial</em> com <em>Artigo de Opinião</em>:
+          <br>➔ <strong>Editorial:</strong> Expressa a opinião do VEÍCULO (jornal/revista), logo, é impessoal e <span class="hl-red">publicado sem assinatura</span>.
+          <br>➔ <strong>Artigo de Opinião:</strong> Expressa a visão do AUTOR, tem caráter pessoal e, obrigatoriamente, <span class="hl-red">deve vir assinado</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">APLICAÇÃO EM PROVAS E QUESTÕES COMENTADAS</h3>
+      
+      <p>Nas provas, você pode ser cobrado tanto por meio de identificação e interpretação de gêneros, como por meio de análise tipológica e estrutural. Veja como isso aparece na prática:</p>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Interpretação de Gênero):</div>
+        <p><strong>(Mafalda/Quino)</strong> Na tirinha, a personagem Mafalda reflete sobre o mercado de trabalho, questionando o seu amigo: <em>"Mas por que é preciso desperdiçar a vida que a gente ganha trabalhando para ganhar a vida?"</em>. Em contraponto, considere um texto teórico (Texto 1) sobre o que é o mercado de trabalho.</p>
+        <p>Sobre a interpretação dos textos, assinale a alternativa correta:</p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>O [texto 1] é uma sequência tipológica injuntiva, enquanto a tirinha representa uma sequência narrativa.</li>
+          <li>Ambos possuem sequência propagandística.</li>
+          <li><strong>O [texto 1] apresenta uma sequência explicativa sobre uma ideia de trabalho, enquanto a tirinha [texto 2] apresenta uma menção denotativa sobre trabalho por meio da dúvida do personagem.</strong></li>
+          <li>A tirinha faz uso da fala infantil promovendo...</li>
+          <li>O [texto 1] por ser ficcional promove...</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong>
+          <br><span class="hl-green">Comentário:</span> A tirinha promove um questionamento reflexivo, valendo-se do seu gênero quadrinho/tira para apresentar um teor denotativo sobre o problema real (perda de tempo de vida e exploração), contrastando com a simples explicação teórica do texto expositivo.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (IBFC RECIPREV / 2024):</div>
+        <p>Considere o texto seguinte: <em>"RELATÓRIO - Ao término dos trabalhos integrantes da programação destinada a esta Seção, para o exercício de [...] apresento a V.Sª o presente Relatório, junto ao qual se expressam os índices numéricos das atividades operacionais..."</em></p>
+        <p>Um relatório é um gênero textual que:</p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>Reúne um conjunto de regras de caráter geral com a finalidade de complementar ou esclarecer um texto legal.</li>
+          <li><strong>Consiste na exposição minuciosa de dados, pesquisas ou atividades de um setor direcionada a uma autoridade superior.</strong> <em>(Alternativa correta adaptada por inferência pedagógica)</em></li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong>
+          <br><span class="hl-green">Comentário:</span> O relatório (como o próprio excerto demonstra ao se dirigir a "V.Sª") foca na descrição expositiva-informativa de fatos, resultados e índices numéricos de atividades de um exercício, sendo típico das redações oficiais organizacionais. A alternativa A refere-se a Decretos ou Portarias.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

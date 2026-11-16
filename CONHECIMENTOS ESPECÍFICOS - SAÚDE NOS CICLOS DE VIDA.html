@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">SAÚDE NOS CICLOS DE VIDA - INTRODUÇÃO GERAL</h3>
+      
+      <p>A atenção à saúde deve considerar que as necessidades das pessoas mudam ao longo da vida. Crianças, adolescentes, adultos, mulheres, gestantes e pessoas idosas apresentam necessidades específicas de promoção, prevenção, acompanhamento e assistência.</p>
+      
+      <p>Para o ACS, isso significa conhecer as características de cada ciclo, identificar situações de risco, realizar busca ativa, orientar as famílias e favorecer o acesso aos serviços de saúde.</p>
+      
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> O que é saúde nos ciclos de vida? É uma abordagem que organiza o cuidado considerando as particularidades de cada etapa da vida, <span class="hl-red">sem perder a visão integral da pessoa</span>.</div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> Ciclo de vida <span class="hl-red">não significa</span> fragmentar o usuário. O SUS trabalha com atenção integral.</div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: ATENÇÃO INTEGRAL DO SUS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">ASPECTOS<br>CONSIDERADOS</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Biológicos</div>
+          <div class="schema-node box-yellow">Psicológicos</div>
+          <div class="schema-node box-yellow">Familiares</div>
+          <div class="schema-node box-yellow">Sociais</div>
+          <div class="schema-node box-yellow">Ambientais</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">SAÚDE DA MULHER - ATENÇÃO INTEGRAL E PLANEJAMENTO REPRODUTIVO</h3>
+      
+      <p>A atenção à saúde da mulher vai <span class="hl-red">muito além de gravidez e parto</span>. A Política Nacional de Atenção Integral à Saúde das Mulheres contempla uma visão ampla do cuidado.</p>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>PEGADINHA DE PROVA:</strong> É <span class="hl-red">ERRADO</span> afirmar que a saúde da mulher corresponde <span class="hl-red">essencialmente</span> ou <span class="hl-red">exclusivamente</span> à assistência materno-infantil. A atenção deve ocorrer durante <strong>todo o ciclo de vida</strong>.</div>
+      </div>
+
+      <p><strong>A integralidade envolve ações de:</strong></p>
+      <ul class="check-list">
+        <li>Promoção da saúde e prevenção;</li>
+        <li>Planejamento reprodutivo, pré-natal, parto e puerpério;</li>
+        <li>Prevenção e detecção precoce de cânceres;</li>
+        <li>Saúde sexual, climatério e menopausa;</li>
+        <li>Saúde mental e enfrentamento da violência.</li>
+      </ul>
+
+      <p><strong>Planejamento Reprodutivo:</strong> Envolve o direito das pessoas de decidir, de forma livre e informada, se desejam ter filhos, quando desejam, quantos filhos desejam e quais métodos contraceptivos utilizar.</p>
+
+      <ul class="arrow-list">
+        <li>Deve existir informação + autonomia + acesso aos métodos + respeito às escolhas.</li>
+        <li><span class="hl-red">Não é</span> imposição de método.</li>
+        <li><span class="hl-red">Não é</span> responsabilidade exclusiva da mulher (envolve o casal e direitos reprodutivos).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">SAÚDE DA MULHER - PRÉ-NATAL E PUERPÉRIO</h3>
+      
+      <p>O pré-natal busca acompanhar a gestação, prevenir e detectar riscos e favorecer condições adequadas para mãe e bebê (clínicos, psicossociais, educativos e preventivos).</p>
+      
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>COMPETÊNCIAS DO ACS NO PRÉ-NATAL:</strong> Identificar gestantes, estimular início oportuno, verificar comparecimento às consultas, realizar visitas, orientar vacinação, observar sinais de risco e comunicar situações à equipe.</div>
+      </div>
+
+      <p>Gestante identificada na comunidade? A regra é: <span class="hl-yellow">encaminhar/vincular ao pré-natal + acompanhar</span>.</p>
+
+      <p><strong>Puerpério:</strong> É o período <span class="hl-blue">após o parto</span>, marcado por importantes alterações físicas e emocionais.</p>
+      <ul class="arrow-list">
+        <li>A atenção puerperal deve incluir: saúde da mulher, recuperação pós-parto, aleitamento, planejamento reprodutivo, saúde mental, identificação de complicações e cuidados com o recém-nascido.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> O cuidado <span class="hl-red">não termina</span> no parto. O puerpério continua exigindo acompanhamento da mulher e da criança!</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">SAÚDE DA MULHER - PREVENÇÃO DE CÂNCERES E VIOLÊNCIA</h3>
+      
+      <p><strong>Câncer do Colo do Útero:</strong> A principal causa está relacionada à infecção persistente por tipos oncogênicos do <strong>HPV</strong>.</p>
+      <ul class="arrow-list">
+        <li>O Brasil passou a incorporar o <span class="hl-yellow">teste molecular de DNA-HPV</span> como método prioritário de rastreamento (citopatológico/Papanicolau mantido onde o novo teste ainda <span class="hl-red">não</span> estiver disponível).</li>
+        <li><strong>População-alvo:</strong> Pessoas com colo do útero entre <span class="hl-blue">25 e 64 anos</span> que já tiveram atividade sexual.</li>
+      </ul>
+
+      <p><strong>Câncer de Mama:</strong></p>
+      <ul class="arrow-list">
+        <li><strong>Rastreamento mamográfico no SUS:</strong> Recomendado prioritariamente para mulheres de <span class="hl-blue">50 a 74 anos</span> (atualização, antes era até 69 anos), a cada <span class="hl-blue">2 anos</span>.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>PEGADINHA DE PROVA:</strong> Mamografia de rastreamento <span class="hl-red">é diferente</span> de exame diagnóstico. Pessoa com sinal ou sintoma suspeito precisa de avaliação diagnóstica em <strong>qualquer idade</strong>, independentemente do protocolo de rastreamento populacional!</div>
+      </div>
+
+      <p><strong>Violência contra a mulher:</strong> Pode ser física, psicológica, sexual, patrimonial e moral.</p>
+      <ul class="check-list">
+        <li>O profissional DEVE: escutar sem julgamento, proteger a privacidade, identificar riscos, acolher, acionar a rede (protocolos) e comunicar/notificar.</li>
+        <li>O profissional <span class="hl-red">NÃO DEVE</span>: culpabilizar a vítima, exigir que ela "resolva sozinha" ou divulgar informações à comunidade.</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Saúde da Mulher):</div>
+        <p><strong>QUESTÃO 1.</strong> A atenção integral à saúde da mulher deve:</p>
+        <p>A) concentrar-se exclusivamente no período gestacional.<br>
+        B) priorizar apenas mulheres em idade fértil.<br>
+        C) abranger diferentes necessidades da mulher durante todo o ciclo de vida.<br>
+        D) restringir-se à prevenção do câncer de mama.<br>
+        E) limitar-se ao planejamento reprodutivo.</p>
+        <div class="gabarito-box"><strong>Gabarito: C.</strong> Comentário: A saúde da mulher deve ser integral, abrangendo todas as fases da vida, e <span class="hl-red">não apenas</span> gravidez e parto.</div>
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>QUESTÃO 2.</strong> Sobre o planejamento reprodutivo, assinale a alternativa correta:</p>
+        <p>A) A escolha do método contraceptivo compete exclusivamente ao profissional de saúde.<br>
+        B) Envolve informação, autonomia, acesso aos métodos e respeito às escolhas.<br>
+        C) É responsabilidade exclusiva da mulher.<br>
+        D) Tem como finalidade principal impedir a gravidez.<br>
+        E) Não integra a atenção primária.</p>
+        <div class="gabarito-box"><strong>Gabarito: B.</strong> Comentário: Planejamento reprodutivo garante autonomia e respeito. <span class="hl-red">Não compete exclusivamente</span> ao profissional ou à mulher.</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">SAÚDE DA CRIANÇA - CRESCIMENTO E DESENVOLVIMENTO</h3>
+      
+      <p>Esses dois conceitos são frequentemente confundidos pelas bancas, mas possuem significados distintos que você precisa dominar:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>CONCEITO</th>
+            <th>SIGNIFICADO</th>
+            <th>EXEMPLOS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CRESCIMENTO</strong></td>
+            <td>Mudanças <strong>quantitativas</strong> (tamanho do corpo).</td>
+            <td>Peso, altura/comprimento, perímetros.</td>
+          </tr>
+          <tr>
+            <td><strong>DESENVOLVIMENTO</strong></td>
+            <td>Aquisição progressiva de <strong>habilidades</strong>.</td>
+            <td>Capacidades motoras, cognitivas, sociais, emocionais e de linguagem.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE:</strong> <span class="hl-yellow">Crescimento = tamanho | Desenvolvimento = habilidades</span>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">SAÚDE DA CRIANÇA - ALEITAMENTO E ALIMENTAÇÃO COMPLEMENTAR</h3>
+      
+      <p>As regras de amamentação do Ministério da Saúde despencam em provas:</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: ALEITAMENTO MATERNO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">FASES DO<br>ALEITAMENTO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">0 a 6 meses: ALEITAMENTO EXCLUSIVO</div>
+          <div class="schema-node box-yellow">A partir dos 6 meses: ALIMENTAÇÃO COMPLEMENTAR + MANUTENÇÃO (até 2 anos ou +)</div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> Aleitamento <strong>exclusivo</strong> significa que a criança <span class="hl-red">não recebe nem mesmo água, chá ou suco</span> (salvo medicamentos/suplementos indicados clinicamente).</div>
+      </div>
+      
+      <p><strong>Alimentação Complementar (A partir dos 6 meses):</strong> Deve ser adequada à idade, possuir variedade, respeitar sinais de fome e saciedade, e priorizar alimentos nutritivos, sempre <strong>mantendo</strong> o aleitamento.</p>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">SAÚDE DA CRIANÇA - VACINAÇÃO E SINAIS DE RISCO</h3>
+      
+      <p>O ACS deve verificar a situação vacinal, orientar responsáveis, identificar atrasos e realizar busca ativa.</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Prevenção de acidentes:</strong> Quedas, queimaduras, intoxicações, afogamentos e engasgos <span class="hl-red">não são</span> eventos inevitáveis. Podem ser prevenidos com adaptação ambiental e supervisão.</li>
+        <li><strong>Sinais de Risco em Crianças:</strong> Dificuldade para respirar, convulsão, prostração intensa, dificuldade para acordar, alterações importantes de temperatura, incapacidade de mamar.</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>CONDUTA DO ACS:</strong> Ao identificar sinal de gravidade, o ACS <span class="hl-red">não tenta diagnosticar sozinho</span>. Ele orienta/aciona atendimento conforme a urgência!</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Saúde da Criança):</div>
+        <p><strong>QUESTÃO 4.</strong> De acordo com o material, o aleitamento materno exclusivo é recomendado, em regra:</p>
+        <p>A) até 3 meses. | B) até 4 meses. | C) até 5 meses. | D) até 6 meses. | E) até 12 meses.</p>
+        <div class="gabarito-box"><strong>Gabarito: D.</strong> Comentário: Recomenda-se aleitamento materno exclusivo até os <span class="hl-blue">6 meses</span>.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>QUESTÃO 10.</strong> Durante uma visita, o ACS identifica uma criança pequena com dificuldade para respirar e intensa prostração. Deve:</p>
+        <p>A) fazer o diagnóstico no domicílio.<br>
+        B) aguardar a próxima visita.<br>
+        C) orientar/acionar atendimento conforme a urgência.<br>
+        D) prescrever medicamento.</p>
+        <div class="gabarito-box"><strong>Gabarito: C.</strong> Comentário: Sinais de gravidade exigem atendimento rápido. O ACS identifica e encaminha; <span class="hl-red">não</span> diagnostica nem prescreve.</div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">SAÚDE DO ADOLESCENTE</h3>
+      
+      <p>A adolescência envolve transformações físicas, hormonais, emocionais, cognitivas e sociais. O adolescente é um sujeito de direitos.</p>
+
+      <ul class="check-list">
+        <li><strong>Sexualidade:</strong> A abordagem deve ser educativa, respeitosa, <span class="hl-red">sem preconceito</span>, baseada em direitos, voltada à proteção e autonomia.</li>
+        <li><strong>Prevenção de IST e Gravidez:</strong> Envolve educação, preservativos, vacinação, testagem e planejamento. Se houver gravidez: acolhimento + pré-natal + proteção.</li>
+        <li><strong>Álcool e Drogas:</strong> Prioriza informação, prevenção, fortalecimento de vínculos familiares e redução de vulnerabilidades.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>PEGADINHA DE PROVA:</strong> Educação sexual <span class="hl-red">não significa</span> estimular atividade sexual! Prevenção eficaz contra drogas <span class="hl-red">não se resume</span> a ameaças ou punição, mas sim à atenção integral.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Adolescente):</div>
+        <p><strong>QUESTÃO 14.</strong> Em relação à prevenção do uso de álcool e outras drogas por adolescentes, é correto afirmar:</p>
+        <p>A) deve basear-se exclusivamente em punições.<br>
+        B) ameaças constituem a principal estratégia preventiva.<br>
+        C) deve envolver educação, redução de vulnerabilidades e fortalecimento de vínculos.<br>
+        D) compete exclusivamente à família.</p>
+        <div class="gabarito-box"><strong>Gabarito: C.</strong> Comentário: A prevenção deve focar em educação e vínculos, e <span class="hl-red">não apenas</span> punição.</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">SAÚDE DO ADULTO E DOENÇAS CRÔNICAS</h3>
+      
+      <p>Promoção da saúde envolve incentivar alimentação, atividade física, vacinação, redução do tabagismo, sono adequado e saúde mental.</p>
+      
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS.:</strong> Fatores de risco <span class="hl-yellow">modificáveis</span> incluem: tabagismo, sedentarismo, alimentação inadequada, excesso de peso e consumo de álcool. (Idade e genética <span class="hl-red">não são</span> modificáveis).</div>
+      </div>
+
+      <p><strong>Condições Crônicas Principais:</strong></p>
+      <ul class="arrow-list">
+        <li><strong>Hipertensão:</strong> Doença silenciosa (pode ser assintomática). O ACS deve identificar, orientar e reforçar adesão aos hábitos saudáveis.</li>
+        <li><strong>Diabetes:</strong> O acompanhamento previne descompensações, doença renal, problemas oculares, lesões nos pés e alterações cardiovasculares.</li>
+        <li><strong>Obesidade:</strong> É uma condição <span class="hl-yellow">multifatorial</span> (genética, ambiente, sono, alimentação). <span class="hl-red">Não deve</span> ser reduzida a "falta de disciplina".</li>
+        <li><strong>Saúde do Homem:</strong> A atenção integral vai muito além. <span class="hl-red">Não se resume</span> ao câncer de próstata.</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>REGRA FUNDAMENTAL PARA O ACS:</strong> No acompanhamento de crônicos, o ACS IDENTIFICA → ORIENTA → ACOMPANHA → COMUNICA. O ACS <span class="hl-red">NUNCA</span> diagnostica sozinho, <span class="hl-red">nunca</span> prescreve e <span class="hl-red">nunca</span> altera ou suspende doses de medicamentos!</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Adulto):</div>
+        <p><strong>QUESTÃO 17.</strong> No acompanhamento de pessoas com hipertensão, o ACS pode:</p>
+        <p>A) prescrever anti-hipertensivos.<br>
+        B) alterar a dose da medicação.<br>
+        C) orientar, reforçar a adesão e estimular hábitos saudáveis.<br>
+        D) suspender medicamentos quando a pressão estiver normal.</p>
+        <div class="gabarito-box"><strong>Gabarito: C.</strong> Comentário: O ACS orienta e estimula a adesão ao tratamento, mas <span class="hl-red">não prescreve nem altera doses</span>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">SAÚDE DA PESSOA IDOSA - ENVELHECIMENTO, AUTONOMIA E INDEPENDÊNCIA</h3>
+      
+      <p>No Brasil, considera-se pessoa idosa aquela com <span class="hl-blue">60 anos</span> ou mais (Estatuto da Pessoa Idosa, Lei nº 10.741/2003).</p>
+      
+      <p>O envelhecimento saudável busca preservar a capacidade funcional, qualidade de vida e bem-estar. É crucial não confundir os dois conceitos abaixo:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>CONCEITO</th>
+            <th>DEFINIÇÃO</th>
+            <th>PALAVRA-CHAVE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>AUTONOMIA</strong></td>
+            <td>Capacidade de tomar decisões sobre a própria vida.</td>
+            <td><span class="hl-blue">DECIDIR</span></td>
+          </tr>
+          <tr>
+            <td><strong>INDEPENDÊNCIA</strong></td>
+            <td>Capacidade de realizar atividades sem ajuda física.</td>
+            <td><span class="hl-blue">FAZER</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Uma pessoa idosa pode ter limitações físicas (depender de ajuda para se vestir ou andar - perdeu parte da <em>independência</em>), mas continuar com pleno vigor mental para gerir seu dinheiro e escolhas de vida (mantém sua <em>autonomia</em>).
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> Envelhecimento <span class="hl-red">NÃO É</span> sinônimo de incapacidade. O profissional deve evitar infantilizar a pessoa idosa.</div>
+      </div>
+    </div>
+
+    <!-- DICA 11 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 11</div>
+      <h3 class="dica-title">SAÚDE DA PESSOA IDOSA - QUEDAS E USO DE MEDICAMENTOS</h3>
+      
+      <ul class="arrow-list">
+        <li><strong>Prevenção de Quedas:</strong> Queda em idoso <span class="hl-red">não deve</span> ser tratada como consequência inevitável. O ACS deve observar tapetes soltos, pisos escorregadios, pouca iluminação, escadas e calçados inadequados.</li>
+        <li><strong>Medicamentos:</strong> O ACS deve observar uso de vários medicamentos (polifarmácia), duplicidades e dificuldades com horários. Ao identificar problemas, o ACS <span class="hl-red">não suspende e não troca</span> a dose; ele orienta a procura da equipe.</li>
+        <li><strong>Violência contra Idoso:</strong> Pode ser física, psicológica, sexual, financeira/patrimonial, negligência ou abandono. Exige providências e comunicação imediata à rede de proteção.</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova (Idoso):</div>
+        <p><strong>QUESTÃO 25.</strong> Uma pessoa idosa apresenta limitação física e necessita de auxílio para determinadas atividades diárias, mas mantém capacidade para decidir sobre sua própria vida. Nesse caso:</p>
+        <p>A) perdeu necessariamente sua autonomia.<br>
+        B) não pode participar das decisões sobre seu tratamento.<br>
+        C) pode apresentar dependência funcional e, ao mesmo tempo, preservar sua autonomia.<br>
+        D) deve ter suas decisões transferidas automaticamente à família.</p>
+        <div class="gabarito-box"><strong>Gabarito: C.</strong> Comentário: Dependência física <span class="hl-red">não significa</span> perda de autonomia. A pessoa pode precisar de ajuda para realizar tarefas (fazer) e continuar capaz de tomar decisões (autonomia).</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">REVISÃO FINAL - MACETES MATADORES</h3>
+      
+      <p>Resumo de Ouro para carregar para a hora da prova:</p>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue">CRESCIMENTO = Tamanho</div>
+        <div class="schema-node box-yellow">DESENVOLVIMENTO = Habilidades</div>
+        <div class="schema-node box-blue">AUTONOMIA = Decidir</div>
+        <div class="schema-node box-yellow">INDEPENDÊNCIA = Fazer</div>
+        <div class="schema-node box-blue">LEITE EXCLUSIVO = Até 6 meses</div>
+        <div class="schema-node box-yellow">IDOSO (LEI) = 60 anos ou mais</div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>O MANTRA DO ACS:</strong> Identifica + Orienta + Acompanha + Comunica. <span class="hl-red">NUNCA</span> diagnostica. <span class="hl-red">NUNCA</span> prescreve. <span class="hl-red">NUNCA</span> altera medicação.</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

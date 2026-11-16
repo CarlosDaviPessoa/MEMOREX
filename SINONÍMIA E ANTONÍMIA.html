@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - SEMÂNTICA</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">SINONÍMIA E ANTONÍMIA</div>
+      
+      <p>A Semântica estuda a <strong>significação das palavras</strong>. Dentro dela, temos duas categorias fundamentais de relação entre as palavras:</p>
+      
+      <p><strong>1. <span class="hl-blue">SINÔNIMOS</span>:</strong> São palavras que possuem significados próximos. </p>
+      <div class="exemplo">
+        <strong>Ex.:</strong><br>
+        ✔ casa — lar — moradia — residência<br>
+        ✔ longe — distante<br>
+        ✔ delicioso — saboroso<br>
+        ✔ carro — automóvel
+      </div>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> O sentido dessas palavras é <em>próximo</em>, mas elas <span class="hl-red">não</span> são exatamente equivalentes! Dificilmente encontraremos um sinônimo perfeito (uma palavra que signifique <span class="hl-red">exatamente</span> a mesma coisa que outra).<br>
+          <em>Ex.: Embora "casa" e "lar" sejam sinônimos, soaria estranho dizer: "Comprei um novo lar".</em>
+        </div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> O uso de palavras sinônimas é de grande utilidade nos processos de <span class="hl-yellow">retomada de elementos</span> (coesão) que inter-relacionam as partes dos textos.
+        </div>
+      </div>
+
+      <p><strong>2. <span class="hl-blue">ANTÔNIMOS</span>:</strong> São palavras que possuem significados opostos, contrários.</p>
+      <div class="exemplo">
+        <strong>Ex.:</strong><br>
+        ✔ mal / bem<br>
+        ✔ fraco / forte<br>
+        ✔ possível / <span class="hl-red">im</span>possível<br>
+        ✔ progredir / <span class="hl-red">re</span>gredir
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">HIPONÍMIA E HIPERONÍMIA</div>
+
+      <p>Esses conceitos tratam de uma <strong>relação hierárquica de significado</strong> entre as palavras.</p>
+
+      <ul class="arrow-list">
+        <li><span class="hl-blue">HIPERÔNIMO:</span> É a palavra hierarquicamente <strong>superior</strong>, que apresenta um sentido mais <strong>abrangente</strong> e genérico. Transmite a ideia de um <em>todo</em>.</li>
+        <li><span class="hl-blue">HIPÔNIMO:</span> É a palavra hierarquicamente <strong>inferior</strong>, incluída na classe superior, com sentido mais <strong>restrito</strong> e específico. Transmite a ideia de um <em>item ou parte</em>.</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: RELAÇÃO HIERÁRQUICA</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">HIPERÔNIMO<br><small>(Sentido Abrangente / O Todo)</small><br><strong>Ex.: MAMÍFERO</strong></div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Hipônimo (Específico)<br><strong>Ex.: Cavalo</strong></div>
+          <div class="schema-node box-yellow">Hipônimo (Específico)<br><strong>Ex.: Cachorro</strong></div>
+          <div class="schema-node box-yellow">Hipônimo (Específico)<br><strong>Ex.: Onça</strong></div>
+        </div>
+      </div>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>HIPERÔNIMO (Geral)</th>
+            <th>HIPÔNIMOS (Específicos)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cor</strong></td>
+            <td>Verde, azul, amarelo, vermelho, branco...</td>
+          </tr>
+          <tr>
+            <td><strong>Fruta</strong></td>
+            <td>Maçã, banana, manga, abacaxi, jaca...</td>
+          </tr>
+          <tr>
+            <td><strong>Veículo</strong></td>
+            <td>Carro, automóvel, moto, bicicleta, ônibus...</td>
+          </tr>
+          <tr>
+            <td><strong>Doença</strong></td>
+            <td>Gripe, sarampo, caxumba, catapora, bronquite...</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> Na construção textual, o uso de hiperônimos e hipônimos atua como <span class="hl-yellow">recurso coesivo lexical</span>. Eles desempenham função anafórica, permitindo fazer referência a uma informação previamente mencionada <span class="hl-red">evitando repetições</span> vocabulares.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">HOMONÍMIA E PARONÍMIA</div>
+
+      <ul class="arrow-list">
+        <li><strong><span class="hl-blue">HOMÔNIMOS:</span></strong> São palavras <strong>iguais na forma</strong> (pronúncia ou grafia), mas com significados diferentes.</li>
+        <li><strong><span class="hl-blue">PARÔNIMOS:</span></strong> São palavras apenas <strong>semelhantes na forma</strong> (pronúncia e grafia), com significados diferentes.</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE HOMÔNIMOS</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">
+          <strong>HOMÓGRAFOS</strong><br>
+          <span class="hl-yellow">Iguais na Grafia</span><br>
+          Diferentes na Pronúncia<br>
+          <em>Ex.: colher (ó) / colher (ê)</em>
+        </div>
+        <div class="schema-node box-blue">
+          <strong>HOMÓFONOS</strong><br>
+          <span class="hl-yellow">Iguais na Pronúncia</span><br>
+          Diferentes na Grafia<br>
+          <em>Ex.: censo / senso</em>
+        </div>
+        <div class="schema-node box-blue">
+          <strong>PERFEITOS</strong><br>
+          <span class="hl-yellow">Iguais na Grafia e Pronúncia</span><br>
+          <em>Ex.: caminho (subst) / caminho (verbo)</em>
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Exemplos Clássicos de Parônimos:</strong><br>
+        ➔ Tráfego (trânsito) / Tráfico (comércio ilegal)<br>
+        ➔ Mandado (ordem judicial) / Mandato (tempo no cargo político)
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">POLISSEMIA E AMBIGUIDADE</div>
+
+      <p><strong><span class="hl-blue">POLISSEMIA:</span></strong> É a propriedade que uma <span class="hl-yellow">mesma palavra</span> tem de apresentar <strong>mais de um significado</strong> nos múltiplos contextos em que aparece.</p>
+      <div class="exemplo">
+        <strong>Ex.:</strong><br>
+        ✔ <strong>cabo:</strong> posto militar, acidente geográfico, cabo da vassoura.<br>
+        ✔ <strong>banco:</strong> instituição financeira, assento.<br>
+        ✔ <strong>manga:</strong> parte da roupa, fruta.
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!! (PEGADINHA)</strong> A polissemia ocorre quando a mesma palavra assume diferentes significados estruturais e semânticos. <span class="hl-red">Não</span> confunda com Homônimos Perfeitos, que são palavras de <strong>classes gramaticais diferentes</strong> (ex.: "cedo" advérbio x "cedo" verbo).
+        </div>
+      </div>
+
+      <p><strong><span class="hl-blue">AMBIGUIDADE:</span></strong> Ocorre quando um vocábulo ou expressão pode ser interpretado de <strong>mais de uma maneira</strong>. A ambiguidade pode ser <em>intencional</em> (recurso expressivo, humor) ou um <em>defeito na construção</em> (prejudica a clareza).</p>
+
+      <ul class="check-list">
+        <li><strong>Ambiguidade Semântica:</strong> Envolve polissemia.<br>
+        <em>Ex.: Estava em frente ao banco. (Móvel ou Instituição?)</em></li>
+        <li><strong>Ambiguidade Gramatical:</strong> Envolve a posição das palavras ou uso ambíguo de pronomes (possessivos/relativos).<br>
+        <em>Ex.: Ele voltou para sua casa. (Casa dele ou de quem ouve?)</em></li>
+      </ul>
+
+      <!-- QUESTÕES DE PROVA (BLOCO 1) -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>01. (IBFC - UFPB - 2023)</strong> Assinale a alternativa correta. No trecho "Um exemplo de turismo cruel com animais em <u>cativeiro</u>", a palavra assinalada significa:</p>
+        <ul class="arrow-list">
+          <li>A) Pátio, área.</li>
+          <li>B) Liberdade, visitação.</li>
+          <li>C) Encarcerado, saudável.</li>
+          <li>D) Prisão, clausura.</li>
+          <li>E) Rodízio, visita.</li>
+        </ul>
+        
+        <p><strong>02. (IBFC - CET Santos - 2023)</strong> Na expressão: "...argumentos <u>persuasivos</u>...", assinale a alternativa INCORRETA, em relação ao significado da palavra grifada:</p>
+        <ul class="arrow-list">
+          <li>A) Que fazem com que se passe a acreditar em.</li>
+          <li>B) Que convencem sobre alguma coisa.</li>
+          <li>C) Que são capazes de impor mudanças na cidadania.</li>
+          <li>D) Que fazem com que se mude de comportamento e/ou opinião.</li>
+        </ul>
+
+        <div class="gabarito-box">
+          <strong>Gabarito:</strong> 01/D; 02/C
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">DENOTAÇÃO X CONOTAÇÃO (SENTIDO PRÓPRIO E FIGURADO)</div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE:</strong><br>
+          ➔ <strong>D</strong>ENOTAÇÃO = <strong>D</strong>ICIONÁRIO (Sentido Próprio/Literal)<br>
+          ➔ <strong>C</strong>ONOTAÇÃO = <strong>C</strong>RIATIVIDADE (Sentido Figurado)
+        </div>
+      </div>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>TERMO</th>
+            <th>CONCEITO</th>
+            <th>EXEMPLO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>DENOTAÇÃO (Sentido Próprio)</strong></td>
+            <td>Significado primitivo e original; sentido literal e <strong>objetivo</strong>; encontrado no dicionário. Usado de modo automatizado; linguagem comum e informativa.</td>
+            <td>"O <strong>cachorro</strong> latiu o dia todo." <em>(Animal)</em><br>"Minha avó faz um <strong>pão</strong> salgado delicioso."</td>
+          </tr>
+          <tr>
+            <td><strong>CONOTAÇÃO (Sentido Figurado)</strong></td>
+            <td>Significado secundário, <strong>subjetivo</strong>, simbólico e figurado; influenciado por associações. Usado de modo criativo; linguagem rica e expressiva.</td>
+            <td>"Ele é um <strong>cachorro</strong>." <em>(Traição/deslealdade)</em><br>"Meu avô era um <strong>pão</strong> quando era novo." <em>(Beleza)</em></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- QUESTÕES DE PROVA (BLOCO 2) -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>01. (IBFC - IMBEL - 2024)</strong> "Como primeira porta de entrada nesse vasto mundo do significado das palavras, comecemos a observá-las sob os conceitos de 'denotação' e 'conotação'. O sentido _____ é aquele dado pelo dicionário. Na _____, o sentido é referencial, próprio, usual ou literal. Já o sentido _____ é o sentido que a palavra ganha no texto por força geralmente de comparações, associações de ideias."</p>
+        <ul class="arrow-list">
+          <li>A) denotativo / denotação / conotativo.</li>
+          <li>B) conotativo / denotação / conotativo.</li>
+          <li>C) denotativo / conotação / denotativo.</li>
+          <li>D) conotativo / conotação / conotativo.</li>
+          <li>E) conotativo / conotação / denotativo.</li>
+        </ul>
+
+        <p><strong>02. (IBFC - SEJUSP MG - 2023)</strong> A linguagem figurada também é empregada em "que tinha todo o lado direito do corpo <u>esquecido</u>". Com esse emprego, consegue-se:</p>
+        <ul class="arrow-list">
+          <li>A) suavizar o impacto de um problema físico.</li>
+          <li>B) potencializar as causas da doença descrita.</li>
+          <li>C) reforçar a localização das dores sentidas.</li>
+          <li>D) aproximar as dores físicas das psicológicas.</li>
+        </ul>
+
+        <div class="gabarito-box">
+          <strong>Gabarito:</strong> 01/A; 02/A
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

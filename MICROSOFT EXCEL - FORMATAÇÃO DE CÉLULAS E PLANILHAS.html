@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">INFORMÁTICA - CONCURSOS</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">MICROSOFT EXCEL - FORMATAÇÃO DE CÉLULAS E PLANILHAS</h2>
+      <ul class="arrow-list">
+        <li><strong>Bloco Número:</strong> Edita como o número ou texto é exibido (<span class="hl-blue">data, hora, contábil, moeda, porcentagem</span>).</li>
+        <li><strong>Bloco Estilo:</strong> O grande destaque é a <span class="hl-yellow">Formatação Condicional</span>, que altera a aparência da célula de forma automática com base no dado.</li>
+        <li><strong>Bloco Células:</strong> Permite incluir/excluir células, formatar o tamanho, além de <span class="hl-red">bloquear a planilha com senha</span>.</li>
+        <li><strong>Bloco Edição:</strong> Possui funções simples como soma, média, autopreenchimento e ferramentas de <span class="hl-blue">Filtro e Classificação</span>.</li>
+      </ul>
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> O menu <em>Formatar como Tabela</em> permite configurar rapidamente um conjunto de dados. Já as fórmulas sempre acompanham a estruturação inicial da planilha.</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">MICROSOFT EXCEL - FÓRMULAS E FUNÇÕES BÁSICAS</h2>
+      <p>As funções formam a essência corporativa do Excel.</p>
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE: REGRAS DE FUNÇÕES</strong>
+          <ul class="check-list">
+            <li>Todas iniciam obrigatoriamente com o sinal de <span class="hl-red">= (igual)</span>.</li>
+            <li>Podem ser escritas nas células ou na <strong>barra de fórmulas</strong>.</li>
+            <li>O nome da função é sempre seguido da <strong>abertura de parênteses</strong> e encerrado com o fechamento.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exemplo"><strong>Ex.:</strong> <code>=SOMA(B3:B13)</code> → O símbolo <strong>:</strong> (dois pontos) indica um <span class="hl-blue">intervalo contínuo</span> (de B3 ATÉ B13). Se fosse usado o <strong>;</strong> (ponto e vírgula), seria uma adição isolada de B3 E B13.</div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">MICROSOFT EXCEL - ATALHOS MAIS COBRADOS EM PROVA</h2>
+      <p>O conhecimento de atalhos é praticamente obrigatório nas provas de Informática.</p>
+      <ul class="arrow-list">
+        <li><span class="hl-blue">CTRL + ;</span> Insere a data atual.</li>
+        <li><span class="hl-blue">CTRL + '</span> Copia fórmula da célula acima.</li>
+        <li><span class="hl-blue">CTRL + 1</span> Exibe a caixa <em>Formatar Células</em>.</li>
+        <li><span class="hl-blue">CTRL + 9</span> Oculta as linhas selecionadas. <span class="hl-blue">CTRL + 0</span> Oculta as colunas.</li>
+        <li><span class="hl-red">CTRL + Z</span> Desfazer. <span class="hl-red">CTRL + Y</span> Refazer/Repetir.</li>
+        <li><span class="hl-yellow">CTRL + SHIFT + *</span> Seleciona a região atual.</li>
+      </ul>
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> Cuidado com falsos cognatos em português: <strong>CTRL + B</strong> <span class="hl-red">SALVA</span> o arquivo no Excel (não põe negrito). Para Negrito usa-se <strong>CTRL + N</strong>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">MICROSOFT EXCEL - QUESTÕES DE PROVA</h2>
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(TRT 6ª - Técnico Judiciário - FCC/2018)</strong> Caso seja inserida a fórmula <code>=SE(B2>50;B2-B2*C2;B2)</code> na célula D2 (onde B2=15,00 e C2=10%) e posteriormente arrastada para as células D3 (onde B3=50,00) e D4 (onde B4=60,00), os valores nas células serão, respectivamente:</p>
+        <p>A) 13,50; 45,00; 54,00.<br>
+        B) 13,50; 45,00; 60,00.<br>
+        C) 15,00; 45,00; 54,00.<br>
+        D) 15,00; 45,00; 60,00.<br>
+        E) 15,00; 50,00; 54,00.</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: E</strong>. <br>
+          <em>Comentário:</em> A função =SE testa a condição (B>50). <br>
+          D2: 15 > 50? <span class="hl-red">Falso</span>. Retorna B2 (15,00).<br>
+          D3: 50 > 50? <span class="hl-red">Falso</span>. Retorna B3 (50,00).<br>
+          D4: 60 > 50? <span class="hl-blue">Verdadeiro</span>. Retorna 60 - (60*10%) = 54,00.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">MICROSOFT WORD - CARACTERÍSTICAS E NOVIDADES</h2>
+      <p>O Word é um processador WYSIWYG (<em>What You See Is What You Get</em>). Sua extensão padrão é o <span class="hl-yellow">.docx</span> (a partir da versão 2007).</p>
+      <ul class="arrow-list">
+        <li>Abertura e edição direta de arquivos <span class="hl-red">.PDF</span> (novidade desde o 2013).</li>
+        <li>Inserção de imagens e <span class="hl-blue">vídeos online</span> diretamente no documento.</li>
+        <li>Compartilhamento via nuvem (OneDrive) com coautoria em tempo real.</li>
+      </ul>
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS.:</strong> O concorrente direto open-source do Word é o <strong>Writer</strong> da suíte LibreOffice (software livre).</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">MICROSOFT WORD - FAIXA DE OPÇÕES (GUIAS)</h2>
+      <div class="esquema-title">ESQUEMATIZANDO: PRINCIPAIS GUIAS DO WORD</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">GUIAS DO WORD</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">ARQUIVO: Salvar, Imprimir, Compartilhar, Exportar (.pdf)</div>
+          <div class="schema-node box-yellow">PÁGINA INICIAL: Fonte, Parágrafo, Estilos, Área de Transferência</div>
+          <div class="schema-node box-yellow">INSERIR: Tabelas, Ilustrações, Links (Hiperlink), Mídia, Cabeçalho/Rodapé</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">MICROSOFT WORD - ATALHOS MAIS COBRADOS</h2>
+      <table class="memorex-table">
+        <tr>
+          <th>Atalho</th>
+          <th>Função no Word</th>
+        </tr>
+        <tr><td><strong>CTRL + B</strong></td><td><span class="hl-blue">Salvar</span> Documento</td></tr>
+        <tr><td><strong>CTRL + K</strong></td><td>Inserir <span class="hl-yellow">Hiperlink</span></td></tr>
+        <tr><td><strong>CTRL + U</strong></td><td><span class="hl-red">Substituir</span> texto/formatação</td></tr>
+        <tr><td><strong>CTRL + L</strong></td><td>Localizar / Pesquisar</td></tr>
+        <tr><td><strong>CTRL + E / Q / G / J</strong></td><td>Centralizar / Alinhar Esq. / Dir. / Justificar</td></tr>
+      </table>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h2 class="dica-title">REDES E INTERNET - WI-FI VS REDES MÓVEIS</h2>
+      <p>A conectividade evoluiu para atender à IoT (Internet das Coisas), especialmente com a chegada do 5G.</p>
+      <table class="memorex-table">
+        <tr>
+          <th>Característica</th>
+          <th>WI-FI</th>
+          <th>4G / 5G (Redes Móveis)</th>
+        </tr>
+        <tr><td>Infraestrutura</td><td>Roteador / Ponto de acesso local</td><td>Antenas de Operadora de telefonia</td></tr>
+        <tr><td>Alcance</td><td>Limitado / Regional</td><td>Amplo / Cobertura de rede celular</td></tr>
+        <tr><td>Custos / Franquia</td><td>Não consome pacote móvel</td><td><span class="hl-red">Consome franquia de dados</span></td></tr>
+        <tr><td>Comutação (4G/5G)</td><td>-</td><td>Redes baseadas 100% em <span class="hl-blue">Pacotes (IP)</span></td></tr>
+      </table>
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> O 5G não é "compatível com qualquer equipamento". Requer hardware específico. Sua grande força é a <span class="hl-yellow">baixíssima latência e super velocidade</span>, viabilizando a IoT.</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h2 class="dica-title">REDES - LOGS E OPERAÇÃO OFFLINE</h2>
+      <ul class="check-list">
+        <li><strong>Online vs Offline:</strong> Operar offline <span class="hl-red">NÃO</span> significa equipamento desligado; significa uso sem rede. Ao voltar à rede, ocorre a <span class="hl-blue">Sincronização</span> automática.</li>
+        <li><strong>Logs (Registros):</strong> São históricos de eventos do sistema, vitais para auditorias e segurança.</li>
+      </ul>
+      <ul class="arrow-list">
+        <li><span class="hl-blue">Log de Acesso:</span> Quem acessou, quando e de onde.</li>
+        <li><span class="hl-blue">Log de Sistema:</span> Desligamento, erros, atualizações.</li>
+        <li><span class="hl-blue">Log de Rede:</span> Endereços IP e transmissões.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h2 class="dica-title">SEGURANÇA - VÍRUS E MALWARES</h2>
+      <p>Um vírus faz cópias de si mesmo, mas necessita ser executado. Conheça as principais famílias:</p>
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>Boot:</strong> Infecta inicialização do SO.</div>
+        <div class="schema-node box-blue"><strong>Time Bomb:</strong> Ativado em data programada.</div>
+        <div class="schema-node box-blue"><strong>Worm:</strong> Propaga-se por redes, não precisa hospedeiro.</div>
+        <div class="schema-node box-blue"><strong>Trojan:</strong> Cavalo de Troia (abre portas).</div>
+        <div class="schema-node box-blue"><strong>Spyware:</strong> Programa espião (coleta dados).</div>
+      </div>
+    </div>
+
+    <!-- DICA 11 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 11</div>
+      <h2 class="dica-title">SEGURANÇA - ANTIVÍRUS E FIREWALL</h2>
+      <ul class="check-list">
+        <li><strong>Antivírus:</strong> Opera por <em>assinaturas</em> (padrões conhecidos). Previne, detecta e elimina códigos maliciosos.</li>
+        <li><strong>Firewall:</strong> Barreira entre a rede interna e a internet (Filtro de pacotes). Pode ser <span class="hl-blue">Hardware ou Software</span>.</li>
+      </ul>
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>TIPOS DE FIREWALL:</strong><br>
+        ➔ <em>Proxy:</em> Intermediário para aplicações específicas.<br>
+        ➔ <em>Stateful:</em> Filtro tradicional por porta, estado e protocolo.<br>
+        ➔ <em>UTM:</em> Gerenciamento unificado (inclui antivírus e IPS).<br>
+        ➔ <em>NGFW (Next-Gen):</em> Prevenção integrada focada em ameaças avançadas e controle de aplicações.</div>
+      </div>
+    </div>
+
+    <!-- DICA 12 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 12</div>
+      <h2 class="dica-title">SEGURANÇA - PRINCÍPIOS DA SEGURANÇA DA INFORMAÇÃO</h2>
+      <p>Decoreba máxima de provas. Memorize o acrônimo <span class="hl-yellow">C-I-D-A-N</span>:</p>
+      <ul class="arrow-list">
+        <li><strong>Confidencialidade:</strong> Acesso restrito aos <span class="hl-red">exclusivamente autorizados</span>.</li>
+        <li><strong>Integridade:</strong> A garantia de que a mensagem <span class="hl-red">NÃO</span> foi alterada indevidamente.</li>
+        <li><strong>Disponibilidade:</strong> O sistema sempre acessível quando requisitado.</li>
+        <li><strong>Autenticidade:</strong> O usuário é, de fato, quem diz ser.</li>
+        <li><strong>Não Repúdio (Irretratabilidade):</strong> O autor <span class="hl-red">não pode negar</span> a autoria (requer integridade + autenticidade).</li>
+      </ul>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">SEGURANÇA - CRIPTOGRAFIA E CERTIFICADO DIGITAL</h2>
+      <p>A criptografia garante o sigilo. O modelo depende do uso de chaves:</p>
+      <div class="esquema-title">ESQUEMATIZANDO: CHAVES CRIPTOGRÁFICAS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">TIPO DE CHAVE</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">SIMÉTRICA: Chave única. Rápida. Problema: compartilhar a chave.</div>
+          <div class="schema-node box-yellow">ASSIMÉTRICA: Par de chaves. Pública (criptografa) e Privada (descriptografa).</div>
+        </div>
+      </div>
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE:</strong> O <strong>Certificado Digital</strong> é o seu "RG Eletrônico". Ele assegura identidade e validade jurídica contendo a assinatura de uma <strong>Autoridade Certificadora (AC)</strong>.</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

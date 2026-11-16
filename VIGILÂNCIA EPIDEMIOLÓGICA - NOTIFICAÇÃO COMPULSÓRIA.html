@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">CONHECIMENTOS ESPECÍFICOS - ACS</div>
+
+    <!-- ================= DICA 01 ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">VIGILÂNCIA EPIDEMIOLÓGICA - NOTIFICAÇÃO COMPULSÓRIA</h3>
+      <p>Notificação compulsória é a comunicação <span class="hl-blue">obrigatória</span> de determinadas doenças, agravos ou eventos de saúde pública às autoridades competentes[cite: 1].</p>
+      
+      <p>O <strong>SINAN</strong> é alimentado principalmente pelas notificações e investigações dos agravos constantes na Lista Nacional de Notificação Compulsória[cite: 1]. Estados e municípios também podem incluir eventos relevantes às suas realidades[cite: 1].</p>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>ATUALIZAÇÃO IMPORTANTE PARA 2026:</strong> A Lista Nacional foi atualizada pela <span class="hl-blue">Portaria GM/MS nº 10.175, de 23 de janeiro de 2026</span>[cite: 1]. Questões que peçam a lista atual devem ser respondidas com base na legislação vigente[cite: 1].
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA DE PROVA:</strong> Notificação <span class="hl-red">não</span> significa diagnóstico definitivo obrigatório em todos os casos[cite: 1]. Para diversos eventos, a <span class="hl-yellow">própria suspeita já pode desencadear obrigação de notificar</span>[cite: 1].
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= DICA 02 ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">SANEAMENTO BÁSICO E SAÚDE AMBIENTAL</h3>
+      <p>Saneamento e saúde estão diretamente relacionados[cite: 1]. Falhas nessas áreas favorecem riscos ambientais e sanitários[cite: 1].</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: ÁREAS DO SANEAMENTO E IMPACTOS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SANEAMENTO<br>BÁSICO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>Água:</strong> Riscos por contaminação e mau armazenamento.</div>
+          <div class="schema-node box-yellow"><strong>Esgoto:</strong> Destino inadequado = contaminação de solo/água.</div>
+          <div class="schema-node box-yellow"><strong>Resíduos:</strong> Acúmulo atrai vetores (risco de Aedes).</div>
+          <div class="schema-node box-yellow"><strong>Drenagem:</strong> Deficiência causa alagamentos e exposição a águas.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> Nem toda doença relacionada à água é transmitida simplesmente bebendo água contaminada[cite: 1]. A água também pode participar de ciclos ambientais e favorecer vetores[cite: 1].
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Lixo + recipiente + água parada = <span class="hl-red">risco para proliferação do Aedes</span>[cite: 1]. Esgoto adequado é uma medida de proteção coletiva[cite: 1].
+      </div>
+    </div>
+
+    <!-- ================= DICA 03 ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">DOENÇAS TRANSMISSÍVEIS - TUBERCULOSE E HANSENÍASE</h3>
+      <p>Doenças transmissíveis são causadas por agentes infecciosos capazes de passar direta ou indiretamente entre pessoas, animais, vetores ou ambientes[cite: 1].</p>
+      
+      <p><strong>1. TUBERCULOSE:</strong> Causada pelo <em>Mycobacterium tuberculosis</em> (pulmões)[cite: 1]. Sinais de atenção:</p>
+      <ul class="arrow-list">
+        <li>Tosse persistente[cite: 2]</li>
+        <li>Emagrecimento e febre[cite: 2]</li>
+        <li>Suor noturno[cite: 2]</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO:</strong> A Tuberculose pulmonar <span class="hl-red">não</span> é transmitida por simples compartilhamento de pratos, talheres ou aperto de mão[cite: 2]. A transmissão relevante ocorre <span class="hl-yellow">predominantemente pelo ar</span>[cite: 2].
+        </div>
+      </div>
+
+      <p><strong>2. HANSENÍASE:</strong> Doença crônica causada pelo <em>Mycobacterium leprae</em>[cite: 2].</p>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE O MACETE:</strong> MANCHA + PERDA/ALTERAÇÃO DA SENSIBILIDADE = Pense em <strong>hanseníase</strong>[cite: 2]! Pode haver dormência e formigamento[cite: 2].
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= DICA 04 ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">DOENÇAS TRANSMISSÍVEIS - HEPATITES, HIV E ISTs</h3>
+      
+      <p><strong>HEPATITES VIRAIS:</strong> Atingem principalmente o fígado[cite: 2]. <span class="hl-red">Não existe</span> uma única forma de transmissão[cite: 2]; pode ser fecal-oral, sanguínea, sexual ou vertical, dependendo do vírus[cite: 2].</p>
+
+      <p><strong>HIV/AIDS:</strong> O HIV ataca células do sistema imunológico[cite: 2]. Lembre-se: <strong>HIV <span class="hl-red">≠</span> AIDS</strong>[cite: 2]. A pessoa pode viver com HIV sem apresentar AIDS[cite: 2].</p>
+
+      <ul class="check-list">
+        <li><strong>Transmite por:</strong> Relações sexuais sem proteção, sangue contaminado, compartilhamento de perfurocortantes, transmissão vertical[cite: 2].</li>
+        <li><strong><span class="hl-red">NÃO TRANSMITE POR:</span></strong> Abraço, aperto de mão, copos, talheres, convívio social comum[cite: 2].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>SOBRE ISTs:</strong> Ausência de sintomas <span class="hl-red">não significa necessariamente ausência de IST</span>[cite: 2]. O ACS deve orientar sobre prevenção e testagem[cite: 2].
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= DICA 05 ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">DOENÇAS TRANSMISSÍVEIS - LEPTOSPIROSE E CHAGAS</h3>
+      
+      <p><strong>LEPTOSPIROSE:</strong> Zoonose bacteriana associada ao contato com água/lama contaminada pela urina de animais, especialmente roedores[cite: 2].</p>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>PEGADINHA CLÁSSICA (Enchentes):</strong> Água/lama + urina de rato = leptospirose[cite: 2]. <span class="hl-red">Não</span> é a mordida do rato a forma típica cobrada em prova[cite: 2]!
+        </div>
+      </div>
+
+      <p><strong>DOENÇA DE CHAGAS:</strong> Causada pelo protozoário <em>Trypanosoma cruzi</em>[cite: 2]. A transmissão vetorial clássica relaciona-se aos triatomíneos (barbeiros)[cite: 2]. Na prova: <strong>Barbeiro → Chagas</strong>[cite: 2].</p>
+      
+      <p><strong>ESQUISTOSSOMOSE:</strong> Causada pelo <em>Schistosoma</em>[cite: 3]. Relaciona-se à água doce e caramujos hospedeiros[cite: 3]. Na prova: <strong>Caramujo + água contaminada → esquistossomose</strong>[cite: 3].</p>
+
+      <p><strong>RAIVA:</strong> Doença viral grave transmitida pela saliva de mamíferos (mordeduras, arranhaduras, lambeduras)[cite: 3].</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> Após agressão por animal, a pessoa <span class="hl-red">não</span> deve simplesmente esperar sintomas; deve procurar serviço de saúde para profilaxia[cite: 3].
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= DICA 06 ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">ARBOVIROSES - DENGUE, ZIKA E CHIKUNGUNYA</h3>
+      <p>São doenças causadas por vírus transmitidos por artrópodes[cite: 3]. O <em>Aedes aegypti</em> é importante vetor[cite: 3].</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>DOENÇA</th>
+            <th>CARACTERÍSTICAS MARCANTES (PROVA)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Dengue</strong></td>
+            <td>Febre, dor atrás dos olhos, manchas. Cuidado com medicamentos inadequados (risco de sangramento)[cite: 3].</td>
+          </tr>
+          <tr>
+            <td><strong>Zika</strong></td>
+            <td>Atenção especial na <span class="hl-yellow">gestação</span> devido a complicações neurológicas e alterações congênitas[cite: 3].</td>
+          </tr>
+          <tr>
+            <td><strong>Chikungunya</strong></td>
+            <td><span class="hl-blue">Dor articular intensa</span> e persistente[cite: 3]. (Chikungunya → articulações).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ================= DICA 07 ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">ARBOVIROSES - FEBRE AMARELA E O VETOR AEDES</h3>
+      
+      <p><strong>FEBRE AMARELA:</strong> Prevenível por vacinação[cite: 3]. No Brasil, atualmente a transmissão ocorre no <strong>ciclo silvestre</strong> (gêneros Haemagogus e Sabethes)[cite: 3].</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA IMPORTANTÍSSIMA:</strong> Macacos <span class="hl-red">NÃO</span> transmitem febre amarela diretamente ao ser humano[cite: 3]! Eles são apenas hospedeiros e sentinelas epidemiológicas[cite: 3].
+        </div>
+      </div>
+
+      <p><strong>CICLO DO AEDES AEGYPTI:</strong> É um mosquito doméstico, de hábitos preferencialmente diurnos e marcas brancas[cite: 3].</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: CICLO DO VETOR (O-L-P-A)</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">1. OVO</div>
+        <div class="schema-node box-blue">2. LARVA (Aquática)</div>
+        <div class="schema-node box-blue">3. PUPA (Aquática)</div>
+        <div class="schema-node box-blue">4. ADULTO</div>
+      </div>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE:</strong> Larva e pupa são fases <span class="hl-blue">aquáticas</span>[cite: 3]. Por isso, o controle da água parada é essencial[cite: 3]!
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= DICA 08 ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">PREVENÇÃO E O PAPEL DO ACS</h3>
+      <p>A estratégia central é reduzir a proliferação do vetor eliminando criadouros (caixas d'água, pneus, calhas)[cite: 3, 4].</p>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          O controle deve ocorrer <span class="hl-yellow">durante todo o ano</span>, e não somente no período de chuvas ou epidemias[cite: 4]. O combate ao Aedes <span class="hl-red">não</span> é responsabilidade exclusiva do ACE[cite: 4].
+        </div>
+      </div>
+
+      <p><strong>PAPEL DO ACS:</strong> Orientar famílias, identificar riscos, mobilizar comunidade[cite: 4]. Lembre-se para a prova: <strong>ACS + ACE = integração, <span class="hl-red">não</span> disputa de território</strong>[cite: 4].</p>
+    </div>
+
+    <!-- ================= DICA BÔNUS ================= -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">DOENÇAS CRÔNICAS NÃO TRANSMISSÍVEIS (DCNT)</h3>
+      <p>Possuem longa duração e exigem acompanhamento[cite: 4]. Principais destaques de prova:</p>
+      <ul class="arrow-list">
+        <li><strong>Hipertensão:</strong> Pode permanecer <span class="hl-yellow">sem sintomas</span> por muito tempo (ausência de sintomas <span class="hl-red">≠</span> ausência da doença)[cite: 4].</li>
+        <li><strong>Obesidade:</strong> É multifatorial. <span class="hl-red">Não</span> deve ser tratada como simples "falta de força de vontade"[cite: 4].</li>
+        <li><strong>Câncer:</strong> O ACS orienta rastreamentos, mas atenção: <span class="hl-red">Rastreamento ≠ diagnóstico definitivo</span>[cite: 4].</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Banca Fictícia - 2026 - ACS)</strong> A respeito do combate ao mosquito <em>Aedes aegypti</em> e do papel dos profissionais da Atenção Primária, assinale a afirmativa correta:</p>
+        <p>A) O combate aos criadouros é responsabilidade exclusiva do Agente de Combate às Endemias (ACE).<br>
+           B) O Agente Comunitário de Saúde (ACS) atua de forma integrada ao ACE, e as ações de controle devem ocorrer ininterruptamente durante todo o ano.<br>
+           C) A eliminação de criadouros só é necessária nas fases adultas do mosquito, dispensando as fases aquáticas.<br>
+           D) O controle vetorial deve ser intensificado apenas no período de chuvas e surtos epidêmicos.</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: B.</strong><br>
+          <em>Comentário:</em> Conforme estudado, ACS e ACE devem atuar em integração (não há exclusividade). O controle deve ser o ano todo, e não apenas nas chuvas. Além disso, as fases de larva e pupa são aquáticas e exigem controle de recipientes[cite: 3, 4].
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

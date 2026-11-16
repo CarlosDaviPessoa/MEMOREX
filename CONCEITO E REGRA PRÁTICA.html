@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - EMPREGO DO SINAL DE CRASE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">CONCEITO E REGRA PRÁTICA</div>
+      
+      <p>A crase é o fenômeno fonético que representa a <span class="hl-blue">fusão da preposição "a" com o artigo feminino "a(s)"</span> (ou com a vogal inicial de pronomes).</p>
+      
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> Ocorre a união matemática de <strong>a + a(s) = à(s)</strong>.</div>
+      </div>
+      <div class="exemplo"><strong>Ex.:</strong> Ele vai a + a feira ➔ Ele vai <strong>à</strong> feira.</div>
+
+      <p><strong>REGRA PRÁTICA:</strong> Troca-se a palavra feminina por uma masculina correspondente.</p>
+      <ul class="check-list">
+        <li>Se, antes da masculina, aparecer <span class="hl-yellow">"ao(s)"</span>, <span class="hl-blue">coloca-se o sinal da crase</span> no "a(s)" antes da palavra feminina.</li>
+      </ul>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> Ele vai <strong>à</strong> feira. (Trocando: Ele vai <strong>ao</strong> banco).<br>
+        <strong>Ex.:</strong> Ele visitou <strong>a</strong> exposição. (Trocando: Ele visitou <strong>o</strong> salão de arte — <em>sem crase, pois apareceu "o" e não "ao"</em>).
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">CASOS EM QUE NÃO OCORRE CRASE (PROIBIDA)</div>
+      
+      <p>A crase é <span class="hl-red">PROIBIDA</span> antes de palavras que <span class="hl-red">não</span> admitem o artigo feminino "a(s)".</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: CRASE PROIBIDA</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">NUNCA<br>USE CRASE</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Antes de palavras MASCULINAS (Ex.: a pé)</div>
+          <div class="schema-node box-yellow">Antes de VERBOS (Ex.: começou a gritar)</div>
+          <div class="schema-node box-yellow">Antes de PRONOMES PESSOAIS / Tratamento (Ex.: a ela, a V.Sa.)</div>
+          <div class="schema-node box-yellow">Antes dos pronomes ESTA(S), QUEM e CUJA(S)</div>
+          <div class="schema-node box-yellow">"A" no singular + Palavra no PLURAL (Ex.: a acusações)</div>
+          <div class="schema-node box-yellow">Entre palavras REPETIDAS (Ex.: cara a cara)</div>
+          <div class="schema-node box-yellow">Nomes de cidades SEM especificativo (Ex.: ir a Fortaleza)</div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!!</strong> Se o nome da cidade estiver caracterizado por um <strong>especificativo</strong>, <span class="hl-blue">ocorre crase</span>. <br>
+        <em>Ex.: Ele gosta de ir <strong>à ensolarada</strong> Fortaleza.</em></div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">CASOS EM QUE OCORRE CRASE (OBRIGATÓRIA)</div>
+
+      <ul class="arrow-list">
+        <li><strong>Locuções adverbiais femininas:</strong> de tempo, lugar ou modo.
+          <div class="exemplo">
+            <strong>Tempo:</strong> Ele chegou <strong>à</strong> noite e saiu <strong>às</strong> seis horas.<br>
+            <strong>Lugar:</strong> Ninguém chegou <strong>à</strong> cidade.<br>
+            <strong>Modo:</strong> Ele entrou <strong>às</strong> escondidas no armazém.
+          </div>
+        </li>
+        <li><strong>Locuções prepositivas</strong> <span class="hl-yellow">(à + palavra feminina + de)</span>:
+          <div class="exemplo"><strong>Ex.:</strong> Nós ficamos <strong>à espera de</strong> ajuda.</div>
+        </li>
+        <li><strong>Locuções conjuntivas</strong> <span class="hl-yellow">(à + palavra feminina + que)</span>:
+          <div class="exemplo"><strong>Ex.:</strong> O tempo esfria, <strong>à medida que</strong> escurece.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">CASOS EM QUE A CRASE É FACULTATIVA</div>
+      
+      <p>Nos casos abaixo, a presença do artigo é opcional, logo a crase também o é.</p>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE A REGRA:</strong> A crase é facultativa diante de <strong>Mulher Possessiva Até</strong> demais!</div>
+      </div>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Antes de pronomes POSSESSIVOS femininos<br><em>(à minha / a minha)</em></div>
+        <div class="schema-node box-blue">Antes de NOMES DE MULHER<br><em>(à Paula / a Paula)</em></div>
+        <div class="schema-node box-blue">Depois da preposição ATÉ<br><em>(até à esquina / até a esquina)</em></div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">CRASE COM PRONOMES DEMONSTRATIVOS E RELATIVOS</div>
+
+      <ul class="check-list">
+        <li><strong>Preposição "a" + pronome demonstrativo "a(s)":</strong> Aparece seguido de "que" ou "de". Troque o feminino antes do "a(s)" por um masculino. Se der <span class="hl-blue">ao(s)</span>, tem crase.
+          <div class="exemplo">
+            Esta casa é igual <strong>à</strong> que você comprou. <em>(Este carro é igual <strong>ao</strong> que você comprou)</em>
+          </div>
+        </li>
+        <li><strong>Preposição "a" + aquele(s) / aquela(s) / aquilo:</strong> Troque "aquele(s)" por "este(s)". Se aparecer preposição "a" antes do "este(s)", tem crase no aquele.
+          <div class="exemplo">
+            Ele se refere <strong>àquele</strong> fato. <em>(Ele se refere <strong>a</strong> este fato)</em>
+          </div>
+        </li>
+        <li><strong>Crase antes de qual/quais:</strong> Troque a palavra feminina anterior por uma masculina. Se der <span class="hl-blue">ao qual / aos quais</span>, ocorre crase.
+          <div class="exemplo">
+            Estas são as crianças <strong>às quais</strong> me refiro. <em>(Estes são os alunos <strong>aos quais</strong> me refiro)</em>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <div class="dica-title">CASOS ESPECIAIS: CASA E TERRA</div>
+      
+      <p>Atenção redobrada para essas duas palavras que são "queridinhas" das bancas.</p>
+
+      <table class="memorex-table">
+        <tr>
+          <th>Palavra</th>
+          <th>Regra e Aplicação</th>
+          <th>Exemplo</th>
+        </tr>
+        <tr>
+          <td><strong>CASA</strong></td>
+          <td><span class="hl-red">Sem especificativo ➔ SEM crase.</span><br><span class="hl-green">Com especificativo ➔ COM crase.</span></td>
+          <td>Chegamos cedo <strong>a</strong> casa.<br>Chegamos cedo <strong>à</strong> casa <em>do meu pai</em>.</td>
+        </tr>
+        <tr>
+          <td><strong>TERRA</strong></td>
+          <td><span class="hl-red">Oposto a água (bordo) ➔ SEM crase.</span><br><span class="hl-green">Terra natal / Planeta ➔ COM crase.</span></td>
+          <td>Os jangadeiros voltaram <strong>a</strong> terra.<br>Ele voltou <strong>à</strong> terra <em>dos avós</em>.</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <div class="dica-title">EMPREGO DE "HÁ" E "A" NO TEMPO</div>
+      
+      <ul class="arrow-list">
+        <li><strong>HÁ:</strong> Indica tempo <span class="hl-blue">decorrido (passado)</span>. Pode ser trocado pelo verbo <em>fazer</em>. Também é usado com sentido de <em>existir</em> ou <em>ter</em>.
+          <div class="exemplo"><strong>Ex.:</strong> Os viajantes partiram <strong>há</strong> três semanas. <em>(faz três semanas)</em><br><strong>Ex.:</strong> Aqui não <strong>há</strong> nenhuma dificuldade. <em>(existe)</em></div>
+        </li>
+        <li><strong>A:</strong> Indica tempo <span class="hl-blue">futuro</span> (em geral, na locução <em>daqui a</em>).
+          <div class="exemplo"><strong>Ex.:</strong> Os viajantes partirão daqui <strong>a</strong> três semanas.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <div class="dica-title">LOCUÇÕES: QUANTO A, JUNTO A, DEVIDO A, DADO O</div>
+      
+      <p>Locuções prepositivas que terminam em preposição "a" exigem a crase quando se ligam a um substantivo feminino determinado.</p>
+      
+      <ul class="check-list">
+        <li>Graças <strong>à</strong> competência...</li>
+        <li>Em atenção <strong>à</strong> reclamação...</li>
+        <li>Com vistas <strong>à</strong> renovação...</li>
+        <li>Quanto <strong>à</strong> participação... / Em relação <strong>à</strong> solicitação...</li>
+        <li>Relativamente <strong>às</strong> tabelas... / No tocante <strong>às</strong> perguntas...</li>
+        <li>Com referência <strong>à</strong> música... / Face <strong>às</strong> necessidades...</li>
+        <li>Com respeito <strong>à</strong> difamação... / Próximo <strong>à</strong> rua...</li>
+        <li>Frente <strong>às</strong> reivindicações... / Em frente <strong>às</strong> galerias... / Defronte <strong>à</strong> barbearia...</li>
+        <li>Em direção <strong>à</strong> fronteira... / Junto <strong>às</strong> autoridades...</li>
+        <li>Devido <strong>à</strong> ocorrência... (<strong>Obs:</strong> Pode variar em gênero/número se for usado como particípio do verbo dever - Ex.: <em>Acidentes devidos à imprudência</em>).</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS.: SOBRE "DADO O / DADA A":</strong> Não confunda com "devido a". A palavra "DADO" é um particípio e <span class="hl-red">não rege preposição</span>. Ela concorda com o substantivo sequente. <br>
+        <em>Ex.: <strong>Dada a</strong> dificuldade em alugar uma casa... / <strong>Dado o</strong> mau tempo... / <strong>Dadas as</strong> condições...</em></div>
+      </div>
+      
+      <!-- Questões de Prova da Teoria de Crase -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>01. (IBFC – IMBEL – Analista Contábil – 2024)</strong> Dentre as alternativas, assinale aquela em que há uso incorreto do sinal de crase.</p>
+        <ul class="arrow-list" style="font-size: 12.5px;">
+          <li>A) De repente precisei desenvolver um protótipo de aplicativo! Aquela hora da madrugada, só mesmo a internet para me auxiliar.</li>
+          <li>B) Há alguns grupos que se negam a usar a tecnologia, não é à toa que quase ninguém se une a eles.</li>
+          <li>C) Atualmente, tudo é feito às pressas por causa da facilidade da internet.</li>
+          <li>D) Sobre às redes sociais, queremos crer que se tornem cada vez mais imprescindíveis, do contrário a humanidade entrará no ostracismo.</li>
+          <li>E) Da revolução industrial à digital, o mundo muda constantemente.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: D</strong><br>
+          <strong>Comentário:</strong> A alternativa D está incorreta. O vocábulo "sobre" é uma preposição que exige apenas o artigo "as", sem o uso da crase, pois não há a fusão da preposição "a". A frase correta seria: "Sobre as redes sociais...". As demais alternativas estão corretas: "Aquela" exige crase por ser pronome demonstrativo regido por preposição, "à toa" e "às pressas" são locuções adverbiais femininas, e "da... à..." indica movimento/ligação entre dois pontos.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>02. (IBFC - CET Santos - Técnico da Mobilidade Urbana - 2023)</strong> Em relação ao uso ou não da crase, analise as afirmativas abaixo.<br>
+        I. O pagamento foi feito à prazo.<br>
+        II. A partida terá início às 20h.<br>
+        III. Vou a Espanha.</p>
+        <ul class="arrow-list" style="font-size: 12.5px;">
+          <li>A) Apenas as afirmativas I e III estão corretas.</li>
+          <li>B) Apenas as afirmativas II e III estão corretas.</li>
+          <li>C) Apenas a afirmativa II está correta.</li>
+          <li>D) As afirmativas I, II e III estão corretas.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong><br>
+          <strong>Comentário:</strong><br>
+          I. Incorreto. Não se usa crase antes de "prazo" porque é palavra masculina (a prazo).<br>
+          II. Correto. Usa-se crase em locuções que indicam horas exatas ("às 20h").<br>
+          III. Incorreto. O correto seria "Vou à Espanha" (Quem vai a e volta da, crase há! Volta-se 'da' Espanha).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <div class="dica-title">REVISÃO: QUESTÕES DE PONTUAÇÃO</div>
+      
+      <p>Aproveitando o conteúdo complementar exigido, veja como a banca cobra sinais de pontuação e pausa:</p>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>03. (IBFC – Câmara de Franca – Analista Legislativo – 2022)</strong> Analise a teoria sobre o sinal de pontuação e assinale a alternativa que o possua.<br>
+        "Denotam interrupções ou incompletude do pensamento (ou porque se quer deixar em suspenso, ou porque os fatos se dão com breve espaço de tempo intervalar, ou porque o nosso interlocutor nos toma a palavra), hesitação em enunciá-lo" (Bechara, 2019).</p>
+        <ul class="arrow-list" style="font-size: 12.5px;">
+          <li>A) Ponto final em "- Você, certamente, já tem candidato."</li>
+          <li>B) Ponto de interrogação em "- Quem, eu? Estou esperando as plataformas."</li>
+          <li>C) Vírgula em "- Mas tem ali o retrato de um candidato dependurado na parede, que história é essa?"</li>
+          <li>D) Reticências em "- Aonde, ali? Uê, gente: penduraram isso aí..."</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: D</strong><br>
+          <strong>Comentário:</strong> As reticências marcam justamente a suspensão do pensamento, a interrupção da frase ou a hesitação do locutor, conforme a definição clássica citada no enunciado.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

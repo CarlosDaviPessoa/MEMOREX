@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">PROGRESSÃO GEOMÉTRICA (PG) - CONCEITOS E FÓRMULAS</h3>
+      <p>Progressão geométrica é uma sequência em que cada termo, a partir do segundo, é obtido multiplicando o termo anterior por uma constante chamada <span class="hl-blue">razão (q)</span>.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: CLASSIFICAÇÃO DA PG</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Tipos de PG</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Crescente (ex: 2, 4, 8, 16...)</div>
+          <div class="schema-node box-yellow">Decrescente (ex: 100, 50, 25...)</div>
+          <div class="schema-node box-yellow">Constante (q = 1)</div>
+          <div class="schema-node box-yellow">Alternante (q = negativo)</div>
+        </div>
+      </div>
+
+      <p><span class="hl-yellow">Fórmulas Essenciais:</span></p>
+      <ul class="arrow-list">
+        <li><strong>Termo Geral:</strong> <span class="hl-blue">a<sub>n</sub> = a<sub>1</sub> &middot; q<sup>n-1</sup></span></li>
+        <li><strong>Soma Finita:</strong> <span class="hl-blue">S<sub>n</sub> = a<sub>1</sub>(q<sup>n</sub> - 1) / (q - 1)</span></li>
+        <li><strong>Soma Infinita:</strong> <span class="hl-blue">S<sub>&infin;</sub> = a<sub>1</sub> / (1 - q)</span> (Apenas quando <span class="hl-red">|q| < 1</span>)</li>
+        <li><strong>Média Geométrica:</strong> Se a, b, c formam uma PG, então <span class="hl-blue">b&sup2; = a &middot; c</span>.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Na PA, a variação ocorre por adição/subtração. Na PG, a variação ocorre <span class="hl-red">exclusivamente</span> por multiplicação ou divisão. A sequência 1, 2, 4, 8, 16 <span class="hl-red">não</span> possui diferença constante, mas é uma PG (pois possui razão constante).</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">SÉRIE DE FIBONACCI E SEQUÊNCIAS NUMÉRICAS</h3>
+      <p>A sequência de Fibonacci é formada pela soma dos <span class="hl-blue">dois termos anteriores</span>. Regra fundamental: <span class="hl-blue">a<sub>n</sub> = a<sub>n-1</sub> + a<sub>n-2</sub></span>.</p>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> Na sequência 2, 3, 5, 8, 13, 21...<br>
+        2+3 = 5; 3+5 = 8; 5+8 = 13.
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> <span class="hl-red">Nem toda</span> sequência de Fibonacci começa por 0 e 1. A banca pode utilizar outros termos iniciais. O importante é a lógica da soma dos dois anteriores.</div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: OUTRAS SEQUÊNCIAS NUMÉRICAS</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Naturais (1, 2, 3...)</div>
+        <div class="schema-node box-blue">Pares / Ímpares</div>
+        <div class="schema-node box-blue">Quadrados (1, 4, 9, 16...)</div>
+        <div class="schema-node box-blue">Cubos (1, 8, 27, 64...)</div>
+        <div class="schema-node box-blue">Primos (2, 3, 5, 7...)</div>
+        <div class="schema-node box-blue">Triangulares (+2, +3, +4...)</div>
+      </div>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> O número 1 <span class="hl-red">nunca</span> é considerado número primo.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(2026 - Câmara de Cianorte/PR)</strong> Considere uma sequência numérica que se inicia pelo número 9... Cada novo termo é obtido multiplicando o anterior por 2 e subtraindo 7 do resultado. Qual é o 6º termo dessa sequência?</p>
+        <ul class="check-list">
+          <li>A) 39.</li>
+          <li>B) 89.</li>
+          <li>C) 71.</li>
+          <li>D) 95.</li>
+          <li>E) 65.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong><br>
+          <strong>Comentário:</strong> Regra: <span class="hl-blue">(termo anterior &times; 2) - 7</span>.<br>
+          1º: 9 ➔ 2º: (9&times;2)-7 = 11 ➔ 3º: (11&times;2)-7 = 15 ➔ 4º: (15&times;2)-7 = 23 ➔ 5º: (23&times;2)-7 = 39 ➔ 6º: (39&times;2)-7 = <span class="hl-blue">71</span>.<br>
+          Dica de prova: <span class="hl-red">Sempre</span> escreva os termos um a um!
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">SEQUÊNCIAS COM LETRAS E PALAVRAS</h3>
+      <p>Para resolver sequências com letras, associe cada letra à sua posição no alfabeto. Fique atento a saltos crescentes, sequências intercaladas e ao reinício do alfabeto (após Z, volta-se para A).</p>
+      
+      <p><span class="hl-yellow">Nas sequências de palavras, avalie diferentes critérios:</span></p>
+      <ul class="arrow-list">
+        <li><strong>Quantidade de letras:</strong> pé (2), sol (3), casa (4).</li>
+        <li><strong>Ordem temporal:</strong> janeiro, março, maio, julho (avança de 2 em 2 meses).</li>
+        <li><strong>Iniciais dos números:</strong> U, D, T, Q, C, S (Um, Dois, Três...).</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Uma sequência com palavras pode depender <span class="hl-red">exclusivamente</span> das letras iniciais ou da contagem matemática de letras, e <span class="hl-red">não</span> do seu significado semântico.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(2026 - Prefeitura de Getúlio Vargas/RS)</strong> Qual é a próxima palavra da sequência abaixo?<br>
+        instrumento ➔ compositor ➔ partitura ➔ harmonia ➔ melodia ➔ ?</p>
+        <ul class="check-list">
+          <li>A) sinfonia</li>
+          <li>B) orquestra</li>
+          <li>C) harmônico</li>
+          <li>D) acorde</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: D</strong><br>
+          <strong>Comentário:</strong> A lógica é o decréscimo na contagem de letras: instrumento (<span class="hl-blue">11</span>), compositor (<span class="hl-blue">10</span>), partitura (<span class="hl-blue">9</span>), harmonia (<span class="hl-blue">8</span>), melodia (<span class="hl-blue">7</span>). A próxima palavra deverá conter <span class="hl-blue">6 letras</span>, ou seja: "acorde".
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">SEQUÊNCIAS COM FIGURAS E QUESTÕES COM PÁGINAS</h3>
+      <p>Em sequências figurais, a dica de ouro é: <span class="hl-yellow">analise separadamente cada característica da figura</span> (quantidade, rotação, preenchimento, alternância) para não se sobrecarregar.</p>
+      
+      <p>Sobre cálculos com livros e páginas, aplique as seguintes regras:</p>
+      <ul class="arrow-list">
+        <li>Folha <span class="hl-red">não</span> é sinônimo de página. <span class="hl-blue">1 folha = 2 páginas</span> (frente e verso).</li>
+        <li>Se uma folha for arrancada, <span class="hl-red">sempre</span> desaparecerão 2 páginas em pares (ex: 1 e 2; 3 e 4).</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Ao calcular intervalos, se o enunciado incluir "as duas extremidades" (ex: pág 20 à 50), você <span class="hl-red">obrigatoriamente</span> deve <span class="hl-blue">somar 1</span> ao resultado da subtração (50 - 20 + 1 = 31). Já "páginas transcorridas" entre elas <span class="hl-red">exclui</span> as pontas.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(2026 - Prefeitura de Getúlio Vargas/RS)</strong> Uma artesã está decorando uma faixa com a seguinte sequência: coração ➔ estrela ➔ lua ➔ sol ➔ coração ➔ estrela ➔ lua ➔ sol ➔ coração ➔ ... Qual a próxima?</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: Estrela</strong><br>
+          <strong>Comentário:</strong> Identifique primeiro o bloco que se repete. O ciclo possui <span class="hl-blue">4 elementos</span> (coração, estrela, lua, sol). Como a última figura apresentada é o coração (reiniciando o ciclo), a próxima <span class="hl-red">necessariamente</span> será a estrela.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">ORIENTAÇÃO TEMPORAL, CALENDÁRIOS E ANO BISSEXTO</h3>
+      <p>A semana é um ciclo fechado. Problemas com grandes intervalos de dias são resolvidos pela divisão do total por <span class="hl-blue">7</span>; o <strong>resto</strong> determina o deslocamento dos dias da semana.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: DIAS DOS MESES</div>
+      <table class="memorex-table">
+        <tr>
+          <th>MESES COM 30 DIAS</th>
+          <th>MESES COM 31 DIAS</th>
+          <th>FEVEREIRO</th>
+        </tr>
+        <tr>
+          <td>Abril, Junho, Setembro, Novembro</td>
+          <td>Jan, Mar, Mai, Jul, Ago, Out, Dez</td>
+          <td><span class="hl-blue">28</span> (comum) ou <span class="hl-blue">29</span> (bissexto)</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> Um ano bissexto é <span class="hl-blue">divisível por 4</span>, <span class="hl-red">exceto</span> os terminados em 00, <span class="hl-red">salvo</span> se forem divisíveis por 400 (ex: 2000 foi bissexto, mas 1900 <span class="hl-red">não</span> foi).</div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Em anos comuns (365 dias), uma data específica avança <span class="hl-blue">1 dia da semana</span> no ano seguinte. Em anos bissextos (366 dias), avança <span class="hl-blue">2 dias</span>, desde que o intervalo passe por 29 de fevereiro.
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">PRINCÍPIO DA CASA DOS POMBOS (DIRICHLET)</h3>
+      <p>Conhecido como Princípio das Gavetas: se distribuirmos <span class="hl-blue">n+1</span> objetos em <span class="hl-blue">n</span> gavetas, <span class="hl-red">pelo menos uma</span> gaveta receberá dois ou mais objetos.</p>
+
+      <ul class="arrow-list">
+        <li><strong>Garantir um par (mesma cor):</strong> A fórmula é <span class="hl-blue">número de categorias + 1</span>.</li>
+        <li><strong>Mês de nascimento:</strong> Com 13 pessoas (objetos) e 12 meses (gavetas), no mínimo duas compartilharão o mesmo mês.</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Há meias de 3 cores no escuro. Quantas meias retirar para garantir um par igual?<br>
+        Retira-se: 1 da cor A, 1 da cor B, 1 da cor C. A <span class="hl-blue">4ª meia retirada</span> necessariamente repetirá alguma cor (3 cores + 1).
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> O Princípio trabalha <span class="hl-red">exclusivamente</span> com a pior hipótese possível (o limite máximo de azar) para garantir 100% de certeza, e <span class="hl-red">nunca</span> com probabilidade ou sorte.</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">VERDADES E MENTIRAS (PROBLEMAS LÓGICOS)</h3>
+      <p>Em problemas que apresentam personagens que sempre dizem a verdade ou sempre mentem, aplique o <span class="hl-yellow">Método das Hipóteses</span>:</p>
+
+      <ul class="check-list">
+        <li>Escolha uma afirmação e suponha que ela seja verdadeira.</li>
+        <li>Verifique as consequências nas outras frases.</li>
+        <li>Se houver contradição (ex: alguém verdadeiro afirmando que é mentiroso), a hipótese é <span class="hl-red">falsa</span>.</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> João diz: "Eu e Pedro somos mentirosos".<br>
+        Se João fosse verdadeiro, seria mentiroso (contradição nítida!). Logo, João <span class="hl-red">é mentiroso</span>. Como a frase inteira é mentira, Pedro não pode ser mentiroso (Pedro diz a verdade).
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Cuidado com as afirmações compostas! A negação lógica de <em>"Ana é médica <strong>E</strong> Bruno é professor"</em> é <em>"Ana <span class="hl-red">não</span> é médica <strong>OU</strong> Bruno <span class="hl-red">não</span> é professor"</em>. O candidato <span class="hl-red">não</span> pode concluir que ambas as profissões são necessariamente falsas.</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">MÉTODOS RÁPIDOS E PEGADINHAS DE PROVA</h3>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: PADRÕES DE CICLOS MATEMÁTICOS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Ciclos de Repetição</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Dias da semana (divida por 7)</div>
+          <div class="schema-node box-yellow">Meses do ano (divida por 12)</div>
+          <div class="schema-node box-yellow">Horas do relógio (divida por 24)</div>
+          <div class="schema-node box-yellow">Letras do alfabeto (divida por 26)</div>
+        </div>
+      </div>
+
+      <p><span class="hl-yellow">Técnicas de Resolução Acelerada:</span></p>
+      <ul class="arrow-list">
+        <li><strong>Tabela de Possibilidades:</strong> Use colunas (Verdade/Mentira) ou (Profissão/Culpado) para cruzar dados quando houver poucas pessoas.</li>
+        <li><strong>Eliminação pelas Alternativas:</strong> Em muitas questões objetivas, é mais rápido substituir a incógnita da sequência diretamente pelas alternativas do que deduzir uma regra muito abstrata.</li>
+        <li><strong>Encadeamento Temporal:</strong> Para enunciados como "se amanhã fosse ontem...", não conte de cabeça! <span class="hl-blue">Desenhe a linha do tempo:</span> Anteontem ➔ Ontem ➔ Hoje ➔ Amanhã ➔ Depois de amanhã.</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Nas sequências com letras, o candidato <span class="hl-red">sempre</span> deve verificar se o edital da banca adota o alfabeto com 26 letras (incluindo K, W e Y) antes de calcular os saltos alfabéticos.</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

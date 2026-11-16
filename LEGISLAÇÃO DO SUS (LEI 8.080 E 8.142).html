@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LEGISLAÇÃO DO SUS (LEI 8.080 E 8.142)</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">ATENÇÃO PRIMÁRIA E NÍVEIS DE ATENÇÃO À SAÚDE</h2>
+      <p>A Atenção Primária à Saúde (APS) <span class="hl-red">não</span> significa atendimento "simples" ou sem importância. É estratégica para o funcionamento da rede.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: Níveis de Atenção</div>
+      <div class="schema-container">
+        <div class="schema-root box-yellow">NÍVEIS DE<br>ATENÇÃO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-blue"><strong>Atenção Primária:</strong> Primeiro nível e porta de entrada preferencial (Ex: UBS, vacinação, prevenção).</div>
+          <div class="schema-node box-blue"><strong>Atenção Secundária:</strong> Serviços especializados (consultas e apoio diagnóstico).</div>
+          <div class="schema-node box-blue"><strong>Atenção Terciária:</strong> Maior complexidade tecnológica (hospitais, tratamentos especializados).</div>
+        </div>
+      </div>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Atenção primária <span class="hl-red">não é somente</span> prevenção. Ela também envolve diagnóstico, tratamento, acompanhamento, reabilitação e redução de danos.</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">REFERÊNCIA E CONTRARREFERÊNCIA</h2>
+      
+      <ul class="arrow-list">
+        <li><strong>Referência:</strong> Encaminhamento do usuário para outro ponto/serviço da rede capaz de atender determinada necessidade.</li>
+        <li><strong>Contrarreferência:</strong> Retorno das informações e continuidade do acompanhamento no serviço de origem ou em outro ponto adequado.</li>
+      </ul>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> UBS encaminha o paciente para um especialista (<strong>Referência</strong>). O especialista devolve o paciente à UBS com informações para continuidade do cuidado (<strong>Contrarreferência</strong>).
+      </div>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> Referência = <span class="hl-blue">vai</span>. Contrarreferência = <span class="hl-blue">volta</span>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">CONTROLE SOCIAL E PARTICIPAÇÃO DA COMUNIDADE</h2>
+      <p>Controle social é a participação da população na formulação, acompanhamento, fiscalização e avaliação das políticas públicas de saúde no SUS.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: Órgãos Colegiados</div>
+      <table class="memorex-table">
+        <tr>
+          <th>CONSELHOS DE SAÚDE</th>
+          <th>CONFERÊNCIAS DE SAÚDE</th>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">Permanentes</span> e <span class="hl-blue">deliberativos</span>.</td>
+          <td>Ocorrem, em regra, a cada <span class="hl-blue">4 anos</span>.</td>
+        </tr>
+        <tr>
+          <td>Atuam na <strong>formulação de estratégias</strong> e no <strong>controle da execução</strong>.</td>
+          <td><strong>Avaliam</strong> a situação e <strong>propõem diretrizes</strong>.</td>
+        </tr>
+        <tr>
+          <td>Composição paritária: <span class="hl-red">50% das vagas</span> destinadas aos usuários.</td>
+          <td>Podem ser convocadas extraordinariamente.</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA:</strong> Controle social <span class="hl-red">não</span> significa controle do Estado sobre a população. É a participação da sociedade na gestão do SUS!</div>
+      </div>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE - PAPEL DO ACS:</strong> O Agente Comunitário de Saúde deve estimular a participação popular, informar sobre direitos, identificar necessidades da comunidade e fortalecer o vínculo entre população e SUS.</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">LEGISLAÇÃO DO SUS: AS DUAS LEIS FUNDAMENTAIS</h2>
+      <p>Para concursos, duas leis formam a espinha dorsal da Legislação do SUS:</p>
+      
+      <div class="schema-grid">
+        <div class="schema-node box-blue" style="width: 45%;"><strong>Lei nº 8.080/1990</strong><br>Trata principalmente da organização e funcionamento do SUS.</div>
+        <div class="schema-node box-blue" style="width: 45%;"><strong>Lei nº 8.142/1990</strong><br>Trata da participação da comunidade + transferências intergovernamentais.</div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> <span class="hl-blue">8.080</span> = Organização do SUS | <span class="hl-blue">8.142</span> = Participação + Recursos.</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">LEI 8.080/90: DISPOSIÇÕES GERAIS E OBJETIVOS</h2>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>Art. 2º:</strong> A saúde é um direito fundamental do ser humano, devendo o Estado prover as condições indispensáveis ao seu pleno exercício.</div>
+      </div>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA:</strong> O dever do Estado <span class="hl-red">não exclui</span> o dever das pessoas, da família, das empresas e da sociedade.</div>
+      </div>
+
+      <p><strong>Objetivos do SUS:</strong></p>
+      <ul class="check-list">
+        <li>Identificação e divulgação dos fatores condicionantes e determinantes da saúde;</li>
+        <li>Formulação de política de saúde;</li>
+        <li>Assistência às pessoas por intermédio de ações de promoção, proteção e recuperação da saúde.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">PRINCÍPIOS, DIRETRIZES E ORGANIZAÇÃO (LEI 8.080/90)</h2>
+      
+      <p>A Lei <span class="hl-blue">nº 8.080/90</span> apresenta diversos princípios, destacando-se: Universalidade de acesso; Integralidade; Igualdade da assistência; Descentralização político-administrativa; Participação da comunidade.</p>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> A legislação trabalha com a <span class="hl-blue">igualdade da assistência</span>, sem preconceitos ou privilégios. Não confunda com a <strong>equidade</strong> (doutrinária), que visa tratar os desiguais na medida de suas desigualdades.</div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: Organização e Direção</div>
+      <ul class="arrow-list">
+        <li>O SUS é organizado de forma <strong>regionalizada</strong> e <strong>hierarquizada</strong>.</li>
+        <li>Direção Nacional ➔ <strong>Ministério da Saúde</strong></li>
+        <li>Direção Estadual ➔ <strong>Secretaria Estadual de Saúde</strong></li>
+        <li>Direção Municipal ➔ <strong>Secretaria Municipal de Saúde</strong></li>
+      </ul>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>DICA DE COMPETÊNCIAS:</strong> Verbos como "formular", "coordenar nacionalmente" ➔ <strong>União</strong>. Verbos como "executar" e "gerir serviços locais" ➔ <strong>Município</strong>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">VIGILÂNCIA EPIDEMIOLÓGICA E SANITÁRIA</h2>
+      
+      <table class="memorex-table">
+        <tr>
+          <th style="width: 50%;">VIGILÂNCIA EPIDEMIOLÓGICA</th>
+          <th style="width: 50%;">VIGILÂNCIA SANITÁRIA</th>
+        </tr>
+        <tr>
+          <td>Ações para conhecimento, detecção e prevenção de fatores de determinantes da saúde.<br><br><strong>Foco:</strong> <span class="hl-blue">Doenças / Agravos / População</span>.</td>
+          <td>Ações capazes de <span class="hl-red">eliminar, diminuir ou prevenir riscos</span> à saúde.<br><br><strong>Foco:</strong> Meio ambiente, produção de bens e prestação de serviços.</td>
+        </tr>
+      </table>
+    </div>
+    
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h2 class="dica-title">SAÚDE DO TRABALHADOR E ASSISTÊNCIA TERAPÊUTICA</h2>
+      
+      <ul class="check-list">
+        <li><strong>Saúde do Trabalhador:</strong> Promoção, proteção, recuperação e reabilitação de submetidos a riscos do trabalho.</li>
+        <li><strong>Assistência Terapêutica Integral:</strong> Inclui assistência <span class="hl-blue">farmacêutica</span>.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Saúde do trabalhador <span class="hl-red">não se limita</span> apenas aos acidentes de trabalho. E se a prova disser que a assistência farmacêutica está fora do SUS, está <span class="hl-red">ERRADO</span>!</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h2 class="dica-title">DETERMINANTES E CONDICIONANTES DA SAÚDE</h2>
+      <p>A concepção de saúde adotada pela legislação é ampla e <span class="hl-red">NÃO</span> depende essencialmente apenas de fatores biológicos.</p>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> Alimentação + moradia + saneamento + meio ambiente + trabalho + renda + educação + transporte + lazer + acesso aos bens e serviços essenciais.</div>
+      </div>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h2 class="dica-title">LEI 8.142/90: TRANSFERÊNCIAS E PARTICIPAÇÃO</h2>
+      <p>A representação dos usuários nos Conselhos e Conferências será <strong>PARITÁRIA</strong> em relação ao conjunto dos demais segmentos (50% para usuários, 50% divididos entre governo, trabalhadores e prestadores).</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: Requisitos para receber recursos</div>
+      <p>Para receber os recursos intergovernamentais, os entes devem contar com:</p>
+      <div class="schema-grid">
+        <div class="schema-node box-yellow"><span class="hl-yellow">F</span>undo</div>
+        <div class="schema-node box-yellow"><span class="hl-yellow">C</span>onselho (paritário)</div>
+        <div class="schema-node box-yellow"><span class="hl-yellow">P</span>lano de Saúde</div>
+        <div class="schema-node box-yellow"><span class="hl-yellow">R</span>elatórios</div>
+        <div class="schema-node box-yellow"><span class="hl-yellow">C</span>ontrapartida</div>
+        <div class="schema-node box-yellow"><span class="hl-yellow">C</span>omissão (PCCS)</div>
+      </div>
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>DECOREBA MÁXIMA:</strong> Lembre do mnemônico <span class="hl-yellow">F-C-P-R-C-C</span>!</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">MAPA MENTAL E PEGADINHAS CLÁSSICAS</h2>
+      
+      <table class="memorex-table">
+        <tr>
+          <th style="background-color: #d90429;">A BANCA DIZ...</th>
+          <th style="background-color: #2b9348;">A RESPOSTA É...</th>
+        </tr>
+        <tr>
+          <td>Saúde é direito apenas dos contribuintes</td>
+          <td><span class="hl-red">ERRADO.</span> Direito de TODOS.</td>
+        </tr>
+        <tr>
+          <td>O SUS atende somente pessoas carentes</td>
+          <td><span class="hl-red">ERRADO.</span> É Universal.</td>
+        </tr>
+        <tr>
+          <td>Conselho reúne-se somente a cada 4 anos</td>
+          <td><span class="hl-red">ERRADO.</span> Conselho é Permanente.</td>
+        </tr>
+        <tr>
+          <td>Iniciativa privada é proibida no SUS</td>
+          <td><span class="hl-red">ERRADO.</span> Participa complementarmente.</td>
+        </tr>
+        <tr>
+          <td>A APS realiza somente prevenção</td>
+          <td><span class="hl-red">ERRADO.</span> Diagnóstico, cura e reabilitação.</td>
+        </tr>
+      </table>
+
+      <div class="exemplo">
+        <strong>10 DICAS RÁPIDAS PARA PROVA:</strong><br>
+        1. "Direito de todos" ➔ <span class="hl-blue">Art. 196 da CF</span>.<br>
+        2. "Rede regionalizada" ➔ <span class="hl-blue">Art. 198 da CF</span>.<br>
+        3. "Direção única" ➔ <strong>Descentralização</strong>.<br>
+        4. "Permanente e deliberativo" ➔ <strong>Conselho de Saúde</strong>.<br>
+        5. "A cada 4 anos" ➔ <strong>Conferência de Saúde</strong>.<br>
+        6. "Todos têm acesso" ➔ <strong>Universalidade</strong>.<br>
+        7. "Necessidades diferentes" ➔ <strong>Equidade</strong>.<br>
+        8. "Conjunto contínuo de ações" ➔ <strong>Integralidade</strong>.<br>
+        9. "Prevenir riscos" ➔ <strong>Vigilância Sanitária</strong>.<br>
+        10. "Lei 8.142/90" ➔ <strong>Participação Social + Dinheiro</strong>.
+      </div>
+    </div>
+
+    <!-- QUESTÕES DE PROVA -->
+    <div class="questao-box">
+      <div class="questao-header">🔎 VEJA COMO JÁ FOI COBRADO EM PROVA:</div>
+      <p><strong>01.</strong> De acordo com a Constituição Federal, a saúde é:</p>
+      <ul style="list-style:none; padding-left: 0;">
+        <li>A) direito exclusivo dos trabalhadores segurados.</li>
+        <li>B) direito dos hipossuficientes e dever subsidiário.</li>
+        <li><strong>C) direito de todos e dever do Estado.</strong></li>
+        <li>D) responsabilidade exclusiva dos Municípios.</li>
+      </ul>
+      <div class="gabarito-box">
+        <strong>Gabarito: C</strong> <br>
+        <em>Comentário: Literalidade do art. 196 da CF. O SUS possui caráter universal.</em>
+      </div>
+    </div>
+
+    <div class="questao-box">
+      <div class="questao-header">🔎 VEJA COMO JÁ FOI COBRADO EM PROVA:</div>
+      <p><strong>02.</strong> Nos termos da Lei nº 8.142/90, o Conselho de Saúde é órgão:</p>
+      <ul style="list-style:none; padding-left: 0;">
+        <li>A) temporário e consultivo.</li>
+        <li><strong>B) permanente e deliberativo.</strong></li>
+        <li>C) temporário e deliberativo.</li>
+        <li>D) permanente exclusivamente fiscalizador.</li>
+      </ul>
+      <div class="gabarito-box">
+        <strong>Gabarito: B</strong> <br>
+        <em>Comentário: Conselho = Permanente e Deliberativo. Conferência = A cada 4 anos.</em>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

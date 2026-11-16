@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - COESÃO E COERÊNCIA</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">INTRODUÇÃO E CONCEITO DE TEXTUALIDADE</h3>
+      <p>A coesão e a coerência são os dois mecanismos fundamentais que garantem a construção adequada de um texto.</p>
+      
+      <ul class="arrow-list">
+        <li><span class="hl-yellow">Coesão:</span> é a <strong>ligação formal</strong> entre palavras, frases e parágrafos.</li>
+        <li><span class="hl-yellow">Coerência:</span> é o <strong>sentido lógico</strong> das ideias apresentadas.</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong><br>
+        ✔ <strong>Coeso e coerente:</strong> João estudou muito para o concurso. Por isso, conseguiu a aprovação.<br>
+        <span class="hl-red">✖</span> <strong>Coeso, mas incoerente:</strong> João estudou muito para o concurso. Por isso, <span class="hl-red">não</span> abriu o guarda-chuva porque o carro era azul. (Há conectivos, mas as ideias <span class="hl-red">não</span> fazem sentido).
+      </div>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>IMPORTANTE:</strong> Textualidade é o conjunto de características que fazem com que um texto seja um <strong>todo significativo</strong> e <span class="hl-red">não apenas</span> uma sequência de frases (Beaugrande e Dressler).
+        </div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: 7 FATORES DA TEXTUALIDADE</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Coerência (Sentido)</div>
+        <div class="schema-node box-blue">Coesão (Forma)</div>
+        <div class="schema-node box-blue">Intencionalidade</div>
+        <div class="schema-node box-blue">Aceitabilidade</div>
+        <div class="schema-node box-blue">Situacionalidade</div>
+        <div class="schema-node box-blue">Informatividade</div>
+        <div class="schema-node box-blue">Intertextualidade</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">COESÃO TEXTUAL: REFERENCIAÇÃO</h3>
+      <p>A coesão refere-se à conexão entre as partes de um texto. Um de seus principais mecanismos é a <span class="hl-blue">Referenciação</span>, que ocorre quando um termo retoma ou antecipa outro através de pronomes ou advérbios.</p>
+
+      <ul class="check-list">
+        <li><strong>Referência Anafórica:</strong> Retoma informação <span class="hl-blue">anterior</span>.</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> Maria comprou um livro. <strong>Ela</strong> começou a lê-lo imediatamente. ("Ela" retoma "Maria").
+      </div>
+
+      <ul class="check-list">
+        <li><strong>Referência Catafórica:</strong> <span class="hl-blue">Antecipa</span> informação.</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> <strong>Isto</strong> é importante: estudar todos os dias. ("Isto" antecipa a ideia seguinte).
+      </div>
+
+      <ul class="check-list">
+        <li><strong>Referência Exofórica:</strong> Depende do contexto <span class="hl-blue">externo</span> (situação).</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> <strong>Aquilo</strong> ali é bonito. (Só entende quem está vendo a situação).
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">COESÃO: SUBSTITUIÇÃO E REPETIÇÃO LEXICAL</h3>
+      
+      <p><strong>1. Substituição:</strong> Serve para evitar repetições excessivas no texto.</p>
+      <div class="exemplo">
+        <strong>Ex.:</strong> Comprei um carro. O <strong>veículo</strong> é econômico. (O termo "veículo" substitui "carro").
+      </div>
+
+      <p><strong>2. Repetição Lexical:</strong> Uso de termos de mesma família ou campo semântico para manter a continuidade temática do texto.</p>
+      <ul class="arrow-list">
+        <li><strong>Sinônimos:</strong> Carro, automóvel, veículo.</li>
+        <li><strong>Antônimos:</strong> Alto, baixo.</li>
+        <li><strong>Hipônimos:</strong> Rosa (hipônimo de flor), gato (hipônimo de animal).</li>
+        <li><strong>Hiperônimos:</strong> Flor (hiperônimo de rosa), animal (hiperônimo de gato).</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>ATENÇÃO!!</strong> A banca costuma perguntar: <em>"A repetição do termo provoca prejuízo ao texto?"</em><br>
+          <span class="hl-red">NEM SEMPRE!</span> Muitas vezes ela contribui ativamente para a <span class="hl-blue">progressão temática</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">COESÃO SEQUENCIAL: PRINCIPAIS CONECTORES</h3>
+      <p>A coesão sequencial utiliza <span class="hl-blue">conjunções e locuções conjuntivas</span> para estabelecer relações lógicas entre as ideias. Esse é o ponto mais cobrado em provas!</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Relação Lógica</th>
+            <th>Principais Conectores</th>
+            <th>Exemplo Prático</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Adição</strong></td>
+            <td>e, também, além disso, bem como</td>
+            <td>Estudou Português <strong>e</strong> Matemática.</td>
+          </tr>
+          <tr>
+            <td><strong>Oposição</strong></td>
+            <td>mas, porém, contudo, entretanto, todavia</td>
+            <td>Estudou muito, <strong>mas</strong> não passou.</td>
+          </tr>
+          <tr>
+            <td><strong>Causa</strong></td>
+            <td>porque, visto que, já que, uma vez que</td>
+            <td>Foi aprovado <strong>porque</strong> estudou.</td>
+          </tr>
+          <tr>
+            <td><strong>Consequência</strong></td>
+            <td>de modo que, de forma que, tão... que</td>
+            <td>Estudou <strong>tanto que</strong> foi aprovado.</td>
+          </tr>
+          <tr>
+            <td><strong>Conclusão</strong></td>
+            <td>portanto, logo, por conseguinte, assim</td>
+            <td>Estudou bastante; <strong>portanto</strong>, foi aprovado.</td>
+          </tr>
+          <tr>
+            <td><strong>Finalidade</strong></td>
+            <td>para, para que, a fim de</td>
+            <td>Estuda <strong>para</strong> passar.</td>
+          </tr>
+          <tr>
+            <td><strong>Condição</strong></td>
+            <td>se, caso, desde que</td>
+            <td>Será aprovado <strong>se</strong> estudar.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div>
+          <strong>OBS.: Coesão por Elipse:</strong> É a omissão de elementos facilmente inferidos pelo contexto. <br>
+          <strong>Ex.:</strong> Eu comprei um livro e [eu] li [o livro].
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">COERÊNCIA TEXTUAL E SEUS TIPOS</h3>
+      <p>A coerência é a <strong>lógica e consistência interna</strong> de um texto, sem apresentar contradições.</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: ELEMENTOS DA COERÊNCIA</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">COERÊNCIA</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Unidade Temática (foco central)</div>
+          <div class="schema-node box-yellow">Progressão de Ideias (sequência clara)</div>
+          <div class="schema-node box-yellow">Relacionamento Lógico (causa, efeito)</div>
+          <div class="schema-node box-yellow">Consistência (sem contradições)</div>
+        </div>
+      </div>
+
+      <p><strong>Principais Tipos de Coerência:</strong></p>
+      <ul class="arrow-list">
+        <li><strong>Narrativa:</strong> Sequência lógica dos fatos (Ex.: Nasceu, cresceu, estudou e trabalhou).</li>
+        <li><strong>Argumentativa:</strong> Argumentos sustentam a conclusão.</li>
+        <li><strong>Temporal:</strong> Respeito à sequência temporal. (Ex.: Primeiro estudou; depois realizou a prova).</li>
+        <li><strong>Espacial:</strong> Respeito aos lugares citados.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">TEMPOS E MODOS VERBAIS</h3>
+      <p>A coerência textual exige manutenção adequada dos <span class="hl-blue">tempos verbais</span>.</p>
+      
+      <div class="exemplo">
+        ✔ <strong>Correto:</strong> Ontem João <strong>chegou</strong> em casa, <strong>tomou</strong> banho e <strong>dormiu</strong>. (Todos no passado).<br>
+        <span class="hl-red">✖</span> <strong>Incoerente:</strong> Ontem João <strong>chegou</strong> em casa, <strong>toma</strong> banho e <strong>dormiu</strong>. (Mistura indevida).
+      </div>
+
+      <p><strong>Revisão de Modos Verbais:</strong></p>
+      <ul class="check-list">
+        <li><strong>Indicativo:</strong> Expressa certeza. (Ex.: <em>Ele passou no concurso.</em>)</li>
+        <li><strong>Subjuntivo:</strong> Expressa hipótese, possibilidade. (Ex.: <em>Espero que ele passe.</em>)</li>
+        <li><strong>Imperativo:</strong> Expressa ordem ou pedido. (Ex.: <em>Estude diariamente.</em>)</li>
+      </ul>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">PEGADINHAS DE PROVA (ESTILO IBFC)</h3>
+      <p>As bancas adoram testar a sua atenção nos mecanismos de coesão, induzindo você a quebrar a lógica do texto.</p>
+
+      <ul class="arrow-list">
+        <li><strong>Pegadinha 1: Troca de Conectivo.</strong> "Estudou muito, <span class="hl-blue">portanto</span> foi aprovado" ➔ "Estudou muito, <span class="hl-red">entretanto</span> foi aprovado". <em>(Mudou totalmente o sentido)</em>.</li>
+        <li><strong>Pegadinha 2: Pronome Ambíguo.</strong> "João falou com Pedro quando <span class="hl-red">ele</span> saiu." <em>(Quem saiu? João ou Pedro? Gera ambiguidade)</em>.</li>
+        <li><strong>Pegadinha 3: Troca de tempo verbal.</strong> "Se ele <span class="hl-red">estudar</span>, <strong>será</strong> aprovado" ➔ "Se ele <span class="hl-red">estudou</span>, <strong>será</strong> aprovado". <em>(Gera inadequação)</em>.</li>
+        <li><strong>Pegadinha 4: Retirada de conectivo.</strong> A exclusão de um termo conjuntivo <strong>prejudica</strong> a coesão? <span class="hl-blue">Muitas vezes sim</span>, pois a relação lógica fica menos explícita.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>ATENÇÃO!!</strong> Questão clássica: A substituição de um conectivo por outro de valor diferente preserva o sentido?<br>
+          <strong>Resposta: <span class="hl-red">NÃO!</span></strong> O sentido original será obrigatoriamente alterado.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">MACETE PARA A HORA DA PROVA E RESUMO FINAL</h3>
+      
+      <p>Sempre que se deparar com questões de coesão e coerência, faça a si mesmo estas <strong>4 perguntas:</strong></p>
+      <ul class="check-list">
+        <li>Quem o pronome retoma? (ele, ela, esse, isso, o qual...)</li>
+        <li>Qual a relação semântica do conectivo? (causa, consequência, oposição...)</li>
+        <li>Os tempos verbais combinam? (passado com passado, hipótese com hipótese)</li>
+        <li>O texto faz sentido lógico? (Se a resposta for <span class="hl-red">não</span>, há problema de coerência).</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MEMORIZE: RESUMO ESTRATÉGICO</strong><br>
+          <span class="hl-yellow">COESÃO = Referenciação, Substituição, Repetição Lexical, Conectivos, Elipse. (Forma)</span><br>
+          <span class="hl-yellow">COERÊNCIA = Lógica das ideias, Relação de causa e efeito, Sem contradições. (Sentido)</span>
+        </div>
+      </div>
+
+      <!-- QUESTÃO DE PROVA -->
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC / Típica)</strong> Leia o trecho abaixo:<br>
+        <em>"Maria comprou um livro de gramática para o concurso. Ela começou a lê-lo imediatamente na biblioteca."</em><br><br>
+        No texto, o elemento coesivo em destaque ("Ela") exerce a função de coesão referencial retomando qual termo antecedente?</p>
+        <p>A) concurso.<br>
+        B) gramática.<br>
+        C) Maria.<br>
+        D) livro.</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong><br>
+          <strong>Comentário:</strong> O pronome pessoal "ela" funciona como um mecanismo de coesão por <span class="hl-blue">referenciação anafórica</span>, pois retoma a informação dada anteriormente no texto para evitar a repetição desnecessária do substantivo próprio "Maria".
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

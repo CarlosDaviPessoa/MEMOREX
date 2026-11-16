@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">CONHECIMENTOS ESPECÍFICOS - ACS</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">REVISÃO DE VÉSPERA - SAÚDE DA MULHER, CRIANÇA E IDOSO</h3>
+      <ul class="arrow-list">
+        <li><strong>Saúde da Mulher:</strong> Deve ser integral, contemplando diferentes necessidades em todas as fases da vida. O rastreamento mamográfico populacional é <span class="hl-red">prioritariamente</span> recomendado dos <span class="hl-blue">50 aos 74 anos</span>, a cada <span class="hl-blue">2 anos</span>[cite: 1].</li>
+        <li><strong>Aleitamento Materno:</strong> <span class="hl-blue">Exclusivo até os 6 meses</span>, sem água, chá ou outros alimentos, <span class="hl-red">salvo</span> situações específicas[cite: 1]. A partir dos <span class="hl-blue">6 meses</span>, inicia-se a alimentação complementar, mantendo a amamentação até <span class="hl-blue">2 anos ou mais</span>[cite: 1].</li>
+        <li><strong>Crescimento vs Desenvolvimento:</strong>
+          <ul class="check-list">
+            <li><strong>Crescimento:</strong> Mudanças quantitativas do corpo (peso, altura e perímetros = <span class="hl-yellow">TAMANHO</span>)[cite: 1].</li>
+            <li><strong>Desenvolvimento:</strong> Relacionado à aquisição de <span class="hl-yellow">HABILIDADES</span>[cite: 1].</li>
+          </ul>
+        </li>
+        <li><strong>Saúde da Pessoa Idosa:</strong> Considera-se idosa a pessoa com <span class="hl-blue">60 anos ou mais</span>[cite: 1].
+          <ul class="check-list">
+            <li><strong>Autonomia:</strong> Capacidade de <span class="hl-yellow">DECIDIR</span>[cite: 1].</li>
+            <li><strong>Independência:</strong> Capacidade de <span class="hl-yellow">FAZER</span> (realizar atividades sem ajuda)[cite: 1].</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE:</strong> Leite materno = 6 meses exclusivo | Crescimento = tamanho | Autonomia = decidir | Independência = fazer[cite: 1].</div>
+      </div>
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <div><strong>Enunciado:</strong> Sobre o aleitamento materno e o Estatuto da Pessoa Idosa, julgue os itens conforme os marcos temporais estabelecidos.</div>
+        <div class="gabarito-box"><strong>Gabaritos de Fixação:</strong> O aleitamento materno é exclusivo até os 6 meses, sem água ou chás, salvo recomendação específica[cite: 1]. Pelo Estatuto, considera-se idosa a pessoa com 60 anos ou mais[cite: 1].</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">REVISÃO DE VÉSPERA - IMUNIZAÇÃO E ATUAÇÃO DO ACS</h3>
+      <p>Compreender a diferença entre vacina e soro é fundamental para as provas, assim como os calendários específicos para gestantes e idosos (2026)[cite: 1].</p>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>TIPO</th>
+            <th>MECANISMO DE AÇÃO</th>
+            <th>IMUNIZAÇÃO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>VACINA</strong></td>
+            <td>Estimula o próprio organismo a produzir resposta imunológica (defesa)[cite: 1].</td>
+            <td><span class="hl-blue">ATIVA</span>[cite: 1]</td>
+          </tr>
+          <tr>
+            <td><strong>SORO</strong></td>
+            <td>Fornece anticorpos já prontos para o organismo[cite: 1].</td>
+            <td><span class="hl-blue">PASSIVA</span>[cite: 1]</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ul class="arrow-list">
+        <li><strong>Gestante (2026):</strong>
+          <ul class="check-list">
+            <li><strong>dTpa:</strong> a partir da <span class="hl-blue">20ª semana</span>, em cada gestação[cite: 1].</li>
+            <li><strong>VSR:</strong> a partir da <span class="hl-blue">28ª semana</span>, em cada gestação[cite: 1].</li>
+          </ul>
+        </li>
+        <li><strong>Idoso (2026):</strong>
+          <ul class="check-list">
+            <li><strong>Influenza:</strong> Periodicidade <span class="hl-blue">anual</span> (necessidade de proteção e atualização periódica)[cite: 1].</li>
+            <li><strong>Covid-19:</strong> Vacinação <span class="hl-blue">semestral</span> para pessoas com 60 anos ou mais[cite: 1].</li>
+          </ul>
+        </li>
+        <li><strong>HPV e Meningocócica:</strong> HPV quadrivalente utiliza esquema de <span class="hl-yellow">dose única</span> na faixa etária oportuna[cite: 1]; Meningocócica ACWY possui dose prevista aos <span class="hl-blue">11 anos</span>[cite: 1].</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>IMPORTANTE:</strong> Um evento ocorrido após vacinação <span class="hl-red">não significa necessariamente</span> que foi causado pela vacina; a relação causal precisa ser avaliada[cite: 1]. O ACS <span class="hl-red">nunca</span> deve prescrever, contraindicar por conta própria, alterar o calendário ou suspender medicamentos[cite: 1].</div>
+      </div>
+
+      <h4 class="esquema-title">ESQUEMATIZANDO: ACS E VACINAÇÃO</h4>
+      <div class="schema-container">
+        <div class="schema-root box-blue">O ACS DEVE:[cite: 1]</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">VERIFICAR (Identificar atrasos)[cite: 1]</div>
+          <div class="schema-node box-yellow">ORIENTAR (Realizar busca ativa)[cite: 1]</div>
+          <div class="schema-node box-yellow">ENCAMINHAR (Para atualização)[cite: 1]</div>
+          <div class="schema-node box-yellow">ACOMPANHAR (A família)[cite: 1]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">GRUPOS E SITUAÇÕES DE VULNERABILIDADE</h3>
+      <p>Situações de vulnerabilidade são aquelas em que pessoas ou grupos apresentam maior exposição a riscos sociais, econômicos, ambientais, familiares ou de saúde e podem encontrar maiores dificuldades para acessar proteção, cuidado e direitos[cite: 1]. Na Atenção Primária, a equipe deve identificar essas situações, acolher as pessoas, avaliar necessidades, articular serviços e acompanhar os casos[cite: 1].</p>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>ATENÇÃO!! (DICA DE PROVA):</strong> A vulnerabilidade <span class="hl-red">NÃO</span> significa <span class="hl-red">exclusivamente</span> pobreza[cite: 1]. É uma condição de maior suscetibilidade a danos decorrente da interação de múltiplos fatores[cite: 1].</div>
+      </div>
+
+      <h4 class="esquema-title">ESQUEMATIZANDO: FATORES DE VULNERABILIDADE</h4>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Individuais[cite: 1]</div>
+        <div class="schema-node box-blue">Familiares[cite: 1]</div>
+        <div class="schema-node box-blue">Sociais[cite: 1]</div>
+        <div class="schema-node box-blue">Econômicos[cite: 1]</div>
+        <div class="schema-node box-blue">Ambientais[cite: 1]</div>
+        <div class="schema-node box-blue">Institucionais[cite: 1]</div>
+      </div>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> Uma pessoa pode ser vulnerável pela soma de fatores: violência + deficiência + isolamento + doença + idade + dificuldade de acesso, entre outros fatores[cite: 2].
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">SAÚDE MENTAL - CONCEITOS E REDE DE ATENÇÃO (RAPS)</h3>
+      <p>Saúde mental envolve bem-estar emocional, capacidade de estabelecer relações, enfrentar dificuldades e desenvolver atividades cotidianas[cite: 2]. Ela <span class="hl-red">não significa simplesmente</span> "não possuir transtorno mental", mas envolve qualidade de vida, relações sociais, autonomia, proteção e capacidade funcional[cite: 2].</p>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>PEGADINHA DE PROVA:</strong> Ter sofrimento emocional em determinado momento <span class="hl-red">não significa necessariamente</span> possuir transtorno mental[cite: 2].</div>
+      </div>
+
+      <p>O cuidado é organizado principalmente pela <strong>Rede de Atenção Psicossocial (RAPS)</strong>, que busca garantir cuidado contínuo e integral às pessoas em sofrimento psíquico e com necessidades decorrentes do uso prejudicial de álcool e outras drogas[cite: 2].</p>
+      <ul class="arrow-list">
+        <li><strong>Pontos de atenção da RAPS:</strong> Atenção Primária, CAPS, serviços residenciais terapêuticos, unidades de acolhimento, atenção hospitalar e outros serviços da rede[cite: 2].</li>
+        <li><strong>CAPS (Centros de Atenção Psicossocial):</strong> São serviços públicos comunitários destinados <span class="hl-blue">especialmente</span> a pessoas em sofrimento psíquico <span class="hl-red">intenso</span> e a situações relacionadas ao uso prejudicial de álcool e drogas[cite: 2].</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MEMORIZE O MACETE:</strong> RAPS = <span class="hl-yellow">REDE</span>[cite: 2]. CAPS = <span class="hl-yellow">Um dos pontos da RAPS</span>[cite: 2]. Portanto, se a prova disser que "RAPS e CAPS são sinônimos", marque <span class="hl-red">ERRADO</span>! O CAPS integra a RAPS[cite: 2].</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">TRANSTORNOS MENTAIS E USO DE DROGAS - ATUAÇÃO DO ACS</h3>
+      <p>Os transtornos mentais podem envolver alterações significativas do humor, comportamento, pensamento, percepção e capacidade funcional (Ex.: transtornos depressivos, de ansiedade, bipolar e psicóticos)[cite: 2].</p>
+      
+      <ul class="check-list">
+        <li><strong>O que o ACS DEVE fazer:</strong> Acolher, observar mudanças, favorecer acesso à equipe, acompanhar, combater preconceitos e comunicar situações de risco[cite: 2].</li>
+        <li><strong>O que o ACS <span class="hl-red">NÃO</span> DEVE fazer:</strong> <span class="hl-red">Não diagnostica</span> transtorno mental e <span class="hl-red">não prescreve</span> psicofármacos! O ACS identifica necessidades e articula o cuidado[cite: 2].</li>
+      </ul>
+
+      <h4 class="esquema-title">ÁLCOOL E OUTRAS DROGAS</h4>
+      <p>O uso deve ser abordado como questão de saúde que pode envolver fatores biológicos, psicológicos, sociais, familiares e econômicos[cite: 2]. A abordagem adequada exige acolhimento, respeito e <span class="hl-blue">ausência de julgamento</span>[cite: 2].</p>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>PEGADINHA DE PROVA:</strong> Se a questão afirmar que "o usuário <span class="hl-red">só pode</span> receber atendimento se estiver totalmente abstinente", marque <span class="hl-red">ERRADO</span>[cite: 2]! O cuidado <span class="hl-red">não deve</span> depender de julgamento moral ou de exclusão do usuário[cite: 2].</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">PREVENÇÃO DO SUICÍDIO E ACOLHIMENTO</h3>
+      <p>A prevenção envolve atenção a sinais como desesperança intensa, isolamento, falas sobre morte, comportamento autolesivo, mudanças importantes de comportamento e manifestações de intenção suicida[cite: 2, 3].</p>
+      
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>REGRA DE OURO:</strong> Fala sobre suicídio deve ser levada a sério[cite: 3]. <span class="hl-red">NUNCA</span> se deve tratar como "chantagem", "frescura" ou "tentativa de chamar atenção"[cite: 3].</div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Conduta do ACS ao identificar risco:</strong> Acolher + <span class="hl-red">não</span> deixar a situação sem resposta + comunicar <span class="hl-blue">imediatamente</span> à equipe/serviço competente + favorecer atendimento[cite: 3].</li>
+        <li><strong>Notificação:</strong> A tentativa de suicídio integra os eventos de notificação compulsória <span class="hl-blue">imediata</span> no sistema de vigilância[cite: 3].</li>
+      </ul>
+
+      <p>Acolher significa escutar, respeitar, evitar julgamento, avaliar necessidades, dar resposta e articular o cuidado[cite: 3]. Mesmo que outro serviço seja necessário, a equipe mantém responsabilidade pela continuidade e articulação do cuidado[cite: 3].</p>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <div><strong>Enunciado:</strong> "O acolhimento na Atenção Primária resume-se a escutar e encaminhar o paciente para o CAPS, encerrando o vínculo com a UBS."</div>
+        <div class="gabarito-box"><strong>Gabarito:</strong> <span class="hl-red">ERRADO</span>. Acolher <span class="hl-red">não é apenas</span> encaminhar[cite: 3]. Mesmo que outro serviço seja necessário, a equipe mantém responsabilidade pela continuidade do cuidado[cite: 3].</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">VIOLÊNCIA E ACIDENTES - VIOLÊNCIA DOMÉSTICA</h3>
+      <p>A violência constitui um importante problema de saúde pública e pode ocorrer no domicílio, na comunidade, em instituições, e nas relações familiares ou afetivas[cite: 3]. A Vigilância utiliza a notificação de violência interpessoal e autoprovocada no SINAN[cite: 3].</p>
+      
+      <ul class="check-list">
+        <li><strong>Formas de Violência Doméstica:</strong> Física, psicológica, sexual, patrimonial, moral e negligência[cite: 3].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>PEGADINHA DE PROVA:</strong> A violência doméstica <span class="hl-red">NÃO</span> significa <span class="hl-red">exclusivamente</span> agressão física[cite: 3]. Negligência também é forma de violência[cite: 3].</div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">VIOLÊNCIA CONTRA CRIANÇAS, ADOLESCENTES E MULHERES</h3>
+      <p>O Estatuto da Criança e do Adolescente (ECA) adota a doutrina da <span class="hl-blue">proteção integral</span>[cite: 3]. A violência contra eles pode incluir agressão física, abuso sexual, violência psicológica, negligência, abandono e exploração[cite: 3].</p>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>FAIXA ETÁRIA (ECA)</th>
+            <th>CLASSIFICAÇÃO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Até <span class="hl-blue">12 anos INCOMPLETOS</span>[cite: 3]</td>
+            <td><strong>Criança</strong>[cite: 3]</td>
+          </tr>
+          <tr>
+            <td>Entre <span class="hl-blue">12 e 18 anos</span>[cite: 3]</td>
+            <td><strong>Adolescente</strong>[cite: 3]</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>OBS.:</strong> Uma pessoa com <span class="hl-yellow">exatamente 12 anos completos</span> já é considerada adolescente pelo ECA[cite: 4].</div>
+      </div>
+
+      <h4 class="esquema-title">VIOLÊNCIA CONTRA MULHERES</h4>
+      <p>Pode envolver violência física, psicológica, sexual, patrimonial ou moral[cite: 3]. O serviço de saúde deve acolher, preservar privacidade, identificar riscos, registrar, notificar quando cabível e articular a rede de proteção[cite: 3].</p>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>PEGADINHA:</strong> Se a prova disser que "o profissional deve <span class="hl-red">obrigar</span> a mulher a terminar imediatamente o relacionamento", está <span class="hl-red">ERRADO</span>[cite: 3]. O cuidado deve preservar direitos, segurança e autonomia da mulher, e fluxos legais[cite: 3].</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">VIOLÊNCIA CONTRA PESSOAS IDOSAS, SINAIS E NOTIFICAÇÃO</h3>
+      <p>O ACS deve estar atento a situações como lesões repetidas, medo excessivo, mudanças de comportamento, higiene muito precária, desnutrição, abandono, isolamento, explicações incompatíveis com as lesões, controle excessivo por familiares e sinais de exploração[cite: 3, 4].</p>
+      
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div><strong>DICA DE OURO:</strong> O ACS <span class="hl-yellow">identifica sinais e suspeitas</span>[cite: 4]. Não precisa transformar-se em investigador policial de série de televisão[cite: 4].</div>
+      </div>
+
+      <h4 class="esquema-title">NOTIFICAÇÃO VS DENÚNCIA</h4>
+      <p>Casos suspeitos ou confirmados de violência interpessoal e autoprovocada integram a vigilância de notificação[cite: 4]. Violência sexual e tentativa de suicídio são eventos de notificação <span class="hl-blue">imediata</span>[cite: 4].</p>
+      
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div><strong>PEGADINHA IMPORTANTÍSSIMA:</strong> Notificação <span class="hl-red">NÃO</span> é denúncia policial[cite: 4]! A notificação é um instrumento sanitário e epidemiológico[cite: 4]. A denúncia ou comunicação a órgãos de proteção segue fluxos próprios conforme o caso[cite: 4].</div>
+      </div>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>MACETE:</strong> NOTIFICAR ➔ <span class="hl-blue">Saúde / Vigilância</span> | COMUNICAR/ENCAMINHAR ➔ <span class="hl-blue">Conforme a Situação</span>[cite: 4].</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">ESTATUTOS E PROTEÇÃO SOCIAL (LBI E SUS)</h3>
+      <p>O Estatuto da Pessoa Idosa (Lei nº 10.741/2003 / 14.423/2022) protege pessoas com idade <span class="hl-blue">igual ou superior a 60 anos</span> e não deve mais ser chamado de "Estatuto do Idoso"[cite: 4].</p>
+
+      <p>A <strong>Lei Brasileira de Inclusão da Pessoa com Deficiência (LBI - Lei nº 13.146/2015)</strong> assegura igualdade de oportunidades e proíbe discriminação em razão da deficiência (saúde, educação, trabalho, acessibilidade)[cite: 4].</p>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>PEGADINHA DE PROVA:</strong> Ter uma deficiência <span class="hl-red">NÃO</span> significa incapacidade civil automática[cite: 4]! A pessoa com deficiência deve ser respeitada em sua autonomia e igualdade de direitos[cite: 4].</div>
+      </div>
+
+      <p>A <strong>Carta dos Direitos e Deveres da Pessoa Usuária da Saúde (SUS)</strong> trata de acesso, atendimento humanizado, informação, respeito e participação[cite: 4].</p>
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div><strong>DECORE:</strong> O Usuário do SUS <span class="hl-yellow">tem DIREITOS</span> + também possui <span class="hl-yellow">RESPONSABILIDADES</span> (corresponsabilidade)[cite: 4].</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

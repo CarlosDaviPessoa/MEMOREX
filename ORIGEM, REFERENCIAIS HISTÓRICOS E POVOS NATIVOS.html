@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">HISTÓRIA DE FORTALEZA</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">ORIGEM, REFERENCIAIS HISTÓRICOS E POVOS NATIVOS</div>
+      
+      <p>A história de Fortaleza <span class="hl-red">não começou</span> com os europeus. Antes da colonização, o território já era ocupado por povos indígenas, especialmente grupos vinculados aos <span class="hl-blue">Potiguara</span>.</p>
+      
+      <ul class="arrow-list">
+        <li>Circulavam pelo litoral e margens dos rios <span class="hl-blue">Ceará, Cocó e Pacoti</span>.</li>
+        <li>Atividades: pesca, caça, coleta de frutos e produção de utensílios.</li>
+      </ul>
+
+      <div class="exemplo"><strong>Ex.:</strong> Os rios e riachos funcionavam como verdadeiras fontes de alimentação, transporte e organização territorial para as tribos.</div>
+
+      <div class="schema-container">
+        <div class="schema-root">Colonização e Indígenas</div>
+        <div class="schema-branches">
+          <div class="schema-node box-blue">Perda de territórios e conflitos</div>
+          <div class="schema-node box-yellow">Escravização indígena</div>
+          <div class="schema-node box-blue">Catequização e disseminação de doenças</div>
+        </div>
+      </div>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> O nome "Fortaleza" está diretamente ligado à <span class="hl-yellow">Fortaleza de Nossa Senhora da Assunção</span>, que foi a denominação portuguesa dada ao antigo forte holandês.</div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> (Pegadinha) Fortaleza <span class="hl-red">não foi fundada</span> diretamente pelos holandeses. E lembre-se: os povos nativos <span class="hl-red">não aceitaram passivamente</span> a colonização. Houve muita resistência e conflitos armados!</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">A CHEGADA DOS JESUÍTAS E COLONIZAÇÃO PORTUGUESA</div>
+      
+      <p>A colonização portuguesa do Ceará foi mais lenta do que a de Pernambuco e Bahia devido à resistência indígena, secas frequentes e falta de grandes áreas produtoras de açúcar.</p>
+      
+      <ul class="check-list">
+        <li><span class="hl-blue">1603</span>: Pero Coelho construiu o Fortim de São Tiago (Tentativa fracassada).</li>
+        <li><span class="hl-blue">1607</span>: Chegada dos jesuítas Francisco Pinto e Luís Figueira em missão religiosa.</li>
+        <li><span class="hl-blue">1611</span>: Martim Soares Moreno construiu o <span class="hl-yellow">Forte de São Sebastião</span> (Consolidação).</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE:</strong> "Em 1607, Pinto e Figueira vieram pela fé inteira." A missão de 1607 foi apenas uma <span class="hl-red">tentativa</span> de ocupação; <span class="hl-red">não consolidou</span> definitivamente Fortaleza. Francisco Pinto foi morto e Figueira escapou.</div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Martim Soares Moreno <span class="hl-red">nunca</span> foi jesuíta. Ele era militar e colonizador português.</div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">AS INVASÕES HOLANDESAS NO CEARÁ</div>
+      
+      <p>As invasões holandesas ocorreram devido à disputa pelo controle econômico do Nordeste. Ocorreram em duas fases principais:</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: Invasões Holandesas</div>
+      <table class="memorex-table">
+        <tr>
+          <th>Ano</th>
+          <th>Evento / Ocupação</th>
+          <th>Líder / Contexto</th>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">1637</span></td>
+          <td>Ocupação do Forte de São Sebastião</td>
+          <td>Primeira ocupação holandesa</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">1649</span></td>
+          <td>Construção do <span class="hl-yellow">Forte Schoonenborch</span></td>
+          <td>Expedição de Matias Beck (Segunda ocupação)</td>
+        </tr>
+        <tr>
+          <td><span class="hl-blue">1654</span></td>
+          <td>Retomada Portuguesa</td>
+          <td>Rebatizado como <span class="hl-yellow">Forte Nossa Senhora da Assunção</span></td>
+        </tr>
+      </table>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE O MNEMÔNICO:</strong> "Schoonenborch virou Assunção."</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Estilo IMPARH/UECE)</strong> O Forte Schoonenborch, tomado dos holandeses pelos portugueses em 1654, foi rebatizado como Fortaleza de Nossa Senhora da Assunção. Essa mudança deve ser compreendida principalmente no contexto:</p>
+        <ul class="check-list">
+          <li>A) das reformas urbanas da Belle Époque.</li>
+          <li>B) do combate às manifestações culturais indígenas.</li>
+          <li>C) da implantação do regime republicano no Ceará.</li>
+          <li>D) das disputas religiosas entre católicos portugueses e protestantes reformados holandeses.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: Letra D.</strong> <br>
+          <strong>Comentário:</strong> Os holandeses eram ligados às igrejas protestantes, e os portugueses, católicos. A mudança de nome para "Nossa Senhora da Assunção" teve forte simbolismo político e religioso para Portugal.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">EVOLUÇÃO POLÍTICA E ECONÔMICA: VILA A CIDADE E SÉCULO XIX</div>
+      
+      <p>O núcleo urbano desenvolveu-se ao redor da Fortaleza de Nossa Senhora da Assunção. As datas de elevação são cobradas com frequência:</p>
+      
+      <ul class="arrow-list">
+        <li><span class="hl-blue">13 de abril de 1726</span>: Núcleo é elevado à categoria de <span class="hl-yellow">VILA</span>.</li>
+        <li><span class="hl-blue">1823</span>: Elevada à categoria de <span class="hl-yellow">CIDADE</span> (durante o Império, por D. Pedro I).</li>
+      </ul>
+
+      <p>Na segunda metade do século XIX, Fortaleza se consolidou como o principal centro do Ceará, impulsionada pelo <strong>Comércio do Algodão</strong> (favorecido pela Guerra Civil dos EUA entre 1861 e 1865), <strong>ferrovias</strong> e <strong>navegação a vapor</strong>.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Fortaleza <span class="hl-red">não foi sempre</span> a cidade dominante! Durante muito tempo, ela disputou importância comercial e política com Aquiraz, Aracati, Sobral e Icó.</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">A LIBERTAÇÃO DOS ESCRAVIZADOS NO CEARÁ</div>
+      
+      <p>O Ceará foi pioneiro e tornou-se a primeira província brasileira a declarar oficialmente extinta a escravidão, passando a ser chamado de <strong>Terra da Luz</strong>.</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> A abolição no Ceará ocorreu em <span class="hl-yellow">25 de março de 1884</span>, quatro anos <span class="hl-red">antes</span> da Lei Áurea (1888).</div>
+      </div>
+
+      <ul class="check-list">
+        <li><strong>Dragão do Mar:</strong> Francisco José do Nascimento, líder jangadeiro que se recusou a transportar escravizados nos navios.</li>
+        <li>O movimento abolicionista uniu diversos setores: sociedades libertadoras, mulheres, jornalistas e escravizados.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA DE BANCA:</strong> O Dragão do Mar <span class="hl-red">não assinou</span> a lei de libertação, nem era governador. Ele foi a liderança popular! Outro erro comum é dizer que o Ceará foi o "primeiro estado", quando na época o Ceará ainda era <span class="hl-blue">Província</span>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <div class="dica-title">A BELLE ÉPOQUE FORTALEZENSE E A GRANDE SECA DE 1915</div>
+      
+      <p>A "Belle Époque" foi um período de modernização urbana (final séc. XIX e início do XX) buscando os padrões europeus (franceses). Liderada pelo engenheiro <strong>Adolfo Herbster</strong>.</p>
+      
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Passeio Público</div>
+        <div class="schema-node box-blue">Teatro José de Alencar (1910)</div>
+        <div class="schema-node box-blue">Praça do Ferreira</div>
+        <div class="schema-node box-blue">Bondes e Cafés</div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>CONTRADIÇÃO DA MODERNIZAÇÃO:</strong> A Belle Époque <span class="hl-red">não beneficiou igualmente</span> todos. Foi um processo elitista! Pobres e trabalhadores eram <span class="hl-red">expulsos</span> do centro para a periferia.</div>
+      </div>
+
+      <div class="exemplo"><strong>Seca de 1915:</strong> Gerou migração em massa para Fortaleza. Para impedir que os retirantes chegassem ao centro, o governo instalou o <span class="hl-yellow">Campo de Concentração do Alagadiço</span> (atual São Gerardo). Retratado na obra <em>"O Quinze"</em>, de Rachel de Queiroz.</div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <div class="dica-title">URBANIZAÇÃO NO SÉCULO XX E REGIME MILITAR</div>
+      
+      <p>A partir de 1950, Fortaleza sofreu forte êxodo rural e periferização. As elites deixaram o Centro para ocupar <span class="hl-blue">Jacarecanga, Benfica, Praia de Iracema</span> e depois a <span class="hl-yellow">Aldeota</span> (expansão para o leste).</p>
+
+      <ul class="arrow-list">
+        <li><strong>Regime Militar (1964-1985):</strong> Planejamento urbano tecnocrático, rodoviarista, focado em automóveis e grandes obras (pouco participativo).</li>
+        <li><span class="hl-blue">1973</span>: Instituição da <span class="hl-yellow">Região Metropolitana de Fortaleza</span>, gerando movimentos pendulares.</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Estilo IMPARH)</strong> A Região Metropolitana de Fortaleza foi instituída no contexto de crescimento urbano e integração entre a capital e os municípios vizinhos. Sua criação ocorreu em:</p>
+        <ul class="check-list">
+          <li>A) 1945.</li>
+          <li>B) 1964.</li>
+          <li>C) 1973.</li>
+          <li>D) 1988.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: Letra C.</strong> <br>
+          <strong>Comentário:</strong> A RMF foi instituída durante o Regime Militar, em 1973, visando integrar a expansão territorial.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <div class="dica-title">FORTALEZA NA DÉCADA DE 90 E MOBILIDADE URBANA</div>
+      
+      <p>Nos anos 1990, ocorreu a consolidação de <span class="hl-blue">novas centralidades</span> (bairros ganharam comércio próprio) e o fortalecimento do <span class="hl-blue">Turismo</span> (Beira-Mar, Dragão do Mar, Praia do Futuro).</p>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>MOBILIDADE:</strong> Foi implantado o sistema de transporte integrado (Terminais). A hierarquia moderna de mobilidade ativa prioriza: <span class="hl-yellow">1º Pedestres ➔ 2º Ciclistas ➔ 3º Transporte Coletivo ➔ 4º Cargas ➔ 5º Automóvel Individual</span>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <div class="dica-title">PATRIMÔNIO CULTURAL, PRAÇAS E BAIRROS HISTÓRICOS</div>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: PATRIMÔNIO CULTURAL</div>
+      <div class="schema-container">
+        <div class="schema-root">Proteção do Patrimônio</div>
+        <div class="schema-branches">
+          <div class="schema-node box-blue"><strong>MATERIAL:</strong> Prédios, praças, mercados (TOMBAMENTO)</div>
+          <div class="schema-node box-yellow"><strong>IMATERIAL:</strong> Festas, saberes, culinária, humor (REGISTRO)</div>
+        </div>
+      </div>
+
+      <ul class="check-list">
+        <li><strong>Praça do Ferreira:</strong> Coração de Fortaleza.</li>
+        <li><strong>Praça dos Leões:</strong> O nome oficial é <span class="hl-yellow">Praça General Tibúrcio</span> (Pegadinha de prova!).</li>
+        <li><strong>Praça da Lagoinha:</strong> Oficialmente <span class="hl-blue">Praça Capistrano de Abreu</span>.</li>
+        <li><strong>Parangaba e Messejana:</strong> Eram antigos aldeamentos indígenas que viraram vilas independentes e depois foram incorporados.</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Tombamento <span class="hl-red">não tira</span> a propriedade do dono. Ele apenas estabelece regras para evitar demolição ou descaracterização.</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <div class="dica-title">QUADRO-RESUMO CRONOLÓGICO</div>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>Ano</th>
+          <th>Acontecimento Principal</th>
+        </tr>
+        <tr><td><span class="hl-blue">1603</span></td><td>Pero Coelho de Sousa e o Fortim de São Tiago.</td></tr>
+        <tr><td><span class="hl-blue">1607</span></td><td>Jesuítas Francisco Pinto e Luís Figueira (Missão).</td></tr>
+        <tr><td><span class="hl-blue">1611</span></td><td>Martim Soares Moreno (Forte São Sebastião).</td></tr>
+        <tr><td><span class="hl-blue">1649</span></td><td>Holandeses (Matias Beck) e Forte Schoonenborch.</td></tr>
+        <tr><td><span class="hl-blue">1654</span></td><td>Retomada portuguesa (Nossa Senhora da Assunção).</td></tr>
+        <tr><td><span class="hl-blue">1726</span></td><td>Elevação à categoria de <span class="hl-yellow">Vila</span> (13 de abril).</td></tr>
+        <tr><td><span class="hl-blue">1823</span></td><td>Elevação à categoria de <span class="hl-yellow">Cidade</span>.</td></tr>
+        <tr><td><span class="hl-blue">1884</span></td><td>Abolição da escravidão no Ceará (25 de março).</td></tr>
+        <tr><td><span class="hl-blue">1915</span></td><td>Grande seca e Campo de Concentração do Alagadiço.</td></tr>
+        <tr><td><span class="hl-blue">1973</span></td><td>Criação da Região Metropolitana de Fortaleza (RMF).</td></tr>
+      </table>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>Mnemônico Final:</strong> "Coelho tentou, os padres chegaram, Moreno fortificou, o holandês construiu, Portugal retomou, a vila nasceu e a cidade cresceu."</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

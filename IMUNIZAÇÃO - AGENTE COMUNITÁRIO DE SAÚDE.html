@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">IMUNIZAÇÃO - AGENTE COMUNITÁRIO DE SAÚDE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">CONCEITOS BÁSICOS: IMUNIZAÇÃO, VACINA E SORO</div>
+      <p>A vacinação é uma das principais estratégias de prevenção de doenças transmissíveis, coordenada no Brasil pelo Programa Nacional de Imunizações (PNI)[cite: 1]. A imunização é o processo pelo qual uma pessoa adquire proteção contra determinada doença, podendo ser de duas formas[cite: 1]:</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: FORMAS DE IMUNIZAÇÃO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">IMUNIZAÇÃO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>ATIVA:</strong> O organismo é estimulado a produzir resposta.</div>
+          <div class="schema-node box-yellow"><strong>PASSIVA:</strong> A pessoa recebe anticorpos prontos.</div>
+        </div>
+      </div>
+
+      <div class="exemplo"><strong>Ex.:</strong> Vacina (Imunização <span class="hl-yellow">ATIVA</span>) x Soro/Imunoglobulina (Imunização <span class="hl-yellow">PASSIVA</span>)[cite: 1].</div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE: MACETE DA IMUNIZAÇÃO</strong><br>
+        Vacina = corpo <strong>PRODUZ</strong>.<br>
+        Soro = corpo <strong>RECEBE</strong> anticorpo pronto[cite: 1].</div>
+      </div>
+
+      <table class="memorex-table">
+        <tr>
+          <th>Característica</th>
+          <th>VACINA</th>
+          <th>SORO</th>
+        </tr>
+        <tr>
+          <td><strong>Tipo</strong></td>
+          <td>Imunização ativa[cite: 1]</td>
+          <td>Imunização passiva[cite: 1]</td>
+        </tr>
+        <tr>
+          <td><strong>Ação</strong></td>
+          <td>Estimula resposta imunológica[cite: 1]</td>
+          <td>Fornece anticorpos prontos[cite: 1]</td>
+        </tr>
+        <tr>
+          <td><strong>Duração</strong></td>
+          <td>Geralmente mais duradoura[cite: 1]</td>
+          <td>Proteção imediata e temporária[cite: 1]</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! PEGADINHA DE PROVA:</strong> Se a banca afirmar que "Soro estimula o organismo a produzir memória imunológica", marque <span class="hl-red">ERRADO</span>[cite: 1].</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">CALENDÁRIO NACIONAL - VACINAÇÃO DA CRIANÇA (2026)</div>
+      <p>O calendário vacinal passa por atualizações. Veja os principais pontos de proteção para a criança[cite: 1]:</p>
+      
+      <ul class="arrow-list">
+        <li><strong>Ao nascer:</strong> BCG (dose única na agenda oportuna) e Hepatite B[cite: 1].</li>
+        <li><strong><span class="hl-blue">2 meses</span>:</strong> Início de vacinas como pentavalente, VIP, rotavírus e pneumocócica[cite: 1].</li>
+        <li><strong><span class="hl-blue">3 meses</span>:</strong> Meningocócica C[cite: 1].</li>
+        <li><strong><span class="hl-blue">4 e 5 meses</span>:</strong> Segundas doses (pentavalente, VIP, etc. e meningocócica C)[cite: 1].</li>
+        <li><strong><span class="hl-blue">6 meses</span>:</strong> Terceira pentavalente, terceira VIP, influenza (anual para crianças de 6 meses a <span class="hl-red">menores de 6 anos</span>) e início do esquema covid-19[cite: 1].</li>
+        <li><strong><span class="hl-blue">9 meses</span>:</strong> Febre amarela e terceira dose de covid-19[cite: 1].</li>
+        <li><strong><span class="hl-blue">12 meses</span>:</strong> Pneumocócica 20-valente (reforço), meningocócica ACWY e tríplice viral[cite: 1].</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> O calendário de 2026 está em transição da pneumocócica 10-valente para a <span class="hl-blue">20-valente</span>[cite: 1, 2]. Fique atento às atualizações do edital[cite: 1]!</div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">VACINAÇÃO DO ADOLESCENTE E DA GESTANTE</div>
+      
+      <p><strong>ADOLESCENTE:</strong> Destaques principais[cite: 2]:</p>
+      <ul class="check-list">
+        <li><strong>HPV:</strong> Rotina prevê <span class="hl-yellow">dose única</span> aos <span class="hl-blue">9 anos</span> (atualização até 14 anos, 11 meses e 29 dias)[cite: 2]. Vacinar <span class="hl-red">não</span> significa autorização para atividade sexual, é prevenção de cânceres[cite: 2]!</li>
+        <li><strong>Meningocócica ACWY:</strong> Prevista aos <span class="hl-blue">11 anos</span>[cite: 2].</li>
+      </ul>
+
+      <p><strong>GESTANTE (Tema Quente 2026):</strong> Ao saber da gravidez, atualizar hepatite B, dT, influenza e covid-19[cite: 2]. Atenção para vacinas específicas da gravidez:</p>
+      <ul class="arrow-list">
+        <li><strong>dTpa:</strong> 1 dose a partir da <span class="hl-blue">20ª semana</span>, em <span class="hl-yellow">CADA GESTAÇÃO</span>[cite: 2].</li>
+        <li><strong>Vacina contra VSR (Vírus Sincicial Respiratório):</strong> 1 dose a partir da <span class="hl-blue">28ª semana</span>, em cada gestação[cite: 2].</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>PEGADINHA ATUALÍSSIMA:</strong> "A gestante recebe dTpa <span class="hl-red">apenas</span> na primeira gestação." ➔ <span class="hl-red">ERRADO</span>. É aplicada em <strong>CADA GESTAÇÃO</strong>[cite: 2].</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">IDOSOS, EVENTOS ADVERSOS E CONTRAINDICAÇÕES</div>
+      
+      <p>A partir de <span class="hl-blue">60 anos</span>, o idoso recebe (conforme histórico): Hepatite B, dT, influenza (1 dose anual), covid-19 (dose <span class="hl-yellow">semestral</span> no calendário 2026), entre outras[cite: 2].</p>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Nem todo idoso recebe a pneumocócica <span class="hl-red">automaticamente</span>; depende de regras específicas (ex: acamados, povos indígenas)[cite: 2].</div>
+      </div>
+
+      <p><strong>Eventos Adversos vs. Contraindicações:</strong></p>
+      <ul class="check-list">
+        <li>Evento adverso é qualquer ocorrência médica após a vacinação; a temporalidade, sozinha, <span class="hl-red">não</span> estabelece causalidade[cite: 2].</li>
+        <li>Situações leves (ex: resfriado leve sem comprometimento) <span class="hl-red">não</span> devem ser tratadas como motivo para perder a oportunidade de vacinar[cite: 2, 3].</li>
+      </ul>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>Desconfie de expressões como "<span class="hl-red">qualquer</span> febre", "<span class="hl-red">todo</span> uso de antibiótico" como sendo contraindicações absolutas[cite: 3].</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">O PAPEL DO ACS NA IMUNIZAÇÃO E BUSCA ATIVA</div>
+      
+      <p>O Agente Comunitário de Saúde (ACS) possui papel estratégico na busca ativa de pessoas com esquema vacinal incompleto (atrasado)[cite: 3].</p>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>O ACS DEVE:</strong><br>✔ Orientar<br>✔ Verificar situação<br>✔ Realizar busca ativa<br>✔ Encaminhar à UBS[cite: 3]</div>
+        <div class="schema-node box-yellow"><strong>O ACS <span class="hl-red">NÃO</span> DEVE:</strong><br>✖ Contraindicar vacina<br>✖ Modificar calendário<br>✖ Suspender doses[cite: 3]</div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE A CONDUTA DO ACS:</strong> Carteira atrasada ➔ Identificar + Orientar + Encaminhar + Acompanhar[cite: 3].</div>
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Questão Adaptada)</strong> A principal diferença entre vacina e soro consiste em que:</p>
+        <ul class="arrow-list">
+          <li>A) ambos funcionam exatamente da mesma forma.</li>
+          <li>B) a vacina fornece sempre anticorpos prontos.</li>
+          <li>C) o soro estimula exclusivamente memória imunológica duradoura.</li>
+          <li>D) a vacina estimula resposta ativa e o soro fornece anticorpos prontos.</li>
+          <li>E) o soro é sempre utilizado preventivamente antes da exposição.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: D.</strong><br>
+          <em>Comentário:</em> A vacina é uma forma de imunização <strong>ATIVA</strong>, onde o corpo é estimulado a produzir sua resposta imunológica. Já o soro é uma imunização <strong>PASSIVA</strong>, onde o indivíduo já recebe os anticorpos prontos, com proteção imediata e temporária[cite: 1, 4].
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

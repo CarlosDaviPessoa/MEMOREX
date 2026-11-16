@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">ARGUMENTAÇÃO - CIRCULARIDADE</h2>
+      <p>A circularidade ocorre quando o argumento retorna ao ponto inicial <span class="hl-red">sem apresentar justificativa independente</span>. Ou seja, a ausência de prova <span class="hl-red">não</span> prova a inexistência.</p>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> O candidato é o melhor porque é superior aos demais. Ele é superior porque é o melhor.
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">ASSOCIAÇÃO LÓGICA - CONCEITOS E CATEGORIAS</h2>
+      <p>Problemas de associação lógica exigem relacionar diferentes categorias. Veja as principais:</p>
+      
+      <ul class="check-list">
+        <li>Pessoas</li>
+        <li>Profissões</li>
+        <li>Cidades</li>
+        <li>Horários</li>
+        <li>Cores e Objetos</li>
+        <li>Posições e Idades</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>IMPORTANTE: MÉTODO DA TABELA</strong><br>
+          Sempre construa uma tabela para cada relação. Utilize <span class="hl-blue">✔ para associação confirmada</span> e <span class="hl-red">X para associação impossível</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">ASSOCIAÇÃO LÓGICA - REGRAS E TIPOS DE PISTAS</h2>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>ATENÇÃO!! REGRA DA EXCLUSÃO</strong><br>
+          Se uma pessoa possui determinada característica, as demais <span class="hl-red">não</span> podem possuí-la, quando o enunciado informa que todas são diferentes.
+        </div>
+      </div>
+
+      <p>Fique atento aos <span class="hl-blue">tipos de pistas</span> dados nas questões:</p>
+      <ul class="arrow-list">
+        <li><strong>Afirmação direta:</strong> Marque imediatamente a associação (Ex: Ana é professora).</li>
+        <li><strong>Negação direta:</strong> Elimine essa possibilidade (Ex: Bruno <span class="hl-red">não</span> é médico).</li>
+        <li><strong>Relação entre categorias:</strong> Relacione mesmo sem conhecer a pessoa inicialmente (Ex: O advogado mora em Sobral).</li>
+        <li><strong>Condicional:</strong> A pista apenas estabelece uma consequência, <span class="hl-red">não conclua automaticamente</span> a premissa inicial (Ex: Se Bruno mora em Fortaleza, então Ana é médica).</li>
+        <li><strong>Disjunção:</strong> Elimine apenas a opção não mencionada (Ex: Ana é médica ou professora → Elimine advogada).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">ASSOCIAÇÃO COM ORDEM</h2>
+      <p>Em problemas que exigem ordenação de tempo, tamanho ou chegada, registre sempre a relação de anterioridade.</p>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MEMORIZE:</strong> Em problemas de ordem, <span class="hl-yellow">use sempre setas (→ ou <)</span> para guiar o visual.
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Ana, Bruno, Carlos e Daniel. Bruno chegou antes de Carlos. Ana chegou depois de Carlos. Daniel chegou antes de Bruno.<br>
+        <strong>Ordem Visual:</strong> <span class="hl-blue">Daniel < Bruno < Carlos < Ana</span>.
+      </div>
+    </div>
+
+    <!-- QUESTÃO DE PROVA - BLOCO 1 -->
+    <div class="questao-box">
+      <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+      <p><strong>(Questão Inédita / Modelo IMPARH)</strong> Ana, Bruno e Carlos exercem profissões diferentes: advogado, médico e professor. Sabe-se que: 1. Bruno é professor. 2. Ana não é médica. 3. Carlos não é advogado. É correto afirmar que:</p>
+      <p>
+        A) Ana é médica.<br>
+        B) Ana é advogada.<br>
+        C) Carlos é professor.<br>
+        D) Bruno é médico.
+      </p>
+      <div class="gabarito-box">
+        <strong>Gabarito: B</strong><br>
+        <em>Comentário:</em> Bruno é professor. Restam advogado e médico para Ana e Carlos. Como Ana <span class="hl-red">não</span> é médica, ela é advogada. Logo, Carlos é médico.
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">CONCLUSÕES NECESSÁRIAS E POSSÍVEIS</h2>
+      <p>Para não cair em pegadinhas, é vital diferenciar as possíveis formas de conclusões:</p>
+      
+      <div class="schema-container">
+        <div class="schema-root box-blue">TIPOS DE<br>CONCLUSÕES</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>NECESSÁRIA:</strong> É verdadeira em <span class="hl-blue">todas</span> as organizações compatíveis.</div>
+          <div class="schema-node box-yellow"><strong>POSSÍVEL:</strong> É verdadeira em <span class="hl-blue">pelo menos uma</span> organização (mas não em todas).</div>
+          <div class="schema-node box-yellow"><strong>IMPOSSÍVEL:</strong> <span class="hl-red">Contraria</span> alguma pista fornecida.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>ATENÇÃO À PERGUNTA!</strong><br>
+          A banca pode solicitar o que é <span class="hl-blue">necessariamente</span> verdadeiro, o que <span class="hl-yellow">pode ser</span> verdadeiro ou o que <span class="hl-red">não pode</span> ser verdadeiro. Essas expressões exigem análises totalmente diferentes!
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">MÉTODO PARA TESTAR ALTERNATIVAS</h2>
+      <p>Quando o problema possuir muitas possibilidades (e preencher a tabela toda for demorado), siga o método do teste de alternativas:</p>
+      
+      <ul class="arrow-list">
+        <li>Organize as informações diretas e <span class="hl-red">elimine as impossibilidades</span>.</li>
+        <li>Verifique as associações obrigatórias.</li>
+        <li>Teste cada alternativa individualmente.</li>
+        <li>Descarte a alternativa que <span class="hl-red">contradiz</span> alguma pista.</li>
+        <li>Confirme se a resposta é <span class="hl-yellow">necessária</span> ou apenas possível.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">PEGADINHAS DE PROVA (PARTE 1)</h2>
+      
+      <ul class="check-list">
+        <li><strong>Verdade NÃO é validade:</strong> Proposição pode ser verdadeira ou falsa. Argumento pode ser válido ou inválido.</li>
+        <li><strong>Conclusão verdadeira NÃO garante validade:</strong> Um argumento pode chegar a uma conclusão verdadeira por raciocínio incorreto.</li>
+        <li><strong>NÃO inverter conjuntos:</strong> Dizer "Todo A é B" <span class="hl-red">não significa</span> que "Todo B é A".</li>
+        <li><strong>"Algum" NÃO significa "somente um":</strong> Significa <span class="hl-blue">pelo menos um</span>.</li>
+        <li><strong>Interseção contada duas vezes:</strong> Na união de dois conjuntos, some os conjuntos e <span class="hl-red">subtraia a interseção</span> (Fórmula: <code>n(A∪B) = n(A) + n(B) - n(A∩B)</code>).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h2 class="dica-title">PEGADINHAS DE PROVA (PARTE 2)</h2>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue" style="width: 48%;">
+          <strong>Afirmação do Consequente</strong><br>
+          Se p → q e ocorre "q", <span class="hl-red">não</span> se pode concluir "p".
+        </div>
+        <div class="schema-node box-yellow" style="width: 48%;">
+          <strong>Negação do Antecedente</strong><br>
+          Se p → q e ocorre "não p", <span class="hl-red">não</span> se pode concluir "não q".
+        </div>
+        <div class="schema-node box-blue" style="width: 48%;">
+          <strong>Falso Dilema</strong><br>
+          Apresentar 2 opções <span class="hl-red">não</span> prova que sejam as únicas possíveis.
+        </div>
+        <div class="schema-node box-yellow" style="width: 48%;">
+          <strong>Associação Possível vs Necessária</strong><br>
+          Uma associação possível <span class="hl-red">não</span> é necessariamente obrigatória.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h2 class="dica-title">QUADRO DAS PRINCIPAIS INFERÊNCIAS (DECOREBA)</h2>
+      
+      <div class="esquema-title">Esquematizando: Validade das Inferências</div>
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Regra</th>
+            <th>Estrutura</th>
+            <th>Validade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Modus ponens</td>
+            <td>p → q; p; logo q</td>
+            <td><strong>Válida</strong></td>
+          </tr>
+          <tr>
+            <td>Modus tollens</td>
+            <td>p → q; ~q; logo ~p</td>
+            <td><strong>Válida</strong></td>
+          </tr>
+          <tr>
+            <td>Silogismo hipotético</td>
+            <td>p → q; q → r; logo p → r</td>
+            <td><strong>Válida</strong></td>
+          </tr>
+          <tr>
+            <td>Silogismo disjuntivo</td>
+            <td>p v q; ~p; logo q</td>
+            <td><strong>Válida</strong></td>
+          </tr>
+          <tr>
+            <td>Simplificação</td>
+            <td>p ^ q; logo p</td>
+            <td><strong>Válida</strong></td>
+          </tr>
+          <tr>
+            <td>Conjunção</td>
+            <td>p; q; logo p ^ q</td>
+            <td><strong>Válida</strong></td>
+          </tr>
+          <tr>
+            <td><span class="hl-red">Afirmação do consequente</span></td>
+            <td>p → q; q; logo p</td>
+            <td><span class="hl-red">Inválida</span></td>
+          </tr>
+          <tr>
+            <td><span class="hl-red">Negação do antecedente</span></td>
+            <td>p → q; ~p; logo ~q</td>
+            <td><span class="hl-red">Inválida</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h2 class="dica-title">DIAGRAMAS LÓGICOS E FALÁCIAS</h2>
+      
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div>
+          <strong>OBS.: SOBRE DIAGRAMAS</strong><br>
+          <strong>Todo A é B:</strong> A está dentro de B.<br>
+          <strong>Nenhum A é B:</strong> Conjuntos separados (A ∩ B = ∅).<br>
+          <strong>Algum A é B:</strong> Existe interseção.<br>
+          <strong>Algum A não é B:</strong> Parte de A está fora de B.
+        </div>
+      </div>
+
+      <p>Principais tipos de <span class="hl-red">falácias</span> cobradas:</p>
+      <ul class="arrow-list">
+        <li><strong>Ad hominem:</strong> Ataque à pessoa.</li>
+        <li><strong>Autoridade:</strong> Alguém famoso afirmou.</li>
+        <li><strong>Maioria:</strong> Todos acreditam.</li>
+        <li><strong>Falso dilema:</strong> Apenas duas opções apresentadas.</li>
+        <li><strong>Generalização apressada:</strong> Baseada em poucos casos.</li>
+        <li><strong>Falsa causa:</strong> Ocorreu antes, logo causou.</li>
+        <li><strong>Composição / Divisão:</strong> Característica das partes atribuída ao todo (composição) e vice-versa (divisão).</li>
+      </ul>
+    </div>
+
+    <!-- QUESTÃO DE PROVA - BLOCO 2 -->
+    <div class="questao-box">
+      <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+      <p><strong>(IMPARH)</strong> Considere: Se chove, a rua fica molhada. A rua está molhada. Logo, choveu.<br>O argumento é:</p>
+      <p>
+        A) válido, por modus ponens.<br>
+        B) válido, por modus tollens.<br>
+        C) inválido, por afirmar o consequente.<br>
+        D) inválido, por negar o antecedente.
+      </p>
+      <div class="gabarito-box">
+        <strong>Gabarito: C</strong><br>
+        <em>Comentário:</em> A rua pode estar molhada por outras causas (lavagem, vazamento). A estrutura inválida é: p → q; q; Logo p. Isso se chama <span class="hl-red">Afirmação do Consequente</span>.
+      </div>
+    </div>
+
+    <!-- DICA 11 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 11</div>
+      <h2 class="dica-title">RACIOCÍNIO ANALÍTICO - CONCEITOS E ETAPAS</h2>
+      <p>Raciocínio analítico é a capacidade de <span class="hl-blue">decompor uma situação complexa</span> em partes menores, examinando cada elemento e as relações existentes entre eles. Analisar significa separar mentalmente os componentes de um problema.</p>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>ETAPAS DO RACIOCÍNIO ANALÍTICO:</strong><br>
+          1º Identificar o problema → 2º Separar as informações (relevantes, condições, restrições) → 3º Estabelecer relações (causa, oposição, etc.) → 4º Formular hipóteses → 5º Testar as hipóteses (eliminar contradições) → 6º Apresentar a conclusão (sem suposições pessoais).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 12 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 12</div>
+      <h2 class="dica-title">RACIOCÍNIO CRÍTICO - CARACTERÍSTICAS</h2>
+      <p>Raciocínio crítico é a capacidade de avaliar informações, argumentos e conclusões de modo racional, fundamentado e independente. <span class="hl-red">Não significa simplesmente criticar ou discordar</span>.</p>
+      
+      <p>O pensador crítico questiona:</p>
+      <ul class="check-list">
+        <li>A informação é confiável? Existem evidências?</li>
+        <li>A conclusão decorre das premissas?</li>
+        <li>Há interesses envolvidos? Existem outras explicações?</li>
+        <li>A fonte possui competência sobre o tema?</li>
+      </ul>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">RACIOCÍNIO ANALÍTICO VS CRÍTICO E INDICADORES</h2>
+      
+      <p>Os dois raciocínios são <span class="hl-blue">complementares</span>. O analítico mostra <em>como</em> o argumento está organizado, enquanto o crítico avalia se essa organização é <em>sólida e confiável</em>.</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Raciocínio Analítico</th>
+            <th>Raciocínio Crítico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Decompõe o problema e identifica relações</td>
+            <td>Avalia a qualidade, questiona premissas e evidências</td>
+          </tr>
+          <tr>
+            <td>Organiza informações e testa possibilidades</td>
+            <td>Identifica falhas, manipulações e avalia credibilidade</td>
+          </tr>
+          <tr>
+            <td>Busca solução coerente</td>
+            <td>Julga se a conclusão é aceitável</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MEMORIZE OS INDICADORES DE ARGUMENTAÇÃO:</strong><br>
+          <span class="hl-yellow">Indicadores de Premissa:</span> porque, pois, visto que, uma vez que, dado que, já que.<br>
+          <span class="hl-yellow">Indicadores de Conclusão:</span> logo, portanto, assim, por conseguinte, consequentemente, então.
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTÃO DE PROVA - BLOCO FINAL -->
+    <div class="questao-box">
+      <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+      <p><strong>(IMPARH)</strong> Em um argumento composto por "Todos os servidores que participaram do curso foram aprovados. Carlos participou do curso. Logo, Carlos foi aprovado."<br>A frase "Carlos foi aprovado" exerce o papel de:</p>
+      <p>
+        A) Premissa.<br>
+        B) Conclusão.<br>
+        C) Falácia.<br>
+        D) Condição.
+      </p>
+      <div class="gabarito-box">
+        <strong>Gabarito: B</strong><br>
+        <em>Comentário:</em> A conclusão é o resultado pretendido extraído das premissas. Como a frase é introduzida pela ideia de consequência lógica (Logo, Carlos foi aprovado), trata-se da <span class="hl-blue">conclusão</span>.
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

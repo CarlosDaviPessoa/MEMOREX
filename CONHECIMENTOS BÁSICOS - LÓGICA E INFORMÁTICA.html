@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">CONHECIMENTOS BÁSICOS - LÓGICA E INFORMÁTICA</div>
+
+    <!-- DICA 01: LÓGICA -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <div class="dica-title">RACIOCÍNIO LÓGICO - DICAS E PEGADINHAS[cite: 1]</div>
+      <ul class="arrow-list">
+        <li><span class="hl-red">Não</span> confunda fato com opinião. Adjetivos como "excelente", "péssimo", "melhor" costumam indicar opinião.[cite: 1]</li>
+        <li>Correlação <span class="hl-red">não</span> significa causalidade. Dois eventos ocorrerem juntos <span class="hl-red">não</span> prova que um causou o outro.[cite: 1]</li>
+        <li>Ataque à pessoa (ad hominem) <span class="hl-red">não</span> invalida o argumento apresentado.[cite: 1]</li>
+        <li>Apelo à maioria ("todo mundo faz", "a maioria acredita") <span class="hl-red">não</span> comprova a verdade de uma afirmação.[cite: 1]</li>
+      </ul>
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> Desconfie de palavras absolutas como "<span class="hl-red">sempre</span>", "<span class="hl-red">nunca</span>", "<span class="hl-red">todos</span>", "<span class="hl-red">ninguém</span>" e "<span class="hl-red">obrigatoriamente</span>".[cite: 1]</div>
+      </div>
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Generalização apressada é uma das falácias mais cobradas: <span class="hl-red">poucos casos não justificam</span> uma regra geral.[cite: 1]</div>
+      </div>
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Em questões sobre fortalecimento e enfraquecimento de argumentos, procure evidências que eliminem ou apresentem explicações alternativas. Leia primeiro a conclusão do argumento e só depois identifique as premissas.[cite: 1]</div>
+      </div>
+    </div>
+
+    <div class="questao-box">
+      <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+      <p><strong>(Prefeitura de Criciúma - 2023)</strong> Observe o diálogo abaixo:<br>[cite: 1]
+      P: Gostaria de andar tão bem arrumada quanto você.<br>[cite: 1]
+      Q: Para andar arrumada eu procuro comprar roupas boas, portanto, se você também comprar, conseguirá andar arrumada.<br>[cite: 1]
+      Qual é o tipo de raciocínio que fundamenta a resposta Q?[cite: 1]</p>
+      <ul class="check-list">
+        <li>A) Antagonismo.[cite: 1]</li>
+        <li>B) Analogia.[cite: 1]</li>
+        <li>C) Diferenciação.[cite: 1]</li>
+        <li>D) Ideologia.[cite: 1]</li>
+        <li>E) Comparação.[cite: 1]</li>
+      </ul>
+      <div class="gabarito-box">
+        <strong>Gabarito: B</strong><br>[cite: 1]
+        <strong>Comentário:</strong> Q conclui que, assim como comprar roupas boas ajuda uma pessoa a andar bem arrumada, o mesmo resultado ocorrerá com P.[cite: 1] <span class="hl-yellow">A analogia compara situações semelhantes e transfere uma característica de uma para outra.</span>[cite: 1]
+      </div>
+    </div>
+
+    <!-- DICA 02: INFORMATICA -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <div class="dica-title">INFORMÁTICA - NOÇÕES GERAIS E COMPUTADOR[cite: 2]</div>
+      <p>O computador é uma máquina capaz de executar tarefas de forma automática e rápida.[cite: 2] Ele enxerga os dados como combinações de <span class="hl-blue">1s e 0s</span> e os combina para formar mídias complexas (fotos, vídeos, sites).[cite: 2]</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: PARTES DO COMPUTADOR</div>
+      <div class="schema-container">
+        <div class="schema-root">COMPUTADOR[cite: 2]</div>
+        <div class="schema-branches">
+          <div class="schema-node box-blue">HARDWARE (Parte Física)[cite: 2]</div>
+          <div class="schema-node box-yellow">SOFTWARE (Parte Lógica)[cite: 2]</div>
+        </div>
+      </div>
+      
+      <div class="exemplo"><strong>Ex.:</strong> Hardware é a parte física do computador, é tudo que pode ser tocado com as mãos (Monitor, Teclado, Placa-mãe).[cite: 2] Software são os programas e sistemas operacionais que permitem o funcionamento (Windows).[cite: 2]</div>
+    </div>
+
+    <!-- DICA 03: HARDWARE -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <div class="dica-title">COMPONENTES DE HARDWARE[cite: 2]</div>
+      <p>Os hardwares são divididos em 4 elementos centrais:[cite: 2]</p>
+      <ul class="arrow-list">
+        <li><strong>Dispositivos de entrada:</strong> inserem dados no PC (ex.: teclado, mouse).[cite: 2]</li>
+        <li><strong>Dispositivos de saída:</strong> traduzem dados para o usuário (ex.: monitor, caixa de som).[cite: 2]</li>
+        <li><strong>Componentes internos:</strong> se conectam para fazer o PC funcionar (ex.: processador, placa-mãe).[cite: 2]</li>
+        <li><strong>Armazenamento secundário:</strong> guardam dados permanentemente (ex.: HD, Pen-drive).[cite: 2]</li>
+      </ul>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>COMPONENTE[cite: 3]</th>
+          <th>DESCRIÇÃO PRINCIPAL[cite: 3]</th>
+        </tr>
+        <tr>
+          <td><strong>Placa-Mãe (Motherboard)[cite: 3]</strong></td>
+          <td>Placa central de todo o computador, onde todos os outros componentes são conectados.[cite: 3]</td>
+        </tr>
+        <tr>
+          <td><strong>Processador (CPU)[cite: 3]</strong></td>
+          <td>Fica acoplado à placa-mãe e é responsável por fazer o controle das operações. Interfere diretamente na rapidez.[cite: 3]</td>
+        </tr>
+        <tr>
+          <td><strong>Memória RAM[cite: 3]</strong></td>
+          <td>Armazena <span class="hl-red">momentaneamente</span> os dados de programas em execução.[cite: 3]</td>
+        </tr>
+        <tr>
+          <td><strong>Disco Rígido (HD)[cite: 3]</strong></td>
+          <td>Armazena dados e arquivos <span class="hl-blue">permanentemente</span>.[cite: 3]</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 04: PLACA MÃE E BARRAMENTOS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <div class="dica-title">PLACA-MÃE E BARRAMENTOS[cite: 4]</div>
+      <p>A Placa-Mãe possui conectores e componentes essenciais:[cite: 4]</p>
+      <ul class="check-list">
+        <li><strong>Chipset:</strong> Controla vários componentes da placa-mãe.[cite: 4] Dividido em Ponte Sul (dispositivos de E/S) e Ponte Norte (memórias e barramentos de vídeo).[cite: 4]</li>
+        <li><strong>Soquete (Socket):</strong> Local onde deve ser encaixado o processador (CPU).[cite: 4]</li>
+        <li><strong>Bateria de Lítio:</strong> Mantém o relógio interno e as informações dentro da memória ROM enquanto o computador está desligado.[cite: 4]</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE OS BARRAMENTOS (Vias de comunicação):</strong><br>[cite: 4]
+        ➔ <span class="hl-blue">ISA:</span> Antigo, para placas de expansão (som, rede, vídeo).[cite: 4]<br>
+        ➔ <span class="hl-blue">PCI / PCI-Express:</span> Placas de expansão, usa a tecnologia "Plug and Play".[cite: 5]<br>
+        ➔ <span class="hl-blue">AGP:</span> Utilizado <span class="hl-red">somente</span> para placas de vídeo.[cite: 5]<br>
+        ➔ <span class="hl-blue">IDE / SATA:</span> Utilizado para unidades de armazenamento internas (discos rígidos, cd's, DVD).[cite: 5]
+        </div>
+      </div>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> O <strong>BIOS</strong> (Sistema Básico de Entrada/Saída)[cite: 4] é um aplicativo destinado a realizar algumas tarefas básicas no momento em que o computador é ligado.[cite: 4] Ele faz a verificação de todos os hardwares e carrega o sistema operacional.[cite: 4] <span class="hl-red">Não</span> é possível desinstalar o BIOS do computador, apenas atualizá-lo.[cite: 9]</div>
+      </div>
+    </div>
+
+    <!-- DICA 05: HD X SSD -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <div class="dica-title">ARMAZENAMENTO: HD x SSD[cite: 7]</div>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>CARACTERÍSTICA[cite: 7]</th>
+          <th>HD (Hard Disk Drive)[cite: 7]</th>
+          <th>SSD (Solid-State Drive)[cite: 7]</th>
+        </tr>
+        <tr>
+          <td><strong>Funcionamento[cite: 7]</strong></td>
+          <td>Disco magnético e peças mecânicas (rotação de 5.400 e 7.200 RPM).[cite: 7]</td>
+          <td>Eletrônico (<span class="hl-blue">memória flash</span>), sem partes móveis.[cite: 7]</td>
+        </tr>
+        <tr>
+          <td><strong>Desempenho / Barulho[cite: 7]</strong></td>
+          <td>Mais lento e gera maior barulho.[cite: 7]</td>
+          <td>Muito mais rápido e silencioso (menor barulho).[cite: 7]</td>
+        </tr>
+        <tr>
+          <td><strong>Resistência Física[cite: 7]</strong></td>
+          <td><span class="hl-red">Menor</span>.[cite: 7]</td>
+          <td><span class="hl-green">Maior</span>.[cite: 7]</td>
+        </tr>
+      </table>
+      <div class="exemplo"><strong>Ex.:</strong> Ambos são de armazenamento <span class="hl-yellow">não volátil</span>[cite: 7] (não perdem os dados ao desligar o PC).</div>
+    </div>
+
+    <!-- DICA 06: MEMÓRIAS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <div class="dica-title">CLASSIFICAÇÃO DE MEMÓRIAS[cite: 7, 8]</div>
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE MEMÓRIA[cite: 7, 8]</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>RAM:</strong> Volátil e rápida.[cite: 7] Somente fica ativa enquanto o computador estiver ligado.[cite: 7] (Ex: SRAM e DRAM).[cite: 7, 8]</div>
+        <div class="schema-node box-yellow"><strong>ROM:</strong> Memória Somente de Leitura, não volátil (armazena os dados permanentemente).[cite: 8]</div>
+        <div class="schema-node box-blue"><strong>CACHE:</strong> Acesso randômico mais rápida que armazena os dados mais utilizados pelo processador[cite: 8] (L1 e L2).[cite: 8]</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS: SOFTWARE -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <div class="dica-title">SISTEMAS, ARQUIVOS E SOFTWARES[cite: 8, 9]</div>
+      <ul class="arrow-list">
+        <li><strong>Software Básico:</strong> Fazem o computador funcionar como a linguagem de programação e o Sistema operacional.[cite: 9]</li>
+        <li><strong>Software Aplicativo:</strong> Tem uma função auxiliar para tornar sua vida mais fácil.[cite: 9] Ex: navegadores, planilhas, Word, antivírus.[cite: 9]</li>
+      </ul>
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> No Windows, pastas organizam os arquivos[cite: 9] e <strong>Atalhos</strong> (ícones com uma flecha)[cite: 9] são uma maneira rápida de abrir um arquivo.[cite: 9] Apagá-los <span class="hl-red">não</span> exclui o arquivo original![cite: 9]</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

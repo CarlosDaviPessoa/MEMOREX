@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">LÓGICA PROPOSICIONAL - CONTRAPOSITIVA E BICONDICIONAL</h3>
+      
+      <p>Duas proposições são equivalentes quando possuem o mesmo valor lógico (V ou F) em todas as situações.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: CONTRAPOSITIVA DA CONDICIONAL ( p → q )</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">p → q</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Equivale a: <span class="hl-blue">¬q → ¬p</span></div>
+          <div class="schema-node box-yellow">Leitura: "Se <span class="hl-red">não</span> Q, então <span class="hl-red">não</span> P"</div>
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> "Se chove, então a rua fica molhada."<br>
+        <strong>Contrapositiva:</strong> "Se a rua <span class="hl-red">não</span> fica molhada, então <span class="hl-red">não</span> chove."
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO (PEGADINHA)!!</strong> A contrapositiva é equivalente à condicional original. Porém:<br>
+          <ul class="arrow-list">
+            <li>A <strong>recíproca</strong> (q → p) <span class="hl-red">não</span> é necessariamente equivalente.</li>
+            <li>A <strong>inversa</strong> (¬p → ¬q) <span class="hl-red">não</span> é necessariamente equivalente.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>Equivalência da Bicondicional ( p ↔ q ):</strong><br>
+      A bicondicional será verdadeira quando <span class="hl-yellow">ambas forem verdadeiras</span> ou <span class="hl-yellow">ambas forem falsas</span>. Suas equivalências são:</p>
+      <ul class="check-list">
+        <li><strong>(p → q) ∧ (q → p)</strong></li>
+        <li><strong>(p ∧ q) ∨ (¬p ∧ ¬q)</strong></li>
+      </ul>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">EQUIVALÊNCIAS E LEIS DE DE MORGAN (NEGAÇÕES)</h3>
+      
+      <p>Para realizarmos as negações lógicas (Leis de De Morgan e afins), as bancas costumam cobrar as seguintes transformações:</p>
+
+      <ul class="arrow-list">
+        <li><strong>Negação do "E" ( p ∧ q ):</strong> A negação do "e" é o "ou" das negações. <br>Resultado: <span class="hl-blue">(¬p) ∨ (¬q)</span>.</li>
+        <li><strong>Negação do "OU" ( p ∨ q ):</strong> A negação do "ou" é o "e" das negações. <br>Resultado: <span class="hl-blue">(¬p) ∧ (¬q)</span>.</li>
+        <li><strong>Negação da Condicional ( p → q ):</strong> Mantém-se o antecedente (p) e nega-se o consequente (q). <br>Resultado: <span class="hl-blue">p ∧ (¬q)</span>.</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE: DICA RÁPIDA</strong><br>
+          Para negar as disjunções/conjunções, <strong>troque "e" por "ou"</strong> e <strong>"ou" por "e"</strong>, e <span class="hl-yellow">negue cada parte!</span> Para negar o "Se... então", <strong>mantém a primeira E nega a segunda</strong> ("Regra do MANÉ").
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">PROPRIEDADES IMPORTANTES DOS CONECTIVOS</h3>
+      
+      <p>Algumas propriedades fundamentais garantem equivalências estruturais sem precisar construir a tabela-verdade inteira:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Propriedade</th>
+            <th>Conjunção (E)</th>
+            <th>Disjunção (OU)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Comutativa</strong></td>
+            <td>p ∧ q ≡ q ∧ p</td>
+            <td>p ∨ q ≡ q ∨ p</td>
+          </tr>
+          <tr>
+            <td><strong>Associativa</strong></td>
+            <td>(p ∧ q) ∧ r ≡ p ∧ (q ∧ r)</td>
+            <td>(p ∨ q) ∨ r ≡ p ∨ (q ∨ r)</td>
+          </tr>
+          <tr>
+            <td><strong>Distributiva</strong></td>
+            <td>p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)</td>
+            <td>p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)</td>
+          </tr>
+          <tr>
+            <td><strong>Idempotência</strong></td>
+            <td>p ∧ p ≡ p</td>
+            <td>p ∨ p ≡ p</td>
+          </tr>
+          <tr>
+            <td><strong>Absorção</strong></td>
+            <td>p ∧ (p ∨ q) ≡ p</td>
+            <td>p ∨ (p ∧ q) ≡ p</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">NEGAÇÃO DE PROPOSIÇÕES COMPOSTAS - APLICAÇÃO</h3>
+      
+      <div class="exemplo">
+        <strong>1. Negação da Conjunção (E)</strong><br>
+        <strong>Proposição:</strong> João estuda e trabalha.<br>
+        <strong>Negação:</strong> João <span class="hl-red">não</span> estuda <span class="hl-blue">ou</span> <span class="hl-red">não</span> trabalha.
+      </div>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> <span class="hl-red">Não</span> se deve negar "João estuda e trabalha" dizendo "João <span class="hl-red">não</span> estuda e <span class="hl-red">não</span> trabalha". Essa forma seria incorreta, pois é mais forte do que a negação necessária.
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>2. Negação da Disjunção (OU)</strong><br>
+        <strong>Proposição:</strong> João estuda ou trabalha.<br>
+        <strong>Negação:</strong> João <span class="hl-red">não</span> estuda <span class="hl-blue">e</span> <span class="hl-red">não</span> trabalha.
+      </div>
+
+      <div class="exemplo">
+        <strong>3. Negação da Condicional (Se... então)</strong><br>
+        <strong>Proposição:</strong> Se Ana estuda, então será aprovada.<br>
+        <strong>Negação:</strong> Ana estuda <span class="hl-blue">e</span> <span class="hl-red">não</span> será aprovada. (Regra: mantém p, nega q, troca por "e").
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">NEGAÇÃO DA BICONDICIONAL E DA DISJUNÇÃO EXCLUSIVA</h3>
+      
+      <p>A disjunção exclusiva afirma que <strong>apenas uma</strong> proposição é verdadeira. Sua negação ocorre quando as duas possuem valores <strong>iguais</strong> (que é a própria essência da bicondicional).</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: NEGAÇÕES ESPECIAIS</div>
+      <div class="schema-container schema-grid">
+        <div class="schema-node box-blue"><strong>Bicondicional (↔)</strong><br>Nega-se com a Disjunção Exclusiva (⊻) ou (p ∧ ¬q) ∨ (¬p ∧ q)</div>
+        <div class="schema-node box-yellow"><strong>Disjunção Exclusiva (⊻)</strong><br>Nega-se com a Bicondicional (↔)</div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.: Negação da Bicondicional</strong><br>
+        <strong>Proposição:</strong> João estuda se, e somente se, Maria trabalha.<br>
+        <strong>Negação:</strong> João estuda e Maria <span class="hl-red">não</span> trabalha, <strong>ou</strong> João <span class="hl-red">não</span> estuda e Maria trabalha.
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">LÓGICA DOS PREDICADOS E QUANTIFICADORES</h3>
+      
+      <p>A lógica de primeira ordem (dos predicados) permite analisar indivíduos, propriedades, relações, variáveis e quantificadores. Nela, temos:</p>
+      
+      <ul class="check-list">
+        <li><strong>Predicado:</strong> É uma propriedade ou relação atribuída a um elemento. Ex.: <em>P(x)</em> = "x é servidor público".</li>
+        <li><strong>Domínio:</strong> Conjunto de elementos aos quais a variável pode se referir (ex.: números reais, pessoas, etc.).</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE: OS QUANTIFICADORES</strong><br>
+          ➔ <strong>Quantificador Universal ( ∀ )</strong>: Lê-se "para todo", "qualquer que seja", "todo", "todos". <em>Ex.: ∀x, P(x) = Todo brasileiro é sul-americano.</em><br>
+          ➔ <strong>Quantificador Existencial ( ∃ )</strong>: Lê-se "existe", "existe pelo menos um", "algum", "há um". <em>Ex.: ∃x, P(x) = Algum servidor é professor.</em>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong> Na lógica, a palavra "algum" significa <span class="hl-yellow">"pelo menos um"</span>. Ela <span class="hl-red">não</span> significa necessariamente "apenas um".
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">NEGAÇÃO DE QUANTIFICADORES</h3>
+
+      <p>A negação de proposições com quantificadores exige a troca do quantificador (de universal para existencial e vice-versa) aliada à negação do predicado.</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Proposição Original</th>
+            <th>Sua Negação Matemática</th>
+            <th>Negação em Linguagem Corrente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Todo A é B</strong> (∀)</td>
+            <td>∃x ¬P(x)</td>
+            <td><strong>Algum A <span class="hl-red">não</span> é B</strong> (Pelo menos um não é)</td>
+          </tr>
+          <tr>
+            <td><strong>Algum A é B</strong> (∃)</td>
+            <td>∀x ¬P(x)</td>
+            <td><strong>Nenhum A é B</strong> (Todos não são)</td>
+          </tr>
+          <tr>
+            <td><strong>Nenhum A é B</strong> (∀)</td>
+            <td>∃x P(x)</td>
+            <td><strong>Algum A é B</strong> (Pelo menos um é)</td>
+          </tr>
+          <tr>
+            <td><strong>Algum A <span class="hl-red">não</span> é B</strong> (∃)</td>
+            <td>∀x P(x)</td>
+            <td><strong>Todo A é B</strong> (Todos são)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA DE PROVA!!</strong> A negação de "todos" <span class="hl-red">nunca</span> será "nenhum". A negação de "Todos os servidores são pontuais" é "Existe pelo menos um servidor que <span class="hl-red">não</span> é pontual" (ou "Algum servidor <span class="hl-red">não</span> é pontual").
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">PROPOSIÇÕES CATEGÓRICAS - FORMAS CLÁSSICAS</h3>
+      
+      <p>As proposições categóricas estabelecem relações entre classes ou conjuntos. Elas se dividem em quatro formas clássicas (Quadrado dos Opostos):</p>
+
+      <div class="schema-container schema-grid">
+        <div class="schema-node box-blue"><strong>(A) Universal Afirmativa:</strong><br><span class="hl-yellow">Todo S é P</span><br>Ex.: Todo médico é da saúde.</div>
+        <div class="schema-node box-blue"><strong>(E) Universal Negativa:</strong><br><span class="hl-yellow">Nenhum S é P</span><br>Ex.: Nenhum par é ímpar.</div>
+        <div class="schema-node box-yellow"><strong>(I) Particular Afirmativa:</strong><br><span class="hl-blue">Algum S é P</span><br>Ex.: Algum servidor é prof.</div>
+        <div class="schema-node box-yellow"><strong>(O) Particular Negativa:</strong><br><span class="hl-blue">Algum S não é P</span><br>Ex.: Algum BR não é cearense.</div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">RELAÇÕES DO QUADRADO DOS OPOSTOS</h3>
+      
+      <ul class="arrow-list">
+        <li><strong>Contraditórias:</strong> Pares que <span class="hl-red">não</span> podem ser verdadeiros juntos nem falsos juntos. São exatamente a negação da outra. Pares: <strong>A e O</strong> / <strong>E e I</strong>.</li>
+        <li><strong>Contrárias:</strong> Proposições <strong>A e E</strong>. <span class="hl-red">Não</span> podem ser ambas verdadeiras, mas <strong>podem ser ambas falsas</strong> (ex.: "Todo aluno foi aprovado" / "Nenhum aluno foi aprovado").</li>
+        <li><strong>Subcontrárias:</strong> Proposições <strong>I e O</strong>. Podem ser ambas verdadeiras, mas, na lógica tradicional, <span class="hl-red">não</span> podem ser ambas falsas.</li>
+        <li><strong>Subalternação:</strong> A verdade de A implica a verdade de I; a verdade de E implica a verdade de O. (<em>Obs.: Na lógica moderna, universais não garantem existência. Depende da banca!</em>).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">QUADRO GERAL DOS CONECTIVOS E VALORAÇÕES</h3>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Operação</th>
+            <th>Símbolo</th>
+            <th>Leitura</th>
+            <th>Quando é verdadeira?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Negação</strong></td>
+            <td>¬p (ou ~p)</td>
+            <td>não p</td>
+            <td>quando p é falsa</td>
+          </tr>
+          <tr>
+            <td><strong>Conjunção</strong></td>
+            <td>p ∧ q</td>
+            <td>p e q</td>
+            <td>quando ambas são verdadeiras</td>
+          </tr>
+          <tr>
+            <td><strong>Disj. Inclusiva</strong></td>
+            <td>p ∨ q</td>
+            <td>p ou q</td>
+            <td>quando pelo menos uma é verdadeira</td>
+          </tr>
+          <tr>
+            <td><strong>Disj. Exclusiva</strong></td>
+            <td>p ⊻ q</td>
+            <td>ou p, ou q</td>
+            <td>quando <strong>apenas uma</strong> é verdadeira</td>
+          </tr>
+          <tr>
+            <td><strong>Condicional</strong></td>
+            <td>p → q</td>
+            <td>se p, então q</td>
+            <td><span class="hl-red">exceto</span> quando p é V e q é F (Vera Fischer)</td>
+          </tr>
+          <tr>
+            <td><strong>Bicondicional</strong></td>
+            <td>p ↔ q</td>
+            <td>p se, e somente se, q</td>
+            <td>quando possuem <strong>valores iguais</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">PEGADINHAS DE PROVA - O QUE NÃO É PROPOSIÇÃO?</h3>
+      
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO AOS ITENS QUE NÃO SÃO PROPOSIÇÕES LÓGICAS!</strong><br>
+          <ul class="arrow-list">
+            <li><strong>Perguntas:</strong> "Qual é a capital do Ceará?" (<span class="hl-red">Não</span> é proposição, pois é interrogativa).</li>
+            <li><strong>Ordens:</strong> "Feche a porta." (<span class="hl-red">Não</span> é proposição, sentença imperativa).</li>
+            <li><strong>Sentenças abertas:</strong> "Ele é um bom professor" / "x + 2 = 5". (Sem sujeito ou valor definido, <span class="hl-red">não</span> é proposição).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Banca/Concurso)</strong> Assinale a alternativa que apresenta a negação lógica correta da proposição: "Todos os servidores públicos são pontuais e Ana é servidora."</p>
+        <ul style="list-style-type: lower-alpha; padding-left: 20px;">
+          <li>Nenhum servidor público é pontual ou Ana não é servidora.</li>
+          <li>Algum servidor público não é pontual e Ana não é servidora.</li>
+          <li>Algum servidor público não é pontual ou Ana não é servidora.</li>
+          <li>Todos os servidores públicos não são pontuais e Ana não é servidora.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: Letra C.</strong><br>
+          <strong>Comentário:</strong> A proposição original é uma conjunção ("e") ligando duas partes: p = "Todos os servidores públicos são pontuais" e q = "Ana é servidora". Pela Lei de De Morgan, negamos o "e" trocando por "ou" e negamos ambas as partes. A negação de "Todos" é "Algum não" (ou "Existe pelo menos um que não é"). Logo: "Algum servidor público <span class="hl-red">não</span> é pontual <span class="hl-blue">ou</span> Ana <span class="hl-red">não</span> é servidora". Nunca caia na pegadinha de negar "todo" com "nenhum"!
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

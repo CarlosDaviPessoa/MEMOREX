@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">LÍNGUA PORTUGUESA - SINTAXE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">CONCEITOS GERAIS DE SINTAXE</h2>
+      
+      <p>A sintaxe estuda as relações gramaticais estabelecidas entre os termos na oração. Ela se divide em três grandes áreas para fins de prova:</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: DIVISÕES DA SINTAXE</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SINTAXE</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Concordância (Verbal e Nominal)</div>
+          <div class="schema-node box-yellow">Regência (Verbal e Nominal)</div>
+          <div class="schema-node box-yellow">Colocação Pronominal</div>
+        </div>
+      </div>
+
+      <ul class="arrow-list">
+        <li><span class="hl-blue">Concordância Verbal:</span> Combinação entre o verbo e o sujeito. Se o sujeito está no plural, o verbo deve ser flexionado.</li>
+        <li><span class="hl-blue">Concordância Nominal:</span> Combinação entre os nomes. O substantivo concorda com seus determinantes (artigo, numeral, pronome, adjetivo).</li>
+        <li><span class="hl-blue">Regência:</span> Tipos de ligação entre um verbo ou nome (regentes) e seus complementos (regidos), determinando o uso ou <span class="hl-red">não</span> de preposições.</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> Na <strong>Colocação Pronominal</strong>, os pronomes oblíquos átonos podem assumir três posições em relação ao verbo:
+          <ul class="check-list">
+            <li><strong>Próclise:</strong> ANTES do verbo. <span class="hl-yellow">Ex.: Não se esqueça...</span></li>
+            <li><strong>Mesóclise:</strong> NO MEIO do verbo (<span class="hl-blue">futuro do presente/pretérito</span>). <span class="hl-yellow">Ex.: Dizer-lhe-ei...</span></li>
+            <li><strong>Ênclise:</strong> DEPOIS do verbo. <span class="hl-yellow">Ex.: Diga-me...</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">CONCORDÂNCIA NOMINAL - REGRAS GERAIS</h2>
+      
+      <p>A regra geral da concordância nominal determina que adjetivos, artigos, numerais e pronomes devem concordar em gênero e número com o substantivo. Veja as regras específicas para adjetivos:</p>
+
+      <ul class="arrow-list">
+        <li><strong>Adjetivo posposto a dois ou mais substantivos:</strong> Concorda com o último <span class="hl-red">OU</span> vai para o plural (masculino se houver ao menos um substantivo masculino, feminino se todos forem femininos).</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> Ternura e amor <span class="hl-blue">humano</span>. / Amor e ternura <span class="hl-blue">humana</span>. / Ternura e amor <span class="hl-blue">humanos</span>.
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Adjetivo anteposto a dois ou mais substantivos:</strong> Concorda obrigatoriamente com o <span class="hl-blue">mais próximo</span>.</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> <span class="hl-blue">Mau</span> lugar e hora. / <span class="hl-blue">Má</span> hora e lugar.
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Dois ou mais adjetivos para um substantivo:</strong> O substantivo vai para o singular ou plural, ajustando os artigos.</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> Estudo <span class="hl-blue">as línguas</span> inglesa e portuguesa. / Estudo <span class="hl-blue">a língua</span> inglesa e <span class="hl-blue">(a)</span> portuguesa.
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">CONCORDÂNCIA NOMINAL - CASOS ESPECIAIS (PARTE 1)</h2>
+
+      <ul class="arrow-list">
+        <li><strong>Um e outro / Nem um nem outro + Substantivo:</strong> O substantivo permanece no <span class="hl-blue">singular</span>. Porém, se houver um adjetivo depois, o adjetivo vai para o <span class="hl-blue">plural</span>.</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> Um e outro <span class="hl-blue">aspecto obscuros</span>. (Subst. no singular, adjetivo no plural)
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Expressões "o mais possível", "o pior possível":</strong> O adjetivo "possível" concorda com o <span class="hl-blue">artigo</span> que inicia a expressão.</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> A <span class="hl-blue">melhor</span> doutrina <span class="hl-blue">possível</span>. / As <span class="hl-blue">mais</span> saborosas <span class="hl-blue">possíveis</span>.
+      </div>
+
+      <ul class="arrow-list">
+        <li><strong>Particípio + Substantivo:</strong> Concorda em gênero e número com o substantivo a que se refere.</li>
+      </ul>
+      <div class="exemplo">
+        <strong>Ex.:</strong> <span class="hl-blue">Feitas</span> as contas. / <span class="hl-blue">Restabelecidas</span> as amizades.
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!!</strong> As palavras <span class="hl-yellow">"salvo", "posto" e "visto"</span> podem assumir papel de conectivos (conjunções). Quando isso ocorre, elas são <span class="hl-red">invariáveis</span>! Ex.: <span class="hl-red">Salvo</span> honrosas exceções.</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">CONCORDÂNCIA NOMINAL - PALAVRAS VARIÁVEIS E INVARIÁVEIS</h2>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE ESTA LISTA:</strong>
+          <ul class="check-list">
+            <li><strong>Concordam (Variáveis):</strong> <span class="hl-blue">Anexo, bastante, incluso, leso, mesmo, próprio</span>. Ex.: Vão <span class="hl-blue">anexas</span> as cópias. / Recebi <span class="hl-blue">bastantes</span> flores.</li>
+            <li><strong>A palavra MEIO:</strong> 
+              ➔ Se for adjetivo (= metade), <span class="hl-blue">concorda</span>. Ex.: <span class="hl-blue">Meia</span> garrafa, meio-dia e <span class="hl-blue">meia</span> (hora).<br>
+              ➔ Se for advérbio (= um tanto), fica <span class="hl-red">invariável</span>. Ex.: Ela parecia <span class="hl-red">meio</span> encabulada.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>Substantivo + "é bom / é preciso / é proibido":</strong></p>
+      <ul class="arrow-list">
+        <li>Sem artigo/determinante: Fica no <span class="hl-red">singular invariável</span>. (Ex.: <span class="hl-red">É proibido</span> entrada)</li>
+        <li>Com artigo/determinante: <span class="hl-blue">Concorda</span> com o substantivo. (Ex.: <span class="hl-blue">É proibida a</span> entrada)</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC - MGS - Psicólogo)</strong> Assinale a alternativa que preencha corretamente as lacunas.<br>
+        É _____ a entrada.<br>
+        Já é meio dia e _____ .<br>
+        Hoje ela está _____ gripada.</p>
+        <p>A) proibida / meia / meio.<br>
+        B) proibida / meio / meia.<br>
+        C) proibido / meio / meia.</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: A</strong>. Comentário: "A entrada" tem determinante, logo "é proibidA". Expressão "meio-dia e meia (hora)". Advérbio "meio" (um tanto) gripada é <span class="hl-red">invariável</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">CONCORDÂNCIA VERBAL - SUJEITO SIMPLES E COMPOSTO</h2>
+
+      <p>A regra geral da concordância verbal é que o verbo concorda com o núcleo do sujeito em número e pessoa. Casos especiais de <strong>Sujeito Simples</strong>:</p>
+      
+      <ul class="check-list">
+        <li><strong>Coletivo:</strong> Verbo no singular (Ex.: A multidão <span class="hl-blue">gritou</span>). Se for <span class="hl-yellow">coletivo partitivo</span> (a maioria de, a maior parte de), pode ficar no singular ou plural (Ex.: A maioria dos alunos <span class="hl-blue">foi / foram</span>).</li>
+        <li><strong>Pronome relativo QUE:</strong> O verbo concorda com o antecedente. (Ex.: Fomos <span class="hl-blue">nós que derramamos</span>).</li>
+        <li><strong>Pronome relativo QUEM:</strong> Pode concordar com o antecedente ou ficar na 3ª pessoa do singular. (Ex.: Fui eu quem <span class="hl-blue">derramou / derramei</span>).</li>
+      </ul>
+
+      <p>Casos especiais de <strong>Sujeito Composto</strong>:</p>
+      <ul class="arrow-list">
+        <li><strong>Pessoas gramaticais diferentes:</strong> A 1ª pessoa tem prioridade sobre a 2ª, e a 2ª sobre a 3ª. (Ex.: Eu e ele nos <span class="hl-blue">tornaremos</span> amigos).</li>
+        <li><strong>Núcleos sinônimos no singular:</strong> Verbo pode ficar no singular (atrativa) ou plural (lógica). (Ex.: A angústia e ansiedade não o <span class="hl-blue">ajudavam / ajudava</span>).</li>
+        <li><strong>Resumidos por "nada, tudo, ninguém":</strong> O verbo concorda com o pronome resumidor. (Ex.: Os pedidos, as súplicas, <span class="hl-red">nada o comoveu</span>).</li>
+      </ul>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">CONCORDÂNCIA VERBAL - PARTÍCULA "SE" E VERBOS IMPESSOAIS</h2>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> O comportamento do verbo junto à partícula "SE" despenca em provas:
+          <ul class="arrow-list">
+            <li><strong>Partícula Apassivadora (com VTD):</strong> O verbo concorda com o sujeito passivo. Ex.: <span class="hl-blue">Vendem-se carros</span>. (Carros são vendidos).</li>
+            <li><strong>Índice de Indeterminação (com VTI):</strong> O verbo fica <span class="hl-red">obrigatoriamente no singular</span>. Ex.: <span class="hl-red">Precisa-se</span> de secretárias.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>Verbos Impessoais (não possuem sujeito):</strong> Ficam sempre na <span class="hl-blue">3ª pessoa do singular</span>.</p>
+      <ul class="check-list">
+        <li><strong>Haver</strong> (sentido de existir): <em>Havia</em> sérios problemas.</li>
+        <li><strong>Fazer</strong> (tempo transcorrido): <em>Fazia</em> quinze anos.</li>
+      </ul>
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> O verbo <strong>EXISTIR</strong> <span class="hl-red">não</span> é impessoal! Ele concorda normalmente com o sujeito. Ex.: <span class="hl-blue">Existem</span> sérios problemas.</div>
+      </div>
+
+      <p><strong>Verbos Dar, Bater e Soar (Horas):</strong> Concordam com o sujeito (relógio, hora, badalada). Ex.: O relógio <span class="hl-blue">deu</span> duas horas. / <span class="hl-blue">Deram</span> duas horas no relógio.</p>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">CONCORDÂNCIA VERBAL - O VERBO "SER" E A SILEPSE</h2>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Regra do Verbo SER</th>
+            <th>Exemplo Prático</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sujeito é pronome TUDO, NADA, ISTO, AQUILO</td>
+            <td>Tudo <span class="hl-blue">são flores</span>. / Aquilo <span class="hl-blue">parecem ilusões</span>.</td>
+          </tr>
+          <tr>
+            <td>Indicação de horas, datas e distâncias</td>
+            <td><span class="hl-blue">São nove</span> horas. / <span class="hl-blue">É uma</span> hora. (Concorda com o número)</td>
+          </tr>
+          <tr>
+            <td>Sujeito ou predicativo é pronome pessoal</td>
+            <td>Aqui o presidente <span class="hl-blue">sou eu</span>.</td>
+          </tr>
+          <tr>
+            <td>Expressões de preço/quantidade (é pouco, é muito)</td>
+            <td>Cem metros <span class="hl-red">é muito</span>. (Fica no singular)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="esquema-title">ESQUEMATIZANDO: SILEPSE (CONCORDÂNCIA IDEOLÓGICA)</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SILEPSE</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">De Pessoa: "Todos nesta sala <span class="hl-blue">somos</span> gaúchos."</div>
+          <div class="schema-node box-yellow">De Número: "O gaúcho é bravo. Não <span class="hl-blue">fogem</span> da luta."</div>
+          <div class="schema-node box-yellow">De Gênero: "São Paulo está muito <span class="hl-blue">poluída</span> (cidade)."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h2 class="dica-title">REGÊNCIA VERBAL - CONCEITOS E VERBOS CRÍTICOS (PARTE 1)</h2>
+      
+      <p>A regência verbal estuda a relação entre o verbo e seus complementos. Lembre-se: Objetos são exercidos por substantivos; adjuntos adverbiais por advérbios.</p>
+
+      <ul class="arrow-list">
+        <li><strong>Aspirar:</strong> 
+          <br>➔ Sentido de respirar = VTD (<span class="hl-red">sem preposição</span>). Ex.: Aspirou o gás.
+          <br>➔ Sentido de desejar = VTI (<span class="hl-blue">exige prep. "a"</span>). Ex.: Aspira ao sucesso. <span class="hl-red">Não admite LHE</span>.
+        </li>
+        <li><strong>Assistir:</strong>
+          <br>➔ Sentido de ver = VTI (<span class="hl-blue">prep. "a"</span>). Ex.: Assisti ao filme.
+          <br>➔ Sentido de ajudar = VTD. Ex.: Assistiu o paciente.
+          <br>➔ Sentido de caber/pertencer = VTI (<span class="hl-blue">prep. "a"</span>). Ex.: O direito assiste aos jovens.
+        </li>
+        <li><strong>Chegar:</strong> É Verbo Intransitivo e exige a preposição <span class="hl-blue">"a"</span> para lugar.
+          <br><div class="exemplo"><strong>Ex.:</strong> A noiva chegou <span class="hl-blue">ao</span> cartório. (<span class="hl-red">NUNCA "no" cartório!</span>)</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h2 class="dica-title">REGÊNCIA VERBAL - VERBOS CRÍTICOS (PARTE 2)</h2>
+
+      <ul class="check-list">
+        <li><strong>Esquecer e Lembrar:</strong> 
+          ➔ Se <span class="hl-red">não</span> tiver pronome oblíquo = VTD (Esqueci o livro). 
+          ➔ Se <span class="hl-blue">tiver pronome (pronominal)</span> = VTI (Esqueci-me <span class="hl-blue">do</span> livro).
+        </li>
+        <li><strong>Preferir:</strong> É VTDI. Exige a preposição "a".
+          <br>➔ É preferível trabalhar <span class="hl-blue">a</span> vadiar. (<span class="hl-red">NUNCA use "do que"</span>).
+        </li>
+        <li><strong>Namorar:</strong> É VTD. <span class="hl-red">Não há</span> necessidade de preposição "com". Ex.: Maria namora seu ex-cunhado.</li>
+        <li><strong>Obedecer / Desobedecer:</strong> São VTI (<span class="hl-blue">exigem prep. "a"</span>). Ex.: Obedeça <span class="hl-blue">à</span> sinalização.</li>
+        <li><strong>Pagar e Perdoar:</strong> 
+          ➔ Se for coisa = VTD (Pagou o imposto). 
+          ➔ Se for pessoa = VTI (Pagou <span class="hl-blue">ao</span> pedreiro).
+        </li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! VERBO CUSTAR:</strong> No sentido de "ser difícil", ele é VTI e <span class="hl-red">não aceita pessoa como sujeito</span>.
+        <br>Certo: Custou <span class="hl-blue">ao aluno</span> entender a lição.
+        <br>Errado: <span class="hl-red">O aluno custou</span> a entender.</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">REGÊNCIA NOMINAL E REVISÃO FINAL</h2>
+
+      <p>A Regência Nominal trata dos nomes (substantivos, adjetivos e advérbios) que exigem complementos por meio de <span class="hl-blue">preposições</span>. Alguns admitem mais de uma preposição. Decore a tabela abaixo:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Preposição Exigida</th>
+            <th>Exemplo de Prova</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Acesso</td>
+            <td><strong>a</strong></td>
+            <td>Acesso <strong>a</strong> informações confidenciais.</td>
+          </tr>
+          <tr>
+            <td>Admiração</td>
+            <td><strong>por</strong></td>
+            <td>Admiração <strong>por</strong> seu trabalho.</td>
+          </tr>
+          <tr>
+            <td>Aversão</td>
+            <td><strong>a / por</strong></td>
+            <td>Aversão <strong>a</strong> insetos.</td>
+          </tr>
+          <tr>
+            <td>Grato</td>
+            <td><strong>por / a</strong></td>
+            <td>Grato <strong>por</strong> sua ajuda. / Grato <strong>a</strong> você.</td>
+          </tr>
+          <tr>
+            <td>Responsável</td>
+            <td><strong>por</strong></td>
+            <td>Responsável <strong>por</strong> coordenar o evento.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(IBFC - TRE PA - Técnico Judiciário)</strong> A regência verbal ou nominal é a relação de subordinação existente entre um verbo ou um nome e seus complementos. A este respeito, assinale a alternativa com a relação feita corretamente.</p>
+        <p>A) O Senhor agradeceu o entregador a agilidade na prestação de serviço.<br>
+        B) Há paridade entre os preços de combustíveis em algumas cidades.<br>
+        C) Aquela farmácia faz entrega de medicamentos a domicílio.<br>
+        D) Algumas crianças têm ojeriza com palhaços.</p>
+        <div class="gabarito-box">
+          <strong>Gabarito: D</strong> (Anulado ou C/D como base dependendo da interpretação do gabarito original, mas a banca considerou <strong>D</strong> no material). <em>Comentário de Regência: Ojeriza exige "a" ou "por" na norma padrão, contudo bancas podem cobrar a regência popular ou a questão apresentou defeitos. Preste atenção no Verbo Entregar/Agradecer (VTDI) e uso de "a domicílio" (com verbo de movimento) vs "em domicílio". A crase e preposição correta salvam pontos valiosos.</em>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

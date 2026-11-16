@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 01</div>
+        <h3 class="dica-title">DICAS IMPARH - SEQUÊNCIAS E PROGRESSÕES</h3>
+        <p>Antes de procurar uma regra complicada em sequências, sempre teste as operações básicas[cite: 3].</p>
+        <ul class="check-list">
+            <li>Soma ou subtração;</li>
+            <li>Multiplicação ou divisão;</li>
+            <li>Diferenças crescentes;</li>
+            <li>Operações alternadas;</li>
+            <li>Posições pares e ímpares.</li>
+        </ul>
+        <div class="callout callout-importante">
+            <div class="callout-icon">📌</div>
+            <div><strong>IMPORTANTE:</strong> Em progressões, lembre-se das lógicas fundamentais[cite: 3]:
+            <br>➔ <span class="hl-blue">Diferença constante:</span> PA (Progressão Aritmética).
+            <br>➔ <span class="hl-blue">Razão constante:</span> PG (Progressão Geométrica).
+            <br>➔ <span class="hl-yellow">Soma dos dois anteriores:</span> Sequência do tipo Fibonacci.</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 02</div>
+        <h3 class="dica-title">MACETES DE CONTAGEM: FILAS E PÁGINAS</h3>
+        
+        <div class="esquema-title">ESQUEMATIZANDO: CONTAGENS ESPECIAIS</div>
+        <div class="schema-grid">
+            <div class="schema-node box-blue">Posição na Fila (Início e Fim):<br><strong>Total = Início + Fim <span class="hl-red">- 1</span></strong>[cite: 3]</div>
+            <div class="schema-node box-yellow">Pessoas entre posições:<br><strong>Maior - Menor <span class="hl-red">- 1</span></strong>[cite: 3]</div>
+            <div class="schema-node box-blue">Páginas (extremos incluídos):<br><strong>Última - Primeira <span class="hl-blue">+ 1</span></strong>[cite: 3]</div>
+        </div>
+
+        <div class="callout callout-atencao">
+            <div class="callout-icon">⚠️</div>
+            <div><strong>ATENÇÃO!!</strong> Na numeração de páginas, separe sempre a contagem em blocos: páginas de 1 algarismo, páginas de 2 algarismos e de 3 algarismos. <span class="hl-red">Nunca</span> conte tudo junto[cite: 3]!</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 03</div>
+        <h3 class="dica-title">CALENDÁRIOS, GAVETAS E VERDADES/MENTIRAS</h3>
+        
+        <ul class="arrow-list">
+            <li><strong>Calendários:</strong> Divida a quantidade de dias pedida por <span class="hl-blue">7</span> e utilize o <span class="hl-yellow">resto da divisão</span> para avançar os dias[cite: 3].</li>
+            <li><strong>Princípio das Gavetas:</strong> Pense sempre na <span class="hl-red">pior hipótese possível</span> antes de alcançar a garantia da repetição[cite: 3].</li>
+        </ul>
+
+        <div class="callout callout-obs">
+            <div class="callout-icon">🔎</div>
+            <div><strong>OBS.:</strong> Em questões de <strong>Verdades e Mentiras</strong>, teste cada hipótese. Elimine de imediato aquela que gerar <span class="hl-red">contradição</span> ou um número incorreto de afirmações verdadeiras[cite: 3].</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 04</div>
+        <h3 class="dica-title">LÓGICA DE ARGUMENTAÇÃO - CONCEITOS INICIAIS</h3>
+        <p>A lógica de argumentação estuda a relação direta entre <span class="hl-blue">premissas e conclusões</span>. Em provas, você deve verificar se determinada conclusão decorre <span class="hl-red">necessariamente</span> das informações fornecidas, <span class="hl-red">sem acrescentar</span> suposições pessoais[cite: 4].</p>
+        
+        <div class="callout callout-memorize">
+            <div class="callout-icon">🧠</div>
+            <div><strong>MEMORIZE OS ASSUNTOS MAIS COBRADOS:</strong>
+            <ul class="check-list">
+                <li>Estrutura dos argumentos, validade e verdade[cite: 4];</li>
+                <li>Argumentos dedutivos e regras de inferência[cite: 4];</li>
+                <li>Diagramas lógicos e operações com conjuntos[cite: 4];</li>
+                <li>Falácias, analogias e associações lógicas[cite: 4].</li>
+            </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 05</div>
+        <h3 class="dica-title">O ARGUMENTO LÓGICO E SUA ESTRUTURA</h3>
+        <p>Um <span class="hl-blue">argumento lógico</span> é um conjunto de proposições onde uma ou mais premissas são apresentadas como fundamento para a conclusão[cite: 4]. Se as premissas forem verdadeiras, a conclusão deve ser <span class="hl-red">necessariamente</span> verdadeira para que o argumento seja válido[cite: 4].</p>
+        
+        <div class="esquema-title">ESQUEMATIZANDO: ESTRUTURA DO ARGUMENTO</div>
+        <div class="schema-container">
+            <div class="schema-root box-blue">ARGUMENTO<br>VÁLIDO</div>
+            <div class="schema-branches">
+                <div class="schema-node box-yellow">PREMISSAS (Verdadeiras)</div>
+                <div class="schema-node box-yellow">CONCLUSÃO (Necessariamente Verdadeira)</div>
+            </div>
+        </div>
+
+        <div class="exemplo">
+            <strong>Ex.: 1</strong><br>
+            <strong>Premissa 1:</strong> Todo agente público deve respeitar a legalidade[cite: 4].<br>
+            <strong>Premissa 2:</strong> Carlos é agente público[cite: 4].<br>
+            <strong>Conclusão:</strong> Logo, Carlos deve respeitar a legalidade[cite: 4].
+        </div>
+        
+        <div class="exemplo">
+            <strong>Ex.: 2</strong><br>
+            <strong>Premissa 1:</strong> "Se estudo, então passo[cite: 4]."<br>
+            <strong>Premissa 2:</strong> "Estudo[cite: 4]."<br>
+            <strong>Conclusão:</strong> "Logo, passo[cite: 4]."
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA 06</div>
+        <h3 class="dica-title">INDICADORES DE PREMISSA E CONCLUSÃO</h3>
+        <p>Os indicadores são expressões que "entregam" qual parte do argumento está sendo introduzida.</p>
+        
+        <table class="memorex-table">
+            <thead>
+                <tr>
+                    <th>Indicadores de PREMISSA (Causa)</th>
+                    <th>Indicadores de CONCLUSÃO (Efeito)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="hl-yellow">Porque, pois</span>, uma vez que[cite: 4]</td>
+                    <td><span class="hl-yellow">Logo, portanto, assim</span>[cite: 4]</td>
+                </tr>
+                <tr>
+                    <td>Visto que, dado que[cite: 4]</td>
+                    <td>Consequentemente, por conseguinte[cite: 4]</td>
+                </tr>
+                <tr>
+                    <td>Considerando que, já que[cite: 4]</td>
+                    <td>Desse modo, conclui-se que, então[cite: 4]</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="callout callout-obs">
+            <div class="callout-icon">🔎</div>
+            <div><strong>OBS.:</strong> Exemplo de aplicação: <em>"João será aprovado, <span class="hl-yellow">pois</span> estudou durante todo o ano[cite: 4]."</em> O termo "pois" introduz a <strong>premissa</strong> (ele estudou)[cite: 4]. A <strong>conclusão</strong> é que ele será aprovado[cite: 4].</div>
+        </div>
+    </div>
+
+    <div class="dica-block">
+        <div class="dica-bar">DICA BÔNUS</div>
+        <h3 class="dica-title">TREINO DE FIXAÇÃO</h3>
+        
+        <div class="questao-box">
+            <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+            <p><strong>(FGV - MPE RJ - 2025)</strong> Em um grupo de 20 pessoas, 15 estão usando óculos e 12 estão usando boné[cite: 3]. Nesse grupo, o número de pessoas que estão usando óculos e não estão usando boné é, no máximo[cite: 3]:</p>
+            <ul class="arrow-list">
+                <li>A) 12</li>
+                <li>B) 8</li>
+                <li>C) 7</li>
+                <li>D) 5</li>
+                <li>E) 3</li>
+            </ul>
+            <div class="gabarito-box">
+                <strong>Gabarito: B</strong>[cite: 4]<br>
+                <strong>Comentário:</strong> Temos um total de 20 pessoas e 12 usam boné. Logo, as que <span class="hl-red">não</span> usam boné somam: 20 - 12 = 8. A questão pede o número <span class="hl-red">máximo</span> de pessoas que usam óculos e não usam boné. Como o limite de pessoas sem boné é 8, o número máximo possível dessa interseção será exatamente 8.
+            </div>
+        </div>
+    </div>
+
+  </div>
+</body>
+</html>

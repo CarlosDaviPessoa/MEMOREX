@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">GEOGRAFIA DE FORTALEZA</div>
+
+    <!-- ==========================================
+         DICA 01
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">LOCALIZAÇÃO GEOGRÁFICA E LIMITES</h3>
+      
+      <p>Fortaleza é a capital do Ceará, destacando-se como uma das principais metrópoles brasileiras. Sua geografia resulta de uma posição litorânea combinada a uma elevada densidade demográfica.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: DADOS GEOGRÁFICOS DE FORTALEZA</div>
+      <div class="schema-grid">
+        <div class="schema-node box-blue">Estado: Ceará</div>
+        <div class="schema-node box-yellow">Região: Nordeste</div>
+        <div class="schema-node box-blue">Posição: Porção setentrional (Norte)</div>
+        <div class="schema-node box-yellow">Latitude: ~ 3° Sul</div>
+        <div class="schema-node box-blue">Litoral: Oceano Atlântico</div>
+        <div class="schema-node box-yellow">Área territorial: ~ 312 km²</div>
+        <div class="schema-node box-blue">Praias: ~ 34 km de extensão</div>
+      </div>
+
+      <p>Fortaleza está em uma área de <strong>baixa altitude</strong>, sendo predominantemente plana ou suavemente ondulada.</p>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE OS LIMITES MUNICIPAIS:</strong><br>
+          Use o mnemônico: <span class="hl-yellow">"Oeste é Caucaia; ao sul, MAPI; a leste, EUA."</span>
+          <ul class="arrow-list">
+            <li><strong>Ao Norte:</strong> Oceano Atlântico.</li>
+            <li><strong>A Oeste:</strong> Caucaia.</li>
+            <li><strong>Ao Sul (MAPI):</strong> <span class="hl-blue">M</span>aracanaú, <span class="hl-blue">P</span>acatuba e <span class="hl-blue">I</span>taitinga (além de parte do Eusébio).</li>
+            <li><strong>A Leste e Sudeste (EUA):</strong> <span class="hl-blue">Eu</span>sébio e <span class="hl-blue">A</span>quiraz.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!! PEGADINHAS DE PROVA:</strong><br>
+          <ul class="check-list">
+            <li>Fortaleza limita-se ao norte com Caucaia? <span class="hl-red">NÃO!</span> Ao norte, limita-se com o <strong>oceano Atlântico</strong>.</li>
+            <li>Maranguape faz limite direto com Fortaleza? <span class="hl-red">FALSO!</span> Ele integra a Região Metropolitana, mas <span class="hl-red">não</span> possui limite direto.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>01. (Estilo IMPARH/UECE)</strong> No que se refere à localização do Município de Fortaleza, assinale a afirmação correta.</p>
+        <ul class="arrow-list">
+          <li>A) Fortaleza está localizada no extremo oeste do Ceará e possui limite territorial direto com o Estado do Piauí.</li>
+          <li>B) Fortaleza situa-se no litoral norte do Ceará e possui o oceano Atlântico como limite setentrional.</li>
+          <li>C) Fortaleza localiza-se no sul do estado e integra a região do Cariri cearense.</li>
+          <li>D) Fortaleza está situada no litoral leste do Ceará e limita-se diretamente com o Rio Grande do Norte.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong> <br>
+          <span class="hl-green">Comentário:</span> Fortaleza está situada no litoral setentrional (Norte) do Ceará, tendo o Oceano Atlântico ao norte. Essa posição litorânea é fundamental para a influência marítima sobre o clima e os ventos. <span class="hl-red">Não</span> faz fronteira com o RN e <span class="hl-red">não</span> está na região do Cariri.
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         DICA 02
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">RELEVO E ESTABILIDADE AMBIENTAL</h3>
+      
+      <p>O relevo de Fortaleza é caracterizado, principalmente, pelas seguintes feições geomorfológicas:</p>
+      <ul class="check-list">
+        <li>Planícies litorâneas e Praias.</li>
+        <li>Dunas (móveis e fixas).</li>
+        <li>Planícies fluviais e fluviomarinhas.</li>
+        <li>Tabuleiros pré-litorâneos.</li>
+        <li>Pequenas áreas de depressão sertaneja e de transição.</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> O diagnóstico geoambiental de Fortaleza divide a cidade pelo seu grau de estabilidade. Os <span class="hl-blue">tabuleiros pré-litorâneos</span> são as superfícies localizadas atrás da planície costeira e representam a área <strong>mais estável</strong> para ocupação urbana.
+        </div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: ESTABILIDADE DOS AMBIENTES</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">SÍTIO URBANO<br>DE FORTALEZA</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>Ambientes Frágeis:</strong> Dunas móveis, manguezais, praias, estuários, margens de rios e planícies inundáveis.</div>
+          <div class="schema-node box-blue"><strong>De Transição:</strong> Faixa de transição para a depressão sertaneja.</div>
+          <div class="schema-node box-yellow"><strong>Medianamente Estáveis:</strong> Tabuleiros pré-litorâneos (concentram a maior parte da infraestrutura urbana).</div>
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>02. (Estilo IMPARH/UECE)</strong> No sítio urbano de Fortaleza, as áreas relativamente mais estáveis e favoráveis à expansão urbana, desde que respeitadas as condições de planejamento, correspondem principalmente aos:</p>
+        <ul class="arrow-list">
+          <li>A) manguezais.</li>
+          <li>B) campos de dunas móveis.</li>
+          <li>C) tabuleiros pré-litorâneos.</li>
+          <li>D) estuários e planícies fluviomarinhas.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong> <br>
+          <span class="hl-green">Comentário:</span> Os tabuleiros pré-litorâneos possuem relevo plano ou suavemente ondulado e maior estabilidade relativa frente a dunas e manguezais (que são ecossistemas muito frágeis). Memorize: <em>"Tabuleiro sustenta; mangue e duna a banca atormenta."</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         DICA 03
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">REGIÃO METROPOLITANA E MOVIMENTO PENDULAR</h3>
+      
+      <p>A Região Metropolitana de Fortaleza (RMF) foi criada originalmente em <span class="hl-blue">1973</span> (pela Lei Complementar Federal nº 14) e atualmente é composta por <span class="hl-blue">19 municípios</span>. O objetivo da RMF é integrar serviços de transporte, saneamento, uso do solo, meio ambiente, etc.</p>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Um morador de Caucaia, Maracanaú ou Eusébio desloca-se diariamente para Fortaleza para trabalhar e volta para casa à noite. Esse fenômeno demográfico recebe o nome de <span class="hl-yellow">Movimento Pendular</span>.
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!!</strong><br>
+          <ul class="arrow-list">
+            <li>A RMF <span class="hl-red">não</span> foi criada na Constituição de 1988 (foi em 1973).</li>
+            <li><span class="hl-red">Não</span> é necessário fazer limite direto com Fortaleza para integrar a Região Metropolitana (ex: São Luís do Curu, Trairi).</li>
+            <li>Movimento Pendular <span class="hl-red">não</span> é o mesmo que Êxodo Rural (este último é a migração definitiva do campo para a cidade).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         DICA 04
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">REGIONALIZAÇÃO ADMINISTRATIVA E DEMOGRAFIA</h3>
+      
+      <p>Fortaleza está organizada administrativamente em <span class="hl-blue">12 Secretarias Regionais</span> e <span class="hl-blue">39 territórios administrativos</span>. Essa descentralização visa aproximar os serviços públicos da população.</p>
+      
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> Pegadinha comum é a banca afirmar que Fortaleza possui apenas 7 regionais (divisão antiga) ou confundir Regional com Bairro (cada Regional reúne <em>vários</em> bairros).
+        </div>
+      </div>
+
+      <p>Segundo o Censo do IBGE de 2022, Fortaleza registrou cerca de <span class="hl-blue">2.428.678 habitantes</span> (com estimativas posteriores subindo para ~2,58 milhões). Isso gera uma <strong>altíssima densidade demográfica</strong> (habitantes por km²), já que a população é imensa, mas o território municipal é reduzido.</p>
+    </div>
+
+    <!-- ==========================================
+         DICA 05
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">EXPANSÃO URBANA E DESIGUALDADE SOCIOESPACIAL</h3>
+      
+      <p>A ocupação inicial de Fortaleza deu-se às margens do riacho Pajeú (Forte N. Sra. da Assunção e atual Centro). Posteriormente, a cidade se expandiu de forma <strong>desigual</strong> e segregada.</p>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Eixo de Expansão</th>
+            <th>Características Históricas e Urbanas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Oeste</strong></td>
+            <td>Ocupação operária e bairros populares, forte adensamento próximo a indústrias e ferrovias (ex: Barra do Ceará, Antônio Bezerra).</td>
+          </tr>
+          <tr>
+            <td><strong>Sul e Sudoeste</strong></td>
+            <td>Expansão periférica, loteamentos populares, conjuntos habitacionais ao longo de rodovias (ex: Messejana, Jangurussu, Conjunto Ceará).</td>
+          </tr>
+          <tr>
+            <td><strong>Leste</strong></td>
+            <td>Área supervalorizada, verticalização intensa, concentração de renda, serviços especializados, hotéis e shoppings (ex: Aldeota, Meireles, Cocó).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> Essa diferença radical de acesso a serviços urbanos, infraestrutura e saneamento baseado na renda recebe o nome de <span class="hl-yellow">Segregação Socioespacial</span>. <span class="hl-red">Nunca</span> marque a alternativa que diga que a infraestrutura foi distribuída uniformemente!
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         DICA 06
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">CLIMATOLOGIA E ASPECTOS PLUVIOMÉTRICOS</h3>
+      
+      <p>O clima de Fortaleza é classificado como <span class="hl-blue">Tropical Quente Subúmido</span> com forte <strong>influência marítima (maritimidade)</strong>, que atua estabilizando as temperaturas e reduzindo a amplitude térmica.</p>
+
+      <ul class="arrow-list">
+        <li>Precipitação concentrada no <span class="hl-blue">primeiro semestre</span> (especialmente entre fevereiro e maio - quadra chuvosa).</li>
+        <li>O segundo semestre (agosto a novembro) é o período mais seco.</li>
+        <li>As chuvas sofrem grande <strong>irregularidade</strong> temporal e espacial.</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE:</strong> O principal sistema meteorológico provocador de chuvas em Fortaleza é a <span class="hl-yellow">ZCIT (Zona de Convergência Intertropical)</span>. Lembre da frase: <em>"ZCIT desceu, Fortaleza molhou"</em>.
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHAS:</strong> Fortaleza <span class="hl-red">NÃO</span> possui clima semiárido, <span class="hl-red">NÃO</span> chove uniformemente durante o ano todo, e seu principal gerador de chuvas <span class="hl-red">NÃO</span> é a frente fria (massa polar).
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         DICA 07
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">HIDROGRAFIA: RIOS E LAGOAS URBANAS</h3>
+      
+      <p>A hidrografia de Fortaleza baseia-se em planícies fluviais formadas pelos seus principais rios e bacias.</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Rio</th>
+            <th>Principais Características para a Prova</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Rio Cocó</strong></td>
+            <td>Principal curso d'água. <strong>Nasce em Pacatuba</strong> (Serra da Aratanha) e sua foz fica entre a Praia do <strong>Caça e Pesca e Sabiaguaba</strong>. Abriga extensa área de manguezal e o Parque Estadual.</td>
+          </tr>
+          <tr>
+            <td><strong>Rio Ceará</strong></td>
+            <td>Divide Fortaleza e Caucaia (Zona Oeste). Deságua na <strong>Barra do Ceará</strong>. Histórico na ocupação.</td>
+          </tr>
+          <tr>
+            <td><strong>Maranguapinho</strong></td>
+            <td>Maior afluente do Rio Ceará. Corta bairros populares da zona oeste/sudoeste. Sofre inundações frequentes. <span class="hl-red">Não</span> deságua no oceano.</td>
+          </tr>
+          <tr>
+            <td><strong>Riacho Pajeú</strong></td>
+            <td>Grande valor <strong>histórico</strong> (núcleo inicial da cidade). Hoje encontra-se canalizado e soterrado sob o Centro.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS. SOBRE LAGOAS:</strong> Lagoas (ex: Parangaba, Messejana) <span class="hl-red">não</span> são terrenos baldios! Elas cumprem função vital de <strong>drenagem natural</strong>, regulação microclimática e armazenamento temporário de água. Aterrar lagoas potencializa alagamentos.
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         DICA 08
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">PLANÍCIES FLUVIOMARINHAS E DUNAS</h3>
+      
+      <p>A interação entre a água dos rios e as marés oceânicas cria ambientes híbridos altamente ricos, como as <span class="hl-blue">planícies fluviomarinhas</span>, frequentemente associadas aos estuários e manguezais.</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: TIPOS DE DUNAS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">DUNAS (AREIA EÓLICA)</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>Móveis:</strong> Nenhuma vegetação, alta fragilidade, sedimento solto.</div>
+          <div class="schema-node box-blue"><strong>Fixas:</strong> Presença de cobertura vegetal, maior estabilidade.</div>
+        </div>
+      </div>
+      
+      <div class="exemplo">
+        <strong>Importância:</strong> Dunas são estoques de água que favorecem a infiltração da chuva no aquífero e protegem o litoral da erosão.
+      </div>
+    </div>
+
+    <!-- ==========================================
+         DICA 09
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">VEGETAÇÃO E PROBLEMAS AMBIENTAIS URBANOS</h3>
+      
+      <p>Originalmente, a cidade contava com vegetação de dunas, restinga, manguezais, caatinga e mata ciliar, profundamente modificadas pelo avanço do asfalto.</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE SOBRE MANGUEZAL:</strong> É ecossistema costeiro de transição (água salobra, solo lodoso rico em matéria orgânica). Serve como autêntico berçário da vida marinha.
+        </div>
+      </div>
+
+      <p><strong>Principais Problemas Ambientais:</strong></p>
+      <ul class="arrow-list">
+        <li><strong>Impermeabilização do solo:</strong> O excesso de asfalto e concreto reduz drasticamente a infiltração. Consequência lógica: maior escoamento superficial da chuva ➔ sobrecarga de canais ➔ <span class="hl-yellow">alagamentos</span>.</li>
+        <li><strong>Ilhas de calor:</strong> Áreas verticalizadas com pouco verde retêm calor, elevando microtemperaturas urbanas.</li>
+        <li><strong>Erosão Costeira:</strong> Alteração de correntes, ocupação de dunas e retirada de areia.</li>
+      </ul>
+    </div>
+
+    <!-- ==========================================
+         DICA 10
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">UNIDADES DE CONSERVAÇÃO (UC)</h3>
+      
+      <p>Fortaleza mantém políticas de proteção ao seu patrimônio natural remanescente:</p>
+      <ul class="check-list">
+        <li><strong>Parque Estadual do Cocó:</strong> Maior parque natural urbano; focado em proteger os manguezais, regular o clima e promover lazer/educação.</li>
+        <li><strong>Parque das Dunas e APA da Sabiaguaba:</strong> Protegem dunas e restingas. Lembre-se que uma Área de Proteção Ambiental (APA) permite o uso sustentável aliado com proteção.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA DA BANCA:</strong> As bancas amam dizer que "unidades de conservação impedem qualquer presença humana". Isso é falso, pois existem unidades de <span class="hl-blue">uso sustentável</span> (como a APA).
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         DICA 11
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 11</div>
+      <h3 class="dica-title">ECONOMIA E CENTRALIDADES</h3>
+      
+      <p>Fortaleza é o grande motor econômico do Ceará (PIB ~ R$ 86,9 bilhões). Contudo, a prova cobrará a matriz dessa economia.</p>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>A REGRA DOS 3 "T":</strong> A economia de Fortaleza é dominada pelo Setor Terciário:<br>
+          <span class="hl-yellow">Terciário, Turismo e Tecnologia.</span><br>
+          <span class="hl-red">Não</span> marque agropecuária nem predominância industrial no município sede!
+        </div>
+      </div>
+
+      <p>Com a saturação do Centro, Fortaleza criou <strong>Múltiplas Centralidades Econômicas</strong> (policentrismo), deslocando pólos de emprego e comércio para bairros como Aldeota, Messejana, Parangaba e Papicu.</p>
+    </div>
+
+    <!-- ==========================================
+         DICA BÔNUS
+         ========================================== -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">QUADRO-RESUMO PARA VÉSPERA DE PROVA</h3>
+      
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Tema Geográfico</th>
+            <th>Informação Decisiva (Gabarito)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Limites</strong></td>
+            <td>Norte: Oceano. Oeste: Caucaia. Sul: Maracanaú/Pacatuba/Itaitinga.</td>
+          </tr>
+          <tr>
+            <td><strong>Clima & Chuva</strong></td>
+            <td>Tropical quente subúmido. Maior chuva no 1º semestre gerada pela <strong>ZCIT</strong>.</td>
+          </tr>
+          <tr>
+            <td><strong>Rio Cocó</strong></td>
+            <td>Nasce na Serra da Aratanha (Pacatuba) ➔ Foz entre Caça/Pesca e Sabiaguaba.</td>
+          </tr>
+          <tr>
+            <td><strong>Estabilidade</strong></td>
+            <td>Tabuleiros = Estáveis. Mangue, Praia e Dunas = Frágeis.</td>
+          </tr>
+          <tr>
+            <td><strong>Economia</strong></td>
+            <td>Foco absoluto no Setor de Comércio, Serviços e Turismo (Terciário).</td>
+          </tr>
+          <tr>
+            <td><strong>Desigualdade</strong></td>
+            <td>Elevado PIB municipal <span class="hl-red">NÃO</span> reflete em igualdade. Há forte segregação.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MNEMÔNICO MATADOR:</strong> <em>"Fortaleza é COCO, MAR, SOL e SERVIÇO."</em><br>
+          ➔ <strong>COCÓ:</strong> rio e parque ecológico.<br>
+          ➔ <strong>MAR:</strong> Atlântico e maritimidade.<br>
+          ➔ <strong>SOL:</strong> clima tropical com chuva concentrada.<br>
+          ➔ <strong>SERVIÇO:</strong> setor terciário domina o PIB.
+        </div>
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>20. (Estilo IMPARH/UECE)</strong> O Parque Estadual do Cocó possui, entre suas principais funções:</p>
+        <ul class="arrow-list">
+          <li>A) incentivar a ocupação imobiliária dos manguezais.</li>
+          <li>B) preservar ecossistemas, proteger o rio e oferecer espaços de lazer e educação ambiental.</li>
+          <li>C) eliminar toda a vegetação para facilitar o escoamento das águas.</li>
+          <li>D) transformar integralmente a área em estacionamento urbano.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong> <br>
+          <span class="hl-green">Comentário:</span> A unidade conserva a vegetação de manguezal, a fauna, recursos hídricos e ajuda no amortecimento natural das cheias e ilhas de calor, sendo <span class="hl-red">vedada</span> a degradação e ocupação especulativa (A, C, e D são devaneios da banca).
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">VIGILÂNCIA EM SAÚDE E SANEAMENTO BÁSICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h2 class="dica-title">REVISÃO DE VÉSPERA - CONCEITOS FUNDAMENTAIS</h2>
+      <p>Antes de aprofundarmos, domine os conceitos basilares de atuação do ACS e da Saúde Pública:</p>
+      
+      <ul class="check-list">
+        <li><strong>Territorialização:</strong> Conhecer o território + pessoas + riscos + vulnerabilidades + recursos.</li>
+        <li><strong>Cadastro:</strong> Pode ser <span class="hl-blue">Individual</span> (focado na pessoa) ou <span class="hl-blue">Domiciliar/Territorial</span> (casa e condições do território).</li>
+        <li><strong>Visita Domiciliar:</strong> É a <strong>atividade precípua</strong> do ACS. Segue a lógica: <em>planejar → abordar → observar → orientar → registrar → comunicar → acompanhar</em>.</li>
+        <li><strong>Educação Popular:</strong> Exige diálogo contínuo + integração entre saber popular e saber científico + participação.</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: NÍVEIS DE PREVENÇÃO E PROMOÇÃO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">PREVENÇÃO E<br>PROMOÇÃO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>Primária:</strong> Ocorre ANTES da doença (ex: vacina).</div>
+          <div class="schema-node box-yellow"><strong>Secundária:</strong> Rastreamento, descobrir/tratar CEDO.</div>
+          <div class="schema-node box-yellow"><strong>Terciária:</strong> Reduzir sequelas e REABILITAR.</div>
+          <div class="schema-node box-yellow"><strong>Promoção da Saúde:</strong> Foco na QUALIDADE DE VIDA e autonomia.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE A INTERSETORIALIDADE:</strong> É a atuação conjunta! Saúde + Educação + Assistência Social + outros setores = <span class="hl-yellow">enfrentamento conjunto</span> de problemas com múltiplas causas.
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTÃO DE PROVA - DICA 01 -->
+    <div class="questao-box">
+      <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+      <div><strong>(Banca / Adap.)</strong> A vacinação e a realização de exames de rastreamento para detectar doenças precocemente são classificadas, respectivamente, como medidas de prevenção:</div>
+      <ul class="arrow-list" style="margin-top: 5px;">
+        <li>A) Secundária e Terciária.</li>
+        <li>B) Primária e Terciária.</li>
+        <li>C) Primária e Secundária.</li>
+        <li>D) Terciária e Primária.</li>
+      </ul>
+      <div class="gabarito-box">
+        <strong>Gabarito: C.</strong> <br>
+        <em>Comentário:</em> Vacinação = prevenção primária, pois busca impedir o surgimento da doença. Rastreamento e diagnóstico precoce = prevenção secundária.
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h2 class="dica-title">VIGILÂNCIA EM SAÚDE - CONCEITO GERAL</h2>
+      <p>A Vigilância em Saúde reúne ações contínuas destinadas a conhecer, detectar, monitorar, prevenir e controlar riscos, doenças e agravos que afetam a população. A Política Nacional de Vigilância em Saúde (PNVS) articula atuação <strong>integrada</strong> entre União, estados e municípios.</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>IMPORTANTE:</strong> Pense na lógica de ação contínua: <span class="hl-yellow">Vigilância = Observar + Analisar + Prevenir + Controlar + AGIR</span>.
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>ATENÇÃO!! PEGADINHA DE PROVA:</strong> Vigilância em Saúde <span class="hl-red">não é apenas</span> registrar casos. O objetivo central é sempre transformar a <strong>informação em ação</strong> de saúde pública.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h2 class="dica-title">OS COMPONENTES DA VIGILÂNCIA EM SAÚDE</h2>
+      <p>A PNVS atua de forma articulada em quatro grandes áreas. As bancas adoram tentar confundir os conceitos de cada uma delas:</p>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue" style="width: 48%; text-align: left;">
+          <strong>1. Epidemiológica:</strong><br>
+          Acompanha doenças/agravos na população. Produz dados para prevenir e controlar (ex: surtos).<br>
+          <em>Palavras-chave: Doença, agravo, população.</em>
+        </div>
+        <div class="schema-node box-blue" style="width: 48%; text-align: left;">
+          <strong>2. Sanitária:</strong><br>
+          Atua sobre riscos no consumo e prestação de serviços (alimentos, remédios, produtos, tecnologias).<br>
+          <em>Palavras-chave: Produtos, estabelecimentos, consumo.</em>
+        </div>
+        <div class="schema-node box-yellow" style="width: 48%; text-align: left;">
+          <strong>3. Ambiental:</strong><br>
+          Monitora fatores do meio ambiente (água, ar, contaminantes, vetores, desastres).<br>
+          <em>Palavras-chave: Água de consumo, vetores, desastres.</em>
+        </div>
+        <div class="schema-node box-yellow" style="width: 48%; text-align: left;">
+          <strong>4. Saúde do Trabalhador (VISAT):</strong><br>
+          Prevenção de adoecimentos/acidentes ligados aos processos e ambientes laborais.<br>
+          <em>Palavras-chave: Condições ambientais, organização do trabalho.</em>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHAS COMUNS:</strong><br>
+          - <strong>Epidemiológica x Sanitária:</strong> A primeira foca na <em>doença e agravo</em> na população. A segunda foca nos <em>produtos, serviços e riscos de consumo</em>.<br>
+          - <strong>Saúde do Trabalhador:</strong> <span class="hl-red">NÃO se restringe</span> apenas a acidentes de trabalho; envolve também doenças ocupacionais e organização laboral.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h2 class="dica-title">INVESTIGAÇÃO EPIDEMIOLÓGICA</h2>
+      <p>É a busca sistemática de informações sobre determinado caso, evento ou conjunto de casos. Pode envolver a busca pelo <em>caso, fonte, contatos, forma de transmissão e medidas de controle</em>.</p>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Surge um número inesperado de casos de uma doença em uma escola. A vigilância vai a campo descobrir: <em>Quem adoeceu? Quando? Onde? Qual foi a exposição?</em> e decide quais medidas tomar.
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div>
+          <strong>OBS.:</strong> Não confunda <span class="hl-blue">Notificação</span> com <span class="hl-blue">Investigação</span>. A notificação apenas <em>informa</em> a ocorrência. A investigação vai a campo para <em>entender</em> o evento.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h2 class="dica-title">SURTO, EPIDEMIA, PANDEMIA E ENDEMIA</h2>
+      <p>Esses quatro conceitos são figurinhas carimbadas em provas de ACS. Guarde a abrangência de cada um:</p>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>CONCEITO</th>
+            <th>CARACTERÍSTICA PRINCIPAL</th>
+            <th>MACETE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SURTO</strong></td>
+            <td>Aumento de casos acima do esperado em um <strong>local restrito</strong> ou grupo delimitado (ex: escola, festa).</td>
+            <td><span class="hl-yellow">LOCALIZADO</span></td>
+          </tr>
+          <tr>
+            <td><strong>EPIDEMIA</strong></td>
+            <td>Aumento de casos acima do esperado atingindo uma <strong>região inteira</strong> ou população ampla.</td>
+            <td><span class="hl-yellow">REGIONAL / POPULACIONAL</span></td>
+          </tr>
+          <tr>
+            <td><strong>PANDEMIA</strong></td>
+            <td>Epidemia com ampla propagação internacional, atingindo <strong>vários países ou continentes</strong>.</td>
+            <td><span class="hl-yellow">CONTINENTAL / GLOBAL</span></td>
+          </tr>
+          <tr>
+            <td><strong>ENDEMIA</strong></td>
+            <td>Presença <strong>habitual ou persistente</strong> de uma doença em uma determinada área geográfica.</td>
+            <td><span class="hl-yellow">HABITUAL (Sempre tem)</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>CUIDADO!!</strong> Endemia <span class="hl-red">não significa</span> que a doença é obrigatoriamente grave. O conceito se refere exclusivamente ao <strong>padrão de ocorrência</strong> (frequência esperada na região).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h2 class="dica-title">INDICADORES: INCIDÊNCIA X PREVALÊNCIA</h2>
+      <p>A banca adora trocar esses dois conceitos. Lembre-se sempre da relação com o tempo (casos novos vs. casos totais).</p>
+
+      <ul class="arrow-list">
+        <li><strong>INCIDÊNCIA:</strong> Mede apenas os casos <strong>NOVOS</strong> ocorridos em um determinado período.</li>
+        <li><strong>PREVALÊNCIA:</strong> Mede o conjunto <strong>TOTAL DE CASOS</strong> existentes (novos + antigos) em determinado momento.</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>MEMORIZE OS GATILHOS:</strong><br>
+          - <span class="hl-yellow">INCIDÊNCIA = INÍCIO = NOVOS</span><br>
+          - <span class="hl-yellow">PREVALÊNCIA = PRESENTES / EXISTENTES</span>
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Em uma comunidade existem <span class="hl-blue">100 pessoas</span> com diabetes (PREVALÊNCIA). Durante o ano de 2026, surgem mais <span class="hl-blue">20 casos</span> (INCIDÊNCIA).
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h2 class="dica-title">INDICADORES: MORTALIDADE X LETALIDADE</h2>
+      
+      <ul class="arrow-list">
+        <li><strong>Mortalidade:</strong> Relaciona o número de óbitos com a <strong>população total</strong> (quantos da população morreram).</li>
+        <li><strong>Letalidade:</strong> Indica a proporção de pessoas que morrem <strong>dentre as que adoeceram</strong> (mede a gravidade da doença).</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Doença X acometeu 100 pessoas. Dessas, 10 morreram. A <em>letalidade</em> é de 10% (10 óbitos ÷ 100 doentes).
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA:</strong> Uma doença pode perfeitamente apresentar <span class="hl-blue">ALTA incidência</span> (espalha fácil) e <span class="hl-blue">BAIXA letalidade</span> (mata pouco), ou o inverso. São medidas totalmente diferentes!
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h2 class="dica-title">DOENÇAS DE NOTIFICAÇÃO COMPULSÓRIA</h2>
+      <p>É a comunicação <strong>obrigatória</strong> de doenças, agravos ou eventos de saúde pública. O sistema responsável por receber esses dados é o <strong>SINAN</strong>. A lista é padronizada nacionalmente, mas estados e municípios podem incluir eventos relevantes à sua realidade.</p>
+      
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div>
+          <strong>ATUALIZAÇÃO LEGAL PARA 2026:</strong> A Lista Nacional foi atualizada pela <span class="hl-blue">Portaria GM/MS nº 10.175, de 23 de janeiro de 2026</span>. Fique atento às normas vigentes e descarte apostilas antigas!
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA DE PROVA:</strong> A notificação compulsória <span class="hl-red">NÃO exige</span> diagnóstico clínico ou laboratorial definitivo em todos os casos! Para diversas doenças, a <strong>mera suspeita</strong> já desencadeia a obrigação imediata de notificar.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h2 class="dica-title">SANEAMENTO BÁSICO E SAÚDE AMBIENTAL</h2>
+      <p>O Saneamento tem relação direta com a Saúde. Falhas estruturais favorecem riscos imensos. Fique atento aos 4 eixos:</p>
+
+      <ul class="check-list">
+        <li><strong>Abastecimento de Água:</strong> Falhas (contaminação, falta de tratamento) exigem orientação do ACS (limpeza de reservatórios e armazenamento seguro).</li>
+        <li><strong>Esgotamento Sanitário:</strong> Esgoto adequado é considerado <strong>medida de proteção coletiva</strong>. Evita contaminação do solo, água e proliferação de parasitas.</li>
+        <li><strong>Resíduos Sólidos (Lixo):</strong> O acúmulo atrai vetores, entope drenagens e cria criadouros. Exige acondicionamento e coleta regular.</li>
+        <li><strong>Drenagem Urbana:</strong> Controla as águas pluviais (chuvas). Deficiência gera alagamentos e exposição a águas contaminadas (ex: leptospirose).</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>PEGADINHA:</strong> Nem toda doença relacionada à água é transmitida <em>bebendo</em> a água. A água parada participa do ciclo ambiental e favorece criadouros de vetores (ex: Dengue).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h2 class="dica-title">DOENÇAS TRANSMISSÍVEIS: INTRODUÇÃO À TUBERCULOSE</h2>
+      <p>As doenças transmissíveis são causadas por agentes infecciosos capazes de passar, direta ou indiretamente, entre pessoas, animais ou vetores.</p>
+      
+      <p><strong>TUBERCULOSE:</strong> É uma doença infecciosa grave causada pela bactéria <em>Mycobacterium tuberculosis</em> (Bacilo de Koch). Atinge <strong>principalmente</strong> os pulmões, sendo alvo constante da vigilância epidemiológica e do acompanhamento domiciliar pelo ACS.</p>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div>
+          <strong>Foco do ACS na Prova:</strong> As bancas cobrarão a <em>forma de transmissão, os sinais principais, a prevenção e como você (Agente) faz o acompanhamento</em>.
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

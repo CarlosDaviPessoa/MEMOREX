@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">CONHECIMENTOS ESPECÍFICOS - AGENTE COMUNITÁRIO DE SAÚDE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">Atenção Primária, ESF e Trabalho Multiprofissional</h3>
+
+      <p>A Atenção Primária à Saúde (APS) é o <strong>primeiro nível de atenção</strong> e a principal porta de entrada do SUS. A equipe de Saúde da Família (eSF) é a equipe prioritária da APS, composta minimamente por: médico, enfermeiro, auxiliar ou técnico de enfermagem e ACS.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (PEGADINHA)</strong> A ESF <span class="hl-red">não</span> substitui a atenção ao indivíduo pela atenção <span class="hl-red">exclusiva</span> à família. Ela <strong>amplia o olhar</strong>: indivíduo + família + comunidade. A APS também <span class="hl-red">não</span> realiza <span class="hl-red">somente</span> prevenção.</div>
+      </div>
+
+      <p>O cuidado deve ser construído por profissionais de diferentes áreas. <strong>Multiprofissionalidade</strong> <span class="hl-red">não</span> significa todo profissional fazer tudo. Na verdade, cada membro da equipe:</p>
+      <ul class="arrow-list">
+        <li>Possui competências próprias;</li>
+        <li>Compartilha responsabilidades;</li>
+        <li>Troca informações;</li>
+        <li>Participa do planejamento.</li>
+      </ul>
+
+      <div class="esquema-title">ESQUEMATIZANDO: ACOLHIMENTO E VÍNCULO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">ACOLHIMENTO SIGNIFICA:</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Escutar e Receber</div>
+          <div class="schema-node box-yellow">Identificar necessidades e Avaliar riscos/vulnerabilidades</div>
+          <div class="schema-node box-yellow">Responsabilizar-se pela resposta e Orientar o usuário</div>
+        </div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.:</strong> Acolhimento <span class="hl-red">≠</span> recepção. Também <span class="hl-red">não</span> significa <span class="hl-red">apenas</span> distribuir fichas ou marcar consultas.</div>
+      </div>
+
+      <p>A <strong>humanização da assistência</strong> envolve um cuidado baseado em dignidade, respeito, autonomia, escuta, privacidade, ética e diálogo. O usuário é sujeito do cuidado, e <span class="hl-red">não</span> um simples receptor passivo das decisões.</p>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MEMORIZE A FÓRMULA DO VÍNCULO:</strong><br>
+        VÍNCULO = Presença + Confiança + Escuta + Respeito + Continuidade.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>06. Atualmente, o Ministério da Saúde considera a equipe de Saúde da Família:</strong></p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>A) modalidade excepcional da APS.</li>
+          <li>B) equipe prioritária da APS.</li>
+          <li>C) serviço <span class="hl-red">exclusivamente</span> rural.</li>
+          <li>D) modalidade <span class="hl-red">exclusivamente</span> hospitalar.</li>
+          <li>E) equipe destinada <span class="hl-red">apenas</span> à vigilância epidemiológica.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: B.</strong> A equipe de Saúde da Família é considerada equipe prioritária para a organização da Atenção Primária.</div>
+      </div>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>02. São atributos essenciais da Atenção Primária à Saúde:</strong></p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>A) territorialização, regionalização e descentralização.</li>
+          <li>B) primeiro contato, longitudinalidade, integralidade e coordenação.</li>
+          <li>C) orientação familiar, orientação comunitária e regionalização.</li>
+          <li>D) equidade, descentralização, controle social e hierarquização.</li>
+          <li>E) competência cultural, municipalização e resolutividade.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: B.</strong> Os quatro atributos essenciais são: primeiro contato, longitudinalidade, integralidade e coordenação do cuidado. Orientação familiar é atributo <em>derivado</em>.</div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">O ACS: Conceito e Papel na Atenção Primária</h3>
+
+      <p>A regulamentação atual da profissão de ACS tem como uma de suas principais bases a <span class="hl-blue">Lei nº 11.350/2006</span>. O Agente Comunitário de Saúde é um profissional que atua diretamente:</p>
+      
+      <div class="schema-grid">
+        <div class="schema-node box-blue">No território</div>
+        <div class="schema-node box-blue">Junto às famílias</div>
+        <div class="schema-node box-blue">Integrado à equipe</div>
+      </div>
+
+      <p>O ACS desempenha um papel fundamental na Atenção Primária, contribuindo ativamente para:</p>
+      <ul class="check-list">
+        <li>Conhecer o território (Territorialização).</li>
+        <li>Cadastrar e acompanhar a população.</li>
+        <li>Identificar situações de risco e realizar visitas domiciliares.</li>
+        <li>Promover educação em saúde e orientar famílias.</li>
+        <li>Estimular a participação comunitária e aproximar o serviço da comunidade.</li>
+        <li>Comunicar situações relevantes à equipe.</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> O ACS é o <strong>elo</strong> principal de ligação entre a COMUNIDADE e a EQUIPE DE SAÚDE.</div>
+      </div>
+
+      <div class="exemplo"><strong>Ex.:</strong> Em prova, lembre-se: o ACS <span class="hl-red">não</span> é apenas um "mensageiro" da UBS! Ele participa da identificação de necessidades, do planejamento, da promoção da saúde, da vigilância e do acompanhamento das famílias. O seu perfil profissional exige comunicação, respeito, responsabilidade, ética e conhecimento sólido do território.</div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>05. Na Atenção Primária, territorialização significa:</strong></p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>A) simples divisão cartográfica do Município.</li>
+          <li>B) delimitação burocrática destinada <span class="hl-red">exclusivamente</span> à distribuição dos ACS.</li>
+          <li>C) conhecimento do território, população, riscos, vulnerabilidades e recursos existentes.</li>
+          <li>D) divisão do território de acordo <span class="hl-red">apenas</span> com critérios econômicos.</li>
+          <li>E) proibição de atendimento a pessoas não cadastradas.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: C.</strong> Territorialização vai muito além do mapa; trata-se de conhecer a fundo a população, os riscos, as vulnerabilidades e os recursos presentes naquele território (espaço social).</div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">Requisitos para o Exercício da Atividade do ACS</h3>
+
+      <p>Atenção máxima neste tópico! De acordo com o <span class="hl-blue">Art. 6º da Lei nº 11.350/06</span>, para exercer a atividade de ACS, o candidato deve preencher obrigatoriamente a seguinte trinca (R-C-M):</p>
+
+      <ul class="arrow-list">
+        <li><strong>I - RESIDÊNCIA:</strong> Residir na área da comunidade em que atuar desde a data da publicação do edital do processo seletivo público.</li>
+        <li><strong>II - FORMAÇÃO:</strong> Ter concluído, com aproveitamento, curso de formação inicial com carga mínima de <span class="hl-blue">40 HORAS</span>.</li>
+        <li><strong>III - ESCOLARIDADE:</strong> Ter concluído o <span class="hl-blue">ENSINO MÉDIO</span>.</li>
+      </ul>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (EXCEÇÃO DA ESCOLARIDADE)</strong> Se <span class="hl-red">não houver</span> candidato inscrito que possua ensino médio, a lei admite a contratação de candidato com ensino fundamental, que deverá comprovar a conclusão do ensino médio no prazo máximo de <span class="hl-blue">3 anos</span>.</div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.: (ÁREA DE ATUAÇÃO E EXCEÇÕES DA RESIDÊNCIA)</strong> Como regra geral, é <span class="hl-red">vedada</span> a atuação do ACS fora da área geográfica estabelecida. Da mesma forma, a regra de residência desde o edital não é absoluta! A lei prevê <strong>exceções</strong> (ex.: risco à integridade física do ACS ou aquisição de casa própria fora da área). Cuidado com o "sempre" nas provas!</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>08. Nos termos da Lei nº 11.350/2006, constitui requisito para o exercício da atividade de ACS:</strong></p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>A) graduação na área da saúde.</li>
+          <li>B) curso inicial mínimo de 120 horas.</li>
+          <li>C) residência em <em>qualquer</em> área do Município.</li>
+          <li>D) residência na área da comunidade em que atuar desde a publicação do edital.</li>
+          <li>E) experiência profissional mínima de dois anos.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: D.</strong> O ACS deve, como regra, residir na área da comunidade em que atuará desde a data de publicação do edital. O curso inicial mínimo é de 40 horas e a escolaridade básica é o ensino médio.</div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">Trabalho em Equipe, Ética Profissional e Sigilo</h3>
+
+      <p>O ACS <strong>não atua isoladamente</strong>. A legislação garante expressamente a participação do agente (dentro da sua jornada de trabalho) nas seguintes atividades de equipe:</p>
+      <ul class="check-list">
+        <li>Troca de informações e participação no planejamento e avaliação.</li>
+        <li>Registro de dados.</li>
+        <li>Participação em reuniões de equipe.</li>
+      </ul>
+
+      <p>A ética do ACS deve ser pautada pelo respeito, responsabilidade, discrição, imparcialidade, dignidade e compromisso com o usuário e sua autonomia.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (SIGILO)</strong> O ACS possui acesso a informações sensíveis, pessoais e familiares. Esses dados <span class="hl-red">não</span> podem virar fofoca comunitária! O fato de ser morador da comunidade <span class="hl-red">nunca</span> autoriza o ACS a divulgar informações sobre os usuários. O uso é <span class="hl-red">exclusivo</span> para fins profissionais e de cuidado.</div>
+      </div>
+
+      <div class="callout callout-obs">
+        <div class="callout-icon">🔎</div>
+        <div><strong>OBS.: (COMUNICAÇÃO COM O USUÁRIO)</strong> A comunicação deve ter linguagem clara, ausência de julgamento e respeito às diferenças. <strong>ERRADO EM PROVA:</strong> <em>"O ACS deve impor mudanças de comportamento ao usuário."</em> <span class="hl-red">Não!</span> A orientação deve favorecer o diálogo, a autonomia e a participação.</div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">LEI Nº 11.350/2006 (LEI RUTH BRILHANTE): DISPOSIÇÕES GERAIS E ATRIBUIÇÕES</h3>
+
+      <p>A <span class="hl-blue">Lei nº 11.350/2006</span>, hoje oficialmente denominada <span class="hl-yellow">Lei Ruth Brilhante</span> (após alteração pela Lei nº 14.799/2023), regulamenta as atividades dos Agentes Comunitários de Saúde (ACS) e dos Agentes de Combate às Endemias (ACE). Ambos são considerados, pela Lei nº 14.536/2023, como <strong>profissionais de saúde, com profissões regulamentadas</strong>.</p>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">📌</div>
+        <div><strong>IMPORTANTE:</strong> As atividades de ACS e ACE são exercidas <span class="hl-red">exclusivamente</span> no âmbito do SUS. Como regra, é <span class="hl-red">vedada</span> a contratação temporária ou terceirizada, estabelecendo-se <strong>exceção</strong> apenas para a hipótese de combate a surtos epidêmicos.</div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: ATRIBUIÇÕES GERAIS DO ACS</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">O ACS DESENVOLVE ATIVIDADES DE:</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Prevenção de Doenças</div>
+          <div class="schema-node box-yellow">Promoção da Saúde</div>
+        </div>
+      </div>
+      <p>Estas ações utilizam os referenciais da <strong>Educação Popular em Saúde</strong>, podendo ser ações: domiciliares, comunitárias, individuais ou coletivas.</p>
+      
+      <p>Entre as <strong>Atividades Típicas</strong> (<span class="hl-blue">Art. 3º</span>), destacam-se: diagnóstico demográfico e sociocultural, mobilização comunitária, visitas domiciliares, e identificação de situações que necessitem da atenção da equipe.</p>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>15. Sobre a atual Lei nº 11.350/2006, assinale a alternativa correta:</strong></p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>A) ACS e ACE <span class="hl-red">não</span> são considerados profissionais de saúde.</li>
+          <li>B) a presença do ACS na Estratégia Saúde da Família é facultativa.</li>
+          <li>C) a lei exige ensino superior para o ACS.</li>
+          <li>D) ACS e ACE são considerados profissionais de saúde, com profissões regulamentadas, para a finalidade constitucional especificada pela legislação.</li>
+          <li>E) a profissão de ACS deixou de ser regulamentada em 2023.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: D.</strong> A legislação (com alterações recentes) reconhece expressamente o ACS e o ACE como profissionais de saúde.</div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">Atividade Precípua: Visita Domiciliar e Educação Popular em Saúde</h3>
+
+      <div class="callout callout-importante" style="border-left-color: #d90429;">
+        <div class="callout-icon">⭐</div>
+        <div><strong>ESTRELA VERMELHA NA APOSTILA!</strong> A <span class="hl-blue">Lei nº 11.350/06</span> considera <span class="hl-yellow">ATIVIDADE PRECÍPUA DO ACS</span> a realização de visitas domiciliares rotineiras, casa a casa, buscando pessoas com sinais/sintomas de doenças ou agravos e realizando o encaminhamento adequado. Decore: <strong>PRECÍPUA ➔ VISITA DOMICILIAR</strong>.</div>
+      </div>
+
+      <p>Muitas atividades são compartilhadas de forma integrada entre o ACS e o ACE (ex: mobilização social, identificação de riscos, ações territoriais e educação popular).</p>
+
+      <div class="esquema-title">ESQUEMATIZANDO: EDUCAÇÃO POPULAR EM SAÚDE</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">Diálogo e integração entre Saberes:</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Saberes Culturais</div>
+          <div class="schema-node box-yellow">Saberes Sociais</div>
+          <div class="schema-node box-yellow">Saberes Científicos</div>
+          <div class="schema-node box-yellow">Saberes Populares</div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (PEGADINHA)</strong> Educação Popular em Saúde <span class="hl-red">não</span> significa simplesmente "dar palestra" nem <span class="hl-red">substituir</span> o conhecimento científico pelo popular. Significa <strong>diálogo</strong> e valorização dos diferentes saberes, visando o autocuidado, participação popular e fortalecimento de vínculos.</div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>11. A atividade considerada precípua do ACS na assistência multiprofissional em Saúde da Família é:</strong></p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>A) prescrição de medicamentos.</li>
+          <li>B) realização de visitas domiciliares rotineiras.</li>
+          <li>C) solicitação de exames laboratoriais.</li>
+          <li>D) realização de diagnóstico médico.</li>
+          <li>E) emissão de atestado.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: B.</strong> A visita domiciliar rotineira, casa a casa, é a atividade precípua (principal/essencial) do ACS.</div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">Formação Profissional, Jornada de Trabalho e Direitos</h3>
+
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🧠</div>
+        <div><strong>MACETE DE FORMAÇÃO:</strong><br>
+        ➔ Curso para <strong>Ingresso</strong> = Mínimo de <span class="hl-blue">40 HORAS</span>.<br>
+        ➔ Cursos de <strong>Aperfeiçoamento</strong> = A cada <span class="hl-blue">2 ANOS</span>.</div>
+      </div>
+
+      <p>A <strong>Jornada de Trabalho</strong> associada ao piso profissional nacional do ACS é de <span class="hl-blue">40 HORAS SEMANAIS</span>. Essa jornada deve ser dedicada às atividades no território e também inclui planejamento, avaliação, registro de dados e reuniões.</p>
+
+      <div class="callout callout-atencao">
+        <div class="callout-icon">⚠️</div>
+        <div><strong>ATENÇÃO!! (PEGADINHA ATUAL)</strong> A antiga divisão rígida da jornada em "30 horas externas + 10 horas internas" foi <strong>REVOGADA</strong>! Se aparecer em prova tratando isso como regra legal atual, marque <span class="hl-red">ERRADO</span>.</div>
+      </div>
+
+      <p><strong>Direitos e Condições de Trabalho:</strong> A legislação garante medidas relativas à segurança, saúde ocupacional, fornecimento e uso de EPI, exames ocupacionais, adequação do horário em função de condições climáticas, e recebimento de <strong>adicional de insalubridade</strong> (quando preenchidos os requisitos).</p>
+
+      <p><strong>Alterações Legislativas Recentes:</strong></p>
+      <ul class="arrow-list">
+        <li><strong>Lei nº 13.595/2018:</strong> Alterou atribuições, formação e condições de trabalho.</li>
+        <li><strong>Lei nº 14.536/2023:</strong> ACS e ACE oficialmente reconhecidos como profissionais de saúde.</li>
+        <li><strong>Lei nº 14.799/2023:</strong> Denominou oficialmente a Lei 11.350 como "Lei Ruth Brilhante".</li>
+        <li><strong>Lei nº 15.014/2024:</strong> Possibilitou a <strong>indenização de transporte</strong> ao ACS/ACE que fizer a opção pelo ressarcimento de locomoção por meio próprio.</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>13. A jornada semanal relacionada à garantia do piso profissional prevista na Lei nº 11.350/06 corresponde a:</strong></p>
+        <ul style="list-style-type: upper-alpha; padding-left: 20px;">
+          <li>A) 20 horas.</li>
+          <li>B) 24 horas.</li>
+          <li>C) 30 horas.</li>
+          <li>D) 36 horas.</li>
+          <li>E) 40 horas.</li>
+        </ul>
+        <div class="gabarito-box"><strong>Gabarito: E.</strong> A jornada vinculada ao piso profissional é integralmente de 40 horas semanais.</div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">RESUMÃO DE VÉSPERA: PEGADINHAS E O QUE MAIS CAI</h3>
+
+      <div class="esquema-title">PEGADINHAS CAMPEÃS DE PROVA</div>
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Afirmação cobrada em prova</th>
+            <th>Certo / Errado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>APS realiza <span class="hl-red">somente</span> prevenção.</td>
+            <td style="color: #d90429; font-weight: bold;">ERRADO</td>
+          </tr>
+          <tr>
+            <td>APS é o primeiro nível de atenção e porta de entrada.</td>
+            <td style="color: #2b9348; font-weight: bold;">CERTO</td>
+          </tr>
+          <tr>
+            <td>Territorialização é <span class="hl-red">apenas</span> fazer o mapa.</td>
+            <td style="color: #d90429; font-weight: bold;">ERRADO</td>
+          </tr>
+          <tr>
+            <td>ACS atua isoladamente da equipe.</td>
+            <td style="color: #d90429; font-weight: bold;">ERRADO</td>
+          </tr>
+          <tr>
+            <td>Aperfeiçoamento ocorre a cada 2 anos.</td>
+            <td style="color: #2b9348; font-weight: bold;">CERTO</td>
+          </tr>
+          <tr>
+            <td>A lei atual exige <span class="hl-red">necessariamente</span> 30h externas + 10h internas.</td>
+            <td style="color: #d90429; font-weight: bold;">ERRADO</td>
+          </tr>
+          <tr>
+            <td>Educação Popular significa <span class="hl-red">impor</span> conhecimento científico.</td>
+            <td style="color: #d90429; font-weight: bold;">ERRADO</td>
+          </tr>
+          <tr>
+            <td>ACS pode divulgar dados por morar na comunidade.</td>
+            <td style="color: #d90429; font-weight: bold;">ERRADO</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <div class="callout-icon">🏆</div>
+        <div><strong>TOP 5 - O QUE MAIS CAI NA LEI Nº 11.350/06:</strong><br>
+        1º - Requisitos do ACS (Morar desde o Edital + 40h + Ensino Médio).<br>
+        2º - Atribuições Gerais (Prevenção, Promoção, Território).<br>
+        3º - Visitas Domiciliares (Atividade Precípua).<br>
+        4º - Educação Popular em Saúde.<br>
+        5º - Jornada de 40 horas e Aperfeiçoamento (2 em 2 anos).</div>
+      </div>
+      
+      <div class="callout callout-memorize">
+        <div class="callout-icon">🎯</div>
+        <div><strong>REVISÃO FINAL RÁPIDA:</strong><br>
+        <strong>Atributos da APS:</strong> Primeiro contato ➔ Longitudinalidade ➔ Integralidade ➔ Coordenação.<br>
+        <strong>Trabalho do ACS:</strong> Visita domiciliar + território + educação popular + prevenção + promoção + vínculo + comunidade.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

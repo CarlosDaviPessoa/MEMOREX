@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">PROMOÇÃO, PREVENÇÃO E EDUCAÇÃO EM SAÚDE</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">ATUAÇÃO DO ACS E LIMITAÇÕES CLÍNICAS</h3>
+      
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>ATENÇÃO!! (PEGADINHA DE PROVA)</strong><br>
+          A banca pode afirmar: <em>"Todo ACS pode aferir pressão e glicemia livremente e como atividade rotineira independente."</em> - <span class="hl-red">ERRADO!</span> A lei estabelece condições e <span class="hl-blue">caráter excepcional</span> para determinadas atividades.
+        </div>
+      </div>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>IMPORTANTE:</strong> Em regra, o ACS <span class="hl-red">NÃO</span> deve:
+        </div>
+      </div>
+      <ul class="arrow-list">
+        <li><span class="hl-red">Prescrever</span> medicamentos;</li>
+        <li><span class="hl-red">Alterar</span> dosagem;</li>
+        <li><span class="hl-red">Fazer</span> diagnóstico médico;</li>
+        <li><span class="hl-red">Realizar</span> procedimentos para os quais <span class="hl-red">não</span> esteja autorizado;</li>
+        <li><span class="hl-red">Divulgar</span> dados sigilosos;</li>
+        <li><span class="hl-red">Prometer</span> tratamento;</li>
+        <li><span class="hl-red">Substituir</span> profissional competente.</li>
+      </ul>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>QUESTÃO 9.</strong> Considerando a <span class="hl-blue">Lei nº 11.350/2006</span>, determinadas atividades, como aferição de pressão arterial e glicemia capilar, podem ser realizadas pelo ACS:<br>
+        <ul class="check-list">
+          <li>A) livremente e sem capacitação.</li>
+          <li>B) somente mediante prescrição do prefeito.</li>
+          <li>C) em caráter excepcional e observados os requisitos legais.</li>
+          <li>D) <span class="hl-red">exclusivamente</span> em hospitais.</li>
+          <li>E) <span class="hl-red">nunca</span>, em nenhuma hipótese.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong><br>
+          <strong>Comentário:</strong> A Lei nº 11.350/2006 admite determinadas atividades assistenciais pelo ACS em caráter <span class="hl-yellow">excepcional, exigindo capacitação e acompanhamento</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">O PROCESSO SAÚDE-DOENÇA E HISTÓRIA NATURAL</h3>
+      
+      <p>Saúde e doença <span class="hl-red">não dependem apenas</span> de microrganismos ou fatores biológicos. O processo saúde-doença é influenciado por condições sociais, econômicas, culturais, comportamentais, ambientais e biológicas.</p>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MEMORIZE:</strong> Não pense <span class="hl-red">apenas</span> no corpo. Pense: <br><span class="hl-yellow">PESSOA + SOCIEDADE + AMBIENTE</span>.
+        </div>
+      </div>
+
+      <p>A concepção contemporânea de saúde ultrapassa a simples ideia de "<span class="hl-red">não estar doente</span>". A saúde está relacionada às condições de vida, ambiente, trabalho, renda, alimentação, moradia, educação e acesso a serviços.</p>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>ATENÇÃO!!</strong> Saúde <span class="hl-red">NÃO é ausência absoluta de doença</span>. Uma pessoa com doença crônica controlada pode apresentar boa qualidade de vida e capacidade funcional.
+        </div>
+      </div>
+
+      <div class="esquema-title">ESQUEMATIZANDO: HISTÓRIA NATURAL DA DOENÇA</div>
+      <p>É a evolução do processo de adoecimento desde antes da instalação da doença até seus possíveis desfechos.</p>
+      
+      <div class="schema-container">
+        <div class="schema-root box-blue">HISTÓRIA<br>NATURAL</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>Período Pré-Patogênico</strong><br><small>Doença NÃO instalada clinicamente.<br>Interação: Agente + Hospedeiro + Ambiente + Risco.</small></div>
+          <div class="schema-node box-yellow"><strong>Período Patogênico</strong><br><small>Doença em desenvolvimento.<br>Sinais/sintomas ➔ Evolução ➔ Recuperação/Sequela/Óbito.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">DETERMINANTES SOCIAIS, FATORES DE RISCO E VULNERABILIDADE</h3>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>DETERMINANTES SOCIAIS DA SAÚDE:</strong> São condições sociais que influenciam o estado de saúde.
+        </div>
+      </div>
+      <ul class="check-list">
+        <li>Renda e Educação;</li>
+        <li>Trabalho e Transporte;</li>
+        <li>Moradia e Saneamento;</li>
+        <li>Alimentação e Ambiente;</li>
+        <li>Acesso a serviços de saúde.</li>
+      </ul>
+
+      <p><strong>FATORES DE RISCO:</strong> São características, comportamentos ou exposições associados ao <span class="hl-blue">aumento da probabilidade</span> de ocorrência de determinado agravo (Ex.: tabagismo, sedentarismo, alimentação inadequada).</p>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>PEGADINHA:</strong> Fator de risco <span class="hl-red">NÃO</span> significa certeza de doença. Significa <span class="hl-yellow">aumento de probabilidade</span>.
+        </div>
+      </div>
+
+      <p><strong>VULNERABILIDADE:</strong> Condição mais ampla que simplesmente o risco individual. Envolve dimensões <span class="hl-blue">individuais, sociais e programáticas/institucionais</span>.</p>
+      
+      <div class="exemplo">
+        <strong>Ex.:</strong> Uma pessoa pode conhecer formas de prevenção (dimensão individual), mas viver em um contexto onde <span class="hl-red">não possui água tratada</span> (dimensão social) ou não tem acesso adequado a serviços de saúde (dimensão programática).
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">NÍVEIS DE PREVENÇÃO: VISÃO GERAL E PREVENÇÃO PRIMÁRIA</h3>
+
+      <div class="schema-container">
+        <div class="schema-root box-blue">NÍVEIS DE<br>PREVENÇÃO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>1. PRIMÁRIA:</strong> Antes da instalação da doença.</div>
+          <div class="schema-node box-yellow"><strong>2. SECUNDÁRIA:</strong> Identificação precoce e tratamento.</div>
+          <div class="schema-node box-yellow"><strong>3. TERCIÁRIA:</strong> Redução de sequelas e reabilitação.</div>
+        </div>
+      </div>
+
+      <p>A <strong>Prevenção Primária</strong> objetiva <span class="hl-blue">evitar ou reduzir a ocorrência</span> da doença. Ocorre no período pré-patogênico.</p>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MACETE:</strong> <span class="hl-yellow">PRIMÁRIA = ANTES</span>.
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Vacinação, incentivo à atividade física, educação em saúde, orientação alimentar, prevenção do tabagismo e saneamento.
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>QUESTÃO 10.</strong> A vacinação de uma pessoa saudável contra determinada doença constitui exemplo clássico de prevenção:<br>
+        <ul class="arrow-list">
+          <li>A) secundária.</li>
+          <li>B) terciária.</li>
+          <li>C) quaternária.</li>
+          <li>D) primária.</li>
+          <li>E) paliativa.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: D</strong><br>
+          <strong>Comentário:</strong> A vacinação ocorre antes da doença se instalar, buscando evitar a ocorrência. Logo, é prevenção <span class="hl-yellow">primária</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">PREVENÇÃO SECUNDÁRIA E TERCIÁRIA</h3>
+
+      <p><strong>PREVENÇÃO SECUNDÁRIA:</strong> Busca <span class="hl-blue">detectar precocemente</span> e <span class="hl-blue">tratar oportunamente</span>. Exemplos clássicos: rastreamentos indicados, diagnóstico precoce, identificação de hipertensão.</p>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MACETE:</strong> <span class="hl-yellow">SECUNDÁRIA = DESCOBRIR CEDO</span>.
+        </div>
+      </div>
+
+      <p><strong>PREVENÇÃO TERCIÁRIA:</strong> Busca <span class="hl-blue">diminuir sequelas</span>, recuperar funções, favorecer reabilitação e evitar incapacidade adicional. Ex.: fisioterapia após AVC.</p>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MACETE:</strong> <span class="hl-yellow">TERCIÁRIA = REDUZIR DANOS / REABILITAR</span>.
+        </div>
+      </div>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Situação</th>
+            <th>Nível</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vacinação</td>
+            <td>Primária</td>
+          </tr>
+          <tr>
+            <td>Combate ao tabagismo antes do adoecimento</td>
+            <td>Primária</td>
+          </tr>
+          <tr>
+            <td>Orientação sobre hábitos saudáveis</td>
+            <td>Primária</td>
+          </tr>
+          <tr>
+            <td>Rastreamento indicado</td>
+            <td>Secundária</td>
+          </tr>
+          <tr>
+            <td>Diagnóstico precoce / Tratamento precoce</td>
+            <td>Secundária</td>
+          </tr>
+          <tr>
+            <td>Reabilitação após sequelas / Fisioterapia após AVC</td>
+            <td>Terciária</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>QUESTÃO 11.</strong> A realização de ação destinada à identificação precoce de determinada doença enquadra-se predominantemente em prevenção:<br>
+        <ul class="arrow-list">
+          <li>A) primária.</li>
+          <li>B) secundária.</li>
+          <li>C) terciária.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: B</strong><br>
+          <strong>Comentário:</strong> Identificação precoce = Descobrir cedo = <span class="hl-yellow">Prevenção Secundária</span>.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>QUESTÃO 12.</strong> A reabilitação de pessoa que apresenta sequelas após um acidente vascular cerebral corresponde predominantemente à prevenção:<br>
+        <ul class="arrow-list">
+          <li>A) primária.</li>
+          <li>B) secundária.</li>
+          <li>C) terciária.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong><br>
+          <strong>Comentário:</strong> Lidar com sequelas e buscar reabilitação após o adoecimento é <span class="hl-yellow">Prevenção Terciária</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">PROMOÇÃO DA SAÚDE VS. PREVENÇÃO</h3>
+      
+      <p>A <strong>Promoção da Saúde</strong> compreende estratégias voltadas à melhoria da qualidade de vida e à atuação sobre condicionantes e determinantes sociais, com articulação intersetorial e participação popular.</p>
+      
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>PALAVRAS-CHAVE DA PROMOÇÃO:</strong> Qualidade de vida + Autonomia + Determinantes Sociais + Participação + Intersetorialidade.
+        </div>
+      </div>
+
+      <div class="schema-container">
+        <div class="schema-root box-blue">PROMOÇÃO <br>X<br> PREVENÇÃO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow"><strong>PROMOÇÃO</strong><br>Alcance amplo. Foca em melhorar a vida.<br><em>Ex.: Praça para atividades físicas.</em></div>
+          <div class="schema-node box-yellow"><strong>PREVENÇÃO</strong><br>Foco mais direto. Evita doença ou agravo.<br><em>Ex.: Vacinação contra vírus específico.</em></div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>PEGADINHA:</strong> Promoção e Prevenção <span class="hl-red">NÃO são sinônimos perfeitos</span>. Eles podem atuar de forma complementar, mas possuem escopos diferentes.
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>QUESTÃO 13.</strong> A respeito da promoção da saúde, assinale a correta:<br>
+        <ul class="arrow-list">
+          <li>A) limita-se à prevenção de doenças transmissíveis.</li>
+          <li>B) corresponde <span class="hl-red">exclusivamente</span> à vacinação.</li>
+          <li>C) envolve estratégias de melhoria da qualidade de vida e atuação sobre determinantes da saúde.</li>
+          <li>D) <span class="hl-red">exclui</span> participação social.</li>
+          <li>E) compete <span class="hl-red">exclusivamente</span> aos médicos.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong><br>
+          <strong>Comentário:</strong> Promoção tem caráter amplo, melhorando determinantes sociais e a qualidade de vida global do indivíduo/comunidade.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">QUALIDADE DE VIDA, AUTOCUIDADO E HÁBITOS SAUDÁVEIS</h3>
+
+      <p>A Qualidade de Vida relaciona-se ao bem-estar em múltiplas dimensões: <span class="hl-blue">Física, Emocional, Social, Ambiental e Funcional</span>.</p>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div>
+          <strong>AUTOCUIDADO:</strong> É a participação da própria pessoa nos cuidados de saúde. O ACS pode <span class="hl-blue">informar, orientar, incentivar e apoiar</span>.
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>PEGADINHA:</strong> Autocuidado <span class="hl-red">NÃO</span> é abandonar o usuário para que "se vire sozinho". Ele deve ser sempre apoiado pela equipe.
+        </div>
+      </div>
+
+      <p><strong>ALIMENTAÇÃO E TABAGISMO:</strong> O ACS atua identificando riscos, incentivando alimentos <em>in natura</em>, combatendo o sedentarismo e estimulando a procura da UBS para cessação do tabagismo.</p>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>PEGADINHA:</strong> O ACS <span class="hl-red">NÃO</span> substitui o nutricionista e <span class="hl-red">NÃO deve prescrever medicamentos</span> para abandono do tabagismo.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">EDUCAÇÃO POPULAR E COMUNICAÇÃO EM SAÚDE</h3>
+
+      <p>A <span class="hl-blue">Lei nº 11.350/2006</span> coloca a Educação Popular em Saúde como referência para atuação dos ACS.</p>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MEMORIZE:</strong> Educação Popular valoriza: <span class="hl-yellow">Diálogo + Participação + Saber Popular + Conhecimento Científico + Autonomia</span>.
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>PEGADINHA:</strong> Educação Popular <span class="hl-red">NÃO significa</span> que o profissional fala e a população apenas obedece. É um processo <span class="hl-blue">dialógico e participativo</span>.
+        </div>
+      </div>
+
+      <p>Uma boa comunicação em saúde exige clareza, linguagem acessível, escuta, respeito, adequação cultural e <span class="hl-blue">ausência de julgamento</span>.</p>
+      
+      <div class="exemplo">
+        <strong>Exemplo de Comunicação Ruim:</strong> "Você tem que fazer isso porque estou mandando."<br>
+        <strong>Exemplo de Comunicação Boa:</strong> Explicar o motivo, ouvir as dificuldades e construir possibilidades junto com o usuário.
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>QUESTÃO 14.</strong> A Educação Popular em Saúde caracteriza-se principalmente pela:<br>
+        <ul class="arrow-list">
+          <li>A) imposição do conhecimento técnico.</li>
+          <li>B) transmissão unilateral de ordens.</li>
+          <li>C) valorização do diálogo e da interação entre diferentes saberes.</li>
+          <li>D) exclusão do conhecimento científico.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong><br>
+          <strong>Comentário:</strong> A essência da educação popular é o diálogo e a construção horizontal do conhecimento (Saber popular + Saber científico).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">ATIVIDADES EDUCATIVAS E GRUPOS</h3>
+
+      <ul class="check-list">
+        <li><strong>Orientação Individual:</strong> Pode ocorrer em visitas domiciliares, contatos na UBS ou encontros no território.</li>
+        <li><strong>Atividades Coletivas:</strong> Palestras dialogadas, oficinas, rodas de conversa, campanhas e ações em escolas.</li>
+        <li><strong>Grupos Educativos:</strong> Foco em gestantes, hipertensos, diabéticos, idosos, famílias, etc.</li>
+      </ul>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>IMPORTANTE:</strong> A atividade educativa é mais eficiente quando existe <span class="hl-blue">participação</span>, e <span class="hl-red">não apenas transmissão unilateral</span> de informação.
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>PEGADINHA:</strong> Grupo educativo <span class="hl-red">NÃO substitui</span> o atendimento individual clínico quando este for necessário para o usuário.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">MOBILIZAÇÃO COMUNITÁRIA E INTERSETORIALIDADE</h3>
+
+      <p>A <span class="hl-blue">Mobilização Comunitária</span> significa estimular a comunidade a participar da identificação e enfrentamento dos seus problemas. A comunidade não deve ser apenas receptora das decisões.</p>
+      
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MACETE - PARTICIPAÇÃO POPULAR:</strong> Fazer <span class="hl-yellow">COM</span> a comunidade, e <span class="hl-red">NÃO apenas PARA</span> a comunidade.
+        </div>
+      </div>
+
+      <p>A <strong>Intersetorialidade</strong> significa articular diferentes setores para enfrentar problemas complexos.</p>
+      
+      <div class="schema-container">
+        <div class="schema-root box-blue">PROBLEMA:<br>GRAVIDEZ NA<br>ADOLESCÊNCIA</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">Saúde (Acolhimento/Pré-natal)</div>
+          <div class="schema-node box-yellow">Educação (Escola)</div>
+          <div class="schema-node box-yellow">Assistência Social (Apoio)</div>
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>PEGADINHA:</strong> Intersetorialidade <span class="hl-red">NÃO é</span> encaminhar tudo para outro órgão e lavar as mãos (esquecer o caso). Trata-se de uma <span class="hl-blue">articulação entre diferentes políticas</span>!
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <strong>QUESTÃO 15.</strong> Uma UBS identifica que crianças da área apresentam problemas de saúde relacionados ao abandono escolar e articula ações com escola e assistência social. Essa atuação caracteriza:<br>
+        <ul class="arrow-list">
+          <li>A) integralização hospitalar.</li>
+          <li>B) centralização.</li>
+          <li>C) intersetorialidade.</li>
+          <li>D) contrarreferência.</li>
+        </ul>
+        <div class="gabarito-box">
+          <strong>Gabarito: C</strong><br>
+          <strong>Comentário:</strong> A união de diferentes setores (Saúde + Educação + Assistência Social) para resolver um problema complexo é a definição exata de <span class="hl-yellow">intersetorialidade</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">REVISÃO FINAL E PEGADINHAS MAIS COBRADAS</h3>
+
+      <table class="memorex-table">
+        <thead>
+          <tr>
+            <th>Afirmação de Prova</th>
+            <th>Gabarito</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Território é <span class="hl-red">apenas</span> espaço geográfico</td>
+            <td><span class="hl-red">ERRADO</span></td>
+          </tr>
+          <tr>
+            <td>O cadastro nunca precisa ser atualizado</td>
+            <td><span class="hl-red">ERRADO</span></td>
+          </tr>
+          <tr>
+            <td>Toda família deve receber visita com frequência <span class="hl-red">idêntica</span></td>
+            <td><span class="hl-red">ERRADO</span></td>
+          </tr>
+          <tr>
+            <td>O ACS pode fazer diagnóstico médico ou prescrever medicamento</td>
+            <td><span class="hl-red">ERRADO</span></td>
+          </tr>
+          <tr>
+            <td>Fator de risco significa <span class="hl-red">certeza</span> de desenvolver doença</td>
+            <td><span class="hl-red">ERRADO</span></td>
+          </tr>
+          <tr>
+            <td>Promoção e prevenção são <span class="hl-red">exatamente</span> sinônimos</td>
+            <td><span class="hl-red">ERRADO</span></td>
+          </tr>
+          <tr>
+            <td>Territorialização ajuda no planejamento em saúde</td>
+            <td><span class="hl-green">CERTO</span></td>
+          </tr>
+          <tr>
+            <td>Cadastro Individual refere-se à pessoa; o Domiciliar à moradia</td>
+            <td><span class="hl-green">CERTO</span></td>
+          </tr>
+          <tr>
+            <td>Visita domiciliar é atividade precípua (principal) do ACS</td>
+            <td><span class="hl-green">CERTO</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>SOBRE VISITAS E CADASTRO:</strong> O território na Atenção Primária é um espaço de população, relações, riscos e recursos (<span class="hl-red">não é</span> só cartográfico). O cadastro é dinâmico e <span class="hl-blue">deve ser atualizado sempre</span> que houver mudanças. A frequência de visitas domiciliares <span class="hl-red">não é igual para todos</span>; baseia-se em riscos e vulnerabilidades maiores, exigindo visitas mais frequentes. (Conforme Questões 1, 2, 3, 4, 5, 6, 7 e 8).
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>

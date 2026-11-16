@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Material Didático - Estilo Memorex</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { font-family: 'Montserrat', Arial, sans-serif; font-size: 13.5px; line-height: 1.55; color: #222; background: #e9ecef; margin: 0; padding: 20px; }
+  
+  .page { max-width: 210mm; margin: 0 auto 20px auto; background: #fff; padding: 18mm 16mm; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 4px; position: relative; }
+  
+  /* Cabeçalho da Página e Disciplina */
+  .top-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0c419; padding-bottom: 6px; margin-bottom: 18px; font-size: 11px; color: #555; font-weight: 600; }
+  .badge-memorex { background: linear-gradient(135deg, #1d3557, #457b9d); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; letter-spacing: 1px; }
+  .subject-banner { background: linear-gradient(90deg, #ffe066, #fab005); color: #111; text-align: center; font-weight: 800; font-size: 16px; padding: 8px 20px; border-radius: 25px; width: fit-content; margin: 0 auto 22px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.12); text-transform: uppercase; }
+
+  /* Tarja Amarela de DICA */
+  .dica-block { margin-bottom: 24px; page-break-inside: avoid; }
+  .dica-bar { background: linear-gradient(90deg, #fff3bf 0%, #fcc419 50%, #fff3bf 100%); border-top: 1px solid #f59f00; border-bottom: 1px solid #f59f00; text-align: center; font-weight: 800; font-size: 14px; color: #000; padding: 4px 0; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .dica-title { text-align: center; font-weight: 800; font-size: 13.5px; color: #111; text-transform: uppercase; margin: 0 0 12px 0; }
+
+  /* Destaques de Texto */
+  .hl-red { color: #d90429; font-weight: 700; }
+  .hl-blue { color: #00509d; font-weight: 700; }
+  .hl-green { color: #2b9348; font-weight: 700; }
+  .hl-yellow { background-color: #ffec99; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+
+  /* Listas Customizadas */
+  ul.arrow-list, ul.check-list { list-style: none; padding-left: 8px; margin: 8px 0; }
+  ul.arrow-list li, ul.check-list li { position: relative; padding-left: 22px; margin-bottom: 6px; text-align: justify; }
+  ul.arrow-list li::before { content: "➔"; position: absolute; left: 0; color: #e8590c; font-weight: bold; }
+  ul.check-list li::before { content: "✔"; position: absolute; left: 0; color: #2b8a3e; font-weight: bold; }
+
+  /* Caixas de Alerta (Atenção, Importante, Obs, Memorize) */
+  .callout { border-radius: 6px; padding: 10px 14px; margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; page-break-inside: avoid; }
+  .callout-icon { font-size: 18px; line-height: 1.2; }
+  .callout-atencao { background: #fff5f5; border: 1.5px solid #ffc9c9; border-left: 6px solid #e03131; }
+  .callout-importante { background: #e7f5ff; border: 1.5px solid #a5d8ff; border-left: 6px solid #1971c2; }
+  .callout-obs { background: #fff9db; border: 1.5px solid #ffec99; border-left: 6px solid #f08c00; }
+  .callout-memorize { background: #ebfbee; border: 1.5px solid #b2f2bb; border-left: 6px solid #2f9e44; }
+
+  .exemplo { background: #f8f9fa; border-left: 4px solid #495057; padding: 6px 12px; margin: 8px 0; font-size: 12.8px; color: #333; }
+
+  /* Ilustrações e Esquemas 3D (ESQUEMATIZANDO) */
+  .esquema-title { font-weight: 800; color: #1971c2; margin: 14px 0 8px 0; font-size: 13px; text-transform: uppercase; }
+  .schema-container { display: flex; align-items: center; justify-content: center; gap: 28px; margin: 14px 0; padding: 14px; background: #f8f9fa; border-radius: 8px; border: 1px dashed #ced4da; page-break-inside: avoid; }
+  .schema-root { padding: 14px 24px; font-weight: 800; font-size: 15px; border-radius: 6px; text-align: center; min-width: 140px; box-shadow: inset 0 2px 3px rgba(255,255,255,0.7), 0 3px 6px rgba(0,0,0,0.18); }
+  .schema-branches { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #748ffc; padding-left: 18px; position: relative; }
+  .schema-node { padding: 8px 16px; font-weight: 700; font-size: 12.5px; border-radius: 5px; text-align: center; position: relative; box-shadow: inset 0 2px 2px rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.15); }
+  .schema-node::before { content: "►"; position: absolute; left: -19px; top: 50%; transform: translateY(-50%); color: #4c6ef5; font-size: 11px; }
+  
+  /* Cores 3D das Caixas do Esquema */
+  .box-blue { background: linear-gradient(180deg, #cce5ff 0%, #74c0fc 100%); border: 1px solid #339af0; color: #002855; }
+  .box-yellow { background: linear-gradient(180deg, #fff3bf 0%, #ffd43b 100%); border: 1px solid #f08c00; color: #3b2800; }
+
+  /* Grade de Blocos (Estilo página 32) */
+  .schema-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 12px 0; }
+  .schema-grid .schema-node::before { content: none; }
+
+  /* Tabelas */
+  .memorex-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.5px; page-break-inside: avoid; }
+  .memorex-table th { background: #1971c2; color: #fff; font-weight: 700; padding: 8px 10px; border: 1px solid #1864ab; text-align: center; }
+  .memorex-table td { padding: 7px 10px; border: 1px solid #dee2e6; text-align: center; }
+  .memorex-table tr:nth-child(even) { background: #f1f3f5; }
+
+  /* Quadro de Questão de Prova */
+  .questao-box { background: #f3f0ff; border: 1.5px solid #d0bfff; border-left: 6px solid #7048e8; border-radius: 6px; padding: 14px; margin: 18px 0; page-break-inside: avoid; }
+  .questao-header { font-weight: 800; color: #5f3dc4; margin-bottom: 8px; font-size: 13.5px; }
+  .gabarito-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #b197fc; font-size: 12.5px; }
+
+  /* Impressão PDF */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; margin: 0; width: 100%; max-width: 100%; padding: 10mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-header">
+      <span>MATERIAL DE REVISÃO ACELERADA - RODADA 01</span>
+      <span class="badge-memorex">MEMOREX</span>
+    </div>
+
+    <div class="subject-banner">RACIOCÍNIO LÓGICO</div>
+
+    <!-- DICA 01 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 01</div>
+      <h3 class="dica-title">LÓGICA DE ARGUMENTAÇÃO: CONCEITO E ESTRUTURA</h3>
+      
+      <p>A lógica de argumentação estuda a relação entre premissas e conclusões. Em provas de concursos, o candidato deve verificar se determinada conclusão decorre <span class="hl-red">necessariamente</span> das informações fornecidas, <span class="hl-red">sem</span> acrescentar suposições pessoais.</p>
+      
+      <div class="esquema-title">ESQUEMATIZANDO: CONCEITO DE ARGUMENTO LÓGICO</div>
+      <div class="schema-container">
+        <div class="schema-root box-blue">ARGUMENTO<br>LÓGICO</div>
+        <div class="schema-branches">
+          <div class="schema-node box-yellow">PREMISSAS: Informações utilizadas como ponto de partida (Fundamento)</div>
+          <div class="schema-node box-yellow">CONCLUSÃO: Proposição que se pretende demonstrar</div>
+        </div>
+      </div>
+
+      <p>A ideia central é simples: se as premissas forem verdadeiras, a conclusão deve <span class="hl-yellow">necessariamente ser verdadeira</span> - isso caracteriza um <span class="hl-blue">argumento válido</span>.</p>
+
+      <div class="exemplo">
+        <strong>Exemplo 1:</strong><br>
+        Todo agente público deve respeitar a legalidade. <em>(1ª premissa)</em><br>
+        Carlos é agente público. <em>(2ª premissa)</em><br>
+        Logo, Carlos deve respeitar a legalidade. <em>(conclusão)</em>
+      </div>
+
+      <p>Existem palavras que indicam se a frase é uma premissa ou uma conclusão. <span class="hl-yellow">Fique atento aos indicadores!</span></p>
+      
+      <ul class="arrow-list">
+        <li><strong>Indicadores de conclusão:</strong> logo, portanto, assim, consequentemente, por conseguinte, desse modo, conclui-se que, então.</li>
+        <li><strong>Indicadores de premissa:</strong> porque, pois, uma vez que, visto que, dado que, considerando que, já que.</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Exemplo 2:</strong> João será aprovado, <strong>pois</strong> estudou durante todo o ano.<br>
+        O "pois" introduz a premissa <em>(João estudou durante todo o ano)</em>. A conclusão é <em>(João será aprovado)</em>.
+      </div>
+    </div>
+
+    <!-- DICA 02 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 02</div>
+      <h3 class="dica-title">VALIDADE E VERDADE</h3>
+      
+      <p>As propriedades de "verdade" e "validade" aplicam-se a elementos distintos na lógica:</p>
+      <ul class="check-list">
+        <li><strong>Verdade e falsidade:</strong> são propriedades das <span class="hl-blue">proposições</span> (ex: Fortaleza é a capital do Ceará).</li>
+        <li><strong>Validade e invalidade:</strong> são propriedades dos <span class="hl-blue">argumentos</span>.</li>
+      </ul>
+
+      <p>Um argumento é válido quando, supondo-se verdadeiras todas as premissas, a conclusão <span class="hl-red">não pode ser falsa</span>. Ou seja, as premissas dão base à conclusão.</p>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>IMPORTANTE: REGRA FUNDAMENTAL!</strong><br>
+          Um argumento é <span class="hl-red">inválido</span> quando existe pelo menos uma situação em que: todas as premissas são verdadeiras <strong>E</strong> a conclusão é falsa. É possível formar um argumento inválido com premissas/conclusões verdadeiras!
+        </div>
+      </div>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>ATENÇÃO!! PEGADINHA:</strong> A validade depende da <strong>estrutura</strong>, e <span class="hl-red">não</span> da veracidade do conteúdo.
+        </div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex. de Argumento Válido com Premissa Falsa:</strong><br>
+        Todo peixe é mamífero. <em>(Falsa)</em><br>
+        A sardinha é peixe. <em>(Verdadeira)</em><br>
+        Logo, a sardinha é mamífero. <em>(Falsa, mas o argumento é VÁLIDO estruturalmente)</em>.
+      </div>
+    </div>
+
+    <!-- DICA 03 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 03</div>
+      <h3 class="dica-title">ARGUMENTOS DEDUTIVOS E INDUTIVOS</h3>
+      
+      <table class="memorex-table">
+        <tr>
+          <th>DEDUÇÃO</th>
+          <th>INDUÇÃO</th>
+        </tr>
+        <tr>
+          <td>Conclusão <span class="hl-blue">necessária</span></td>
+          <td>Conclusão <span class="hl-blue">provável</span> (mas não garantida)</td>
+        </tr>
+        <tr>
+          <td>Parte de regras gerais</td>
+          <td>Parte de casos observados</td>
+        </tr>
+        <tr>
+          <td>Busca validade formal</td>
+          <td>Busca grau de confirmação</td>
+        </tr>
+        <tr>
+          <td><span class="hl-red">Não</span> admite exceção, se válido</td>
+          <td>Admite possibilidade de exceção</td>
+        </tr>
+      </table>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MEMORIZE PARA A PROVA:</strong><br>
+          - Palavras como <em>"necessariamente"</em>, <em>"obrigatoriamente"</em> e <em>"decorre logicamente"</em> costumam indicar raciocínio <span class="hl-blue">dedutivo</span>.<br>
+          - Palavras como <em>"provavelmente"</em>, <em>"possivelmente"</em> e <em>"é razoável supor"</em> indicam raciocínio <span class="hl-blue">indutivo</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 04 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 04</div>
+      <h3 class="dica-title">SILOGISMO CATEGÓRICO</h3>
+
+      <p>Silogismo é um argumento formado tradicionalmente por duas premissas e uma conclusão. Ele é estruturado por três termos principais:</p>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>TERMO MAIOR</strong><br>Aparece no predicado da conclusão</div>
+        <div class="schema-node box-blue"><strong>TERMO MENOR</strong><br>Aparece no sujeito da conclusão</div>
+        <div class="schema-node box-blue"><strong>TERMO MÉDIO</strong><br>Aparece nas premissas, <span class="hl-red">não</span> na conclusão</div>
+      </div>
+
+      <div class="exemplo">
+        <strong>Ex.:</strong> Todo homem (médio) é mortal (maior). Sócrates (menor) é homem (médio). Logo, Sócrates (menor) é mortal (maior).
+      </div>
+
+      <p><strong>Encadeamento de classes:</strong> Todo A é B. Todo B é C. Logo, todo A é C. (Argumento válido).</p>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>ATENÇÃO!! INVERSÃO INDEVIDA:</strong><br>
+          De <span class="hl-blue">Todo A é B</span>, <span class="hl-red">NÃO</span> se conclui <span class="hl-blue">Todo B é A</span>. (Ex: Todo advogado é bacharel em Direito. Mas nem todo bacharel em Direito é advogado).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 05 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 05</div>
+      <h3 class="dica-title">DIAGRAMAS LÓGICOS E PROPOSIÇÕES CATEGÓRICAS</h3>
+      
+      <p>Diagramas de Venn representam graficamente conjuntos. São utilizados para interpretar quantificadores lógicos:</p>
+      
+      <ul class="check-list">
+        <li><strong><span class="hl-blue">Todo A é B</span></strong>: Todos os elementos de A pertencem a B (<span class="hl-blue">A ⊆ B</span>). <em>(Pode haver B que não seja A)</em>.</li>
+        <li><strong><span class="hl-blue">Nenhum A é B</span></strong>: Os conjuntos <span class="hl-red">não</span> possuem elementos em comum (<span class="hl-blue">A ∩ B = ∅</span>).</li>
+        <li><strong><span class="hl-blue">Algum A é B</span></strong>: Existe pelo menos um elemento comum aos conjuntos A e B (<span class="hl-blue">A ∩ B ≠ ∅</span>).</li>
+        <li><strong><span class="hl-blue">Algum A não é B</span></strong>: Existe pelo menos um elemento de A que está fora de B.</li>
+      </ul>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div>
+          <strong>OBS.:</strong> Em lógica, a palavra <span class="hl-yellow">"algum"</span> significa estritamente <span class="hl-yellow">"pelo menos um"</span>.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 06 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 06</div>
+      <h3 class="dica-title">OPERAÇÕES COM CONJUNTOS</h3>
+
+      <ul class="arrow-list">
+        <li><strong>União (<span class="hl-blue">A U B</span>):</strong> Elementos que pertencem a A, a B, ou aos dois.</li>
+        <li><strong>Interseção (<span class="hl-blue">A ∩ B</span>):</strong> Elementos que pertencem simultaneamente aos dois.</li>
+        <li><strong>Diferença (<span class="hl-blue">A - B</span>):</strong> Elementos que pertencem a A, mas <span class="hl-red">não</span> a B. (<span class="hl-red">A ordem importa:</span> A - B ≠ B - A).</li>
+        <li><strong>Complementar (<span class="hl-blue">A<sup>c</sup></span> ou <span class="hl-blue">Ā</span>):</strong> Elementos do universo que <span class="hl-red">não</span> pertencem a A.</li>
+        <li><strong>Disjuntos:</strong> <span class="hl-red">Não</span> possuem elementos em comum (<span class="hl-blue">A ∩ B = ∅</span>).</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Número de elementos da união (2 conjuntos):</strong><br>
+        <span class="hl-yellow">n(A U B) = n(A) + n(B) - n(A ∩ B)</span><br>
+        <em>Subtrai-se a interseção porque ela foi contada duas vezes.</em>
+      </div>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MEMORIZE A FÓRMULA DE TRÊS CONJUNTOS:</strong><br>
+          <span class="hl-blue">n(A U B U C) = n(A) + n(B) + n(C) - n(A ∩ B) - n(A ∩ C) - n(B ∩ C) + n(A ∩ B ∩ C)</span><br>
+          <strong>Dica:</strong> 1. some os conjuntos individuais; 2. subtraia as interseções duplas; 3. some novamente a interseção tripla.
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 07 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 07</div>
+      <h3 class="dica-title">REGRAS DE INFERÊNCIA</h3>
+
+      <p>São formas válidas de obter conclusões a partir de premissas.</p>
+
+      <div class="schema-grid">
+        <div class="schema-node box-blue"><strong>MODUS PONENS</strong><br>Se p, então q. <br>p. <br>Logo, q.</div>
+        <div class="schema-node box-blue"><strong>MODUS TOLLENS</strong><br>Se p, então q. <br>~q (Não q). <br>Logo, ~p (Não p).</div>
+        <div class="schema-node box-blue"><strong>SILOGISMO HIPOTÉTICO</strong><br>p → q.<br>q → r.<br>∴ p → r.</div>
+        <div class="schema-node box-blue"><strong>SILOGISMO DISJUNTIVO</strong><br>p ou q.<br>~p.<br>Logo, q.</div>
+      </div>
+
+      <div class="callout callout-importante">
+        <span class="callout-icon">📌</span>
+        <div>
+          <strong>IMPORTANTE:</strong><br>
+          - O <strong>Modus Ponens</strong> afirma o antecedente para concluir o consequente.<br>
+          - O <strong>Modus Tollens</strong> nega o consequente para negar o antecedente.
+        </div>
+      </div>
+
+      <p>Outras regras válidas menos comuns, mas exigidas:</p>
+      <ul class="arrow-list">
+        <li><strong>Adição:</strong> p. Logo, p ou q. <em>(Na disjunção inclusiva, basta uma das proposições ser verdadeira)</em>.</li>
+        <li><strong>Simplificação:</strong> p e q. Logo, p.</li>
+        <li><strong>Conjunção:</strong> p. / q. Logo, p e q.</li>
+        <li><strong>Dilema Construtivo:</strong> Se p → r. / Se q → s. / p ou q. / Logo, r ou s.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 08 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 08</div>
+      <h3 class="dica-title">REGRAS INVÁLIDAS MAIS COBRADAS (FALÁCIAS FORMAIS)</h3>
+
+      <table class="memorex-table">
+        <tr>
+          <th>TIPO / ESTRUTURA</th>
+          <th>EXEMPLO</th>
+          <th>RESULTADO</th>
+        </tr>
+        <tr>
+          <td><strong>Modus Ponens</strong><br>p → q; p; logo q</td>
+          <td>Se chove, molha. Chove. Logo, molha.</td>
+          <td><span class="hl-green">VÁLIDA</span></td>
+        </tr>
+        <tr>
+          <td><strong>Modus Tollens</strong><br>p → q; ~q; logo ~p</td>
+          <td>Se chove, molha. Não molhou. Logo, não choveu.</td>
+          <td><span class="hl-green">VÁLIDA</span></td>
+        </tr>
+        <tr>
+          <td><strong>Afirmação do Consequente</strong><br>p → q; q; logo p</td>
+          <td>Se chove, molha. Molhou. Logo, choveu. <em>(Pode ter sido lavado com mangueira)</em>.</td>
+          <td><span class="hl-red">INVÁLIDA</span></td>
+        </tr>
+        <tr>
+          <td><strong>Negação do Antecedente</strong><br>p → q; ~p; logo ~q</td>
+          <td>Se é cearense, é brasileiro. Não é cearense. Logo, não é brasileiro.</td>
+          <td><span class="hl-red">INVÁLIDA</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- DICA 09 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 09</div>
+      <h3 class="dica-title">ANALOGIAS</h3>
+
+      <p>Analogia é uma relação de semelhança entre pares de elementos. Estrutura básica: <span class="hl-yellow">A está para B assim como C está para D.</span></p>
+
+      <ul class="arrow-list">
+        <li><strong>Profissional e instrumento:</strong> Médico / estetoscópio ➔ Carpinteiro / serrote.</li>
+        <li><strong>Objeto e função:</strong> Termômetro / medir ➔ Balança / pesar.</li>
+        <li><strong>Parte e todo:</strong> Página / livro ➔ Capítulo / obra.</li>
+        <li><strong>Causa e efeito:</strong> Estudo / aprovação ➔ Treinamento / desempenho.</li>
+        <li><strong>Grau de intensidade:</strong> Morno / quente ➔ Frio / gelado.</li>
+      </ul>
+
+      <div class="callout callout-memorize">
+        <span class="callout-icon">🧠</span>
+        <div>
+          <strong>MÉTODO DE RESOLUÇÃO:</strong><br>
+          1. Identifique a relação entre o primeiro par;<br>
+          2. Formule a relação em uma frase;<br>
+          3. Aplique a MESMA frase ao segundo par;<br>
+          4. Elimine alternativas com relação apenas superficial. <br>
+          <em><span class="hl-red">Não</span> basta que as palavras pertençam ao mesmo tema. A relação deve ser exatamente equivalente!</em>
+        </div>
+      </div>
+
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(UNESC - Prefeitura de Criciúma - 2023)</strong> Observe o diálogo abaixo:<br>
+        P: Gostaria de andar tão bem arrumada quanto você.<br>
+        Q: Para andar arrumada eu procuro comprar roupas boas, portanto, se você também comprar, conseguirá andar arrumada.<br>
+        Qual é o tipo de raciocínio que fundamenta a resposta Q?</p>
+        <p>
+          A) Antagonismo.<br>
+          B) Analogia.<br>
+          C) Diferenciação.<br>
+          D) Ideologia.<br>
+          E) Comparação.
+        </p>
+        <div class="gabarito-box">
+          <strong>Gabarito: B.</strong> A resposta de Q utiliza um raciocínio por analogia, pois parte da ideia de que o mesmo procedimento adotado por uma pessoa produzirá o mesmo resultado para outra. (Se funcionou para uma situação semelhante, também funcionará para a outra).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA 10 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 10</div>
+      <h3 class="dica-title">SOFISMAS E FALÁCIAS (PARTE 1)</h3>
+
+      <p><span class="hl-blue">Falácia</span> é um erro de raciocínio que pode parecer correto, mas não apresenta justificativa lógica. <span class="hl-blue">Sofisma</span> é uma falácia utilizada de maneira intencional para enganar.</p>
+
+      <div class="callout callout-atencao">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <strong>CUIDADO:</strong> Em provas, os termos podem aparecer como sinônimos.
+        </div>
+      </div>
+
+      <ul class="check-list">
+        <li><strong>Falácia Ad Hominem:</strong> Ataca-se a pessoa em vez de discutir seu argumento.</li>
+        <li><strong>Apelo à Autoridade:</strong> Considerada verdadeira apenas porque foi apresentada por alguém famoso (substitui as evidências).</li>
+        <li><strong>Apelo à Maioria:</strong> Afirma-se que algo é verdadeiro porque muitas pessoas acreditam nisso (popularidade não garante veracidade).</li>
+        <li><strong>Falso Dilema:</strong> Apresentam-se apenas duas opções, embora existam outras possibilidades.</li>
+        <li><strong>Generalização Apressada:</strong> Conclusão geral com base em <span class="hl-red">poucos</span> casos isolados.</li>
+        <li><strong>Falsa Causa:</strong> Conclui-se que um evento causou outro apenas porque ocorreu antes dele.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 11 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 11</div>
+      <h3 class="dica-title">SOFISMAS E FALÁCIAS (PARTE 2)</h3>
+
+      <ul class="check-list">
+        <li><strong>Petição de Princípio:</strong> A conclusão é utilizada como fundamento de si mesma (o argumento apenas repete a conclusão).</li>
+        <li><strong>Espantalho:</strong> A posição de alguém é distorcida/modificada para ser mais facilmente atacada.</li>
+        <li><strong>Declive Escorregadio:</strong> Afirma-se que uma medida inicial levará <span class="hl-red">inevitavelmente</span> a consequências extremas.</li>
+        <li><strong>Falácia da Composição:</strong> Atribui-se ao <strong>todo</strong> uma propriedade observada em suas partes.</li>
+        <li><strong>Falácia da Divisão:</strong> Atribui-se a cada <strong>parte</strong> uma propriedade pertencente ao todo.</li>
+        <li><strong>Apelo à Ignorância:</strong> Afirma-se que algo é verdadeiro apenas porque <span class="hl-red">ninguém provou</span> que seja falso. A ausência de prova não prova a inexistência.</li>
+        <li><strong>Circularidade:</strong> O argumento retorna ao ponto inicial sem apresentar justificativa independente.</li>
+      </ul>
+    </div>
+
+    <!-- DICA 12 -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA 12</div>
+      <h3 class="dica-title">ASSOCIAÇÃO LÓGICA E ORDEM</h3>
+
+      <p>Problemas de associação lógica exigem relacionar diferentes categorias (pessoas, profissões, cidades, etc). Para resolver, utilize o <span class="hl-yellow">MÉTODO DA TABELA</span> e a <span class="hl-blue">Regra da Exclusão</span>.</p>
+
+      <ul class="arrow-list">
+        <li><strong>Afirmação direta:</strong> Marque imediatamente (Ex: Ana é médica).</li>
+        <li><strong>Negação direta:</strong> Elimine a possibilidade (Ex: Bruno <span class="hl-red">não</span> é professor).</li>
+        <li><strong>Condicional:</strong> "Se Bruno mora em Fortaleza, então Ana é médica". <span class="hl-red">Não</span> conclua automaticamente que Bruno mora em Fortaleza, apenas registre a consequência.</li>
+      </ul>
+
+      <div class="exemplo">
+        <strong>Exemplo de Resolução com Exclusão:</strong><br>
+        Se existem 3 pessoas e 3 profissões diferentes, ao confirmar que <em>Bruno é professor</em>, marca-se "✔" na coluna Professor para Bruno, e obrigatoriamente "X" nas profissões de Médico e Advogado para ele, além de "X" na coluna Professor para os demais.
+      </div>
+
+      <div class="callout callout-obs">
+        <span class="callout-icon">🔎</span>
+        <div>
+          <strong>ASSOCIAÇÃO COM ORDEM:</strong><br>
+          Em problemas de ordem (quem chegou antes/depois), use <span class="hl-blue">setas ou sinais lógicos (&lt;)</span>. <br>
+          Ex: Daniel &lt; Bruno &lt; Carlos &lt; Ana (Daniel chegou antes de Bruno, etc).
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA BÔNUS -->
+    <div class="dica-block">
+      <div class="dica-bar">DICA BÔNUS</div>
+      <h3 class="dica-title">QUESTÕES DE FIXAÇÃO INICIAIS (SEQUÊNCIAS E LÓGICA)</h3>
+      
+      <div class="questao-box">
+        <div class="questao-header">🔎 Veja como já foi cobrado em prova:</div>
+        <p><strong>(Prefeitura de Promissão - SP - 2026)</strong> Uma equipe de criptografia desenvolveu um código alfabético baseado na posição das letras: D, H, K, O, R, ...<br>
+        As posições no alfabeto são 4, 8, 11, 15 e 18. Com base na regularidade observada, determine a posição da próxima letra da sequência.</p>
+        <p>
+          A) A próxima letra ocupa a posição 20.<br>
+          B) A próxima letra ocupa a posição 23.<br>
+          C) A próxima letra ocupa a posição 21.<br>
+          D) A próxima letra ocupa a posição 22.
+        </p>
+        <div class="gabarito-box">
+          <strong>Gabarito: D.</strong><br>
+          Analisando a diferença de posições: <br>
+          De 4 para 8 (+4) <br>
+          De 8 para 11 (+3) <br>
+          De 11 para 15 (+4) <br>
+          De 15 para 18 (+3) <br>
+          O padrão de avanço alterna entre +4 e +3. Logo, o próximo avanço é +4 (18 + 4 = 22).
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
