@@ -1,197 +1,751 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Estudos - ACS</title>
+    <title>Memorex ACS | Dashboard de Estudos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root[data-theme="dark"] {
+            --bg-main: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-card-hover: #1e293b;
+            --bg-glass: rgba(21, 28, 44, 0.85);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #263147;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        :root[data-theme="light"] {
+            --bg-main: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8fafc;
+            --bg-glass: rgba(255, 255, 255, 0.88);
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+        }
+
         :root {
-            --bg-color: #f4f7f6;
-            --container-bg: #ffffff;
-            --text-main: #333333;
-            --accent-color: #0056b3;
-            --hover-color: #004494;
-            --border-color: #e1e4e8;
-            --sheet-color: #107c41;
+            --c-sus: #10b981;
+            --c-port: #3b82f6;
+            --c-rlm: #8b5cf6;
+            --c-info: #f59e0b;
+            --c-hist: #f43f5e;
+            --c-sheet: #059669;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 15px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
             line-height: 1.5;
+            padding-bottom: 60px;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* Header / Hero */
+        .hero {
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.15), transparent 55%),
+                        radial-gradient(circle at top left, rgba(16, 185, 129, 0.15), transparent 55%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 28px 20px 24px;
         }
 
         .container {
-            max-width: 950px;
+            max-width: 1120px;
             margin: 0 auto;
-            background: var(--container-bg);
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        h1 {
-            text-align: center;
-            color: var(--accent-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-top: 0;
-            margin-bottom: 20px;
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
         }
 
-        .top-bar {
-            text-align: center;
-            margin-bottom: 30px;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--c-sus), var(--c-port));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-text span {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--c-port);
         }
 
         .btn-sheet {
-            display: inline-block;
-            background-color: var(--sheet-color);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: #ffffff;
-            padding: 10px 18px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
+            border: none;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+        }
+
+        .btn-sheet:hover {
+            opacity: 0.95;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Painel de Progresso */
+        .stats-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px 22px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stats-info {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .stats-info strong {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--c-sus);
+        }
+
+        .stats-info span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .btn-reset:hover {
+            color: var(--c-hist);
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 10px;
+            background: var(--bg-main);
+            border-radius: 99px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--c-port), var(--c-sus));
+            border-radius: 99px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Barra de Pesquisa e Filtros Fixa */
+        .controls-Sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: var(--bg-glass);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 20px;
+            margin-bottom: 28px;
+        }
+
+        .controls-wrapper {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1 1 280px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 11px 16px 11px 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 0.92rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--c-port);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
             font-size: 0.95rem;
+            pointer-events: none;
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+        }
+
+        .filter-pills::-webkit-scrollbar {
+            display: none;
+        }
+
+        .pill {
+            padding: 8px 14px;
+            border-radius: 99px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .pill:hover {
+            color: var(--text-primary);
+        }
+
+        .pill.active {
+            background: var(--text-primary);
+            color: var(--bg-main);
+            border-color: var(--text-primary);
+        }
+
+        /* Categorias e Grid de Cards */
+        .main-content {
+            padding: 0 20px;
         }
 
         .category {
-            margin-bottom: 30px;
+            margin-bottom: 36px;
         }
 
-        .category h2 {
-            font-size: 1.3rem;
-            color: #444;
-            margin-bottom: 14px;
-            padding-left: 10px;
-            border-left: 4px solid var(--accent-color);
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.18rem;
+            font-weight: 700;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .badge-count {
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 99px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
         }
 
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 14px;
         }
 
-        .links-grid a {
-            display: block;
-            padding: 12px 14px;
-            background-color: #f8f9fa;
-            color: var(--text-main);
-            text-decoration: none;
+        .topic-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-left: 4px solid var(--cat-color, var(--c-port));
+            border-radius: 12px;
+            padding: 14px 16px;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .topic-card:hover {
+            transform: translateY(-3px);
+            background: var(--bg-card-hover);
+            border-color: var(--cat-color, var(--c-port));
+        }
+
+        .topic-card.done {
+            opacity: 0.68;
+            border-left-color: var(--c-sus);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .topic-card.done .topic-link {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+        }
+
+        .topic-link {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
             font-size: 0.92rem;
-            transition: all 0.2s ease-in-out;
         }
 
-        .links-grid a:hover, .links-grid a:active {
-            background-color: var(--accent-color);
+        .topic-num {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .check-btn {
+            width: 26px;
+            height: 26px;
+            border-radius: 7px;
+            border: 2px solid var(--border-color);
+            background: transparent;
+            color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .check-btn:hover {
+            border-color: var(--c-sus);
+        }
+
+        .topic-card.done .check-btn {
+            background: var(--c-sus);
+            border-color: var(--c-sus);
             color: #ffffff;
-            border-color: var(--hover-color);
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 640px) {
             .links-grid {
                 grid-template-columns: 1fr;
+            }
+            .top-nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .top-actions {
+                justify-content: space-between;
+            }
+            .btn-sheet {
+                flex: 1;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>📚 Painel de Estudos - ACS (46 Resumos)</h1>
+<header class="hero">
+    <div class="container">
+        <div class="top-nav">
+            <div class="brand">
+                <div class="brand-logo">⚡</div>
+                <div class="brand-text">
+                    <h1>Memorex ACS</h1>
+                    <span>Painel Interativo de Estudos • 46 Resumos</span>
+                </div>
+            </div>
+            <div class="top-actions">
+                <a class="btn btn-sheet" href="https://docs.google.com/spreadsheets/d/1x0YYgQ4AErH-sG_EPcoL3pDUEsV7ZsWFb02JMiYMqPo/edit" target="_blank">
+                    📊 Abrir Planilha de Metas
+                </a>
+                <button class="btn" id="themeToggle" title="Alternar Tema">
+                    ☀️ / 🌙
+                </button>
+            </div>
+        </div>
 
-    <div class="top-bar">
-        <a class="btn-sheet" href="https://docs.google.com/spreadsheets/d/1x0YYgQ4AErH-sG_EPcoL3pDUEsV7ZsWFb02JMiYMqPo/edit" target="_blank">
-            📊 Abrir Cronograma no Google Planilhas
-        </a>
-    </div>
-
-    <div class="category">
-        <h2>Conhecimentos Específicos & SUS (14)</h2>
-        <div class="links-grid">
-            <a href="SAÚDE PÚBLICA E SISTEMA ÚNICO DE SAÚDE.html">Saúde Pública e Sistema Único de Saúde (SUS)</a>
-            <a href="LEGISLAÇÃO DO SUS (LEI 8.080 E 8.142).html">Legislação do SUS (Lei 8.080 e 8.142)</a>
-            <a href="CONHECIMENTOS ESPECÍFICOS - APS E PNAB.html">Conhecimentos Específicos - APS e PNAB</a>
-            <a href="ATRIBUIÇÕES COMUNS NA ATENÇÃO BÁSICA.html">Atribuições Comuns na Atenção Básica</a>
-            <a href="CONHECIMENTOS ESPECÍFICOS - ACS.html">Conhecimentos Específicos - ACS</a>
-            <a href="CONHECIMENTOS ESPECÍFICOS - AGENTE COMUNITÁRIO DE SAÚDE.html">Conhecimentos Específicos - Agente Comunitário de Saúde</a>
-            <a href="INFORMAÇÃO, PLANEJAMENTO E TRABALHO DO ACS.html">Informação, Planejamento e Trabalho do ACS</a>
-            <a href="PROMOÇÃO, PREVENÇÃO E EDUCAÇÃO EM SAÚDE.html">Promoção, Prevenção e Educação em Saúde</a>
-            <a href="VIGILÂNCIA EM SAÚDE E SANEAMENTO BÁSICO.html">Vigilância em Saúde e Saneamento Básico</a>
-            <a href="VIGILÂNCIA EPIDEMIOLÓGICA - NOTIFICAÇÃO COMPULSÓRIA.html">Vigilância Epidemiológica - Notificação Compulsória</a>
-            <a href="CONHECIMENTOS ESPECÍFICOS - DCNT E VIGILÂNCIA EM SAÚDE.html">DCNT e Vigilância em Saúde</a>
-            <a href="CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA.html">Saúde nos Ciclos de Vida</a>
-            <a href="REVISÃO DE VÉSPERA - SAÚDE DA MULHER, CRIANÇA E IDOSO.html">Revisão de Véspera: Saúde da Mulher, Criança e Idoso</a>
-            <a href="IMUNIZAÇÃO - AGENTE COMUNITÁRIO DE SAÚDE.html">Imunização - Agente Comunitário de Saúde</a>
+        <div class="stats-card">
+            <div class="stats-header">
+                <div class="stats-info">
+                    <strong id="progressPercent">0%</strong>
+                    <span id="progressCount">0 de 46 resumos concluídos</span>
+                </div>
+                <button class="btn-reset" id="resetProgress">Zerar marcações</button>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
         </div>
     </div>
+</header>
 
-    <div class="category">
-        <h2>Língua Portuguesa (14)</h2>
-        <div class="links-grid">
-            <a href="LÍNGUA PORTUGUESA - COMPREENSÃO E INTERPRETAÇÃO.html">Compreensão e Interpretação de Textos</a>
-            <a href="TIPOLOGIA TEXTUAL X GÊNEROS TEXTUAIS - DISTINÇÕES.html">Tipologia Textual x Gêneros Textuais - Distinções</a>
-            <a href="INTRODUÇÃO E CONCEITO DE TEXTUALIDADE.html">Introdução e Conceito de Textualidade</a>
-            <a href="SINONÍMIA E ANTONÍMIA.html">Sinonímia e Antonímia</a>
-            <a href="ELEMENTOS MÓRFICOS E RADICAL.html">Elementos Mórficos e Radical</a>
-            <a href="CONCEITO E O NOVO ACORDO ORTOGRÁFICO.html">Conceito e o Novo Acordo Ortográfico</a>
-            <a href="ORTOGRAFIA - ACENTUAÇÃO E HÍFEN.html">Ortografia - Acentuação e Hífen</a>
-            <a href="CONCEITO E REGRA PRÁTICA.html">Conceito e Regra Prática (Acentuação/Ortografia)</a>
-            <a href="LÍNGUA PORTUGUESA - CLASSES DE PALAVRAS.html">Língua Portuguesa - Classes de Palavras</a>
-            <a href="SINTAXE x MORFOLOGIA - CONCEITOS FUNDAMENTAIS.html">Sintaxe x Morfologia - Conceitos Fundamentais</a>
-            <a href="CONCEITOS GERAIS DE SINTAXE.html">Conceitos Gerais de Sintaxe</a>
-            <a href="PONTUAÇÃO - CONCEITO E DIVISÃO.html">Pontuação - Conceito e Divisão</a>
-            <a href="FIGURAS DE LINGUAGEM - CONCEITOS E PALAVRAS.html">Figuras de Linguagem - Conceitos e Palavras</a>
-            <a href="O QUE É E QUAIS OS OBJETIVOS DA REDAÇÃO OFICIAL.html">O que é e Quais os Objetivos da Redação Oficial</a>
+<div class="controls-Sticky">
+    <div class="controls-wrapper">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Pesquisar assunto (ex: SUS, Sintaxe, Imunização, PG)...">
+        </div>
+        <div class="filter-pills">
+            <button class="pill active" data-filter="all">Todos (46)</button>
+            <button class="pill" data-filter="sus">Específicos & SUS (14)</button>
+            <button class="pill" data-filter="port">Português (14)</button>
+            <button class="pill" data-filter="rlm">Raciocínio Lógico (12)</button>
+            <button class="pill" data-filter="info">Informática (4)</button>
+            <button class="pill" data-filter="hist">História/Geo (2)</button>
         </div>
     </div>
-
-    <div class="category">
-        <h2>Raciocínio Lógico & Matemática (12)</h2>
-        <div class="links-grid">
-            <a href="O QUE É RACIOCÍNIO LÓGICO E SUA IMPORTÂNCIA.html">O que é Raciocínio Lógico e sua Importância</a>
-            <a href="LÓGICA PROPOSICIONAL - CONTRAPOSITIVA E BICONDICIONAL.html">Lógica Proposicional: Contrapositiva e Bicondicional</a>
-            <a href="PROPOSIÇÕES CATEGÓRICAS - FORMAS CLÁSSICAS.html">Proposições Categóricas - Formas Clássicas</a>
-            <a href="PROBLEMAS LÓGICOS QUANTITATIVOS.html">Problemas Lógicos Quantitativos</a>
-            <a href="VERDADES E MENTIRAS - O MÉTODO DAS HIPÓTESES.html">Verdades e Mentiras - O Método das Hipóteses</a>
-            <a href="DICAS IMPARH - SEQUÊNCIAS E PROGRESSÕES.html">Dicas IMPARH - Sequências e Progressões</a>
-            <a href="PROGRESSÃO GEOMÉTRICA (PG) - CONCEITOS E FÓRMULAS.html">Progressão Geométrica (PG) - Conceitos e Fórmulas</a>
-            <a href="LÓGICA DE ARGUMENTAÇÃO CONCEITO E ESTRUTURA.html">Lógica de Argumentação: Conceito e Estrutura</a>
-            <a href="RACIOCÍNIO LÓGICO ARGUMENTAÇÃO.html">Raciocínio Lógico - Argumentação</a>
-            <a href="RACIOCÍNIO LÓGICO - FALÁCIAS E ARGUMENTAÇÃO.html">Raciocínio Lógico - Falácias e Argumentação</a>
-            <a href="RACIOCÍNIO LÓGICO - ARGUMENTAÇÃO E FALÁCIAS.html">Raciocínio Lógico - Argumentação e Falácias</a>
-            <a href="ARGUMENTAÇÃO - CIRCULARIDADE.html">Argumentação - Circularidade</a>
-        </div>
-    </div>
-
-    <div class="category">
-        <h2>Noções de Informática & Básicos (4)</h2>
-        <div class="links-grid">
-            <a href="CONHECIMENTOS BÁSICOS - LÓGICA E INFORMÁTICA.html">Conhecimentos Básicos - Lógica e Informática</a>
-            <a href="INFORMÁTICA - CONCEITOS, SO E EXCEL.html">Informática - Conceitos, SO e Excel</a>
-            <a href="MICROSOFT EXCEL - FORMATAÇÃO DE CÉLULAS E PLANILHAS.html">Microsoft Excel - Formatação de Células e Planilhas</a>
-            <a href="SEGURANÇA DA INFORMAÇÃO - SENHAS E FORÇA BRUTA.html">Segurança da Informação - Senhas e Força Bruta</a>
-        </div>
-    </div>
-
-    <div class="category">
-        <h2>História e Geografia de Fortaleza (2)</h2>
-        <div class="links-grid">
-            <a href="ORIGEM, REFERENCIAIS HISTÓRICOS E POVOS NATIVOS.html">Origem, Referenciais Históricos e Povos Nativos</a>
-            <a href="LOCALIZAÇÃO GEOGRÁFICA E LIMITES.html">Localização Geográfica e Limites</a>
-        </div>
-    </div>
-
 </div>
+
+<main class="main-content container">
+
+    <!-- 1. CONHECIMENTOS ESPECÍFICOS & SUS -->
+    <section class="category" data-category="sus" style="--cat-color: var(--c-sus);">
+        <div class="category-header">
+            <div class="category-title">
+                <span class="dot" style="background: var(--c-sus);"></span>
+                Conhecimentos Específicos & SUS
+            </div>
+            <span class="badge-count">14 resumos</span>
+        </div>
+        <div class="links-grid">
+            <div class="topic-card"><a class="topic-link" href="SAÚDE PÚBLICA E SISTEMA ÚNICO DE SAÚDE.html"><span class="topic-num">01</span>Saúde Pública e Sistema Único de Saúde (SUS)</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="LEGISLAÇÃO DO SUS (LEI 8.080 E 8.142).html"><span class="topic-num">02</span>Legislação do SUS (Lei 8.080 e 8.142)</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - APS E PNAB.html"><span class="topic-num">03</span>Conhecimentos Específicos - APS e PNAB</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="ATRIBUIÇÕES COMUNS NA ATENÇÃO BÁSICA.html"><span class="topic-num">04</span>Atribuições Comuns na Atenção Básica</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - ACS.html"><span class="topic-num">05</span>Conhecimentos Específicos - ACS</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - AGENTE COMUNITÁRIO DE SAÚDE.html"><span class="topic-num">06</span>Conhecimentos Específicos - Agente Comunitário de Saúde</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="INFORMAÇÃO, PLANEJAMENTO E TRABALHO DO ACS.html"><span class="topic-num">07</span>Informação, Planejamento e Trabalho do ACS</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="PROMOÇÃO, PREVENÇÃO E EDUCAÇÃO EM SAÚDE.html"><span class="topic-num">08</span>Promoção, Prevenção e Educação em Saúde</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="VIGILÂNCIA EM SAÚDE E SANEAMENTO BÁSICO.html"><span class="topic-num">09</span>Vigilância em Saúde e Saneamento Básico</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="VIGILÂNCIA EPIDEMIOLÓGICA - NOTIFICAÇÃO COMPULSÓRIA.html"><span class="topic-num">10</span>Vigilância Epidemiológica - Notificação Compulsória</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - DCNT E VIGILÂNCIA EM SAÚDE.html"><span class="topic-num">11</span>DCNT e Vigilância em Saúde</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA.html"><span class="topic-num">12</span>Saúde nos Ciclos de Vida</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="REVISÃO DE VÉSPERA - SAÚDE DA MULHER, CRIANÇA E IDOSO.html"><span class="topic-num">13</span>Revisão de Véspera: Saúde da Mulher, Criança e Idoso</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="IMUNIZAÇÃO - AGENTE COMUNITÁRIO DE SAÚDE.html"><span class="topic-num">14</span>Imunização - Agente Comunitário de Saúde</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+        </div>
+    </section>
+
+    <!-- 2. LÍNGUA PORTUGUESA -->
+    <section class="category" data-category="port" style="--cat-color: var(--c-port);">
+        <div class="category-header">
+            <div class="category-title">
+                <span class="dot" style="background: var(--c-port);"></span>
+                Língua Portuguesa
+            </div>
+            <span class="badge-count">14 resumos</span>
+        </div>
+        <div class="links-grid">
+            <div class="topic-card"><a class="topic-link" href="LÍNGUA PORTUGUESA - COMPREENSÃO E INTERPRETAÇÃO.html"><span class="topic-num">15</span>Compreensão e Interpretação de Textos</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="TIPOLOGIA TEXTUAL X GÊNEROS TEXTUAIS - DISTINÇÕES.html"><span class="topic-num">16</span>Tipologia Textual x Gêneros Textuais - Distinções</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="INTRODUÇÃO E CONCEITO DE TEXTUALIDADE.html"><span class="topic-num">17</span>Introdução e Conceito de Textualidade</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="SINONÍMIA E ANTONÍMIA.html"><span class="topic-num">18</span>Sinonímia e Antonímia</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="ELEMENTOS MÓRFICOS E RADICAL.html"><span class="topic-num">19</span>Elementos Mórficos e Radical</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="CONCEITO E O NOVO ACORDO ORTOGRÁFICO.html"><span class="topic-num">20</span>Conceito e o Novo Acordo Ortográfico</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="ORTOGRAFIA - ACENTUAÇÃO E HÍFEN.html"><span class="topic-num">21</span>Ortografia - Acentuação e Hífen</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="CONCEITO E REGRA PRÁTICA.html"><span class="topic-num">22</span>Conceito e Regra Prática (Acentuação/Ortografia)</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="LÍNGUA PORTUGUESA - CLASSES DE PALAVRAS.html"><span class="topic-num">23</span>Língua Portuguesa - Classes de Palavras</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="SINTAXE x MORFOLOGIA - CONCEITOS FUNDAMENTAIS.html"><span class="topic-num">24</span>Sintaxe x Morfologia - Conceitos Fundamentais</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="CONCEITOS GERAIS DE SINTAXE.html"><span class="topic-num">25</span>Conceitos Gerais de Sintaxe</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="PONTUAÇÃO - CONCEITO E DIVISÃO.html"><span class="topic-num">26</span>Pontuação - Conceito e Divisão</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="FIGURAS DE LINGUAGEM - CONCEITOS E PALAVRAS.html"><span class="topic-num">27</span>Figuras de Linguagem - Conceitos e Palavras</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="O QUE É E QUAIS OS OBJETIVOS DA REDAÇÃO OFICIAL.html"><span class="topic-num">28</span>O que é e Quais os Objetivos da Redação Oficial</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+        </div>
+    </section>
+
+    <!-- 3. RACIOCÍNIO LÓGICO & MATEMÁTICA -->
+    <section class="category" data-category="rlm" style="--cat-color: var(--c-rlm);">
+        <div class="category-header">
+            <div class="category-title">
+                <span class="dot" style="background: var(--c-rlm);"></span>
+                Raciocínio Lógico & Matemática
+            </div>
+            <span class="badge-count">12 resumos</span>
+        </div>
+        <div class="links-grid">
+            <div class="topic-card"><a class="topic-link" href="O QUE É RACIOCÍNIO LÓGICO E SUA IMPORTÂNCIA.html"><span class="topic-num">29</span>O que é Raciocínio Lógico e sua Importância</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="LÓGICA PROPOSICIONAL - CONTRAPOSITIVA E BICONDICIONAL.html"><span class="topic-num">30</span>Lógica Proposicional: Contrapositiva e Bicondicional</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="PROPOSIÇÕES CATEGÓRICAS - FORMAS CLÁSSICAS.html"><span class="topic-num">31</span>Proposições Categóricas - Formas Clássicas</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="PROBLEMAS LÓGICOS QUANTITATIVOS.html"><span class="topic-num">32</span>Problemas Lógicos Quantitativos</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="VERDADES E MENTIRAS - O MÉTODO DAS HIPÓTESES.html"><span class="topic-num">33</span>Verdades e Mentiras - O Método das Hipóteses</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="DICAS IMPARH - SEQUÊNCIAS E PROGRESSÕES.html"><span class="topic-num">34</span>Dicas IMPARH - Sequências e Progressões</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="PROGRESSÃO GEOMÉTRICA (PG) - CONCEITOS E FÓRMULAS.html"><span class="topic-num">35</span>Progressão Geométrica (PG) - Conceitos e Fórmulas</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="LÓGICA DE ARGUMENTAÇÃO CONCEITO E ESTRUTURA.html"><span class="topic-num">36</span>Lógica de Argumentação: Conceito e Estrutura</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO ARGUMENTAÇÃO.html"><span class="topic-num">37</span>Raciocínio Lógico - Argumentação</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO - FALÁCIAS E ARGUMENTAÇÃO.html"><span class="topic-num">38</span>Raciocínio Lógico - Falácias e Argumentação</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO - ARGUMENTAÇÃO E FALÁCIAS.html"><span class="topic-num">39</span>Raciocínio Lógico - Argumentação e Falácias</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="ARGUMENTAÇÃO - CIRCULARIDADE.html"><span class="topic-num">40</span>Argumentação - Circularidade</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+        </div>
+    </section>
+
+    <!-- 4. NOÇÕES DE INFORMÁTICA -->
+    <section class="category" data-category="info" style="--cat-color: var(--c-info);">
+        <div class="category-header">
+            <div class="category-title">
+                <span class="dot" style="background: var(--c-info);"></span>
+                Noções de Informática & Básicos
+            </div>
+            <span class="badge-count">4 resumos</span>
+        </div>
+        <div class="links-grid">
+            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS BÁSICOS - LÓGICA E INFORMÁTICA.html"><span class="topic-num">41</span>Conhecimentos Básicos - Lógica e Informática</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="INFORMÁTICA - CONCEITOS, SO E EXCEL.html"><span class="topic-num">42</span>Informática - Conceitos, SO e Excel</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="MICROSOFT EXCEL - FORMATAÇÃO DE CÉLULAS E PLANILHAS.html"><span class="topic-num">43</span>Microsoft Excel - Formatação de Células e Planilhas</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="SEGURANÇA DA INFORMAÇÃO - SENHAS E FORÇA BRUTA.html"><span class="topic-num">44</span>Segurança da Informação - Senhas e Força Bruta</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+        </div>
+    </section>
+
+    <!-- 5. HISTÓRIA E GEOGRAFIA DE FORTALEZA -->
+    <section class="category" data-category="hist" style="--cat-color: var(--c-hist);">
+        <div class="category-header">
+            <div class="category-title">
+                <span class="dot" style="background: var(--c-hist);"></span>
+                História e Geografia de Fortaleza
+            </div>
+            <span class="badge-count">2 resumos</span>
+        </div>
+        <div class="links-grid">
+            <div class="topic-card"><a class="topic-link" href="ORIGEM, REFERENCIAIS HISTÓRICOS E POVOS NATIVOS.html"><span class="topic-num">45</span>Origem, Referenciais Históricos e Povos Nativos</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+            <div class="topic-card"><a class="topic-link" href="LOCALIZAÇÃO GEOGRÁFICA E LIMITES.html"><span class="topic-num">46</span>Localização Geográfica e Limites</a><button class="check-btn" title="Marcar como lido">✓</button></div>
+        </div>
+    </section>
+
+    <div class="empty-state" id="emptyState">
+        Nenhum resumo encontrado para essa busca.
+    </div>
+
+</main>
+
+<script>
+    const STORAGE_KEY = 'memorex_acs_done_v1';
+    const THEME_KEY = 'memorex_acs_theme';
+    const cards = document.querySelectorAll('.topic-card');
+    const totalTopics = cards.length;
+
+    // 1. Carregar e Alternar Tema (Dark/Light)
+    const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem(THEME_KEY, next);
+    });
+
+    // 2. Sistema de Progresso (Checklist Salvo no Navegador)
+    let completedList = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+    function updateProgressUI() {
+        cards.forEach(card => {
+            const href = card.querySelector('.topic-link').getAttribute('href');
+            if (completedList.includes(href)) {
+                card.classList.add('done');
+            } else {
+                card.classList.remove('done');
+            }
+        });
+
+        const doneCount = completedList.length;
+        const pct = Math.round((doneCount / totalTopics) * 100);
+        document.getElementById('progressPercent').textContent = `${pct}%`;
+        document.getElementById('progressCount').textContent = `${doneCount} de ${totalTopics} resumos concluídos`;
+        document.getElementById('progressBar').style.width = `${pct}%`;
+    }
+
+    cards.forEach(card => {
+        const btn = card.querySelector('.check-btn');
+        const href = card.querySelector('.topic-link').getAttribute('href');
+
+        btn.addEventListener('click', () => {
+            if (completedList.includes(href)) {
+                completedList = completedList.filter(item => item !== href);
+            } else {
+                completedList.push(href);
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(completedList));
+            updateProgressUI();
+        });
+    });
+
+    document.getElementById('resetProgress').addEventListener('click', () => {
+        if (confirm('Deseja desmarcar todos os resumos lidos?')) {
+            completedList = [];
+            localStorage.removeItem(STORAGE_KEY);
+            updateProgressUI();
+        }
+    });
+
+    updateProgressUI();
+
+    // 3. Busca em Tempo Real + Filtro por Categoria
+    const searchInput = document.getElementById('searchInput');
+    const pills = document.querySelectorAll('.pill');
+    const categories = document.querySelectorAll('.category');
+    const emptyState = document.getElementById('emptyState');
+    let activeFilter = 'all';
+
+    function filterContent() {
+        const query = searchInput.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        let visibleTotal = 0;
+
+        categories.forEach(section => {
+            const catType = section.getAttribute('data-category');
+            const matchesCategory = (activeFilter === 'all' || activeFilter === catType);
+
+            if (!matchesCategory) {
+                section.style.display = 'none';
+                return;
+            }
+
+            let visibleInSection = 0;
+            const sectionCards = section.querySelectorAll('.topic-card');
+
+            sectionCards.forEach(card => {
+                const text = card.innerText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                if (text.includes(query)) {
+                    card.style.display = 'flex';
+                    visibleInSection++;
+                    visibleTotal++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            section.style.display = visibleInSection > 0 ? 'block' : 'none';
+        });
+
+        emptyState.style.display = visibleTotal === 0 ? 'block' : 'none';
+    }
+
+    searchInput.addEventListener('input', filterContent);
+
+    pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            pills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            activeFilter = pill.getAttribute('data-filter');
+            filterContent();
+        });
+    });
+</script>
 
 </body>
 </html>
