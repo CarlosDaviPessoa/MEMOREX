@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memorex ACS | Dashboard de Estudos</title>
+    <title>Memorex ACS | Dashboard & Cronograma</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
             --bg-main: #0b0f19;
             --bg-card: #151c2c;
             --bg-card-hover: #1e293b;
-            --bg-glass: rgba(21, 28, 44, 0.85);
+            --bg-glass: rgba(21, 28, 44, 0.88);
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --border-color: #263147;
@@ -23,7 +23,7 @@
             --bg-main: #f1f5f9;
             --bg-card: #ffffff;
             --bg-card-hover: #f8fafc;
-            --bg-glass: rgba(255, 255, 255, 0.88);
+            --bg-glass: rgba(255, 255, 255, 0.9);
             --text-primary: #0f172a;
             --text-secondary: #64748b;
             --border-color: #e2e8f0;
@@ -36,7 +36,8 @@
             --c-rlm: #8b5cf6;
             --c-info: #f59e0b;
             --c-hist: #f43f5e;
-            --c-sheet: #059669;
+            --c-rev: #ec4899;
+            --c-rest: #64748b;
         }
 
         * {
@@ -54,12 +55,11 @@
             transition: background-color 0.25s ease, color 0.25s ease;
         }
 
-        /* Header / Hero */
         .hero {
             background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.15), transparent 55%),
                         radial-gradient(circle at top left, rgba(16, 185, 129, 0.15), transparent 55%);
             border-bottom: 1px solid var(--border-color);
-            padding: 28px 20px 24px;
+            padding: 26px 20px 22px;
         }
 
         .container {
@@ -73,7 +73,7 @@
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
         }
 
         .brand {
@@ -95,7 +95,7 @@
         }
 
         .brand-text h1 {
-            font-size: 1.45rem;
+            font-size: 1.4rem;
             font-weight: 800;
             letter-spacing: -0.02em;
         }
@@ -140,45 +140,46 @@
             box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
         }
 
-        .btn-sheet:hover {
-            opacity: 0.95;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        /* Painel de Progresso Duplo */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
         }
 
-        /* Painel de Progresso */
         .stats-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 18px 22px;
+            border-radius: 14px;
+            padding: 16px 20px;
             box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .stats-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
         .stats-info {
             display: flex;
             align-items: baseline;
-            gap: 10px;
+            gap: 8px;
         }
 
         .stats-info strong {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--c-sus);
         }
 
         .stats-info span {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
         }
 
@@ -186,7 +187,7 @@
             background: transparent;
             border: none;
             color: var(--text-secondary);
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             cursor: pointer;
             text-decoration: underline;
         }
@@ -197,7 +198,7 @@
 
         .progress-track {
             width: 100%;
-            height: 10px;
+            height: 9px;
             background: var(--bg-main);
             border-radius: 99px;
             overflow: hidden;
@@ -209,11 +210,49 @@
             width: 0%;
             background: linear-gradient(90deg, var(--c-port), var(--c-sus));
             border-radius: 99px;
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.35s ease;
+        }
+
+        /* Seletor de Abas Principais */
+        .main-tabs {
+            display: flex;
+            gap: 10px;
+            background: var(--bg-card);
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--c-port), #2563eb);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
         /* Barra de Pesquisa e Filtros Fixa */
-        .controls-Sticky {
+        .controls-sticky {
             position: sticky;
             top: 0;
             z-index: 50;
@@ -222,7 +261,7 @@
             background: var(--bg-glass);
             border-bottom: 1px solid var(--border-color);
             padding: 14px 20px;
-            margin-bottom: 28px;
+            margin-bottom: 26px;
         }
 
         .controls-wrapper {
@@ -247,10 +286,9 @@
             border: 1px solid var(--border-color);
             background: var(--bg-card);
             color: var(--text-primary);
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             font-family: inherit;
             outline: none;
-            transition: border-color 0.2s;
         }
 
         .search-box input:focus {
@@ -263,7 +301,6 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-secondary);
-            font-size: 0.95rem;
             pointer-events: none;
         }
 
@@ -282,7 +319,7 @@
         .pill {
             padding: 8px 14px;
             border-radius: 99px;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-weight: 600;
             white-space: nowrap;
             cursor: pointer;
@@ -292,31 +329,35 @@
             transition: all 0.2s ease;
         }
 
-        .pill:hover {
-            color: var(--text-primary);
-        }
-
         .pill.active {
             background: var(--text-primary);
             color: var(--bg-main);
             border-color: var(--text-primary);
         }
 
-        /* Categorias e Grid de Cards */
         .main-content {
             padding: 0 20px;
         }
 
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ABA 1: Categorias e Cards de Resumos */
         .category {
-            margin-bottom: 36px;
+            margin-bottom: 34px;
         }
 
         .category-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
-            padding-bottom: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -324,7 +365,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 1.18rem;
+            font-size: 1.15rem;
             font-weight: 700;
         }
 
@@ -336,7 +377,7 @@
         }
 
         .badge-count {
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             font-weight: 600;
             padding: 3px 10px;
             border-radius: 99px;
@@ -348,11 +389,10 @@
         .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 14px;
+            gap: 12px;
         }
 
         .topic-card {
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -361,19 +401,18 @@
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--cat-color, var(--c-port));
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 13px 15px;
             transition: all 0.2s ease;
             box-shadow: var(--shadow);
         }
 
         .topic-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             background: var(--bg-card-hover);
-            border-color: var(--cat-color, var(--c-port));
         }
 
         .topic-card.done {
-            opacity: 0.68;
+            opacity: 0.65;
             border-left-color: var(--c-sus);
             background: rgba(16, 185, 129, 0.05);
         }
@@ -391,7 +430,7 @@
             text-decoration: none;
             color: var(--text-primary);
             font-weight: 500;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
         }
 
         .topic-num {
@@ -403,7 +442,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             font-weight: 700;
             color: var(--text-secondary);
         }
@@ -429,10 +468,123 @@
             border-color: var(--c-sus);
         }
 
-        .topic-card.done .check-btn {
+        .done .check-btn {
             background: var(--c-sus);
             border-color: var(--c-sus);
             color: #ffffff;
+        }
+
+        /* ABA 2: Cronograma por Data */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .sched-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--cat-color, var(--c-port));
+            border-radius: 14px;
+            padding: 16px 18px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .sched-card.done {
+            opacity: 0.65;
+            background: rgba(16, 185, 129, 0.04);
+            border-left-color: var(--c-sus);
+        }
+
+        .sched-card.done .sched-title {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+        }
+
+        .sched-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .sched-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sched-date {
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 7px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .sched-disc {
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 99px;
+            color: #fff;
+            background: var(--cat-color, var(--c-port));
+        }
+
+        .sched-pages {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .sched-title {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .sched-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .sched-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 6px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .sched-link-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .sched-link-chip:hover {
+            border-color: var(--c-port);
+            background: var(--bg-card-hover);
+            transform: translateY(-1px);
         }
 
         .empty-state {
@@ -457,6 +609,9 @@
                 flex: 1;
                 justify-content: center;
             }
+            .main-tabs {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -469,12 +624,12 @@
                 <div class="brand-logo">⚡</div>
                 <div class="brand-text">
                     <h1>Memorex ACS</h1>
-                    <span>Painel Interativo de Estudos • 46 Resumos</span>
+                    <span>Dashboard de Resumos & Cronograma de Metas</span>
                 </div>
             </div>
             <div class="top-actions">
                 <a class="btn btn-sheet" href="https://docs.google.com/spreadsheets/d/1x0YYgQ4AErH-sG_EPcoL3pDUEsV7ZsWFb02JMiYMqPo/edit" target="_blank">
-                    📊 Abrir Planilha de Metas
+                    📊 Abrir Planilha Google
                 </a>
                 <button class="btn" id="themeToggle" title="Alternar Tema">
                     ☀️ / 🌙
@@ -482,261 +637,426 @@
             </div>
         </div>
 
-        <div class="stats-card">
-            <div class="stats-header">
-                <div class="stats-info">
-                    <strong id="progressPercent">0%</strong>
-                    <span id="progressCount">0 de 46 resumos concluídos</span>
+        <div class="stats-grid">
+            <div class="stats-card">
+                <div class="stats-header">
+                    <div class="stats-info">
+                        <strong id="progressPercent">0%</strong>
+                        <span id="progressCount">0 de 46 resumos lidos</span>
+                    </div>
+                    <button class="btn-reset" id="resetProgress">Zerar resumos</button>
                 </div>
-                <button class="btn-reset" id="resetProgress">Zerar marcações</button>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
             </div>
-            <div class="progress-track">
-                <div class="progress-fill" id="progressBar"></div>
+
+            <div class="stats-card">
+                <div class="stats-header">
+                    <div class="stats-info">
+                        <strong id="schedPercent">0%</strong>
+                        <span id="schedCount">0 de 61 metas do cronograma</span>
+                    </div>
+                    <button class="btn-reset" id="resetSched">Zerar cronograma</button>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="schedBar"></div>
+                </div>
             </div>
+        </div>
+
+        <div class="main-tabs">
+            <button class="tab-btn active" data-tab="tab-resumos">📚 Resumos por Matéria (46)</button>
+            <button class="tab-btn" data-tab="tab-cronograma">📅 Cronograma por Data (16/11 a 02/03)</button>
         </div>
     </div>
 </header>
 
-<div class="controls-Sticky">
+<div class="controls-sticky">
     <div class="controls-wrapper">
         <div class="search-box">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Pesquisar assunto (ex: SUS, Sintaxe, Imunização, PG)...">
+            <input type="text" id="searchInput" placeholder="Buscar resumo, data (ex: 20/11), matéria ou assunto...">
         </div>
-        <div class="filter-pills">
-            <button class="pill active" data-filter="all">Todos (46)</button>
-            <button class="pill" data-filter="sus">Específicos & SUS (14)</button>
-            <button class="pill" data-filter="port">Português (14)</button>
-            <button class="pill" data-filter="rlm">Raciocínio Lógico (12)</button>
-            <button class="pill" data-filter="info">Informática (4)</button>
-            <button class="pill" data-filter="hist">História/Geo (2)</button>
+        <div class="filter-pills" id="filterPills">
+            <button class="pill active" data-filter="all">Todos</button>
+            <button class="pill" data-filter="sus">Específicos & SUS</button>
+            <button class="pill" data-filter="port">Português</button>
+            <button class="pill" data-filter="rlm">Raciocínio Lógico</button>
+            <button class="pill" data-filter="info">Informática</button>
+            <button class="pill" data-filter="hist">História/Geo</button>
+            <button class="pill" data-filter="rev">Revisão/Descanso</button>
         </div>
     </div>
 </div>
 
 <main class="main-content container">
 
-    <!-- 1. CONHECIMENTOS ESPECÍFICOS & SUS -->
-    <section class="category" data-category="sus" style="--cat-color: var(--c-sus);">
-        <div class="category-header">
-            <div class="category-title">
-                <span class="dot" style="background: var(--c-sus);"></span>
-                Conhecimentos Específicos & SUS
-            </div>
-            <span class="badge-count">14 resumos</span>
-        </div>
-        <div class="links-grid">
-            <div class="topic-card"><a class="topic-link" href="SAÚDE PÚBLICA E SISTEMA ÚNICO DE SAÚDE.html"><span class="topic-num">01</span>Saúde Pública e Sistema Único de Saúde (SUS)</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="LEGISLAÇÃO DO SUS (LEI 8.080 E 8.142).html"><span class="topic-num">02</span>Legislação do SUS (Lei 8.080 e 8.142)</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - APS E PNAB.html"><span class="topic-num">03</span>Conhecimentos Específicos - APS e PNAB</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="ATRIBUIÇÕES COMUNS NA ATENÇÃO BÁSICA.html"><span class="topic-num">04</span>Atribuições Comuns na Atenção Básica</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - ACS.html"><span class="topic-num">05</span>Conhecimentos Específicos - ACS</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - AGENTE COMUNITÁRIO DE SAÚDE.html"><span class="topic-num">06</span>Conhecimentos Específicos - Agente Comunitário de Saúde</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="INFORMAÇÃO, PLANEJAMENTO E TRABALHO DO ACS.html"><span class="topic-num">07</span>Informação, Planejamento e Trabalho do ACS</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="PROMOÇÃO, PREVENÇÃO E EDUCAÇÃO EM SAÚDE.html"><span class="topic-num">08</span>Promoção, Prevenção e Educação em Saúde</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="VIGILÂNCIA EM SAÚDE E SANEAMENTO BÁSICO.html"><span class="topic-num">09</span>Vigilância em Saúde e Saneamento Básico</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="VIGILÂNCIA EPIDEMIOLÓGICA - NOTIFICAÇÃO COMPULSÓRIA.html"><span class="topic-num">10</span>Vigilância Epidemiológica - Notificação Compulsória</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - DCNT E VIGILÂNCIA EM SAÚDE.html"><span class="topic-num">11</span>DCNT e Vigilância em Saúde</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA.html"><span class="topic-num">12</span>Saúde nos Ciclos de Vida</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="REVISÃO DE VÉSPERA - SAÚDE DA MULHER, CRIANÇA E IDOSO.html"><span class="topic-num">13</span>Revisão de Véspera: Saúde da Mulher, Criança e Idoso</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="IMUNIZAÇÃO - AGENTE COMUNITÁRIO DE SAÚDE.html"><span class="topic-num">14</span>Imunização - Agente Comunitário de Saúde</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-        </div>
-    </section>
+    <!-- ==================== ABA 1: RESUMOS POR MATÉRIA ==================== -->
+    <div class="tab-panel active" id="tab-resumos">
 
-    <!-- 2. LÍNGUA PORTUGUESA -->
-    <section class="category" data-category="port" style="--cat-color: var(--c-port);">
-        <div class="category-header">
-            <div class="category-title">
-                <span class="dot" style="background: var(--c-port);"></span>
-                Língua Portuguesa
+        <section class="category" data-category="sus" style="--cat-color: var(--c-sus);">
+            <div class="category-header">
+                <div class="category-title"><span class="dot" style="background: var(--c-sus);"></span>Conhecimentos Específicos & SUS</div>
+                <span class="badge-count">14 resumos</span>
             </div>
-            <span class="badge-count">14 resumos</span>
-        </div>
-        <div class="links-grid">
-            <div class="topic-card"><a class="topic-link" href="LÍNGUA PORTUGUESA - COMPREENSÃO E INTERPRETAÇÃO.html"><span class="topic-num">15</span>Compreensão e Interpretação de Textos</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="TIPOLOGIA TEXTUAL X GÊNEROS TEXTUAIS - DISTINÇÕES.html"><span class="topic-num">16</span>Tipologia Textual x Gêneros Textuais - Distinções</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="INTRODUÇÃO E CONCEITO DE TEXTUALIDADE.html"><span class="topic-num">17</span>Introdução e Conceito de Textualidade</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="SINONÍMIA E ANTONÍMIA.html"><span class="topic-num">18</span>Sinonímia e Antonímia</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="ELEMENTOS MÓRFICOS E RADICAL.html"><span class="topic-num">19</span>Elementos Mórficos e Radical</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="CONCEITO E O NOVO ACORDO ORTOGRÁFICO.html"><span class="topic-num">20</span>Conceito e o Novo Acordo Ortográfico</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="ORTOGRAFIA - ACENTUAÇÃO E HÍFEN.html"><span class="topic-num">21</span>Ortografia - Acentuação e Hífen</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="CONCEITO E REGRA PRÁTICA.html"><span class="topic-num">22</span>Conceito e Regra Prática (Acentuação/Ortografia)</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="LÍNGUA PORTUGUESA - CLASSES DE PALAVRAS.html"><span class="topic-num">23</span>Língua Portuguesa - Classes de Palavras</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="SINTAXE x MORFOLOGIA - CONCEITOS FUNDAMENTAIS.html"><span class="topic-num">24</span>Sintaxe x Morfologia - Conceitos Fundamentais</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="CONCEITOS GERAIS DE SINTAXE.html"><span class="topic-num">25</span>Conceitos Gerais de Sintaxe</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="PONTUAÇÃO - CONCEITO E DIVISÃO.html"><span class="topic-num">26</span>Pontuação - Conceito e Divisão</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="FIGURAS DE LINGUAGEM - CONCEITOS E PALAVRAS.html"><span class="topic-num">27</span>Figuras de Linguagem - Conceitos e Palavras</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="O QUE É E QUAIS OS OBJETIVOS DA REDAÇÃO OFICIAL.html"><span class="topic-num">28</span>O que é e Quais os Objetivos da Redação Oficial</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-        </div>
-    </section>
+            <div class="links-grid">
+                <div class="topic-card"><a class="topic-link" href="SAÚDE PÚBLICA E SISTEMA ÚNICO DE SAÚDE.html"><span class="topic-num">01</span>Saúde Pública e Sistema Único de Saúde (SUS)</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="LEGISLAÇÃO DO SUS (LEI 8.080 E 8.142).html"><span class="topic-num">02</span>Legislação do SUS (Lei 8.080 e 8.142)</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - APS E PNAB.html"><span class="topic-num">03</span>Conhecimentos Específicos - APS e PNAB</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="ATRIBUIÇÕES COMUNS NA ATENÇÃO BÁSICA.html"><span class="topic-num">04</span>Atribuições Comuns na Atenção Básica</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - ACS.html"><span class="topic-num">05</span>Conhecimentos Específicos - ACS</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - AGENTE COMUNITÁRIO DE SAÚDE.html"><span class="topic-num">06</span>Conhecimentos Específicos - Agente Comunitário de Saúde</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="INFORMAÇÃO, PLANEJAMENTO E TRABALHO DO ACS.html"><span class="topic-num">07</span>Informação, Planejamento e Trabalho do ACS</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="PROMOÇÃO, PREVENÇÃO E EDUCAÇÃO EM SAÚDE.html"><span class="topic-num">08</span>Promoção, Prevenção e Educação em Saúde</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="VIGILÂNCIA EM SAÚDE E SANEAMENTO BÁSICO.html"><span class="topic-num">09</span>Vigilância em Saúde e Saneamento Básico</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="VIGILÂNCIA EPIDEMIOLÓGICA - NOTIFICAÇÃO COMPULSÓRIA.html"><span class="topic-num">10</span>Vigilância Epidemiológica - Notificação Compulsória</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - DCNT E VIGILÂNCIA EM SAÚDE.html"><span class="topic-num">11</span>DCNT e Vigilância em Saúde</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA.html"><span class="topic-num">12</span>Saúde nos Ciclos de Vida</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="REVISÃO DE VÉSPERA - SAÚDE DA MULHER, CRIANÇA E IDOSO.html"><span class="topic-num">13</span>Revisão de Véspera: Saúde da Mulher, Criança e Idoso</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="IMUNIZAÇÃO - AGENTE COMUNITÁRIO DE SAÚDE.html"><span class="topic-num">14</span>Imunização - Agente Comunitário de Saúde</a><button class="check-btn">✓</button></div>
+            </div>
+        </section>
 
-    <!-- 3. RACIOCÍNIO LÓGICO & MATEMÁTICA -->
-    <section class="category" data-category="rlm" style="--cat-color: var(--c-rlm);">
-        <div class="category-header">
-            <div class="category-title">
-                <span class="dot" style="background: var(--c-rlm);"></span>
-                Raciocínio Lógico & Matemática
+        <section class="category" data-category="port" style="--cat-color: var(--c-port);">
+            <div class="category-header">
+                <div class="category-title"><span class="dot" style="background: var(--c-port);"></span>Língua Portuguesa</div>
+                <span class="badge-count">14 resumos</span>
             </div>
-            <span class="badge-count">12 resumos</span>
-        </div>
-        <div class="links-grid">
-            <div class="topic-card"><a class="topic-link" href="O QUE É RACIOCÍNIO LÓGICO E SUA IMPORTÂNCIA.html"><span class="topic-num">29</span>O que é Raciocínio Lógico e sua Importância</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="LÓGICA PROPOSICIONAL - CONTRAPOSITIVA E BICONDICIONAL.html"><span class="topic-num">30</span>Lógica Proposicional: Contrapositiva e Bicondicional</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="PROPOSIÇÕES CATEGÓRICAS - FORMAS CLÁSSICAS.html"><span class="topic-num">31</span>Proposições Categóricas - Formas Clássicas</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="PROBLEMAS LÓGICOS QUANTITATIVOS.html"><span class="topic-num">32</span>Problemas Lógicos Quantitativos</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="VERDADES E MENTIRAS - O MÉTODO DAS HIPÓTESES.html"><span class="topic-num">33</span>Verdades e Mentiras - O Método das Hipóteses</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="DICAS IMPARH - SEQUÊNCIAS E PROGRESSÕES.html"><span class="topic-num">34</span>Dicas IMPARH - Sequências e Progressões</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="PROGRESSÃO GEOMÉTRICA (PG) - CONCEITOS E FÓRMULAS.html"><span class="topic-num">35</span>Progressão Geométrica (PG) - Conceitos e Fórmulas</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="LÓGICA DE ARGUMENTAÇÃO CONCEITO E ESTRUTURA.html"><span class="topic-num">36</span>Lógica de Argumentação: Conceito e Estrutura</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO ARGUMENTAÇÃO.html"><span class="topic-num">37</span>Raciocínio Lógico - Argumentação</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO - FALÁCIAS E ARGUMENTAÇÃO.html"><span class="topic-num">38</span>Raciocínio Lógico - Falácias e Argumentação</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO - ARGUMENTAÇÃO E FALÁCIAS.html"><span class="topic-num">39</span>Raciocínio Lógico - Argumentação e Falácias</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="ARGUMENTAÇÃO - CIRCULARIDADE.html"><span class="topic-num">40</span>Argumentação - Circularidade</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-        </div>
-    </section>
+            <div class="links-grid">
+                <div class="topic-card"><a class="topic-link" href="LÍNGUA PORTUGUESA - COMPREENSÃO E INTERPRETAÇÃO.html"><span class="topic-num">15</span>Compreensão e Interpretação de Textos</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="TIPOLOGIA TEXTUAL X GÊNEROS TEXTUAIS - DISTINÇÕES.html"><span class="topic-num">16</span>Tipologia Textual x Gêneros Textuais - Distinções</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="INTRODUÇÃO E CONCEITO DE TEXTUALIDADE.html"><span class="topic-num">17</span>Introdução e Conceito de Textualidade</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="SINONÍMIA E ANTONÍMIA.html"><span class="topic-num">18</span>Sinonímia e Antonímia</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="ELEMENTOS MÓRFICOS E RADICAL.html"><span class="topic-num">19</span>Elementos Mórficos e Radical</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="CONCEITO E O NOVO ACORDO ORTOGRÁFICO.html"><span class="topic-num">20</span>Conceito e o Novo Acordo Ortográfico</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="ORTOGRAFIA - ACENTUAÇÃO E HÍFEN.html"><span class="topic-num">21</span>Ortografia - Acentuação e Hífen</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="CONCEITO E REGRA PRÁTICA.html"><span class="topic-num">22</span>Conceito e Regra Prática (Acentuação/Ortografia)</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="LÍNGUA PORTUGUESA - CLASSES DE PALAVRAS.html"><span class="topic-num">23</span>Língua Portuguesa - Classes de Palavras</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="SINTAXE x MORFOLOGIA - CONCEITOS FUNDAMENTAIS.html"><span class="topic-num">24</span>Sintaxe x Morfologia - Conceitos Fundamentais</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="CONCEITOS GERAIS DE SINTAXE.html"><span class="topic-num">25</span>Conceitos Gerais de Sintaxe</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="PONTUAÇÃO - CONCEITO E DIVISÃO.html"><span class="topic-num">26</span>Pontuação - Conceito e Divisão</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="FIGURAS DE LINGUAGEM - CONCEITOS E PALAVRAS.html"><span class="topic-num">27</span>Figuras de Linguagem - Conceitos e Palavras</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="O QUE É E QUAIS OS OBJETIVOS DA REDAÇÃO OFICIAL.html"><span class="topic-num">28</span>O que é e Quais os Objetivos da Redação Oficial</a><button class="check-btn">✓</button></div>
+            </div>
+        </section>
 
-    <!-- 4. NOÇÕES DE INFORMÁTICA -->
-    <section class="category" data-category="info" style="--cat-color: var(--c-info);">
-        <div class="category-header">
-            <div class="category-title">
-                <span class="dot" style="background: var(--c-info);"></span>
-                Noções de Informática & Básicos
+        <section class="category" data-category="rlm" style="--cat-color: var(--c-rlm);">
+            <div class="category-header">
+                <div class="category-title"><span class="dot" style="background: var(--c-rlm);"></span>Raciocínio Lógico & Matemática</div>
+                <span class="badge-count">12 resumos</span>
             </div>
-            <span class="badge-count">4 resumos</span>
-        </div>
-        <div class="links-grid">
-            <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS BÁSICOS - LÓGICA E INFORMÁTICA.html"><span class="topic-num">41</span>Conhecimentos Básicos - Lógica e Informática</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="INFORMÁTICA - CONCEITOS, SO E EXCEL.html"><span class="topic-num">42</span>Informática - Conceitos, SO e Excel</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="MICROSOFT EXCEL - FORMATAÇÃO DE CÉLULAS E PLANILHAS.html"><span class="topic-num">43</span>Microsoft Excel - Formatação de Células e Planilhas</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="SEGURANÇA DA INFORMAÇÃO - SENHAS E FORÇA BRUTA.html"><span class="topic-num">44</span>Segurança da Informação - Senhas e Força Bruta</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-        </div>
-    </section>
+            <div class="links-grid">
+                <div class="topic-card"><a class="topic-link" href="O QUE É RACIOCÍNIO LÓGICO E SUA IMPORTÂNCIA.html"><span class="topic-num">29</span>O que é Raciocínio Lógico e sua Importância</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="LÓGICA PROPOSICIONAL - CONTRAPOSITIVA E BICONDICIONAL.html"><span class="topic-num">30</span>Lógica Proposicional: Contrapositiva e Bicondicional</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="PROPOSIÇÕES CATEGÓRICAS - FORMAS CLÁSSICAS.html"><span class="topic-num">31</span>Proposições Categóricas - Formas Clássicas</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="PROBLEMAS LÓGICOS QUANTITATIVOS.html"><span class="topic-num">32</span>Problemas Lógicos Quantitativos</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="VERDADES E MENTIRAS - O MÉTODO DAS HIPÓTESES.html"><span class="topic-num">33</span>Verdades e Mentiras - O Método das Hipóteses</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="DICAS IMPARH - SEQUÊNCIAS E PROGRESSÕES.html"><span class="topic-num">34</span>Dicas IMPARH - Sequências e Progressões</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="PROGRESSÃO GEOMÉTRICA (PG) - CONCEITOS E FÓRMULAS.html"><span class="topic-num">35</span>Progressão Geométrica (PG) - Conceitos e Fórmulas</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="LÓGICA DE ARGUMENTAÇÃO CONCEITO E ESTRUTURA.html"><span class="topic-num">36</span>Lógica de Argumentação: Conceito e Estrutura</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO ARGUMENTAÇÃO.html"><span class="topic-num">37</span>Raciocínio Lógico - Argumentação</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO - FALÁCIAS E ARGUMENTAÇÃO.html"><span class="topic-num">38</span>Raciocínio Lógico - Falácias e Argumentação</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="RACIOCÍNIO LÓGICO - ARGUMENTAÇÃO E FALÁCIAS.html"><span class="topic-num">39</span>Raciocínio Lógico - Argumentação e Falácias</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="ARGUMENTAÇÃO - CIRCULARIDADE.html"><span class="topic-num">40</span>Argumentação - Circularidade</a><button class="check-btn">✓</button></div>
+            </div>
+        </section>
 
-    <!-- 5. HISTÓRIA E GEOGRAFIA DE FORTALEZA -->
-    <section class="category" data-category="hist" style="--cat-color: var(--c-hist);">
-        <div class="category-header">
-            <div class="category-title">
-                <span class="dot" style="background: var(--c-hist);"></span>
-                História e Geografia de Fortaleza
+        <section class="category" data-category="info" style="--cat-color: var(--c-info);">
+            <div class="category-header">
+                <div class="category-title"><span class="dot" style="background: var(--c-info);"></span>Noções de Informática & Básicos</div>
+                <span class="badge-count">4 resumos</span>
             </div>
-            <span class="badge-count">2 resumos</span>
-        </div>
-        <div class="links-grid">
-            <div class="topic-card"><a class="topic-link" href="ORIGEM, REFERENCIAIS HISTÓRICOS E POVOS NATIVOS.html"><span class="topic-num">45</span>Origem, Referenciais Históricos e Povos Nativos</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-            <div class="topic-card"><a class="topic-link" href="LOCALIZAÇÃO GEOGRÁFICA E LIMITES.html"><span class="topic-num">46</span>Localização Geográfica e Limites</a><button class="check-btn" title="Marcar como lido">✓</button></div>
-        </div>
-    </section>
+            <div class="links-grid">
+                <div class="topic-card"><a class="topic-link" href="CONHECIMENTOS BÁSICOS - LÓGICA E INFORMÁTICA.html"><span class="topic-num">41</span>Conhecimentos Básicos - Lógica e Informática</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="INFORMÁTICA - CONCEITOS, SO E EXCEL.html"><span class="topic-num">42</span>Informática - Conceitos, SO e Excel</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="MICROSOFT EXCEL - FORMATAÇÃO DE CÉLULAS E PLANILHAS.html"><span class="topic-num">43</span>Microsoft Excel - Formatação de Células e Planilhas</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="SEGURANÇA DA INFORMAÇÃO - SENHAS E FORÇA BRUTA.html"><span class="topic-num">44</span>Segurança da Informação - Senhas e Força Bruta</a><button class="check-btn">✓</button></div>
+            </div>
+        </section>
+
+        <section class="category" data-category="hist" style="--cat-color: var(--c-hist);">
+            <div class="category-header">
+                <div class="category-title"><span class="dot" style="background: var(--c-hist);"></span>História e Geografia de Fortaleza</div>
+                <span class="badge-count">2 resumos</span>
+            </div>
+            <div class="links-grid">
+                <div class="topic-card"><a class="topic-link" href="ORIGEM, REFERENCIAIS HISTÓRICOS E POVOS NATIVOS.html"><span class="topic-num">45</span>Origem, Referenciais Históricos e Povos Nativos</a><button class="check-btn">✓</button></div>
+                <div class="topic-card"><a class="topic-link" href="LOCALIZAÇÃO GEOGRÁFICA E LIMITES.html"><span class="topic-num">46</span>Localização Geográfica e Limites</a><button class="check-btn">✓</button></div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ==================== ABA 2: CRONOGRAMA POR DATA ==================== -->
+    <div class="tab-panel" id="tab-cronograma">
+        <div class="schedule-list" id="scheduleContainer"></div>
+    </div>
 
     <div class="empty-state" id="emptyState">
-        Nenhum resumo encontrado para essa busca.
+        Nenhum item encontrado para essa busca ou filtro.
     </div>
 
 </main>
 
 <script>
-    const STORAGE_KEY = 'memorex_acs_done_v1';
-    const THEME_KEY = 'memorex_acs_theme';
-    const cards = document.querySelectorAll('.topic-card');
-    const totalTopics = cards.length;
+    // Dados completos das 61 etapas da planilha vinculadas aos arquivos HTML
+    const SCHEDULE_DATA = [
+        { id: 1, date: "16/11 (Seg) e 17/11 (Ter)", cat: "sus", disc: "Conhecimentos Específicos", title: "Saúde Pública, História e Princípios do SUS", pages: "p. 197 a 199 (3 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["SAÚDE PÚBLICA E SISTEMA ÚNICO DE SAÚDE.html"] },
+        { id: 2, date: "18/11 (Qua) e 19/11 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Compreensão, Interpretação e Tipologia Textual", pages: "p. 5 a 9 (5 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["LÍNGUA PORTUGUESA - COMPREENSÃO E INTERPRETAÇÃO.html", "TIPOLOGIA TEXTUAL X GÊNEROS TEXTUAIS - DISTINÇÕES.html"] },
+        { id: 3, date: "20/11 (Sex) e 21/11 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Legislação do SUS (Lei 8.080 e Lei 8.142)", pages: "p. 200 a 203 (4 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["LEGISLAÇÃO DO SUS (LEI 8.080 E 8.142).html"] },
+        { id: 4, date: "22/11 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 5, date: "23/11 (Seg) e 24/11 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Noções Gerais e Estruturas Lógicas", pages: "p. 115 a 119 (5 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["O QUE É RACIOCÍNIO LÓGICO E SUA IMPORTÂNCIA.html", "CONHECIMENTOS BÁSICOS - LÓGICA E INFORMÁTICA.html"] },
+        { id: 6, date: "25/11 (Qua) e 26/11 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Coesão, Coerência e Reescrita de Frases", pages: "p. 10 a 16 (7 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["INTRODUÇÃO E CONCEITO DE TEXTUALIDADE.html"] },
+        { id: 7, date: "27/11 (Sex) e 28/11 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Atenção Primária (APS), PNAB e Estratégia Saúde da Família (ESF)", pages: "p. 204 a 208 (5 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["CONHECIMENTOS ESPECÍFICOS - APS E PNAB.html", "ATRIBUIÇÕES COMUNS NA ATENÇÃO BÁSICA.html"] },
+        { id: 8, date: "29/11 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 9, date: "30/11 (Seg) e 01/12 (Ter)", cat: "port", disc: "Língua Portuguesa", title: "Semântica, Significação e Formação de Palavras", pages: "p. 30 a 36 (7 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["SINONÍMIA E ANTONÍMIA.html", "ELEMENTOS MÓRFICOS E RADICAL.html", "FIGURAS DE LINGUAGEM - CONCEITOS E PALAVRAS.html"] },
+        { id: 10, date: "02/12 (Qua) e 03/12 (Qui)", cat: "info", disc: "Noções de Informática", title: "Hardware, Software e Gerenciamento de Arquivos", pages: "p. 69 a 80 (12 págs)", strat: "Estudo Reverso: Direto p/ 20 Questões + Ler só Erros", pomo: "2 Pomodoros/dia (50 min)", files: ["CONHECIMENTOS BÁSICOS - LÓGICA E INFORMÁTICA.html", "INFORMÁTICA - CONCEITOS, SO E EXCEL.html"] },
+        { id: 11, date: "04/12 (Sex) e 05/12 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "O Agente Comunitário de Saúde (Lei 11.350/2006)", pages: "p. 208 a 212 (5 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["CONHECIMENTOS ESPECÍFICOS - ACS.html", "CONHECIMENTOS ESPECÍFICOS - AGENTE COMUNITÁRIO DE SAÚDE.html"] },
+        { id: 12, date: "06/12 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 13, date: "07/12 (Seg) e 08/12 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Tabelas-Verdade e Conectivos Lógicos", pages: "p. 119 a 122 (4 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["LÓGICA PROPOSICIONAL - CONTRAPOSITIVA E BICONDICIONAL.html"] },
+        { id: 14, date: "09/12 (Qua) e 10/12 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Acentuação Gráfica e Ortografia Oficial", pages: "p. 17 a 23 (7 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["CONCEITO E O NOVO ACORDO ORTOGRÁFICO.html", "ORTOGRAFIA - ACENTUAÇÃO E HÍFEN.html", "CONCEITO E REGRA PRÁTICA.html"] },
+        { id: 15, date: "11/12 (Sex) e 12/12 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Território, Cadastramento (e-SUS) e Visita Domiciliar", pages: "p. 213 a 216 (4 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["INFORMAÇÃO, PLANEJAMENTO E TRABALHO DO ACS.html"] },
+        { id: 16, date: "13/12 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 17, date: "14/12 (Seg) e 15/12 (Ter)", cat: "rev", disc: "Revisão e Simulado", title: "Ciclo de Revisão 1 (Novembro): Mini-Simulado 30Q + Erros", pages: "Revisão Cumulativa", strat: "Simulado Cronometrado + Caderno de Erros", pomo: "2 Pomodoros/dia (50 min)", files: [] },
+        { id: 18, date: "16/12 (Qua) e 17/12 (Qui)", cat: "info", disc: "Noções de Informática", title: "Sistemas Operacionais: Windows, Linux e Android", pages: "p. 80 a 88 (9 págs)", strat: "Estudo Reverso: Direto p/ 20 Questões + Ler só Erros", pomo: "2 Pomodoros/dia (50 min)", files: ["INFORMÁTICA - CONCEITOS, SO E EXCEL.html"] },
+        { id: 19, date: "18/12 (Sex) e 19/12 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Promoção, Prevenção e Educação em Saúde", pages: "p. 217 a 221 (5 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["PROMOÇÃO, PREVENÇÃO E EDUCAÇÃO EM SAÚDE.html"] },
+        { id: 20, date: "20/12 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 21, date: "21/12 (Seg) e 22/12 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Diagramas e Equivalências Lógicas", pages: "p. 122 a 124 (3 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["LÓGICA PROPOSICIONAL - CONTRAPOSITIVA E BICONDICIONAL.html", "PROPOSIÇÕES CATEGÓRICAS - FORMAS CLÁSSICAS.html"] },
+        { id: 22, date: "23/12 (Qua) e 24/12 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Classes de Palavras (Morfologia)", pages: "p. 37 a 42 (6 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["LÍNGUA PORTUGUESA - CLASSES DE PALAVRAS.html", "SINTAXE x MORFOLOGIA - CONCEITOS FUNDAMENTAIS.html"] },
+        { id: 23, date: "25/12 (Sex) e 26/12 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Vigilância em Saúde e Saneamento Básico", pages: "p. 222 a 224 (3 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["VIGILÂNCIA EM SAÚDE E SANEAMENTO BÁSICO.html"] },
+        { id: 24, date: "27/12 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 25, date: "28/12 (Seg) e 29/12 (Ter)", cat: "port", disc: "Língua Portuguesa", title: "Sintaxe e Termos da Oração (Parte 1)", pages: "p. 43 a 47 (5 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["CONCEITOS GERAIS DE SINTAXE.html", "SINTAXE x MORFOLOGIA - CONCEITOS FUNDAMENTAIS.html"] },
+        { id: 26, date: "30/12 (Qua) e 31/12 (Qui)", cat: "info", disc: "Noções de Informática", title: "Editores de Planilhas (Excel/Calc) e Apresentação", pages: "p. 88 a 94 (7 págs)", strat: "Estudo Reverso: Direto p/ 20 Questões + Ler só Erros", pomo: "2 Pomodoros/dia (50 min)", files: ["MICROSOFT EXCEL - FORMATAÇÃO DE CÉLULAS E PLANILHAS.html", "INFORMÁTICA - CONCEITOS, SO E EXCEL.html"] },
+        { id: 27, date: "01/01/27 (Sex) e 02/01/27 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Doenças Transmissíveis e Arboviroses (Dengue, Zika, Chikungunya)", pages: "p. 224 a 227 (4 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["VIGILÂNCIA EPIDEMIOLÓGICA - NOTIFICAÇÃO COMPULSÓRIA.html"] },
+        { id: 28, date: "03/01/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 29, date: "04/01/27 (Seg) e 05/01/27 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Negação de Compostas e Quantificadores", pages: "p. 124 a 132 (9 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["PROPOSIÇÕES CATEGÓRICAS - FORMAS CLÁSSICAS.html", "PROBLEMAS LÓGICOS QUANTITATIVOS.html"] },
+        { id: 30, date: "06/01/27 (Qua) e 07/01/27 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Sintaxe e Período Composto (Parte 2)", pages: "p. 48 a 52 (5 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["CONCEITOS GERAIS DE SINTAXE.html"] },
+        { id: 31, date: "08/01/27 (Sex) e 09/01/27 (Sáb)", cat: "rev", disc: "Revisão e Simulado", title: "Revisão Leve de Natal: 30 Questões (SUS, PNAB, Lei 11.350 e Arboviroses)", pages: "p. 197 a 227 (Questões)", strat: "Simulado Cronometrado + Caderno de Erros", pomo: "2 Pomodoros/dia (50 min)", files: [] },
+        { id: 32, date: "10/01/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 33, date: "11/01/27 (Seg) e 12/01/27 (Ter)", cat: "sus", disc: "Conhecimentos Específicos", title: "Doenças Crônicas Não Transmissíveis (Hipertensão e Diabetes)", pages: "p. 227 a 230 (4 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["CONHECIMENTOS ESPECÍFICOS - DCNT E VIGILÂNCIA EM SAÚDE.html"] },
+        { id: 34, date: "13/01/27 (Qua) e 14/01/27 (Qui)", cat: "info", disc: "Noções de Informática", title: "Editores de Texto (Word/Writer) e Redes/Conectividade", pages: "p. 94 a 100 (7 págs)", strat: "Estudo Reverso: Direto p/ 20 Questões + Ler só Erros", pomo: "2 Pomodoros/dia (50 min)", files: ["INFORMÁTICA - CONCEITOS, SO E EXCEL.html"] },
+        { id: 35, date: "15/01/27 (Sex) e 16/01/27 (Sáb)", cat: "rev", disc: "Revisão e Simulado", title: "Revisão Leve de Ano Novo: 30 Questões (Português, Lógica e DCNT)", pages: "p. 5 a 52 (Questões)", strat: "Simulado Cronometrado + Caderno de Erros", pomo: "2 Pomodoros/dia (50 min)", files: [] },
+        { id: 36, date: "17/01/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 37, date: "18/01/27 (Seg) e 19/01/27 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Problemas Lógicos e Sequências (Parte 1)", pages: "p. 132 a 139 (8 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["VERDADES E MENTIRAS - O MÉTODO DAS HIPÓTESES.html", "DICAS IMPARH - SEQUÊNCIAS E PROGRESSÕES.html"] },
+        { id: 38, date: "20/01/27 (Qua) e 21/01/27 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Concordância e Regência (Nominal e Verbal)", pages: "p. 53 a 58 (6 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["CONCEITOS GERAIS DE SINTAXE.html"] },
+        { id: 39, date: "22/01/27 (Sex) e 23/01/27 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Saúde nos Ciclos de Vida I (Mulher, Gestante e Criança)", pages: "p. 230 a 233 (4 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA.html", "REVISÃO DE VÉSPERA - SAÚDE DA MULHER, CRIANÇA E IDOSO.html"] },
+        { id: 40, date: "24/01/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 41, date: "25/01/27 (Seg) e 26/01/27 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Problemas Lógicos e Sequências (Parte 2)", pages: "p. 140 a 146 (7 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["PROGRESSÃO GEOMÉTRICA (PG) - CONCEITOS E FÓRMULAS.html", "PROBLEMAS LÓGICOS QUANTITATIVOS.html"] },
+        { id: 42, date: "27/01/27 (Qua) e 28/01/27 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Colocação Pronominal, Crase e Pontuação", pages: "p. 59 a 62 e p. 24 a 29 (10 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["PONTUAÇÃO - CONCEITO E DIVISÃO.html"] },
+        { id: 43, date: "29/01/27 (Sex) e 30/01/27 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Saúde nos Ciclos de Vida II (Adolescente, Adulto e Idoso)", pages: "p. 234 a 237 (4 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA.html", "REVISÃO DE VÉSPERA - SAÚDE DA MULHER, CRIANÇA E IDOSO.html"] },
+        { id: 44, date: "31/01/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 45, date: "01/02/27 (Seg) e 02/02/27 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Lógica de Argumentação e Falácias", pages: "p. 146 a 154 (9 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["LÓGICA DE ARGUMENTAÇÃO CONCEITO E ESTRUTURA.html", "RACIOCÍNIO LÓGICO - FALÁCIAS E ARGUMENTAÇÃO.html"] },
+        { id: 46, date: "03/02/27 (Qua) e 04/02/27 (Qui)", cat: "info", disc: "Noções de Informática", title: "Segurança da Informação, Antivírus e Firewall", pages: "p. 100 a 106 (7 págs)", strat: "Estudo Reverso: Direto p/ 20 Questões + Ler só Erros", pomo: "2 Pomodoros/dia (50 min)", files: ["SEGURANÇA DA INFORMAÇÃO - SENHAS E FORÇA BRUTA.html"] },
+        { id: 47, date: "05/02/27 (Sex) e 06/02/27 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Calendário Nacional de Vacinação e Imunização", pages: "p. 238 a 241 (4 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["IMUNIZAÇÃO - AGENTE COMUNITÁRIO DE SAÚDE.html"] },
+        { id: 48, date: "07/02/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 49, date: "08/02/27 (Seg) e 09/02/27 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Raciocínio Analítico e Crítico (Parte 1)", pages: "p. 155 a 162 (8 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["RACIOCÍNIO LÓGICO ARGUMENTAÇÃO.html", "RACIOCÍNIO LÓGICO - ARGUMENTAÇÃO E FALÁCIAS.html"] },
+        { id: 50, date: "10/02/27 (Qua) e 11/02/27 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Redação Oficial e Reescrita de Comunicados", pages: "p. 63 a 68 (6 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["O QUE É E QUAIS OS OBJETIVOS DA REDAÇÃO OFICIAL.html"] },
+        { id: 51, date: "12/02/27 (Sex) e 13/02/27 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Grupos de Vulnerabilidade, Saúde Mental e Violência", pages: "p. 242 a 245 (4 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["CONHECIMENTOS ESPECÍFICOS - SAÚDE NOS CICLOS DE VIDA.html"] },
+        { id: 52, date: "14/02/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 53, date: "15/02/27 (Seg) e 16/02/27 (Ter)", cat: "rlm", disc: "Raciocínio Lógico", title: "Raciocínio Analítico e Crítico (Parte 2)", pages: "p. 163 a 170 (8 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["ARGUMENTAÇÃO - CIRCULARIDADE.html"] },
+        { id: 54, date: "17/02/27 (Qua) e 18/02/27 (Qui)", cat: "hist", disc: "História e Geografia", title: "História de Fortaleza (Período Colonial ao Império)", pages: "p. 171 a 178 (8 págs)", strat: "Leitura por Palavras-Chave + Flashcards", pomo: "2 Pomodoros/dia (50 min)", files: ["ORIGEM, REFERENCIAIS HISTÓRICOS E POVOS NATIVOS.html"] },
+        { id: 55, date: "19/02/27 (Sex) e 20/02/27 (Sáb)", cat: "sus", disc: "Conhecimentos Específicos", title: "Informação em Saúde, Planejamento e Ética no Trabalho do ACS", pages: "p. 246 a 250 (5 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["INFORMAÇÃO, PLANEJAMENTO E TRABALHO DO ACS.html"] },
+        { id: 56, date: "21/02/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 57, date: "22/02/27 (Seg) e 23/02/27 (Ter)", cat: "hist", disc: "História e Geografia", title: "História Contemporânea e Geografia Física de Fortaleza", pages: "p. 179 a 187 (9 págs)", strat: "Leitura por Palavras-Chave + Flashcards", pomo: "2 Pomodoros/dia (50 min)", files: ["LOCALIZAÇÃO GEOGRÁFICA E LIMITES.html"] },
+        { id: 58, date: "24/02/27 (Qua) e 25/02/27 (Qui)", cat: "info", disc: "Noções de Informática", title: "Extensões de Arquivos e Teclas de Atalho (Foco em Pegadinhas)", pages: "p. 106 a 114 (9 págs)", strat: "Estudo Reverso: Direto p/ 20 Questões + Ler só Erros", pomo: "2 Pomodoros/dia (50 min)", files: ["INFORMÁTICA - CONCEITOS, SO E EXCEL.html"] },
+        { id: 59, date: "26/02/27 (Sex) e 27/02/27 (Sáb)", cat: "hist", disc: "História e Geografia", title: "Geografia Humana, Urbana e Socioeconômica de Fortaleza", pages: "p. 188 a 196 (9 págs)", strat: "Leitura por Palavras-Chave + Flashcards", pomo: "2 Pomodoros/dia (50 min)", files: ["LOCALIZAÇÃO GEOGRÁFICA E LIMITES.html"] },
+        { id: 60, date: "28/02/27 (Dom)", cat: "rev", disc: "Descanso", title: "Pausa programada", pages: "—", strat: "Pausa total / Recuperação neural", pomo: "0 Pomodoros (Livre)", files: [] },
+        { id: 61, date: "01/03/27 (Seg) e 02/03/27 (Ter)", cat: "rev", disc: "Revisão e Simulado", title: "Simulado Geral Final ACS (60 Questões) + Caderno de Erros", pages: "Revisão Geral (p. 5 a 250)", strat: "Simulado Cronometrado + Caderno de Erros", pomo: "3 Pomodoros (Simulado 75 min)", files: [] }
+    ];
 
-    // 1. Carregar e Alternar Tema (Dark/Light)
+    const CAT_COLORS = {
+        sus: 'var(--c-sus)',
+        port: 'var(--c-port)',
+        rlm: 'var(--c-rlm)',
+        info: 'var(--c-info)',
+        hist: 'var(--c-hist)',
+        rev: 'var(--c-rev)'
+    };
+
+    const STORAGE_TOPICS = 'memorex_acs_done_v1';
+    const STORAGE_SCHED = 'memorex_acs_sched_done_v1';
+    const THEME_KEY = 'memorex_acs_theme';
+
+    // 1. Renderizar Cronograma por Data
+    const scheduleContainer = document.getElementById('scheduleContainer');
+    SCHEDULE_DATA.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'sched-card';
+        card.setAttribute('data-category', item.cat);
+        card.setAttribute('data-id', item.id);
+        card.style.setProperty('--cat-color', CAT_COLORS[item.cat] || 'var(--c-port)');
+
+        const linksHTML = item.files.length > 0
+            ? `<div class="sched-links">
+                ${item.files.map(f => `<a class="sched-link-chip" href="${f}">📄 ${f.replace('.html', '')}</a>`).join('')}
+               </div>`
+            : '';
+
+        card.innerHTML = `
+            <div class="sched-top">
+                <div class="sched-meta">
+                    <span class="sched-date">🗓️ ${item.date}</span>
+                    <span class="sched-disc">${item.disc}</span>
+                    <span class="sched-pages">📖 ${item.pages}</span>
+                </div>
+                <button class="check-btn sched-check" title="Marcar meta concluída">✓</button>
+            </div>
+            <div class="sched-title">${item.title}</div>
+            <div class="sched-details">
+                <span>🎯 <strong>Estratégia:</strong> ${item.strat}</span>
+                <span>⏱️ <strong>Meta:</strong> ${item.pomo}</span>
+            </div>
+            ${linksHTML}
+        `;
+        scheduleContainer.appendChild(card);
+    });
+
+    // 2. Tema Dark/Light
     const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-
     document.getElementById('themeToggle').addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme');
-        const next = current === 'dark' ? 'light' : 'dark';
+        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem(THEME_KEY, next);
     });
 
-    // 2. Sistema de Progresso (Checklist Salvo no Navegador)
-    let completedList = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    // 3. Progresso de Resumos (Aba 1)
+    const topicCards = document.querySelectorAll('.topic-card');
+    let completedTopics = JSON.parse(localStorage.getItem(STORAGE_TOPICS) || '[]');
 
-    function updateProgressUI() {
-        cards.forEach(card => {
+    function updateTopicsUI() {
+        topicCards.forEach(card => {
             const href = card.querySelector('.topic-link').getAttribute('href');
-            if (completedList.includes(href)) {
-                card.classList.add('done');
-            } else {
-                card.classList.remove('done');
-            }
+            card.classList.toggle('done', completedTopics.includes(href));
         });
-
-        const doneCount = completedList.length;
-        const pct = Math.round((doneCount / totalTopics) * 100);
+        const done = completedTopics.length;
+        const pct = Math.round((done / topicCards.length) * 100);
         document.getElementById('progressPercent').textContent = `${pct}%`;
-        document.getElementById('progressCount').textContent = `${doneCount} de ${totalTopics} resumos concluídos`;
+        document.getElementById('progressCount').textContent = `${done} de ${topicCards.length} resumos lidos`;
         document.getElementById('progressBar').style.width = `${pct}%`;
     }
 
-    cards.forEach(card => {
+    topicCards.forEach(card => {
         const btn = card.querySelector('.check-btn');
         const href = card.querySelector('.topic-link').getAttribute('href');
-
         btn.addEventListener('click', () => {
-            if (completedList.includes(href)) {
-                completedList = completedList.filter(item => item !== href);
-            } else {
-                completedList.push(href);
-            }
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(completedList));
-            updateProgressUI();
+            completedTopics = completedTopics.includes(href)
+                ? completedTopics.filter(i => i !== href)
+                : [...completedTopics, href];
+            localStorage.setItem(STORAGE_TOPICS, JSON.stringify(completedTopics));
+            updateTopicsUI();
         });
     });
 
     document.getElementById('resetProgress').addEventListener('click', () => {
         if (confirm('Deseja desmarcar todos os resumos lidos?')) {
-            completedList = [];
-            localStorage.removeItem(STORAGE_KEY);
-            updateProgressUI();
+            completedTopics = [];
+            localStorage.removeItem(STORAGE_TOPICS);
+            updateTopicsUI();
         }
     });
 
-    updateProgressUI();
+    // 4. Progresso do Cronograma (Aba 2)
+    const schedCards = document.querySelectorAll('.sched-card');
+    let completedSched = JSON.parse(localStorage.getItem(STORAGE_SCHED) || '[]');
 
-    // 3. Busca em Tempo Real + Filtro por Categoria
+    function updateSchedUI() {
+        schedCards.forEach(card => {
+            const id = Number(card.getAttribute('data-id'));
+            card.classList.toggle('done', completedSched.includes(id));
+        });
+        const done = completedSched.length;
+        const pct = Math.round((done / schedCards.length) * 100);
+        document.getElementById('schedPercent').textContent = `${pct}%`;
+        document.getElementById('schedCount').textContent = `${done} de ${schedCards.length} metas do cronograma`;
+        document.getElementById('schedBar').style.width = `${pct}%`;
+    }
+
+    schedCards.forEach(card => {
+        const btn = card.querySelector('.sched-check');
+        const id = Number(card.getAttribute('data-id'));
+        btn.addEventListener('click', () => {
+            completedSched = completedSched.includes(id)
+                ? completedSched.filter(i => i !== id)
+                : [...completedSched, id];
+            localStorage.setItem(STORAGE_SCHED, JSON.stringify(completedSched));
+            updateSchedUI();
+        });
+    });
+
+    document.getElementById('resetSched').addEventListener('click', () => {
+        if (confirm('Deseja desmarcar todas as metas do cronograma?')) {
+            completedSched = [];
+            localStorage.removeItem(STORAGE_SCHED);
+            updateSchedUI();
+        }
+    });
+
+    updateTopicsUI();
+    updateSchedUI();
+
+    // 5. Alternância entre Abas Principais
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    let activeTab = 'tab-resumos';
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabPanels.forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            activeTab = btn.getAttribute('data-tab');
+            document.getElementById(activeTab).classList.add('active');
+            filterContent();
+        });
+    });
+
+    // 6. Busca e Filtros (Funciona nas duas abas)
     const searchInput = document.getElementById('searchInput');
     const pills = document.querySelectorAll('.pill');
     const categories = document.querySelectorAll('.category');
     const emptyState = document.getElementById('emptyState');
     let activeFilter = 'all';
 
+    function normalizeStr(s) {
+        return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
     function filterContent() {
-        const query = searchInput.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const query = normalizeStr(searchInput.value);
         let visibleTotal = 0;
 
-        categories.forEach(section => {
-            const catType = section.getAttribute('data-category');
-            const matchesCategory = (activeFilter === 'all' || activeFilter === catType);
-
-            if (!matchesCategory) {
-                section.style.display = 'none';
-                return;
-            }
-
-            let visibleInSection = 0;
-            const sectionCards = section.querySelectorAll('.topic-card');
-
-            sectionCards.forEach(card => {
-                const text = card.innerText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-                if (text.includes(query)) {
-                    card.style.display = 'flex';
-                    visibleInSection++;
-                    visibleTotal++;
-                } else {
-                    card.style.display = 'none';
+        if (activeTab === 'tab-resumos') {
+            categories.forEach(section => {
+                const catType = section.getAttribute('data-category');
+                if (activeFilter !== 'all' && activeFilter !== catType) {
+                    section.style.display = 'none';
+                    return;
                 }
+                let visibleInSection = 0;
+                section.querySelectorAll('.topic-card').forEach(card => {
+                    const match = normalizeStr(card.innerText).includes(query);
+                    card.style.display = match ? 'flex' : 'none';
+                    if (match) { visibleInSection++; visibleTotal++; }
+                });
+                section.style.display = visibleInSection > 0 ? 'block' : 'none';
             });
-
-            section.style.display = visibleInSection > 0 ? 'block' : 'none';
-        });
+        } else {
+            schedCards.forEach(card => {
+                const catType = card.getAttribute('data-category');
+                const matchCat = (activeFilter === 'all' || activeFilter === catType);
+                const matchQuery = normalizeStr(card.innerText).includes(query);
+                const show = matchCat && matchQuery;
+                card.style.display = show ? 'flex' : 'none';
+                if (show) visibleTotal++;
+            });
+        }
 
         emptyState.style.display = visibleTotal === 0 ? 'block' : 'none';
     }
 
     searchInput.addEventListener('input', filterContent);
-
     pills.forEach(pill => {
         pill.addEventListener('click', () => {
             pills.forEach(p => p.classList.remove('active'));
