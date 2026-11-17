@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memorex ACS | Dashboard & Cronograma</title>
+    <title>Memorex ACS | Dashboard & Pomodoro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root[data-theme="dark"] {
             --bg-main: #0b0f19;
@@ -37,7 +37,6 @@
             --c-info: #f59e0b;
             --c-hist: #f43f5e;
             --c-rev: #ec4899;
-            --c-rest: #64748b;
         }
 
         * {
@@ -59,7 +58,7 @@
             background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.15), transparent 55%),
                         radial-gradient(circle at top left, rgba(16, 185, 129, 0.15), transparent 55%);
             border-bottom: 1px solid var(--border-color);
-            padding: 26px 20px 22px;
+            padding: 24px 20px 22px;
         }
 
         .container {
@@ -118,7 +117,7 @@
             gap: 8px;
             padding: 10px 16px;
             border-radius: 10px;
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
@@ -140,22 +139,119 @@
             box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
         }
 
-        /* Painel de Progresso Duplo */
-        .stats-grid {
+        /* Widget Pomodoro + Progresso */
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1.15fr 1fr 1fr;
             gap: 14px;
             margin-bottom: 20px;
+        }
+
+        .pomo-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px 18px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .pomo-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pomo-modes {
+            display: flex;
+            gap: 6px;
+        }
+
+        .pomo-mode-btn {
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pomo-mode-btn.active {
+            background: var(--c-port);
+            color: #fff;
+            border-color: var(--c-port);
+        }
+
+        .pomo-Cycles {
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--c-sus);
+            cursor: pointer;
+        }
+
+        .pomo-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .pomo-timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .pomo-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pomo-btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pomo-btn-start {
+            background: var(--c-sus);
+            color: #ffffff;
+        }
+
+        .pomo-btn-start.running {
+            background: var(--c-info);
+            color: #0f172a;
+        }
+
+        .pomo-btn-reset {
+            background: var(--bg-main);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }
 
         .stats-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 14px;
-            padding: 16px 20px;
+            padding: 16px 18px;
             box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             gap: 10px;
         }
 
@@ -173,13 +269,13 @@
         }
 
         .stats-info strong {
-            font-size: 1.4rem;
+            font-size: 1.45rem;
             font-weight: 800;
             color: var(--c-sus);
         }
 
         .stats-info span {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-secondary);
         }
 
@@ -187,7 +283,7 @@
             background: transparent;
             border: none;
             color: var(--text-secondary);
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             cursor: pointer;
             text-decoration: underline;
         }
@@ -213,7 +309,7 @@
             transition: width 0.35s ease;
         }
 
-        /* Seletor de Abas Principais */
+        /* Abas Principais */
         .main-tabs {
             display: flex;
             gap: 10px;
@@ -231,7 +327,7 @@
             background: transparent;
             color: var(--text-secondary);
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -239,10 +335,6 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-        }
-
-        .tab-btn:hover {
-            color: var(--text-primary);
         }
 
         .tab-btn.active {
@@ -594,6 +686,12 @@
             color: var(--text-secondary);
         }
 
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 640px) {
             .links-grid {
                 grid-template-columns: 1fr;
@@ -624,7 +722,7 @@
                 <div class="brand-logo">⚡</div>
                 <div class="brand-text">
                     <h1>Memorex ACS</h1>
-                    <span>Dashboard de Resumos & Cronograma de Metas</span>
+                    <span>Dashboard de Resumos, Cronograma & Pomodoro</span>
                 </div>
             </div>
             <div class="top-actions">
@@ -637,27 +735,47 @@
             </div>
         </div>
 
-        <div class="stats-grid">
+        <div class="dashboard-grid">
+            <!-- Cronômetro Pomodoro -->
+            <div class="pomo-card">
+                <div class="pomo-top">
+                    <div class="pomo-modes">
+                        <button class="pomo-mode-btn active" data-minutes="25">🍅 Foco 25m</button>
+                        <button class="pomo-mode-btn" data-minutes="5">☕ Pausa 5m</button>
+                    </div>
+                    <span class="pomo-Cycles" id="pomoCycleCounter" title="Clique para zerar os Pomodoros do dia">🔥 0 hoje</span>
+                </div>
+                <div class="pomo-main">
+                    <div class="pomo-timer" id="pomoDisplay">25:00</div>
+                    <div class="pomo-controls">
+                        <button class="pomo-btn pomo-btn-start" id="pomoStartBtn">Iniciar</button>
+                        <button class="pomo-btn pomo-btn-reset" id="pomoResetBtn">↺</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progresso Resumos -->
             <div class="stats-card">
                 <div class="stats-header">
                     <div class="stats-info">
                         <strong id="progressPercent">0%</strong>
                         <span id="progressCount">0 de 46 resumos lidos</span>
                     </div>
-                    <button class="btn-reset" id="resetProgress">Zerar resumos</button>
+                    <button class="btn-reset" id="resetProgress">Zerar</button>
                 </div>
                 <div class="progress-track">
                     <div class="progress-fill" id="progressBar"></div>
                 </div>
             </div>
 
+            <!-- Progresso Cronograma -->
             <div class="stats-card">
                 <div class="stats-header">
                     <div class="stats-info">
                         <strong id="schedPercent">0%</strong>
-                        <span id="schedCount">0 de 61 metas do cronograma</span>
+                        <span id="schedCount">0 de 61 metas concluídas</span>
                     </div>
-                    <button class="btn-reset" id="resetSched">Zerar cronograma</button>
+                    <button class="btn-reset" id="resetSched">Zerar</button>
                 </div>
                 <div class="progress-track">
                     <div class="progress-fill" id="schedBar"></div>
@@ -678,7 +796,7 @@
             <span class="search-icon">🔍</span>
             <input type="text" id="searchInput" placeholder="Buscar resumo, data (ex: 20/11), matéria ou assunto...">
         </div>
-        <div class="filter-pills" id="filterPills">
+        <div class="filter-pills">
             <button class="pill active" data-filter="all">Todos</button>
             <button class="pill" data-filter="sus">Específicos & SUS</button>
             <button class="pill" data-filter="port">Português</button>
@@ -800,7 +918,6 @@
 </main>
 
 <script>
-    // Dados completos das 61 etapas da planilha vinculadas aos arquivos HTML
     const SCHEDULE_DATA = [
         { id: 1, date: "16/11 (Seg) e 17/11 (Ter)", cat: "sus", disc: "Conhecimentos Específicos", title: "Saúde Pública, História e Princípios do SUS", pages: "p. 197 a 199 (3 págs)", strat: "Áudio-Resumo + Leitura Grifada (30%) + 15 Questões (70%)", pomo: "2 Pomodoros/dia (50 min)", files: ["SAÚDE PÚBLICA E SISTEMA ÚNICO DE SAÚDE.html"] },
         { id: 2, date: "18/11 (Qua) e 19/11 (Qui)", cat: "port", disc: "Língua Portuguesa", title: "Compreensão, Interpretação e Tipologia Textual", pages: "p. 5 a 9 (5 págs)", strat: "20% Teoria Curta + 80% Treino de Questões de Banca", pomo: "2 Pomodoros/dia (50 min)", files: ["LÍNGUA PORTUGUESA - COMPREENSÃO E INTERPRETAÇÃO.html", "TIPOLOGIA TEXTUAL X GÊNEROS TEXTUAIS - DISTINÇÕES.html"] },
@@ -876,9 +993,117 @@
 
     const STORAGE_TOPICS = 'memorex_acs_done_v1';
     const STORAGE_SCHED = 'memorex_acs_sched_done_v1';
+    const STORAGE_POMO = 'memorex_acs_pomo_today_v1';
     const THEME_KEY = 'memorex_acs_theme';
 
-    // 1. Renderizar Cronograma por Data
+    // 1. Cronômetro Pomodoro (25/5) com Alarme Web Audio API
+    let pomoSeconds = 25 * 60;
+    let currentModeMinutes = 25;
+    let pomoInterval = null;
+    let pomoCycles = Number(localStorage.getItem(STORAGE_POMO) || 0);
+
+    const pomoDisplay = document.getElementById('pomoDisplay');
+    const pomoStartBtn = document.getElementById('pomoStartBtn');
+    const pomoResetBtn = document.getElementById('pomoResetBtn');
+    const pomoCycleCounter = document.getElementById('pomoCycleCounter');
+    const pomoModeBtns = document.querySelectorAll('.pomo-mode-btn');
+
+    function updatePomoUI() {
+        const mins = String(Math.floor(pomoSeconds / 60)).padStart(2, '0');
+        const secs = String(pomoSeconds % 60).padStart(2, '0');
+        pomoDisplay.textContent = `${mins}:${secs}`;
+        pomoCycleCounter.textContent = `🔥 ${pomoCycles} hoje`;
+        if (pomoInterval) {
+            document.title = `(${mins}:${secs}) Memorex ACS`;
+        } else {
+            document.title = 'Memorex ACS | Dashboard & Pomodoro';
+        }
+    }
+
+    function playBeep() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            [0, 0.25, 0.5].forEach(delay => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, ctx.currentTime + delay);
+                gain.gain.setValueAtTime(0.25, ctx.currentTime + delay);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.2);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(ctx.currentTime + delay);
+                osc.stop(ctx.currentTime + delay + 0.2);
+            });
+        } catch (e) {}
+    }
+
+    pomoStartBtn.addEventListener('click', () => {
+        if (pomoInterval) {
+            clearInterval(pomoInterval);
+            pomoInterval = null;
+            pomoStartBtn.textContent = 'Retomar';
+            pomoStartBtn.classList.remove('running');
+            updatePomoUI();
+        } else {
+            pomoStartBtn.textContent = 'Pausar';
+            pomoStartBtn.classList.add('running');
+            pomoInterval = setInterval(() => {
+                if (pomoSeconds > 0) {
+                    pomoSeconds--;
+                    updatePomoUI();
+                } else {
+                    clearInterval(pomoInterval);
+                    pomoInterval = null;
+                    pomoStartBtn.textContent = 'Iniciar';
+                    pomoStartBtn.classList.remove('running');
+                    playBeep();
+                    if (currentModeMinutes === 25) {
+                        pomoCycles++;
+                        localStorage.setItem(STORAGE_POMO, pomoCycles);
+                    }
+                    pomoSeconds = currentModeMinutes * 60;
+                    updatePomoUI();
+                    alert(currentModeMinutes === 25 ? '🍅 Pomodoro concluído! Hora de 5 minutos de pausa.' : '☕ Pausa encerrada! Vamos voltar ao foco?');
+                }
+            }, 1000);
+        }
+    });
+
+    pomoResetBtn.addEventListener('click', () => {
+        clearInterval(pomoInterval);
+        pomoInterval = null;
+        pomoSeconds = currentModeMinutes * 60;
+        pomoStartBtn.textContent = 'Iniciar';
+        pomoStartBtn.classList.remove('running');
+        updatePomoUI();
+    });
+
+    pomoModeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            pomoModeBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentModeMinutes = Number(btn.getAttribute('data-minutes'));
+            clearInterval(pomoInterval);
+            pomoInterval = null;
+            pomoSeconds = currentModeMinutes * 60;
+            pomoStartBtn.textContent = 'Iniciar';
+            pomoStartBtn.classList.remove('running');
+            updatePomoUI();
+        });
+    });
+
+    pomoCycleCounter.addEventListener('click', () => {
+        if (confirm('Deseja zerar a contagem de Pomodoros de hoje?')) {
+            pomoCycles = 0;
+            localStorage.setItem(STORAGE_POMO, 0);
+            updatePomoUI();
+        }
+    });
+
+    updatePomoUI();
+
+    // 2. Renderizar Cronograma por Data
     const scheduleContainer = document.getElementById('scheduleContainer');
     SCHEDULE_DATA.forEach(item => {
         const card = document.createElement('div');
@@ -912,7 +1137,7 @@
         scheduleContainer.appendChild(card);
     });
 
-    // 2. Tema Dark/Light
+    // 3. Tema Dark/Light
     const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.getElementById('themeToggle').addEventListener('click', () => {
@@ -921,7 +1146,7 @@
         localStorage.setItem(THEME_KEY, next);
     });
 
-    // 3. Progresso de Resumos (Aba 1)
+    // 4. Progresso de Resumos (Aba 1)
     const topicCards = document.querySelectorAll('.topic-card');
     let completedTopics = JSON.parse(localStorage.getItem(STORAGE_TOPICS) || '[]');
 
@@ -957,7 +1182,7 @@
         }
     });
 
-    // 4. Progresso do Cronograma (Aba 2)
+    // 5. Progresso do Cronograma (Aba 2)
     const schedCards = document.querySelectorAll('.sched-card');
     let completedSched = JSON.parse(localStorage.getItem(STORAGE_SCHED) || '[]');
 
@@ -969,7 +1194,7 @@
         const done = completedSched.length;
         const pct = Math.round((done / schedCards.length) * 100);
         document.getElementById('schedPercent').textContent = `${pct}%`;
-        document.getElementById('schedCount').textContent = `${done} de ${schedCards.length} metas do cronograma`;
+        document.getElementById('schedCount').textContent = `${done} de ${schedCards.length} metas concluídas`;
         document.getElementById('schedBar').style.width = `${pct}%`;
     }
 
@@ -996,7 +1221,7 @@
     updateTopicsUI();
     updateSchedUI();
 
-    // 5. Alternância entre Abas Principais
+    // 6. Alternância entre Abas Principais
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabPanels = document.querySelectorAll('.tab-panel');
     let activeTab = 'tab-resumos';
@@ -1012,7 +1237,7 @@
         });
     });
 
-    // 6. Busca e Filtros (Funciona nas duas abas)
+    // 7. Busca e Filtros
     const searchInput = document.getElementById('searchInput');
     const pills = document.querySelectorAll('.pill');
     const categories = document.querySelectorAll('.category');
